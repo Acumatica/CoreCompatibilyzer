@@ -20,12 +20,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="DiagnosticsDefaultJustification.Designer.cs">
+      <DependentUpon>DiagnosticsDefaultJustification.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="DiagnosticsShortName.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>DiagnosticsShortName.resx</DependentUpon>
     </Compile>
     <Compile Update="Diagnostics.Designer.cs" DesignTime="True" AutoGen="True" DependentUpon="Diagnostics.resx" />
+    <EmbeddedResource Update="DiagnosticsDefaultJustification.resx">
+      <LastGenOutput>DiagnosticsDefaultJustification.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="DiagnosticsShortName.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DiagnosticsShortName.Designer.cs</LastGenOutput>
