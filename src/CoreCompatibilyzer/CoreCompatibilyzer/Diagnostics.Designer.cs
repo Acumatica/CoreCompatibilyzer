@@ -61,20 +61,20 @@ namespace CoreCompatibilyzer {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The underlined API is not compatible with modern .Net runtimes. You need to change your code to eliminate its usage..
+        /// </summary>
+        public static string CoreCompat1001Description {
+            get {
+                return ResourceManager.GetString("CoreCompat1001Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The underlined code is not compatible with .Net {0}.
         /// </summary>
         public static string CoreCompat1001MessageFormat {
             get {
                 return ResourceManager.GetString("CoreCompat1001MessageFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to NotPortableToDotNetCore.
-        /// </summary>
-        public static string CoreCompat1001ShortName {
-            get {
-                return ResourceManager.GetString("CoreCompat1001ShortName", resourceCulture);
             }
         }
         

@@ -119,12 +119,11 @@
   </resheader>
   <data name="CoreCompat1001Title" xml:space="preserve">
     <value>The underlined code is not compatible with .Net Core or later .Net runtimes</value>
-    
   </data>
   <data name="CoreCompat1001MessageFormat" xml:space="preserve">
     <value>The underlined code is not compatible with .Net {0}</value>
   </data>
-  <data name="CoreCompat1001ShortName" xml:space="preserve">
-    <value>NotPortableToDotNetCore</value>
+  <data name="CoreCompat1001Description" xml:space="preserve">
+    <value>The underlined API is not compatible with modern .Net runtimes. You need to change your code to eliminate its usage.</value>
   </data>
 </root>
