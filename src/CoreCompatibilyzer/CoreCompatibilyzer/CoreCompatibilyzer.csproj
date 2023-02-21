@@ -20,8 +20,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resources.Designer.cs" DesignTime="True" AutoGen="True" DependentUpon="Resources.resx" />
-    <EmbeddedResource Update="Resources.resx" Generator="ResXFileCodeGenerator" LastGenOutput="Resources.Designer.cs" />
+    <Compile Update="DiagnosticsShortName.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DiagnosticsShortName.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Diagnostics.Designer.cs" DesignTime="True" AutoGen="True" DependentUpon="Diagnostics.resx" />
+    <EmbeddedResource Update="DiagnosticsShortName.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DiagnosticsShortName.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Diagnostics.resx" Generator="PublicResXFileCodeGenerator" LastGenOutput="Diagnostics.Designer.cs" />
   </ItemGroup>
 
 </Project>
