@@ -3,11 +3,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using VerifyCS = CoreCompatibilyzer.Test.CSharpAnalyzerVerifier<
-	CoreCompatibilyzer.CoreCompatibilyzerAnalyzer>;
+    CoreCompatibilyzer.StaticAnalysis.CoreCompatibilyzerAnalyzer>;
 
 namespace CoreCompatibilyzer.Test
 {
-	[TestClass]
+    [TestClass]
 	public class CoreCompatibilyzerUnitTest
 	{
 		//No diagnostics expected to show up
