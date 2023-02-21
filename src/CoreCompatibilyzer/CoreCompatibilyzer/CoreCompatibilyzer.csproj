@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -6,6 +6,7 @@
 
     <!-- Avoid ID conflicts with the package project. -->
     <PackageId>*$(MSBuildProjectFile)*</PackageId>
+	<LangVersion>9.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +17,10 @@
   <ItemGroup>
     <Compile Update="Resources.Designer.cs" DesignTime="True" AutoGen="True" DependentUpon="Resources.resx" />
     <EmbeddedResource Update="Resources.resx" Generator="ResXFileCodeGenerator" LastGenOutput="Resources.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Utils\" />
   </ItemGroup>
 
 </Project>
