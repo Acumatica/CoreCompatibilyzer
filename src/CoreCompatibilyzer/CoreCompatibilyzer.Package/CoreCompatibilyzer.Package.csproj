@@ -25,7 +25,8 @@
     <NoPackageAnalysis>true</NoPackageAnalysis>
 	<NeutralLanguage>en</NeutralLanguage>
 	<LangVersion>9.0</LangVersion>
-
+	<Nullable>enable</Nullable>
+	  
     <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
   </PropertyGroup>
 		
