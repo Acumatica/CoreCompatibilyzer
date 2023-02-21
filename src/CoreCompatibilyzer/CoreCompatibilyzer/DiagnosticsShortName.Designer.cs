@@ -61,7 +61,7 @@ namespace CoreCompatibilyzer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NotPortableToDotNetCore.
+        ///   Looks up a localized string similar to WorkspaceNotPortableToDotNetCore.
         /// </summary>
         public static string CoreCompat1001 {
             get {

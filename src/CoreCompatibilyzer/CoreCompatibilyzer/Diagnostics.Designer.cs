@@ -61,7 +61,7 @@ namespace CoreCompatibilyzer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The underlined API is not compatible with modern .Net runtimes. You need to change your code to eliminate its usage..
+        ///   Looks up a localized string similar to The underlined workspace is not portable to modern .Net runtimes. You need to delete it and change your code to eliminate its usage..
         /// </summary>
         public static string CoreCompat1001Description {
             get {
@@ -70,7 +70,7 @@ namespace CoreCompatibilyzer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The underlined code is not compatible with .Net {0}.
+        ///   Looks up a localized string similar to The underlined workspace is not compatible with .Net {0}.
         /// </summary>
         public static string CoreCompat1001MessageFormat {
             get {
@@ -79,7 +79,7 @@ namespace CoreCompatibilyzer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The underlined code is not compatible with .Net Core or later .Net runtimes.
+        ///   Looks up a localized string similar to The underlined workspace is not compatible with .Net Core or later .Net runtimes.
         /// </summary>
         public static string CoreCompat1001Title {
             get {

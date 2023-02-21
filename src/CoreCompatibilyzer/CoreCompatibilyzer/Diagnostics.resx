@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CoreCompat1001Title" xml:space="preserve">
-    <value>The underlined code is not compatible with .Net Core or later .Net runtimes</value>
+    <value>The underlined workspace is not compatible with .Net Core or later .Net runtimes</value>
   </data>
   <data name="CoreCompat1001MessageFormat" xml:space="preserve">
-    <value>The underlined code is not compatible with .Net {0}</value>
+    <value>The underlined workspace is not compatible with .Net {0}</value>
   </data>
   <data name="CoreCompat1001Description" xml:space="preserve">
-    <value>The underlined API is not compatible with modern .Net runtimes. You need to change your code to eliminate its usage.</value>
+    <value>The underlined workspace is not portable to modern .Net runtimes. You need to delete it and change your code to eliminate its usage.</value>
   </data>
 </root>

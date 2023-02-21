@@ -2,12 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Threading;
 
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.Diagnostics;
 
 using CoreCompatibilyzer.Utils.Common;
 using CoreCompatibilyzer.Utils.Resources;
@@ -45,7 +41,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 											isEnabledByDefault, description, diagnosticLink, customTags);
 		}
 
-		public static DiagnosticDescriptor CoreCompat1001_NotCompatibleWithCore { get; } =
+		public static DiagnosticDescriptor CoreCompat1001_WorkspaceNotCompatibleWithCore { get; } =
 			Rule($"{DiagnosticsPrefix}1001", nameof(Diagnostics.CoreCompat1001Title).GetLocalizedDiagnosticName(), Category.DotNetCoreCompatibility,
 				DiagnosticSeverity.Error, DiagnosticsShortName.CoreCompat1001, 
 				messageFormat: nameof(Diagnostics.CoreCompat1001MessageFormat).GetLocalizedDiagnosticName(),
