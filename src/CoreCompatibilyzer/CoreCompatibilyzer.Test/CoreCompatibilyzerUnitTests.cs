@@ -2,9 +2,8 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using VerifyCS = CoreCompatibilyzer.Test.CSharpCodeFixVerifier<
-	CoreCompatibilyzer.CoreCompatibilyzerAnalyzer,
-	CoreCompatibilyzer.CoreCompatibilyzerCodeFixProvider>;
+using VerifyCS = CoreCompatibilyzer.Test.CSharpAnalyzerVerifier<
+	CoreCompatibilyzer.CoreCompatibilyzerAnalyzer>;
 
 namespace CoreCompatibilyzer.Test
 {
@@ -39,23 +38,8 @@ namespace CoreCompatibilyzer.Test
         }
     }";
 
-			var fixtest = @"
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Diagnostics;
-
-    namespace ConsoleApplication1
-    {
-        class TYPENAME
-        {   
-        }
-    }";
-
 			var expected = VerifyCS.Diagnostic("CoreCompatibilyzer").WithLocation(0).WithArguments("TypeName");
-			await VerifyCS.VerifyCodeFixAsync(test, expected, fixtest);
+			await VerifyCS.VerifyAnalyzerAsync(test, expected);
 		}
 	}
 }
