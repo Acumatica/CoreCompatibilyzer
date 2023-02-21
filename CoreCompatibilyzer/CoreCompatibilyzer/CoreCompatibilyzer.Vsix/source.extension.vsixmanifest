@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="CoreCompatibilyzer.16b8fd74-0964-4109-9edb-aeef7c96e854" Version="1.0" Language="en-US" Publisher="snikomarov"/>
+    <Identity Id="CoreCompatibilyzer.16b8fd74-0964-4109-9edb-aeef7c96e854" Version="1.0" Language="en-US" Publisher="Acumatica"/>
     <DisplayName>CoreCompatibilyzer</DisplayName>
     <Description xml:space="preserve">This is a sample diagnostic extension for the .NET Compiler Platform ("Roslyn").</Description>
   </Metadata>
