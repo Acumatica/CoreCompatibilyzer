@@ -30,12 +30,11 @@
   </PropertyGroup>
 		
   <ItemGroup>
-    <ProjectReference Include="..\CoreCompatibilyzer.CodeFixes\CoreCompatibilyzer.CodeFixes.csproj" />
     <ProjectReference Include="..\CoreCompatibilyzer\CoreCompatibilyzer.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-	<None Update="packageIcon.png" CopyToOutputDirectory="PreserveNewest" Pack="true" PackagePath=""/>
+	<None Update="packageIcon.png" CopyToOutputDirectory="PreserveNewest" Pack="true" PackagePath="" />
     <None Update="tools\*.ps1" CopyToOutputDirectory="PreserveNewest" Pack="true" PackagePath="" />
   </ItemGroup>
 

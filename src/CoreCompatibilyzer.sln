@@ -3,15 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCompatibilyzer", "CoreCompatibilyzer\CoreCompatibilyzer\CoreCompatibilyzer.csproj", "{C65DABFB-0598-40A9-A076-16C28AE50EE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCompatibilyzer", "CoreCompatibilyzer\CoreCompatibilyzer\CoreCompatibilyzer.csproj", "{C65DABFB-0598-40A9-A076-16C28AE50EE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCompatibilyzer.CodeFixes", "CoreCompatibilyzer\CoreCompatibilyzer.CodeFixes\CoreCompatibilyzer.CodeFixes.csproj", "{1F500A54-AFDC-4A83-9D9B-F3D1EDD0E76A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCompatibilyzer.Package", "CoreCompatibilyzer\CoreCompatibilyzer.Package\CoreCompatibilyzer.Package.csproj", "{EA3201D7-2D5C-4B4E-9F14-3626E34F5738}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCompatibilyzer.Package", "CoreCompatibilyzer\CoreCompatibilyzer.Package\CoreCompatibilyzer.Package.csproj", "{EA3201D7-2D5C-4B4E-9F14-3626E34F5738}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCompatibilyzer.Test", "CoreCompatibilyzer\CoreCompatibilyzer.Test\CoreCompatibilyzer.Test.csproj", "{4D82AFE2-E697-42E7-A38B-B7566EA6321C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCompatibilyzer.Test", "CoreCompatibilyzer\CoreCompatibilyzer.Test\CoreCompatibilyzer.Test.csproj", "{4D82AFE2-E697-42E7-A38B-B7566EA6321C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCompatibilyzer.Vsix", "CoreCompatibilyzer\CoreCompatibilyzer.Vsix\CoreCompatibilyzer.Vsix.csproj", "{702B9788-4030-405E-851F-8C3962E13379}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCompatibilyzer.Vsix", "CoreCompatibilyzer\CoreCompatibilyzer.Vsix\CoreCompatibilyzer.Vsix.csproj", "{702B9788-4030-405E-851F-8C3962E13379}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{C65DABFB-0598-40A9-A076-16C28AE50EE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C65DABFB-0598-40A9-A076-16C28AE50EE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C65DABFB-0598-40A9-A076-16C28AE50EE6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1F500A54-AFDC-4A83-9D9B-F3D1EDD0E76A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1F500A54-AFDC-4A83-9D9B-F3D1EDD0E76A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1F500A54-AFDC-4A83-9D9B-F3D1EDD0E76A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1F500A54-AFDC-4A83-9D9B-F3D1EDD0E76A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EA3201D7-2D5C-4B4E-9F14-3626E34F5738}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EA3201D7-2D5C-4B4E-9F14-3626E34F5738}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA3201D7-2D5C-4B4E-9F14-3626E34F5738}.Release|Any CPU.ActiveCfg = Release|Any CPU

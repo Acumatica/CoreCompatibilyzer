@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CoreCompatibilyzer.CodeFixes\CoreCompatibilyzer.CodeFixes.csproj" />
     <ProjectReference Include="..\CoreCompatibilyzer\CoreCompatibilyzer.csproj" />
   </ItemGroup>
 
