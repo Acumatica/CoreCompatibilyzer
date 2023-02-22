@@ -33,16 +33,17 @@ namespace CoreCompatibilyzer.StaticAnalysis.NotCompatibleWorkspaces
 			if (analyzerConfigOptionsProvider == null || analyzedTree == null)
 				return supportedDiagnostics.Where(IsEnabledByDefault).ToImmutableArray();
 
-			var alreadyCheckedDiagnostics = new HashSet<string>();
+			var alreadyCheckedDiagnostics = new List<string>(capacity: supportedDiagnostics.Length);
 			var enabledDiagnostics = ImmutableArray.CreateBuilder<DiagnosticDescriptor>(supportedDiagnostics.Length);
 			bool alreadyReadOptions = false;
 			AnalyzerConfigOptions? analyzerConfigOptions = null;
 
 			foreach (DiagnosticDescriptor diagnosticDescriptor in supportedDiagnostics)
 			{
-				if (!alreadyCheckedDiagnostics.Add(diagnosticDescriptor.Id))
+				if (alreadyCheckedDiagnostics.Contains(diagnosticDescriptor.Id))
 					continue;
 
+				alreadyCheckedDiagnostics.Add(diagnosticDescriptor.Id);
 				bool canConfigure = (!alreadyReadOptions || analyzerConfigOptions != null) && CanBeConfiguredByEditorConfig(diagnosticDescriptor);
 
 				if (canConfigure)
@@ -50,10 +51,8 @@ namespace CoreCompatibilyzer.StaticAnalysis.NotCompatibleWorkspaces
 					analyzerConfigOptions = analyzerConfigOptionsProvider.GetOptions(analyzedTree);
 					alreadyReadOptions = true;
 
-
-
-					string diagnosticEnabledFlag = diagnosticDescriptor.GetEnabledFlagFullName();
-					config.TryGetValue("dotnet_diagnostic.MyRules0001.use_multiple_namespaces_in_a_file", out var configValue);
+					if (IsEnabled(diagnosticDescriptor, analyzerConfigOptions))
+						enabledDiagnostics.Add(diagnosticDescriptor);
 				}
 				else
 				{
@@ -65,9 +64,19 @@ namespace CoreCompatibilyzer.StaticAnalysis.NotCompatibleWorkspaces
 			return enabledDiagnostics.ToImmutable();
 		}
 
-		private bool IsEnabledInEditorConfig(DiagnosticDescriptor diagnosticDescriptor, AnalyzerConfigOptions? analyzerConfigOptions)
+		private bool IsEnabled(DiagnosticDescriptor diagnosticDescriptor, AnalyzerConfigOptions? analyzerConfigOptions)
 		{
+			if (analyzerConfigOptions == null)
+				return IsEnabledByDefault(diagnosticDescriptor);
 
+			string diagnosticEnabledFlag = diagnosticDescriptor.GetEnabledFlagFullName();
+
+			if (!analyzerConfigOptions.TryGetValue(diagnosticEnabledFlag, out string isEnabledStrValue))
+				return IsEnabledByDefault(diagnosticDescriptor);
+
+			return bool.TryParse(isEnabledStrValue, out bool isEnabled)
+				? isEnabled
+				: IsEnabledByDefault(diagnosticDescriptor);
 		}
 
 		/// <summary>
