@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Data;
 using System.Linq;
+using System.Runtime.Versioning;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -14,6 +15,18 @@ namespace CoreCompatibilyzer.StaticAnalysis.NotCompatibleWorkspaces
 {
     public abstract class CoreCompatibilyzerAnalyzerBase : DiagnosticAnalyzer
 	{
+		public sealed override void Initialize(AnalysisContext context)
+		{
+			context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.Analyze); // We want to analyze for compatibility even generated code
+			context.EnableConcurrentExecution();
+
+			//context.RegisterCompilationStartAction(c => c.Compilation.)
+			
+			RegisterAnalysisActions(context);
+		}
+
+		protected abstract void RegisterAnalysisActions(AnalysisContext context);
+
 		/// <summary>
 		/// Get analyzer diagnostics enabled by editor config for a syntax tree.
 		/// </summary>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Microsoft.CodeAnalysis;
 
-using CoreCompatibilyzer.Utils.Common; ;
+using CoreCompatibilyzer.Utils.Common;
 
 namespace CoreCompatibilyzer.StaticAnalysis
 {

@@ -21,13 +21,10 @@ namespace CoreCompatibilyzer.StaticAnalysis.NotCompatibleWorkspaces
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics =>
 			ImmutableArray.Create(Descriptors.CoreCompat1001_WorkspaceNotCompatibleWithCore);
 
-        public override void Initialize(AnalysisContext context)
-        {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.Analyze); // We want to analyze for compatibility even generated code
-            context.EnableConcurrentExecution();
-            
-            context.RegisterSyntaxNodeAction(AnalyzeSyntaxTreeForUsingDirectives, SyntaxKind.CompilationUnit);
-        }
+		protected override void RegisterAnalysisActions(AnalysisContext context)
+		{
+			context.RegisterSyntaxNodeAction(AnalyzeSyntaxTreeForUsingDirectives, SyntaxKind.CompilationUnit);
+		}
 
         private static void AnalyzeSyntaxTreeForUsingDirectives(SyntaxNodeAnalysisContext context)
 		{
@@ -40,9 +37,9 @@ namespace CoreCompatibilyzer.StaticAnalysis.NotCompatibleWorkspaces
 			
 
 
-			var diagnostic = Diagnostic.Create(Descriptors.CoreCompat1001_WorkspaceNotCompatibleWithCore, namedTypeSymbol.Locations[0], namedTypeSymbol.Name);
+			//var diagnostic = Diagnostic.Create(Descriptors.CoreCompat1001_WorkspaceNotCompatibleWithCore, namedTypeSymbol.Locations[0], namedTypeSymbol.Name);
 
-			context.ReportDiagnostic(diagnostic);
+			//context.ReportDiagnostic(diagnostic);
 		}
     }
 }
