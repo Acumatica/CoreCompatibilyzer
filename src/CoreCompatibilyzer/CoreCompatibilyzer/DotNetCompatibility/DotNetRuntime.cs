@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CoreCompatibilyzer.DotNetCompatibility
 {
@@ -11,5 +12,20 @@ namespace CoreCompatibilyzer.DotNetCompatibility
 		DotNetCore31,
 		DotNet5,
 		DotNet6
+	}
+
+	public class DotNetRunTimeComparer : IComparer<DotNetRuntime>
+	{
+		public static DotNetRunTimeComparer Instance { get; } = new DotNetRunTimeComparer();
+
+		public int Compare(DotNetRuntime x, DotNetRuntime y)
+		{			
+			if (x > y)
+				return 1;
+			else if (x < y)
+				return -1;
+			else
+				return 0;
+		}
 	}
 }
