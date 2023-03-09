@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis;
 using CoreCompatibilyzer.Utils.Common;
 using CoreCompatibilyzer.Utils.Resources;
 
-using static CoreCompatibilyzer.StaticAnalysis.Constants;
+using static CoreCompatibilyzer.Constants.CommonConstants;
 
 namespace CoreCompatibilyzer.StaticAnalysis
 {
