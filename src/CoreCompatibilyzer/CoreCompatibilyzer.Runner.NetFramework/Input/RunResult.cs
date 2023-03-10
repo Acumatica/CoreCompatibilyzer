@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace CoreCompatibilyzer.Runner
+namespace CoreCompatibilyzer.Runner.Input
 {
     /// <summary>
     /// Run result
     /// </summary>
-    public enum RunResult
+    internal enum RunResult
     {
         /// <summary>
         /// The run finished successfully.
@@ -21,7 +21,7 @@ namespace CoreCompatibilyzer.Runner
     /// <summary>
     /// The helper class for <see cref="RunResult"/>.
     /// </summary>
-    public static class RunResultHelper
+    internal static class RunResultHelper
     {
         public static int ToExitCode(this RunResult result) => (int)result;
     }

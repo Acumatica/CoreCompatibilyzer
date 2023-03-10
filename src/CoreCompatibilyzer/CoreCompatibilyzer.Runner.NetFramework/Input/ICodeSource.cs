@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace CoreCompatibilyzer.Runner
+namespace CoreCompatibilyzer.Runner.Input
 {
-	public interface ICodeSource
+	internal interface ICodeSource
 	{
 		CodeSourceType Type { get; }
 
