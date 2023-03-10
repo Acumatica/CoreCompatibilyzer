@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CoreCompatibilyzer.Runner.Input
+namespace CoreCompatibilyzer.Runner
 {
     /// <summary>
     /// Run result
