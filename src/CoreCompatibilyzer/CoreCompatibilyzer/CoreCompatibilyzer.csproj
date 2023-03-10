@@ -1,48 +1,56 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <IsPackable>false</IsPackable>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<IsPackable>false</IsPackable>
 
-    <!-- Avoid ID conflicts with the package project. -->
-    <PackageId>*$(MSBuildProjectFile)*</PackageId>
-	<LangVersion>9.0</LangVersion>
-	<Nullable>enable</Nullable>
-  </PropertyGroup>
+		<!-- Avoid ID conflicts with the package project. -->
+		<PackageId>*$(MSBuildProjectFile)*</PackageId>
+		<LangVersion>9.0</LangVersion>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.5.0" />
-    <PackageReference Include="PolySharp" Version="1.12.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
+	<PropertyGroup>
+		<AssemblyTitle>CoreCompatibilyzer</AssemblyTitle>
+		<AssemblyName>CoreCompatibilyzer</AssemblyName>
+		<Company>Acumatica</Company>
+		<Copyright>Copyright © 2023 Acumatica Ltd.</Copyright>
+		<Version>1.0.0.0</Version>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Update="DiagnosticsDefaultJustification.Designer.cs">
-      <DependentUpon>DiagnosticsDefaultJustification.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="DiagnosticsShortName.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>DiagnosticsShortName.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Diagnostics.Designer.cs" DesignTime="True" AutoGen="True" DependentUpon="Diagnostics.resx" />
-    <EmbeddedResource Update="DiagnosticsDefaultJustification.resx">
-      <LastGenOutput>DiagnosticsDefaultJustification.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="DiagnosticsShortName.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>DiagnosticsShortName.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Diagnostics.resx" Generator="PublicResXFileCodeGenerator" LastGenOutput="Diagnostics.Designer.cs" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.5.0" />
+		<PackageReference Include="PolySharp" Version="1.12.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="DiagnosticsDefaultJustification.Designer.cs">
+			<DependentUpon>DiagnosticsDefaultJustification.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="DiagnosticsShortName.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>DiagnosticsShortName.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Diagnostics.Designer.cs" DesignTime="True" AutoGen="True" DependentUpon="Diagnostics.resx" />
+		<EmbeddedResource Update="DiagnosticsDefaultJustification.resx">
+			<LastGenOutput>DiagnosticsDefaultJustification.Designer.cs</LastGenOutput>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="DiagnosticsShortName.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>DiagnosticsShortName.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Diagnostics.resx" Generator="PublicResXFileCodeGenerator" LastGenOutput="Diagnostics.Designer.cs" />
+	</ItemGroup>
 
 </Project>
