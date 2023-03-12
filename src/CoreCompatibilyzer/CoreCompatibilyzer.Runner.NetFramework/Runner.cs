@@ -8,8 +8,10 @@ using CommandLine;
 
 using CoreCompatibilyzer.Runner.Analysis;
 using CoreCompatibilyzer.Runner.Input;
+using CoreCompatibilyzer.Utils.Common;
 
 using Serilog;
+using Serilog.Events;
 
 namespace CoreCompatibilyzer.Runner.NetFramework
 {
@@ -50,8 +52,20 @@ namespace CoreCompatibilyzer.Runner.NetFramework
 		{
 			try
 			{
-				var loggerConfiguration = new LoggerConfiguration().WriteTo.Console()
-																   .Enrich.FromLogContext();
+				var loggerConfiguration = new LoggerConfiguration().WriteTo.Console();
+																   
+				LogEventLevel logLevel = LogEventLevel.Information;
+
+				if (!commandLineOptions.Verbosity.IsNullOrWhiteSpace() && 
+					!Enum.TryParse(commandLineOptions.Verbosity, ignoreCase: true, out logLevel))
+				{
+					Console.WriteLine($"The logger verbosity value \"{commandLineOptions.Verbosity}\" is not supported. " +
+									  "Use help to see the list of allowed verbosity values.");
+					return false;
+				}
+
+				loggerConfiguration = loggerConfiguration.MinimumLevel.Is(logLevel)
+														 .Enrich.FromLogContext();
 				Log.Logger = loggerConfiguration.CreateLogger();
 				return true;
 			}
