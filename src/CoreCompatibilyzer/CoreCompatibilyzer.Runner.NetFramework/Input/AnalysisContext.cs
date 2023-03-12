@@ -1,10 +1,10 @@
 ﻿using System;
-
+using CoreCompatibilyzer.Runner.Analysis.CodeSources;
 using CoreCompatibilyzer.Utils.Common;
 
 namespace CoreCompatibilyzer.Runner.Input
 {
-	internal class AnalysisContext
+    internal class AnalysisContext
 	{
 		/// <summary>
 		/// Gets the code source to validate.

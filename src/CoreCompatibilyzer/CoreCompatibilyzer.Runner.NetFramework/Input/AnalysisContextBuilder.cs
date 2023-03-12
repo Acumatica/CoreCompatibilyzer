@@ -5,10 +5,11 @@ using System.Collections.Generic;
 
 using CoreCompatibilyzer.Utils.Common;
 using CoreCompatibilyzer.Runner.Constants;
+using CoreCompatibilyzer.Runner.Analysis.CodeSources;
 
 namespace CoreCompatibilyzer.Runner.Input
 {
-	internal class AnalysisContextBuilder
+    internal class AnalysisContextBuilder
 	{
 		public AnalysisContext CreateContext(CommandLineOptions commandLineOptions)
 		{
