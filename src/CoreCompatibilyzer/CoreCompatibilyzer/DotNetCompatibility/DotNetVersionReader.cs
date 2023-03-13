@@ -20,6 +20,8 @@ namespace CoreCompatibilyzer.DotNetCompatibility
 			{ "3.1", DotNetRuntime.DotNetCore31 },
 			{ "5.0", DotNetRuntime.DotNet5 },
 			{ "6.0", DotNetRuntime.DotNet6 },
+			{ "7.0", DotNetRuntime.DotNet7 },
+			{ "8.0", DotNetRuntime.DotNet8 }
 		};
 
 		private const string DotNetFrameworkPrefix = ".NETFramework";

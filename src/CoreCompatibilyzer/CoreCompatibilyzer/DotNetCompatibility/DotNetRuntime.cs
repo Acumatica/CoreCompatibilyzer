@@ -11,7 +11,9 @@ namespace CoreCompatibilyzer.DotNetCompatibility
 		DotNetCore30,
 		DotNetCore31,
 		DotNet5,
-		DotNet6
+		DotNet6,
+		DotNet7,
+		DotNet8
 	}
 
 	public class DotNetRunTimeComparer : IComparer<DotNetRuntime>
