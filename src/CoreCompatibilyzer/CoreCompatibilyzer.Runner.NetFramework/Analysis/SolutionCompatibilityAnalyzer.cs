@@ -70,7 +70,17 @@ namespace CoreCompatibilyzer.Runner.Analysis
 				return RunResult.RunTimeError;
 			}
 
-			Log.Information("Project \"{ProjectName}\" targeted .Net runtime version is \"{DotNetVersion}\".", project.Name, dotNetVersion.Value);
+			Log.Information("Project \"{ProjectName}\" targeted .Net runtime version is \"{ProjectDotNetVersion}\".", project.Name, dotNetVersion.Value);
+
+			if (DotNetRunTimeComparer.Instance.Compare(dotNetVersion.Value, analysisContext.TargetRuntime) >= 0)
+			{
+				Log.Information("The .Net runtime version \"{ProjectDotNetVersion}\" of the project \"{ProjectName}\" " + 
+								"is greater or equals to the target .Net runtime version \"{TargetDotNetVersion}\".",  
+								dotNetVersion.Value, project.Name, analysisContext.TargetRuntime);
+				return RunResult.Success;
+			}
+
+
 
 			return RunResult.Success;
 		}
