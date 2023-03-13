@@ -24,7 +24,7 @@ namespace CoreCompatibilyzer.Runner.Input
 		/// <value>
 		/// The explicitly specified logger's verbosity.
 		/// </value>
-		[Option(shortName: CommandLineArgNames.VerbosityShort, longName: CommandLineArgNames.MSBuildPath,
+		[Option(shortName: CommandLineArgNames.VerbosityShort, longName: CommandLineArgNames.VerbosityLong,
 				HelpText = "This optional parameter allows you to explicitly specify logger verbosity. The allowed values are taken from the " +
 						   nameof(Serilog) + "." + nameof(Serilog.Events) + "." + nameof(Serilog.Events.LogEventLevel) + "enum\n\n. " +
 						   "Here is the list of allowed values:\n" +
