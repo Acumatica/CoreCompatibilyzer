@@ -40,7 +40,7 @@ namespace CoreCompatibilyzer.DotNetCompatibility
 			if (assemblyAttributes.IsDefaultOrEmpty)
 				return null;
 
-			var targetFrameworkAttributeInfos = assemblyAttributes.Where(a => a.AttributeClass.Equals(targetFrameworkAttribute, SymbolEqualityComparer.Default));
+			var targetFrameworkAttributeInfos = assemblyAttributes.Where(a => targetFrameworkAttribute.Equals(a.AttributeClass, SymbolEqualityComparer.Default));
 
 			var parsedVersions = targetFrameworkAttributeInfos.Select(TryParseTargetFrameworkAttribute)
 															  .Where(parsedVersion => parsedVersion != null)
