@@ -44,13 +44,13 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			}
 			catch (OperationCanceledException cancellationException)
 			{
-				Log.Warning(cancellationException, "The validation of \"{CodeSourcePath}\" for compatibility with .Net Core was cancelled",
+				Log.Warning(cancellationException, "The validation of \"{CodeSourcePath}\" for compatibility with .Net Core was cancelled.",
 							analysisContext.CodeSource.Location);
 				runResult = RunResult.Cancelled;
 			}
 			catch (Exception exception)
 			{
-				Log.Error(exception, "An error happened during the analysis of \"{CodeSourcePath}\" for compatibility with .Net Core", analysisContext.CodeSource.Location);
+				Log.Error(exception, "An error happened during the analysis of \"{CodeSourcePath}\" for compatibility with .Net Core.", analysisContext.CodeSource.Location);
 				hasErrors = true;
 			}
 			finally
@@ -66,7 +66,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 
 		private async Task<RunResult> LoadAndAnalyzeCodeSourceAsync(AnalysisContext analysisContext, CancellationToken cancellationToken)
 		{
-			Log.Information("Start analyzing the code source \"{CodeSourcePath}\"", analysisContext.CodeSource.Location);
+			Log.Information("Start analyzing the code source \"{CodeSourcePath}\".", analysisContext.CodeSource.Location);
 
 			using var workspace = MSBuildWorkspace.Create();
 
@@ -74,23 +74,23 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			{
 				workspace.WorkspaceFailed += OnCodeSourceLoadError;
 
-				Log.Information("Start loading the code source \"{CodeSourcePath}\"", analysisContext.CodeSource.Location);
+				Log.Information("Start loading the code source \"{CodeSourcePath}\".", analysisContext.CodeSource.Location);
 				var solution = await analysisContext.CodeSource.LoadSolutionAsync(workspace, cancellationToken);
 
 				if (solution == null)
 				{
-					Log.Error("Failed to load solution from the code source \"{CodeSourcePath}\"", analysisContext.CodeSource.Location);
+					Log.Error("Failed to load solution from the code source \"{CodeSourcePath}\".", analysisContext.CodeSource.Location);
 					return RunResult.RunTimeError;
 				}
 
-				Log.Information("Successfully loaded the code source \"{CodeSourcePath}\"", analysisContext.CodeSource.Location);
-				Log.Debug("Count of loaded projects: {ProjectsCount}", solution.ProjectIds.Count);
+				Log.Information("Successfully loaded the code source \"{CodeSourcePath}\".", analysisContext.CodeSource.Location);
+				Log.Debug("Count of loaded projects: {ProjectsCount}.", solution.ProjectIds.Count);
 
-				Log.Information("Start validating the solution");
+				Log.Information("Start validating the solution.");
 
 				var validationResult = await AnalyseSolution(solution, cancellationToken);
 
-				Log.Information("Successfully finished validating the solution");
+				Log.Information("Successfully finished validating the solution.");
 				return validationResult;
 			}
 			finally
@@ -105,14 +105,20 @@ namespace CoreCompatibilyzer.Runner.Analysis
 
 			foreach (Project project in solution.Projects)
 			{
+				Log.Information("Started validation of the project \"{ProjectName}\".", project.Name);
+
 				if (cancellationToken.IsCancellationRequested)
 				{
+					Log.Information("Project \"{ProjectName}\" validation was cancelled.", project.Name);
 					solutionValidationResult = solutionValidationResult.Combine(RunResult.Cancelled);
 					return solutionValidationResult;
 				}
 
 				var projectValidationResult = await AnalyseProject(project, cancellationToken);
 				solutionValidationResult = solutionValidationResult.Combine(projectValidationResult);
+
+				Log.Information("Finished validation of the project \"{ProjectName}\". Project valudation result: {Result}.", 
+								project.Name, projectValidationResult);
 			}
 
 			return solutionValidationResult;
@@ -120,23 +126,29 @@ namespace CoreCompatibilyzer.Runner.Analysis
 
 		private async Task<RunResult> AnalyseProject(Project project, CancellationToken cancellationToken)
 		{
+			Log.Debug("Obtaining Roslyn compilation data for the project \"{ProjectName}\".", project.Name);
 			var compilation = await project.GetCompilationAsync(cancellationToken);
 
 			if (compilation == null)
 			{
-				Log.Error("Failed to obtain Roslyn compilation data for the project with name \"{ProjectName}\" and path \"{ProjectPath}\"", 
+				Log.Error("Failed to obtain Roslyn compilation data for the project with name \"{ProjectName}\" and path \"{ProjectPath}\".", 
 						  project.Name, project.FilePath);
 				return RunResult.RunTimeError;
 			}
+
+			Log.Debug("Obtained Roslyn compilation data for the project \"{ProjectName}\" successfully.", project.Name);
+			Log.Debug("Obtaining .Net runtime version targeted by the project \"{ProjectName}\".", project.Name);
 
 			var dotNetVersion = _dotNetVersionReader.TryParse(compilation);
 
 			if (dotNetVersion == null)
 			{
-				Log.Error("Failed to get the .Net runtime version targeted by the project with name \"{ProjectName}\" and path \"{ProjectPath}\"",
+				Log.Error("Failed to get the .Net runtime version targeted by the project with name \"{ProjectName}\" and path \"{ProjectPath}\".",
 						  project.Name, project.FilePath);
 				return RunResult.RunTimeError;
 			}
+
+			Log.Information("Project \"{ProjectName}\" targeted .Net runtime version is \"{DotNetVersion}\".", project.Name, dotNetVersion.Value);
 
 			return RunResult.Success;
 		}
@@ -161,17 +173,19 @@ namespace CoreCompatibilyzer.Runner.Analysis
 				return TryRegisterMSBuildByPath(analysisContext.MSBuildPath);
 			}
 
+			Log.Information("Searching for MSBuild instances installed on the current machine.");
+
 			var vsInstances = MSBuildLocator.QueryVisualStudioInstances();
 			VisualStudioInstance? latestVSInstance = vsInstances.OrderByDescending(vsInstance => vsInstance.Version)
 																.FirstOrDefault();
 			if (latestVSInstance == null)
 			{
-				Log.Error("No installed MSBuild version was found on the machine");
+				Log.Error("No installed MSBuild version was found on the machine.");
 				return false;
 			}
 
-			Log.Information("Found MSBuild instance with name {VisualStudioName}, version {VisualStudioVersion}", latestVSInstance.Name, latestVSInstance.Version);
-			Log.Information("MSBuildPath: {MSBuildPath}", latestVSInstance.MSBuildPath);
+			Log.Information("Found MSBuild instance with name \"{VisualStudioName}\", version \"{VisualStudioVersion}\".", latestVSInstance.Name, latestVSInstance.Version);
+			Log.Information("MSBuildPath: \"{MSBuildPath}\".", latestVSInstance.MSBuildPath);
 
 			try
 			{
@@ -189,15 +203,17 @@ namespace CoreCompatibilyzer.Runner.Analysis
 		{
 			try
 			{
+				Log.Information("Registering MSBuild instance at the provided path \"{MSBuildPath}\".", msBuildPath);
+
 				string? msBuildDir = Path.GetDirectoryName(msBuildPath);
 				MSBuildLocator.RegisterMSBuildPath(msBuildDir);
 
-				Log.Information("Successfully registered MSBuild instance at provided MSBuildPath: {MSBuildPath}", msBuildPath);
+				Log.Information("Successfully registered MSBuild instance at the provided path \"{MSBuildPath}\".", msBuildPath);
 				return true;
 			}
 			catch (Exception e)
 			{
-				Log.Error(e, "Error during registration of MSBuild instance. Failed to register MSBuild using a provided path {MSBuildPath}", msBuildPath);
+				Log.Error(e, "Error during the registration of MSBuild instance. Failed to register MSBuild using a provided path \"{MSBuildPath}\".", msBuildPath);
 				return false;
 			}
 		}
