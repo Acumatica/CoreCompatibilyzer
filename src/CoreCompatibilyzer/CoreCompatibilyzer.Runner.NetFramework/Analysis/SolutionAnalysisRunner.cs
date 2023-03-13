@@ -89,7 +89,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 
 				Log.Information("Start validating the solution.");
 
-				var validationResult = await AnalyseSolution(solution, cancellationToken);
+				var validationResult = await _solutionCompatibilityAnalyzer.AnalyseSolution(solution, analysisContext, cancellationToken);
 
 				Log.Information("Successfully finished validating the solution.");
 				return validationResult;
