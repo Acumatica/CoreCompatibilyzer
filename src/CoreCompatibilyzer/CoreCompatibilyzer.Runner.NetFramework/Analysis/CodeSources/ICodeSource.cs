@@ -13,6 +13,6 @@ namespace CoreCompatibilyzer.Runner.Analysis.CodeSources
 
         string Location { get; }
 
-        //Task<Solution?> LoadSolutionAsync(MSBuildWorkspace workspace, CancellationToken cancellationToken);
+        Task<Solution> LoadSolutionAsync(MSBuildWorkspace workspace, CancellationToken cancellationToken);
     }
 }

@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 using CoreCompatibilyzer.Utils.Common;
+
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.MSBuild;
 
 namespace CoreCompatibilyzer.Runner.Analysis.CodeSources
 {
@@ -16,5 +21,8 @@ namespace CoreCompatibilyzer.Runner.Analysis.CodeSources
         {
             Location = solutionPath.ThrowIfNullOrWhiteSpace(nameof(solutionPath));
         }
-    }
+
+		public Task<Solution> LoadSolutionAsync(MSBuildWorkspace workspace, CancellationToken cancellationToken) =>
+			workspace.OpenSolutionAsync(Location, cancellationToken: cancellationToken);
+	}
 }
