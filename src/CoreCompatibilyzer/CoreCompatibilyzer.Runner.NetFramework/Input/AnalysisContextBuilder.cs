@@ -32,7 +32,8 @@ namespace CoreCompatibilyzer.Runner.Input
 			if (!File.Exists(codeSourceLocation))
 				throw new ArgumentException($"Code source to use in validation is not found at {codeSourceLocation}");
 
-			ICodeSource codeSource = CreateCodeSource(codeSourceLocation);
+			string fullPath = Path.GetFullPath(codeSourceLocation);
+			ICodeSource codeSource = CreateCodeSource(fullPath);
 			return codeSource;
 		}
 
