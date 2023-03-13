@@ -24,8 +24,15 @@ namespace CoreCompatibilyzer.DotNetCompatibility
 			{ "8.0", DotNetRuntime.DotNet8 }
 		};
 
+		private static readonly Dictionary<string, DotNetRuntime> _dotNetStandardVersions = new Dictionary<string, DotNetRuntime>
+		{
+			{ "2.0", DotNetRuntime.DotNetStandard20 },
+			{ "2.1", DotNetRuntime.DotNetStandard21 },
+		};
+
 		private const string DotNetFrameworkPrefix = ".NETFramework";
 		private const string DotNetCorePrefix = ".NETCoreApp";
+		private const string DotNetStandardPrefix = ".NETStandard";
 		private const string VersionPrefix = "Version=v";
 
 		public DotNetRuntime? TryParse(Compilation compilation)
@@ -89,17 +96,26 @@ namespace CoreCompatibilyzer.DotNetCompatibility
 			if (!runtimeRawVersion.StartsWith(VersionPrefix))
 				return null;
 
-			if (runtimeType == DotNetFrameworkPrefix)
-				return DotNetRuntime.DotNetFramework;
-			else if (runtimeType == DotNetCorePrefix)
+			switch (runtimeType)
 			{
-				string trimmedDotNetCoreVersion = runtimeRawVersion.Substring(VersionPrefix.Length);
-				return _dotNetCoreVersions.TryGetValue(trimmedDotNetCoreVersion, out var coreRunTimeVersion)
-					? coreRunTimeVersion
-					: null;
-			}
+				case DotNetFrameworkPrefix:
+					return DotNetRuntime.DotNetFramework;
 
-			return null;
+				case DotNetStandardPrefix:
+					string trimmedDotNetStandardVersion = runtimeRawVersion.Substring(VersionPrefix.Length);
+					return _dotNetStandardVersions.TryGetValue(trimmedDotNetStandardVersion, out var dotNetStandardRuntimeVersion)
+						? dotNetStandardRuntimeVersion
+						: null;
+
+				case DotNetCorePrefix:
+					string trimmedDotNetCoreVersion = runtimeRawVersion.Substring(VersionPrefix.Length);
+					return _dotNetCoreVersions.TryGetValue(trimmedDotNetCoreVersion, out var coreRuntimeVersion)
+						? coreRuntimeVersion
+						: null;
+
+				default:
+					return null;
+			}
 		}
 	}
 }
