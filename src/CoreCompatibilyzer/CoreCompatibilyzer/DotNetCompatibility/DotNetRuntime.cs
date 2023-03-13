@@ -18,4 +18,11 @@ namespace CoreCompatibilyzer.DotNetCompatibility
 		DotNet7,
 		DotNet8
 	}
+
+
+	public static class DotNetRuntimeExtension
+	{
+		public static bool IsDotNetStandard(this DotNetRuntime runtime) =>
+			runtime is DotNetRuntime.DotNetStandard20 or DotNetRuntime.DotNetStandard21;
+	}
 }
