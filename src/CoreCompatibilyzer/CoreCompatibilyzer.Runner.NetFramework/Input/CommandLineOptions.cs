@@ -25,12 +25,12 @@ namespace CoreCompatibilyzer.Runner.Input
 		/// The explicitly specified logger's verbosity.
 		/// </value>
 		[Option(shortName: CommandLineArgNames.VerbosityShort, longName: CommandLineArgNames.VerbosityLong,
-				HelpText = "This optional parameter allows you to explicitly specify logger verbosity. The allowed values are taken from the " +
-						   nameof(Serilog) + "." + nameof(Serilog.Events) + "." + nameof(Serilog.Events.LogEventLevel) + "enum\n\n. " +
+				HelpText = "This optional parameter allows you to explicitly specify logger verbosity. The allowed values are taken from the \"" +
+						   nameof(Serilog) + "." + nameof(Serilog.Events) + "." + nameof(Serilog.Events.LogEventLevel) + "\" enum.\n\n" +
 						   "Here is the list of allowed values:\n" +
-						   nameof(LogEventLevel.Verbose) + ", " + nameof(LogEventLevel.Debug) + ", " + nameof(LogEventLevel.Information) + ",\n" +
+						   nameof(LogEventLevel.Verbose) + ", " + nameof(LogEventLevel.Debug) + ", " + nameof(LogEventLevel.Information) + ", " +
 						   nameof(LogEventLevel.Warning) + ", " + nameof(LogEventLevel.Error) + ", " + nameof(LogEventLevel.Fatal) + ".\n\n" +
-						   "By defalut the logger will use the " + nameof(LogEventLevel.Information) + " verbosity.")]
+						   "By default, the logger will use the \"" + nameof(LogEventLevel.Information) + "\" verbosity.")]
 		public string? Verbosity { get; }
 
 		/// <summary>
@@ -40,7 +40,8 @@ namespace CoreCompatibilyzer.Runner.Input
 		/// The optional explicitly specified path to MSBuild.
 		/// </value>
 		[Option(longName: CommandLineArgNames.MSBuildPath,
-				HelpText = "This optional parameter allows you to provide explicitly a path to MSBuild tool that will be used for analysis.")]
+				HelpText = "This optional parameter allows you to provide explicitly a path to the MSBuild tool that will be used for analysis.\n" +
+						   "By default, MSBuild installations will be searched automatically on the current machine and the latest found version will be used.")]
 		public string? MSBuildPath { get; }
 
 		// Constructor arguments order must be the same as the properties order. This allows command line parser to initialize immutable options object via constructor.
