@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis;
 
 namespace CoreCompatibilyzer.DotNetCompatibility
 {
-	internal class DotNetVersionReader
+	public class DotNetVersionReader
 	{
 		private static readonly char[] _versionSeparators = new[] { ',' };
 		private static readonly Dictionary<string, DotNetRuntime> _dotNetCoreVersions = new Dictionary<string, DotNetRuntime>

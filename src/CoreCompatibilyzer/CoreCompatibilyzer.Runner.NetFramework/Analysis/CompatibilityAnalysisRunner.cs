@@ -7,17 +7,24 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using CoreCompatibilyzer.Runner.Input;
+using CoreCompatibilyzer.Runner.Analysis.CodeSources;
 using CoreCompatibilyzer.Utils.Common;
 
 using Microsoft.Build.Locator;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.MSBuild;
 
 using Serilog;
+using System.Runtime;
+using CoreCompatibilyzer.DotNetCompatibility;
 
 namespace CoreCompatibilyzer.Runner.Analysis
 {
-	internal class CompatibilityAnalysisRunner
+    internal class CompatibilityAnalysisRunner
 	{
-		public async Task<RunResult> Analyze(AnalysisContext analysisContext, CancellationToken cancellationToken)
+		private readonly DotNetVersionReader _dotNetVersionReader = new DotNetVersionReader();
+
+		public async Task<RunResult> RunAnalysisAsync(AnalysisContext analysisContext, CancellationToken cancellationToken)
 		{
 			analysisContext.ThrowIfNull(nameof(analysisContext));
 
@@ -33,7 +40,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			{
 				cancellationToken.ThrowIfCancellationRequested();
 
-				runResult = await LoadAndAnalyzeCodeSource(analysisContext, cancellationToken).ConfigureAwait(false);
+				runResult = await LoadAndAnalyzeCodeSourceAsync(analysisContext, cancellationToken);
 			}
 			catch (OperationCanceledException cancellationException)
 			{
@@ -57,9 +64,94 @@ namespace CoreCompatibilyzer.Runner.Analysis
 				: runResult;
 		}
 
-		private async Task<RunResult> LoadAndAnalyzeCodeSource(AnalysisContext analysisContext, CancellationToken cancellationToken)
+		private async Task<RunResult> LoadAndAnalyzeCodeSourceAsync(AnalysisContext analysisContext, CancellationToken cancellationToken)
 		{
+			Log.Information("Start analyzing the code source \"{CodeSourcePath}\"", analysisContext.CodeSource.Location);
 
+			using var workspace = MSBuildWorkspace.Create();
+
+			try
+			{
+				workspace.WorkspaceFailed += OnCodeSourceLoadError;
+
+				Log.Information("Start loading the code source \"{CodeSourcePath}\"", analysisContext.CodeSource.Location);
+				var solution = await analysisContext.CodeSource.LoadSolutionAsync(workspace, cancellationToken);
+
+				if (solution == null)
+				{
+					Log.Error("Failed to load solution from the code source \"{CodeSourcePath}\"", analysisContext.CodeSource.Location);
+					return RunResult.RunTimeError;
+				}
+
+				Log.Information("Successfully loaded the code source \"{CodeSourcePath}\"", analysisContext.CodeSource.Location);
+				Log.Debug("Count of loaded projects: {ProjectsCount}", solution.ProjectIds.Count);
+
+				Log.Information("Start validating the solution");
+
+				var validationResult = await AnalyseSolution(solution, cancellationToken);
+
+				Log.Information("Successfully finished validating the solution");
+				return validationResult;
+			}
+			finally
+			{
+				workspace.WorkspaceFailed -= OnCodeSourceLoadError;
+			}	
+		}
+
+		private async Task<RunResult> AnalyseSolution(Solution solution, CancellationToken cancellationToken)
+		{
+			RunResult solutionValidationResult = RunResult.Success;
+
+			foreach (Project project in solution.Projects)
+			{
+				if (cancellationToken.IsCancellationRequested)
+				{
+					solutionValidationResult = solutionValidationResult.Combine(RunResult.Cancelled);
+					return solutionValidationResult;
+				}
+
+				var projectValidationResult = await AnalyseProject(project, cancellationToken);
+				solutionValidationResult = solutionValidationResult.Combine(projectValidationResult);
+			}
+
+			return solutionValidationResult;
+		}
+
+		private async Task<RunResult> AnalyseProject(Project project, CancellationToken cancellationToken)
+		{
+			var compilation = await project.GetCompilationAsync(cancellationToken);
+
+			if (compilation == null)
+			{
+				Log.Error("Failed to obtain Roslyn compilation data for the project with name \"{ProjectName}\" and path \"{ProjectPath}\"", 
+						  project.Name, project.FilePath);
+				return RunResult.RunTimeError;
+			}
+
+			var dotNetVersion = _dotNetVersionReader.TryParse(compilation);
+
+			if (dotNetVersion == null)
+			{
+				Log.Error("Failed to get the .Net runtime version targeted by the project with name \"{ProjectName}\" and path \"{ProjectPath}\"",
+						  project.Name, project.FilePath);
+				return RunResult.RunTimeError;
+			}
+
+			return RunResult.Success;
+		}
+
+		private void OnCodeSourceLoadError(object sender, WorkspaceDiagnosticEventArgs e)
+		{
+			switch (e.Diagnostic.Kind)
+			{
+				case WorkspaceDiagnosticKind.Failure:
+					Log.Error("{WorkspaceDiagnostic}", e.Diagnostic);
+					break;
+				case WorkspaceDiagnosticKind.Warning:
+					Log.Warning("{WorkspaceDiagnostic}", e.Diagnostic);
+					break;
+			}
 		}
 
 		private bool TryRegisterMSBuild(AnalysisContext analysisContext)
