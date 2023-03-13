@@ -45,7 +45,7 @@ namespace CoreCompatibilyzer.Runner.NetFramework
 			if (analysisContext == null)
 				return RunResult.RunTimeError;
 
-			var analyzer = new CompatibilityAnalysisRunner();
+			var analyzer = new SolutionAnalysisRunner();
 			var analysisResult = await analyzer.RunAnalysisAsync(analysisContext, CancellationToken.None);
 
 			OutputValidationResult(analysisResult, analysisContext.CodeSource.Type);
