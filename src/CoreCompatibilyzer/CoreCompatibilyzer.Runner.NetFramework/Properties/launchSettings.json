@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "runner help": {
+      "commandName": "Project",
+      "commandLineArgs": "--help"
+    }
+  }
+}
