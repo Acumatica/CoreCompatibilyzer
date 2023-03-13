@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 using CommandLine;
 
 using CoreCompatibilyzer.Runner.Analysis;
+using CoreCompatibilyzer.Runner.Analysis.CodeSources;
 using CoreCompatibilyzer.Runner.Input;
 using CoreCompatibilyzer.Utils.Common;
 
@@ -28,7 +30,7 @@ namespace CoreCompatibilyzer.Runner.NetFramework
 			}
 			catch (Exception e)
 			{
-				Log.Error(e, "An unhandled runtime error was encountered during the validation");
+				Log.Error(e, "An unhandled runtime error was encountered during the validation.");
 				return RunResult.RunTimeError.ToExitCode();
 			}
 		}
@@ -44,7 +46,10 @@ namespace CoreCompatibilyzer.Runner.NetFramework
 				return RunResult.RunTimeError;
 
 			var analyzer = new CompatibilityAnalysisRunner();
-			var analysisResult = await analyzer.Analyze(analysisContext, CancellationToken.None);
+			var analysisResult = await analyzer.RunAnalysisAsync(analysisContext, CancellationToken.None);
+
+			OutputValidationResult(analysisResult, analysisContext.CodeSource.Type);
+
 			return analysisResult;
 		}
 
@@ -95,10 +100,37 @@ namespace CoreCompatibilyzer.Runner.NetFramework
 		{
 			foreach (var error in parsingErrors) 
 			{
-				Log.Error("Parsing error type: {ErrorType}", error.Tag);
+				Log.Error("Parsing error type: {ErrorType}.", error.Tag);
 			}
 
 			return Task.FromResult(RunResult.RunTimeError);
+		}
+
+		[SuppressMessage("CodeQuality", "Serilog004:Constant MessageTemplate verifier", Justification = "No need for structured loghing here")]
+		private static void OutputValidationResult(RunResult runResult, CodeSourceType codeSourceType)
+		{
+			switch (runResult)
+			{
+				case RunResult.Success:
+					Log.Information("The validation passed successfully!");
+					return;
+				case RunResult.RequirementsNotMet:
+					string codeSourceTypeName = codeSourceType switch
+					{
+						CodeSourceType.Solution => "solution",
+						CodeSourceType.Project => "project",
+						_ => "code"
+					};
+
+					Log.Error($"The validation is finished. The validated {codeSourceTypeName} did not pass the validation.");
+					return;
+				case RunResult.Cancelled:
+					Log.Warning("The validation was cancelled.");
+					return;
+				case RunResult.RunTimeError:
+					Log.Error("A runtime error was encountered during the validation.");
+					return;
+			}
 		}
 	}
 }
