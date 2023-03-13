@@ -91,7 +91,7 @@ namespace CoreCompatibilyzer.Runner.NetFramework
 			}
 			catch (Exception e)
 			{
-				Log.Error(e, "An error happened during the processing of input command line arguments and initialization of analysis context");
+				Log.Error(e, "An error happened during the processing of input command line arguments and initialization of analysis context.");
 				return null;
 			}
 		}
