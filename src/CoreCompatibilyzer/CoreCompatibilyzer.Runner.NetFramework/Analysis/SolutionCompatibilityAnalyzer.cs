@@ -31,7 +31,8 @@ namespace CoreCompatibilyzer.Runner.Analysis
 
 				if (cancellationToken.IsCancellationRequested)
 				{
-					Log.Information("Project \"{ProjectName}\" validation was cancelled.", project.Name);
+					Log.Information("Finished validation of the project \"{ProjectName}\". Project valudation result: {Result}.", 
+									project.Name, RunResult.Cancelled);
 					solutionValidationResult = solutionValidationResult.Combine(RunResult.Cancelled);
 					return solutionValidationResult;
 				}
@@ -79,8 +80,6 @@ namespace CoreCompatibilyzer.Runner.Analysis
 								dotNetVersion.Value, project.Name, analysisContext.TargetRuntime);
 				return RunResult.Success;
 			}
-
-
 
 			return RunResult.Success;
 		}

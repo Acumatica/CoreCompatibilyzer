@@ -12,7 +12,7 @@ namespace CoreCompatibilyzer.DotNetCompatibility
 	public class DotNetVersionReader
 	{
 		private static readonly char[] _versionSeparators = new[] { ',' };
-		private static readonly Dictionary<string, DotNetRuntime> _dotNetCoreVersions = new Dictionary<string, DotNetRuntime>
+		private static readonly Dictionary<string, DotNetRuntime> _dotNetCoreVersions = new()
 		{
 			{ "2.1", DotNetRuntime.DotNetCore21 },
 			{ "2.2", DotNetRuntime.DotNetCore22 },
@@ -35,7 +35,7 @@ namespace CoreCompatibilyzer.DotNetCompatibility
 		private const string DotNetStandardPrefix = ".NETStandard";
 		private const string VersionPrefix = "Version=v";
 
-		public DotNetRuntime? TryParse(Compilation compilation)
+		public DotNetRuntime? GetRuntimeVersion(Compilation compilation)
 		{
 			compilation.ThrowIfNull(nameof(compilation));
 
