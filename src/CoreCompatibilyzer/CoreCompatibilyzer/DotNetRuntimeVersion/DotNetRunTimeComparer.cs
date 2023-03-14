@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CoreCompatibilyzer.DotNetCompatibility
+namespace CoreCompatibilyzer.DotNetRuntimeVersion
 {
 	public class DotNetRunTimeComparer : IComparer<DotNetRuntime>
 	{

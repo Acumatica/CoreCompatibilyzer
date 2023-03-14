@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CoreCompatibilyzer.DotNetCompatibility
+namespace CoreCompatibilyzer.DotNetRuntimeVersion
 {
 	public enum DotNetRuntime
 	{

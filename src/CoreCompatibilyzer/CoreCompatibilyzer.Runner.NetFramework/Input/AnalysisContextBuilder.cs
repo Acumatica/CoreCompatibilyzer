@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 
-using CoreCompatibilyzer.DotNetCompatibility;
+using CoreCompatibilyzer.DotNetRuntimeVersion;
 using CoreCompatibilyzer.Runner.Analysis.CodeSources;
 using CoreCompatibilyzer.Runner.Constants;
 using CoreCompatibilyzer.Utils.Common;

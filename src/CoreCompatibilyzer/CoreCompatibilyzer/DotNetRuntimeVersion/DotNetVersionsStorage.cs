@@ -7,7 +7,7 @@ using CoreCompatibilyzer.Utils.Common;
 
 using Microsoft.CodeAnalysis;
 
-namespace CoreCompatibilyzer.DotNetCompatibility
+namespace CoreCompatibilyzer.DotNetRuntimeVersion
 {
 	public sealed class DotNetVersionsStorage
 	{

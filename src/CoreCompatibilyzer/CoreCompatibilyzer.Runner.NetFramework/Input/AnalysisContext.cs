@@ -1,6 +1,6 @@
 ﻿using System;
 
-using CoreCompatibilyzer.DotNetCompatibility;
+using CoreCompatibilyzer.DotNetRuntimeVersion;
 using CoreCompatibilyzer.Runner.Analysis.CodeSources;
 using CoreCompatibilyzer.Utils.Common;
 

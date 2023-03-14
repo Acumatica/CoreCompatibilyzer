@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 
-using CoreCompatibilyzer.DotNetCompatibility;
+using CoreCompatibilyzer.DotNetRuntimeVersion;
 
 namespace CoreCompatibilyzer.Runner.Constants
 {

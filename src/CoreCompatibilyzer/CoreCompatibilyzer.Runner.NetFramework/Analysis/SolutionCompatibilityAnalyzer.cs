@@ -10,7 +10,7 @@ using CoreCompatibilyzer.Utils.Common;
 using Microsoft.CodeAnalysis;
 
 using Serilog;
-using CoreCompatibilyzer.DotNetCompatibility;
+using CoreCompatibilyzer.DotNetRuntimeVersion;
 
 namespace CoreCompatibilyzer.Runner.Analysis
 {
