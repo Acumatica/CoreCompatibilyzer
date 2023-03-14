@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,15 +10,12 @@ using CoreCompatibilyzer.Utils.Common;
 using Microsoft.CodeAnalysis;
 
 using Serilog;
-using System.Runtime;
 using CoreCompatibilyzer.DotNetCompatibility;
 
 namespace CoreCompatibilyzer.Runner.Analysis
 {
     internal class SolutionCompatibilityAnalyzer
 	{
-		private readonly DotNetVersionReader _dotNetVersionReader = new DotNetVersionReader();
-
 		public async Task<RunResult> AnalyseSolution(Solution solution, AnalysisContext analysisContext, CancellationToken cancellationToken)
 		{
 			RunResult solutionValidationResult = RunResult.Success;
@@ -62,7 +57,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			Log.Debug("Obtained Roslyn compilation data for the project \"{ProjectName}\" successfully.", project.Name);
 			Log.Debug("Obtaining .Net runtime version targeted by the project \"{ProjectName}\".", project.Name);
 
-			var dotNetVersion = _dotNetVersionReader.TryParse(compilation);
+			var dotNetVersion = DotNetVersionsStorage.Instance.GetDotNetRuntimeVersion(compilation);
 
 			if (dotNetVersion == null)
 			{
