@@ -5,6 +5,8 @@ using System.Data;
 using System.Linq;
 using System.Runtime.Versioning;
 
+using CoreCompatibilyzer.Utils.Common;
+
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -84,7 +86,7 @@ namespace CoreCompatibilyzer.StaticAnalysis.NotCompatibleWorkspaces
 
 			string diagnosticEnabledFlag = diagnosticDescriptor.GetEnabledFlagFullName();
 
-			if (!analyzerConfigOptions.TryGetValue(diagnosticEnabledFlag, out string isEnabledStrValue))
+			if (!analyzerConfigOptions.TryGetValue(diagnosticEnabledFlag, out string? isEnabledStrValue) || isEnabledStrValue.IsNullOrWhiteSpace())
 				return IsEnabledByDefault(diagnosticDescriptor);
 
 			return bool.TryParse(isEnabledStrValue, out bool isEnabled)
