@@ -10,6 +10,7 @@ using CommandLine;
 using CoreCompatibilyzer.Runner.Analysis;
 using CoreCompatibilyzer.Runner.Analysis.CodeSources;
 using CoreCompatibilyzer.Runner.Input;
+using CoreCompatibilyzer.Runner.Utils;
 using CoreCompatibilyzer.Utils.Common;
 
 using Serilog;
@@ -23,6 +24,7 @@ namespace CoreCompatibilyzer.Runner.NetFramework
 		{
 			try
 			{
+
 				ParserResult<CommandLineOptions> argsParsingResult = Parser.Default.ParseArguments<CommandLineOptions>(args);
 				RunResult runResult = await argsParsingResult.MapResult(parsedFunc: RunValidationWithParsedOptionsAsync,
 																		notParsedFunc: OnParsingErrorsAsync);
@@ -40,13 +42,14 @@ namespace CoreCompatibilyzer.Runner.NetFramework
 			if (!TryInitalizeSerilog(commandLineOptions))
 				return RunResult.RunTimeError;
 
+			using var consoleCancellationSubscription = new ConsoleCancellationSubscription(Log.Logger);
 			AnalysisContext? analysisContext = CreateAnalysisContextFromCommandLineArguments(commandLineOptions);
 
 			if (analysisContext == null)
 				return RunResult.RunTimeError;
 
 			var analyzer = new SolutionAnalysisRunner();
-			var analysisResult = await analyzer.RunAnalysisAsync(analysisContext, CancellationToken.None);
+			var analysisResult = await analyzer.RunAnalysisAsync(analysisContext, consoleCancellationSubscription.CancellationToken);
 
 			OutputValidationResult(analysisResult, analysisContext.CodeSource.Type);
 
