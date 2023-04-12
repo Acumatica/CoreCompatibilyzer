@@ -52,5 +52,4 @@
 		</EmbeddedResource>
 		<EmbeddedResource Update="Diagnostics.resx" Generator="PublicResXFileCodeGenerator" LastGenOutput="Diagnostics.Designer.cs" />
 	</ItemGroup>
-
 </Project>
