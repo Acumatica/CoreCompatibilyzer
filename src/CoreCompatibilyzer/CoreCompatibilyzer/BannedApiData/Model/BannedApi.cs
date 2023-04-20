@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 
 using CoreCompatibilyzer.Utils.Common;
 
@@ -16,25 +17,49 @@ namespace CoreCompatibilyzer.BannedApiData
 
 		public string FullName { get; }
 
-        public BannedApi(string docID)
+		public BannedApiType BannedApiType { get; }
+
+        public BannedApi(string docIDWithOptionalObsoleteMarker)
         {
-			DocID = docID.ThrowIfNullOrWhiteSpace(nameof(docID)).Trim();
+			docIDWithOptionalObsoleteMarker = docIDWithOptionalObsoleteMarker.ThrowIfNullOrWhiteSpace(nameof(docIDWithOptionalObsoleteMarker)).Trim();
+
+			if (docIDWithOptionalObsoleteMarker.Length < 2)
+				throw InvalidInputStringFormatException(docIDWithOptionalObsoleteMarker);
+
+			if (char.IsWhiteSpace(docIDWithOptionalObsoleteMarker[^2]))
+			{
+				if (char.ToUpper(docIDWithOptionalObsoleteMarker[^1]) != 'O')
+					throw InvalidInputStringFormatException(docIDWithOptionalObsoleteMarker);
+
+				DocID = docIDWithOptionalObsoleteMarker.Remove(docIDWithOptionalObsoleteMarker.Length - 2);
+				BannedApiType = BannedApiType.Obsolete;
+			}
+			else
+			{
+				DocID = docIDWithOptionalObsoleteMarker;
+				BannedApiType = BannedApiType.NotPresentInNetCore;
+			}
+			
 			Kind = DocID.GetApiKind();
 
 			if (Kind == ApiKind.Undefined || DocID.Length < 2)
-			{
-				throw new ArgumentException($"The input API DocID string \"{docID}\" has unknown format.{Environment.NewLine}" +
-											"Please check the following link for a list of supported formats: " +
-											"https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/#id-strings",
-											nameof(docID));
-			}
+				throw InvalidInputStringFormatException(DocID);
 			
 			FullName = DocID.Substring(2);
         }
 
+		private static ArgumentException InvalidInputStringFormatException(string docID) =>
+			 new ArgumentException($"The input API DocID string \"{docID}\" has unknown format.{Environment.NewLine}" +
+									"Please check the following link for a list of supported formats: " +
+									"https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/#id-strings" + 
+									Environment.NewLine + Environment.NewLine +
+									"CoreCompatibilyzer extends the DocID string format above with an indicator \"O\" character separated by whitespace at the end of a DocID string",
+									nameof(docID));
+
 		public override bool Equals(object obj) => obj is BannedApi bannedApi && Equals(bannedApi);
 
-		public bool Equals(BannedApi other) => string.Equals(DocID, other.DocID);
+		public bool Equals(BannedApi other) => 
+			string.Equals(DocID, other.DocID) && BannedApiType == other.BannedApiType;
 
 		public static bool operator ==(BannedApi x, BannedApi y) => x.Equals(y);
 
