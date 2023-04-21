@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CoreCompatibilyzer.BannedApiData
@@ -18,9 +19,10 @@ namespace CoreCompatibilyzer.BannedApiData
 		/// Gets the banned API data asynchronously from the provider or <see langword="null"/> if the provider's banned API data is not available. <br/>
 		/// On the latter case the <see cref="IsDataAvailable"/> flag value is <see langword="false"/>.
 		/// </summary>
+		/// <param name="cancellation">A token that allows processing to be cancelled.</param>
 		/// <returns>
 		/// The task with banned API data.
 		/// </returns>
-		Task<IEnumerable<BannedApi>?> GetBannedApiDataAsync();
+		Task<IEnumerable<BannedApi>?> GetBannedApiDataAsync(CancellationToken cancellation);
     }
 }
