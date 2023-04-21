@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace CoreCompatibilyzer.BannedApiData
+{
+    public interface IBannedApiDataProvider
+	{
+		/// <summary>
+		/// Gets a value indicating whether the provider's banned API data is available.
+		/// </summary>
+		/// <value>
+		/// True if the banned API data is available, false if not.
+		/// </value>
+		bool IsDataAvailable { get; }
+
+		/// <summary>
+		/// Gets the banned API data asynchronously from the provider or <see langword="null"/> if the provider's banned API data is not available. <br/>
+		/// On the latter case the <see cref="IsDataAvailable"/> flag value is <see langword="false"/>.
+		/// </summary>
+		/// <returns>
+		/// The task with banned API data.
+		/// </returns>
+		Task<IEnumerable<BannedApi>?> GetBannedApiDataAsync();
+    }
+}
