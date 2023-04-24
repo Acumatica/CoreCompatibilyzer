@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Runtime.Versioning;
 
+using CoreCompatibilyzer.Utils.Common;
+
+using Microsoft.CodeAnalysis;
+
 namespace CoreCompatibilyzer.BannedApiData
 {
 	public static class ApiUtils
@@ -29,5 +33,17 @@ namespace CoreCompatibilyzer.BannedApiData
 				_ => ApiKind.Undefined
 			};
 		}
+
+		public static ApiKind GetApiKind(this ISymbol symbol) =>
+			symbol.ThrowIfNull(nameof(symbol)) switch
+			{
+				INamespaceSymbol => ApiKind.Namespace,
+				ITypeSymbol      => ApiKind.Type,
+				IMethodSymbol    => ApiKind.Method,
+				IFieldSymbol	 => ApiKind.Field,
+				IPropertySymbol  => ApiKind.Property,
+				IEventSymbol     => ApiKind.Event,
+				_                => ApiKind.Undefined
+			};
 	}
 }
