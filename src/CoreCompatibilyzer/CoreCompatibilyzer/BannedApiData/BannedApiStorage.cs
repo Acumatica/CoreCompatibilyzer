@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 
 using CoreCompatibilyzer.Utils.Common;
 
-using Microsoft.CodeAnalysis;
-
 namespace CoreCompatibilyzer.BannedApiData
 {
     /// <summary>
@@ -53,34 +51,12 @@ namespace CoreCompatibilyzer.BannedApiData
 			return bannedApiOfThisKind?.Count ?? 0;
 		}
 
-		public BannedApi? GetBannedApi(ISymbol apiSymbol)
-		{
-			var apiKindAndDocID = GetApiKindAndFullNameFromSymbol(apiSymbol.ThrowIfNull(nameof(apiSymbol)));
-
-			if (apiKindAndDocID == null)
-				return null;
-
-			var (apiKind, apiDocId) = apiKindAndDocID.Value;
-			return GetBannedApi(apiKind, apiDocId);
-		}
-
 		public BannedApi? GetBannedApi(ApiKind apiKind, string apiDocId)
 		{
 			var bannedApisOfThisKind = BannedApiByKind(apiKind);
 			return bannedApisOfThisKind?.TryGetValue(apiDocId, out var bannedApi) == true
 				? bannedApi
 				: null;
-		}
-
-		public bool ContainsBannedApi(ISymbol apiSymbol)
-		{
-			var apiKindAndDocID = GetApiKindAndFullNameFromSymbol(apiSymbol.ThrowIfNull(nameof(apiSymbol)));
-			
-			if (apiKindAndDocID == null)
-				return false;
-
-			var (apiKind, apiDocId) = apiKindAndDocID.Value;
-			return ContainsBannedApi(apiKind, apiDocId);
 		}
 
 		public bool ContainsBannedApi(ApiKind apiKind, string apiDocId) =>
@@ -90,18 +66,5 @@ namespace CoreCompatibilyzer.BannedApiData
 			_bannedApisByDocIdGroupedByApiKind.TryGetValue(apiKind, out var api)
 				? api
 				: null;
-		
-		private (ApiKind ApiKind, string ApiDocID)? GetApiKindAndFullNameFromSymbol(ISymbol apiSymbol)
-		{
-			ApiKind apiKind = apiSymbol.GetApiKind();
-
-			if (apiKind == ApiKind.Undefined)
-				return null;
-
-			string? docId = apiSymbol.GetDocumentationCommentId();
-			return docId.IsNullOrWhiteSpace()
-				? null
-				: (apiKind, docId);
-		}
 	}
 }

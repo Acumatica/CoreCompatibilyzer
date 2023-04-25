@@ -27,38 +27,20 @@ namespace CoreCompatibilyzer.BannedApiData
 		/// Gets the banned API or null if there is no such API in the storage.
 		/// </summary>
 		/// <param name="apiKind">The API kind.</param>
-		/// <param name="fullApiName">The full API name.</param>
+		/// <param name="apiDocId">The API Doc ID.</param>
 		/// <returns>
 		/// The banned API or null.
 		/// </returns>
-		public BannedApi? GetBannedApi(ApiKind apiKind, string fullApiName);
-
-		/// <summary>
-		/// Gets the banned API or null if there is no such API in the storage.
-		/// </summary>
-		/// <param name="apiSymbol">The API symbol.</param>
-		/// <returns>
-		/// The banned API or null.
-		/// </returns>
-		public BannedApi? GetBannedApi(ISymbol apiSymbol);
+		public BannedApi? GetBannedApi(ApiKind apiKind, string apiDocId);
 
 		/// <summary>
 		/// Query if the storage contains the banned API.
 		/// </summary>
 		/// <param name="apiKind">The API kind.</param>
-		/// <param name="fullApiName">The full API name.</param>
+		/// <param name="apiDocId">The API Doc ID.</param>
 		/// <returns>
 		/// True if the storage contains the banned API, false if not.
 		/// </returns>
-		public bool ContainsBannedApi(ApiKind apiKind, string fullApiName);
-
-		/// <summary>
-		/// Query if the storage contains the banned API.
-		/// </summary>
-		/// <param name="apiSymbol">The API symbol.</param>
-		/// <returns>
-		/// True if the storage contains the banned API, false if not.
-		/// </returns>
-		public bool ContainsBannedApi(ISymbol apiSymbol);
+		public bool ContainsBannedApi(ApiKind apiKind, string apiDocId);
 	}
 }
