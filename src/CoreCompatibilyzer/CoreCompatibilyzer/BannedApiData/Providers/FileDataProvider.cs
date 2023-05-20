@@ -28,37 +28,74 @@ namespace CoreCompatibilyzer.BannedApiData
 		/// <returns>
 		/// The task with banned API data.
 		/// </returns>
-		public Task<IEnumerable<BannedApi>?> GetBannedApiDataAsync(CancellationToken cancellation)
+		public async Task<IEnumerable<BannedApi>?> GetBannedApiDataAsync(CancellationToken cancellation)
 		{
 			cancellation.ThrowIfCancellationRequested();
 
 			if (!IsDataAvailable)
-				return Task.FromResult<IEnumerable<BannedApi>?>(result: null);
+				return null;
 
-			var bannedApiTask = Task.Run(() => GetBannedApiDataFromFile(cancellation), cancellation);
-			return bannedApiTask;
+			string wholeText;
+
+			using (var reader = new StreamReader(_filePath))
+			{
+				wholeText = await reader.ReadToEndAsync().WithCancellation(cancellation)
+														 .ConfigureAwait(false);
+			}
+
+			if (wholeText.IsNullOrWhiteSpace())
+				return Enumerable.Empty<BannedApi>();
+
+			return GetBannedApiDataFromMemoryText(wholeText, cancellation);
 		}
+
+		private IEnumerable<BannedApi> GetBannedApiDataFromMemoryText(string text, CancellationToken cancellation) 
+		{
+			cancellation.ThrowIfCancellationRequested();
+
+			int lineNumber = 1;
+			using StringReader wholeTextReader = new StringReader(text);
+
+			while (wholeTextReader.ReadLine() is string rawDocID)
+			{
+				cancellation.ThrowIfCancellationRequested();
+
+				BannedApi bannedApi = ReadLineFromFile(rawDocID, lineNumber);
+				yield return bannedApi;
+
+				lineNumber++;
+			}
+		}
+
+		public IEnumerable<BannedApi>? GetBannedApiData(CancellationToken cancellation) =>
+			GetBannedApiDataFromFile(cancellation);
 
 		private IEnumerable<BannedApi>? GetBannedApiDataFromFile(CancellationToken cancellation)
 		{
 			cancellation.ThrowIfCancellationRequested();
 
 			if (!IsDataAvailable)
-				yield break;
+				return null;
+	
+			var lines	   = File.ReadLines(_filePath);
+			var bannedApis = ParseLinesIntoBannedApis(lines);
 
-			string? rawDocID = null;
-			int lineNumber = 1;
-			cancellation.ThrowIfCancellationRequested();
+			return bannedApis;
 
-			using var reader = new StreamReader(_filePath);
-
-			while ((rawDocID = reader.ReadLine()) != null)
+			//-----------------------------------------Local Function------------------------------------
+			IEnumerable<BannedApi> ParseLinesIntoBannedApis(IEnumerable<string> rawLines)
 			{
-				cancellation.ThrowIfCancellationRequested();
-				BannedApi bannedApi = ReadLineFromFile(rawDocID, lineNumber);
-				yield return bannedApi;
+				int lineNumber = 1;
 
-				lineNumber++;
+				foreach (string rawDocID in rawLines)
+				{
+					cancellation.ThrowIfCancellationRequested();
+
+					BannedApi bannedApi = ReadLineFromFile(rawDocID, lineNumber);
+					yield return bannedApi;
+
+					lineNumber++;
+				}
 			}
 		}
 

@@ -23,7 +23,7 @@ namespace CoreCompatibilyzer.BannedApiData
 		/// <returns>
 		/// The banned API data.
 		/// </returns>
-		IEnumerable<BannedApi> GetBannedApiData(CancellationToken cancellation);
+		IEnumerable<BannedApi>? GetBannedApiData(CancellationToken cancellation);
 
 		/// <summary>
 		/// Gets the banned API data asynchronously from the provider or <see langword="null"/> if the provider's banned API data is not available. <br/>
