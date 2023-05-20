@@ -16,6 +16,16 @@ namespace CoreCompatibilyzer.BannedApiData
 		bool IsDataAvailable { get; }
 
 		/// <summary>
+		/// Gets banned API data synchronously from the provider or <see langword="null"/> if the provider's banned API data is not available. <br/>
+		/// On the latter case the <see cref="IsDataAvailable"/> flag value is <see langword="false"/>.
+		/// </summary>
+		/// <param name="cancellation">A token that allows processing to be cancelled.</param>
+		/// <returns>
+		/// The banned API data.
+		/// </returns>
+		IEnumerable<BannedApi> GetBannedApiData(CancellationToken cancellation);
+
+		/// <summary>
 		/// Gets the banned API data asynchronously from the provider or <see langword="null"/> if the provider's banned API data is not available. <br/>
 		/// On the latter case the <see cref="IsDataAvailable"/> flag value is <see langword="false"/>.
 		/// </summary>
