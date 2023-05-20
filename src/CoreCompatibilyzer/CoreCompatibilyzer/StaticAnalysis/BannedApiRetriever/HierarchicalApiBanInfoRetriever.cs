@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 
 using CoreCompatibilyzer.BannedApiData;
+using CoreCompatibilyzer.BannedApiData.Storage;
 using CoreCompatibilyzer.Utils.Common;
 
 using Microsoft.CodeAnalysis;
 
 namespace CoreCompatibilyzer.StaticAnalysis.BannedApiRetriever
 {
-	/// <summary>
-	/// A retriever of the ban API info that also checks for banned containing APIs.
-	/// </summary>
-	public class HierarchicalApiBanInfoRetriever : DirectApiBanInfoRetriever
+    /// <summary>
+    /// A retriever of the ban API info that also checks for banned containing APIs.
+    /// </summary>
+    public class HierarchicalApiBanInfoRetriever : DirectApiBanInfoRetriever
 	{
         public HierarchicalApiBanInfoRetriever(IBannedApiStorage bannedApiStorage) : base(bannedApiStorage)
         { }
