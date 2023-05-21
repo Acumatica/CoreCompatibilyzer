@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using CoreCompatibilyzer.BannedApiData;
+using CoreCompatibilyzer.BannedApiData.Model;
 
 using Microsoft.CodeAnalysis;
 
