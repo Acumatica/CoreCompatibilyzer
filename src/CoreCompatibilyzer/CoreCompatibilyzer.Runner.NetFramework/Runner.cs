@@ -43,7 +43,7 @@ namespace CoreCompatibilyzer.Runner.NetFramework
 				return RunResult.RunTimeError;
 
 			using var consoleCancellationSubscription = new ConsoleCancellationSubscription(Log.Logger);
-			AnalysisContext? analysisContext = CreateAnalysisContextFromCommandLineArguments(commandLineOptions);
+			AppAnalysisContext? analysisContext = CreateAnalysisContextFromCommandLineArguments(commandLineOptions);
 
 			if (analysisContext == null)
 				return RunResult.RunTimeError;
@@ -84,12 +84,12 @@ namespace CoreCompatibilyzer.Runner.NetFramework
 			}
 		}
 
-		private static AnalysisContext? CreateAnalysisContextFromCommandLineArguments(CommandLineOptions commandLineOptions)
+		private static AppAnalysisContext? CreateAnalysisContextFromCommandLineArguments(CommandLineOptions commandLineOptions)
 		{
 			try
 			{
 				AnalysisContextBuilder analysisContextBuilder = new AnalysisContextBuilder();
-				AnalysisContext analysisContext = analysisContextBuilder.CreateContext(commandLineOptions);
+				AppAnalysisContext analysisContext = analysisContextBuilder.CreateContext(commandLineOptions);
 				return analysisContext;
 			}
 			catch (Exception e)

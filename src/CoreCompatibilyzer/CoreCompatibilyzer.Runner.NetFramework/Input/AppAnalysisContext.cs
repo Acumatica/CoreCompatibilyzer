@@ -6,7 +6,7 @@ using CoreCompatibilyzer.Utils.Common;
 
 namespace CoreCompatibilyzer.Runner.Input
 {
-    internal class AnalysisContext
+    internal class AppAnalysisContext
 	{
 		/// <summary>
 		/// Gets the code source to validate.
@@ -33,7 +33,7 @@ namespace CoreCompatibilyzer.Runner.Input
 		public string? MSBuildPath { get; }
 
 
-		public AnalysisContext(ICodeSource codeSource, DotNetRuntime targetRuntime, string? msBuildPath)
+		public AppAnalysisContext(ICodeSource codeSource, DotNetRuntime targetRuntime, string? msBuildPath)
 		{
 			CodeSource = codeSource.ThrowIfNull(nameof(codeSource));
 			TargetRuntime = targetRuntime;

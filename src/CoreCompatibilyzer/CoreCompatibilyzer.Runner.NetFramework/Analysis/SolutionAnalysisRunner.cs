@@ -25,7 +25,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 	{
 		private readonly SolutionCompatibilityAnalyzer _solutionCompatibilityAnalyzer = new();
 
-		public async Task<RunResult> RunAnalysisAsync(AnalysisContext analysisContext, CancellationToken cancellationToken)
+		public async Task<RunResult> RunAnalysisAsync(AppAnalysisContext analysisContext, CancellationToken cancellationToken)
 		{
 			analysisContext.ThrowIfNull(nameof(analysisContext));
 
@@ -65,7 +65,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 				: runResult;
 		}
 
-		private async Task<RunResult> LoadAndAnalyzeCodeSourceAsync(AnalysisContext analysisContext, CancellationToken cancellationToken)
+		private async Task<RunResult> LoadAndAnalyzeCodeSourceAsync(AppAnalysisContext analysisContext, CancellationToken cancellationToken)
 		{
 			Log.Information("Start analyzing the code source \"{CodeSourcePath}\".", analysisContext.CodeSource.Location);
 
@@ -76,8 +76,8 @@ namespace CoreCompatibilyzer.Runner.Analysis
 				workspace.WorkspaceFailed += OnCodeSourceLoadError;
 
 				Log.Information("Start loading the code source \"{CodeSourcePath}\".", analysisContext.CodeSource.Location);
-				var solution = await analysisContext.CodeSource.LoadSolutionAsync(workspace, cancellationToken);
-
+				var solution = await analysisContext.CodeSource.LoadSolutionAsync(workspace, cancellationToken)
+															   .ConfigureAwait(false);
 				if (solution == null)
 				{
 					Log.Error("Failed to load solution from the code source \"{CodeSourcePath}\".", analysisContext.CodeSource.Location);
@@ -113,7 +113,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			}
 		}
 
-		private bool TryRegisterMSBuild(AnalysisContext analysisContext)
+		private bool TryRegisterMSBuild(AppAnalysisContext analysisContext)
 		{
 			if (analysisContext.MSBuildPath != null)
 			{

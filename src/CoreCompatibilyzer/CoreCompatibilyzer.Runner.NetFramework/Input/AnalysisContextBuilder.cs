@@ -20,7 +20,7 @@ namespace CoreCompatibilyzer.Runner.Input
 				{ TargetDotNetVersions.Core22, DotNetRuntime.DotNetCore22 },
 			};
 
-		public AnalysisContext CreateContext(CommandLineOptions commandLineOptions)
+		public AppAnalysisContext CreateContext(CommandLineOptions commandLineOptions)
 		{
 			commandLineOptions.ThrowIfNull(nameof(commandLineOptions));
 			commandLineOptions.TargetRuntime.ThrowIfNullOrWhiteSpace(nameof(commandLineOptions.TargetRuntime),
@@ -38,7 +38,7 @@ namespace CoreCompatibilyzer.Runner.Input
 			if (codeSource == null)
 				throw new ArgumentException("Code source is not specified");
 
-			var input = new AnalysisContext(codeSource, targetRuntime, commandLineOptions.MSBuildPath);
+			var input = new AppAnalysisContext(codeSource, targetRuntime, commandLineOptions.MSBuildPath);
 			return input;
 		}
 
