@@ -1,22 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
+using CoreCompatibilyzer.BannedApiData.Providers;
+using CoreCompatibilyzer.BannedApiData.Storage;
+using CoreCompatibilyzer.DotNetRuntimeVersion;
+using CoreCompatibilyzer.Runner.Analysis.Helpers;
 using CoreCompatibilyzer.Runner.Input;
-using CoreCompatibilyzer.Utils.Common;
+using CoreCompatibilyzer.StaticAnalysis.NotCompatibleWorkspaces;
 
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Diagnostics;
 
 using Serilog;
-using CoreCompatibilyzer.DotNetRuntimeVersion;
 
 namespace CoreCompatibilyzer.Runner.Analysis
 {
-    internal class SolutionCompatibilityAnalyzer
+    internal sealed class SolutionCompatibilityAnalyzer
 	{
-		public async Task<RunResult> AnalyseSolution(Solution solution, AnalysisContext analysisContext, CancellationToken cancellationToken)
+		private ImmutableArray<DiagnosticAnalyzer> _diagnosticAnalyzers;
+		private readonly IBannedApiStorage _bannedApiStorage;
+
+		private bool IsBannedStorageInitAndNonEmpty => _bannedApiStorage?.BannedApiKindsCount > 0;
+
+		private SolutionCompatibilityAnalyzer(IBannedApiStorage bannedApiStorage, ImmutableArray<DiagnosticAnalyzer> diagnosticAnalyzers)
+        {
+            _bannedApiStorage	 = bannedApiStorage;
+			_diagnosticAnalyzers = diagnosticAnalyzers;
+        }
+
+		public static async Task<SolutionCompatibilityAnalyzer> CreateAnalyzer(CancellationToken cancellationToken, 
+																			   IBannedApiDataProvider? customBannedApiDataProvider = null)
+		{
+			var bannedApiStorage = await BannedApiStorage.GetStorageAsync(cancellationToken, customBannedApiDataProvider)
+														 .ConfigureAwait(false);
+			var diagnosticAnalyzers = CollectAnalyzers();
+			return new SolutionCompatibilityAnalyzer(bannedApiStorage, diagnosticAnalyzers);
+		}
+
+		private static ImmutableArray<DiagnosticAnalyzer> CollectAnalyzers()
+		{
+			var analyzersAssemblyPath = typeof(CoreCompatibilyzerAnalyzerBase).Assembly.Location;
+			var analyzerReference = new AnalyzerFileReference(analyzersAssemblyPath, new AnalyzerAssemblyLoader());
+			var analyzers = analyzerReference.GetAnalyzers(LanguageNames.CSharp);
+
+			return analyzers;
+		}
+
+		public async Task<RunResult> AnalyseSolution(Solution solution, AppAnalysisContext analysisContext, CancellationToken cancellationToken)
 		{
 			RunResult solutionValidationResult = RunResult.Success;
 
@@ -42,14 +77,14 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			return solutionValidationResult;
 		}
 
-		private async Task<RunResult> AnalyseProject(Project project, AnalysisContext analysisContext, CancellationToken cancellationToken)
+		private async Task<RunResult> AnalyseProject(Project project, AppAnalysisContext analysisContext, CancellationToken cancellationToken)
 		{
 			Log.Debug("Obtaining Roslyn compilation data for the project \"{ProjectName}\".", project.Name);
 			var compilation = await project.GetCompilationAsync(cancellationToken);
 
 			if (compilation == null)
 			{
-				Log.Error("Failed to obtain Roslyn compilation data for the project with name \"{ProjectName}\" and path \"{ProjectPath}\".", 
+				Log.Error("Failed to obtain Roslyn compilation data for the project with name \"{ProjectName}\" and path \"{ProjectPath}\".",
 						  project.Name, project.FilePath);
 				return RunResult.RunTimeError;
 			}
@@ -58,25 +93,47 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			Log.Debug("Obtaining .Net runtime version targeted by the project \"{ProjectName}\".", project.Name);
 
 			var dotNetVersion = DotNetVersionsStorage.Instance.GetDotNetRuntimeVersion(compilation);
+			var versionValidationResult = ValidateProjectVersion(project, dotNetVersion, analysisContext.TargetRuntime);
 
-			if (dotNetVersion == null)
+			if (versionValidationResult.HasValue)
+				return versionValidationResult.Value;
+
+			if (!IsBannedStorageInitAndNonEmpty)
+				return RunResult.Success;
+
+
+
+			return RunResult.Success;
+		}
+
+		private RunResult? ValidateProjectVersion(Project project, DotNetRuntime? projectVersion, DotNetRuntime targetVersion)
+		{
+			if (projectVersion == null)
 			{
 				Log.Error("Failed to get the .Net runtime version targeted by the project with name \"{ProjectName}\" and path \"{ProjectPath}\".",
 						  project.Name, project.FilePath);
 				return RunResult.RunTimeError;
 			}
 
-			Log.Information("Project \"{ProjectName}\" targeted .Net runtime version is \"{ProjectDotNetVersion}\".", project.Name, dotNetVersion.Value);
+			Log.Information("Project \"{ProjectName}\" targeted .Net runtime version is \"{ProjectDotNetVersion}\".", project.Name, projectVersion.Value);
 
-			if (DotNetRunTimeComparer.Instance.Compare(dotNetVersion.Value, analysisContext.TargetRuntime) >= 0)
+			if (DotNetRunTimeComparer.Instance.Compare(projectVersion.Value, targetVersion) >= 0)
 			{
-				Log.Information("The .Net runtime version \"{ProjectDotNetVersion}\" of the project \"{ProjectName}\" " + 
-								"is greater or equals to the target .Net runtime version \"{TargetDotNetVersion}\".",  
-								dotNetVersion.Value, project.Name, analysisContext.TargetRuntime);
+				Log.Information("The .Net runtime version \"{ProjectDotNetVersion}\" of the project \"{ProjectName}\" " +
+								"is greater or equals to the target .Net runtime version \"{TargetDotNetVersion}\".",
+								projectVersion.Value, project.Name, targetVersion);
 				return RunResult.Success;
 			}
+			return null;
+		}
 
-			return RunResult.Success;
+		[SuppressMessage("CodeQuality", "Serilog004:Constant MessageTemplate verifier", Justification = "Ok to use runtime dependent new line in message")]
+		private void OnAnalyzerException(Exception exception, DiagnosticAnalyzer analyzer, Diagnostic diagnostic)
+		{
+			var prettyLocation = diagnostic.Location.GetMappedLineSpan().ToString();
+
+			string errorMsg = $"Analyzer error:{Environment.NewLine}{{Id}}{Environment.NewLine}{{Location}}{Environment.NewLine}{{Analyzer}}";
+			Log.Error(exception, errorMsg, diagnostic.Id, prettyLocation, analyzer.ToString());
 		}
 	}
 }

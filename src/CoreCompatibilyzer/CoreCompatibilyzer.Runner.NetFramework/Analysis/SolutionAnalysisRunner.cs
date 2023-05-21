@@ -23,8 +23,6 @@ namespace CoreCompatibilyzer.Runner.Analysis
     /// </summary>
     internal class SolutionAnalysisRunner
 	{
-		private readonly SolutionCompatibilityAnalyzer _solutionCompatibilityAnalyzer = new();
-
 		public async Task<RunResult> RunAnalysisAsync(AppAnalysisContext analysisContext, CancellationToken cancellationToken)
 		{
 			analysisContext.ThrowIfNull(nameof(analysisContext));
@@ -87,9 +85,12 @@ namespace CoreCompatibilyzer.Runner.Analysis
 				Log.Information("Successfully loaded the code source \"{CodeSourcePath}\".", analysisContext.CodeSource.Location);
 				Log.Debug("Count of loaded projects: {ProjectsCount}.", solution.ProjectIds.Count);
 
+				Log.Information("Load banned API data and initialize analyzers");
+				var solutionCompatibilityAnalyzer = await SolutionCompatibilityAnalyzer.CreateAnalyzer(cancellationToken)
+																					   .ConfigureAwait(false);
 				Log.Information("Start validating the solution.");
 
-				var validationResult = await _solutionCompatibilityAnalyzer.AnalyseSolution(solution, analysisContext, cancellationToken);
+				var validationResult = await solutionCompatibilityAnalyzer.AnalyseSolution(solution, analysisContext, cancellationToken);
 
 				Log.Information("Successfully finished validating the solution.");
 				return validationResult;
