@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
+using CoreCompatibilyzer.BannedApiData.Model;
+
 namespace CoreCompatibilyzer.BannedApiData.Storage
 {
     /// <summary>

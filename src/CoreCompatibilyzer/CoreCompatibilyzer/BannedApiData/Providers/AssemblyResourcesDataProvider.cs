@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 using CoreCompatibilyzer.Utils.Common;
-using System.Threading;
-using System.IO;
+using CoreCompatibilyzer.BannedApiData.Errors;
+using CoreCompatibilyzer.BannedApiData.Model;
 
-namespace CoreCompatibilyzer.BannedApiData
+namespace CoreCompatibilyzer.BannedApiData.Providers
 {
 	public class AssemblyResourcesDataProvider : BannedApiDataProvider
 	{

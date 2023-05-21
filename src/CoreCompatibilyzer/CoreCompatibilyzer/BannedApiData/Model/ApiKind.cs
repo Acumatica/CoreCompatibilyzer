@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Versioning;
 
-namespace CoreCompatibilyzer.BannedApiData
+namespace CoreCompatibilyzer.BannedApiData.Model
 {
 	public enum ApiKind
 	{

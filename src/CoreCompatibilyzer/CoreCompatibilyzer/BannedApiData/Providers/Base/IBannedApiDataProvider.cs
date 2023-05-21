@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CoreCompatibilyzer.BannedApiData
+using CoreCompatibilyzer.BannedApiData.Model;
+
+namespace CoreCompatibilyzer.BannedApiData.Providers
 {
     public interface IBannedApiDataProvider
 	{

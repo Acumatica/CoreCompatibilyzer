@@ -5,8 +5,9 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using CoreCompatibilyzer.Utils.Common;
+using CoreCompatibilyzer.BannedApiData.Model;
 
-namespace CoreCompatibilyzer.BannedApiData
+namespace CoreCompatibilyzer.BannedApiData.Providers
 {
 	/// <summary>
 	/// A data providers coalesce combinator. Gets data sequentially from a list of providers until the first successful retrieval.

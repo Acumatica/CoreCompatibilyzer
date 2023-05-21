@@ -4,7 +4,9 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CoreCompatibilyzer.BannedApiData
+using CoreCompatibilyzer.BannedApiData.Model;
+
+namespace CoreCompatibilyzer.BannedApiData.Providers
 {
     /// <summary>
     /// A banned API data provider base class to share some common logic.
@@ -78,7 +80,7 @@ namespace CoreCompatibilyzer.BannedApiData
 			catch (Exception exception)
 			{
 				string errorMessage = GetParseErrorMessage(exception, lineNumber);
-				throw new BannedApiReaderException(errorMessage, exception);
+				throw new Errors.BannedApiReaderException(errorMessage, exception);
 			}
 		}
 

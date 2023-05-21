@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using System.IO;
 
 using CoreCompatibilyzer.Utils.Common;
+using CoreCompatibilyzer.BannedApiData.Model;
 
-namespace CoreCompatibilyzer.BannedApiData
+namespace CoreCompatibilyzer.BannedApiData.Providers
 {
 	public class FileDataProvider : BannedApiDataProvider
 	{

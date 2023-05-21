@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 
 using CoreCompatibilyzer.Utils.Common;
 
-namespace CoreCompatibilyzer.BannedApiData
+namespace CoreCompatibilyzer.BannedApiData.Model
 {
 	/// <summary>
 	/// A banned API data.
