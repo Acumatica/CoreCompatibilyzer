@@ -1,70 +1,108 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-using CoreCompatibilyzer.Utils.Common;
+using System.Reflection;
 
 namespace CoreCompatibilyzer.BannedApiData.Storage
 {
     /// <summary>
-    /// A banned API storage.
+    /// A banned API storage helper that keeps and retrieves the banned API storage.
     /// </summary>
-    public class BannedApiStorage : IBannedApiStorage
+    public static partial class BannedApiStorage
     {
-        private readonly IReadOnlyDictionary<ApiKind, IReadOnlyDictionary<string, BannedApi>> _bannedApisByDocIdGroupedByApiKind;
+        private const string _bannedApiFileRelativePath = @"BannedApiData\Data\BannedApis.txt";
+        private const string _bannedApiAssemblyResourceName = @"BannedApiData.Data.BannedApis.txt";
 
-        public int BannedApiKindsCount => _bannedApisByDocIdGroupedByApiKind.Count;
+        private static readonly SemaphoreSlim _initializationLock = new SemaphoreSlim(initialCount: 1, maxCount: 1);
+        private static volatile IBannedApiStorage? _instance;
 
-        private BannedApiStorage()
+		public static IBannedApiStorage GetStorage(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider = null)
         {
-            _bannedApisByDocIdGroupedByApiKind = ImmutableDictionary<ApiKind, IReadOnlyDictionary<string, BannedApi>>.Empty;
-        }
+			cancellation.ThrowIfCancellationRequested();
 
-        private BannedApiStorage(IEnumerable<BannedApi> bannedApis)
+			if (_instance != null)
+				return _instance;
+
+			_initializationLock.Wait();
+
+			try
+			{
+				if (_instance == null)
+					_instance = GetStorageAsyncWithoutLocking(cancellation, customBannedApiDataProvider);
+
+				return _instance;
+			}
+			finally
+			{
+				_initializationLock.Release();
+			}
+		}
+
+		private static IBannedApiStorage GetStorageAsyncWithoutLocking(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider)
+		{
+			var bannedApiDataProvider = customBannedApiDataProvider ?? GetDefaultDataProvider();
+			var bannedApis = bannedApiDataProvider.GetBannedApiData(cancellation);
+
+			cancellation.ThrowIfCancellationRequested();
+
+			return bannedApis == null
+				? new DefaultBannedApiStorage()
+				: new DefaultBannedApiStorage(bannedApis);
+		}
+
+		public static async Task<IBannedApiStorage> GetStorageAsync(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider = null)
         {
-            _bannedApisByDocIdGroupedByApiKind =
-                bannedApis.GroupBy(api => api.Kind)
-                          .ToDictionary(keySelector: groupedApi => groupedApi.Key,
-                                        elementSelector: groupedApi => groupedApi.ToDictionary(api => api.DocID) as IReadOnlyDictionary<string, BannedApi>);
-        }
+			cancellation.ThrowIfCancellationRequested();
 
-        public static async Task<BannedApiStorage> InitializeAsync(IBannedApiDataProvider bannedApiDataProvider, CancellationToken cancellation)
+            if (_instance != null)
+                return _instance;
+
+			await _initializationLock.WaitAsync(cancellation).ConfigureAwait(false);
+
+			try
+			{
+				if (_instance == null)
+					_instance = await GetStorageAsyncWithoutLockingAsync(cancellation, customBannedApiDataProvider).ConfigureAwait(false);
+
+				return _instance;
+			}
+			finally
+			{
+				_initializationLock.Release();
+			}		
+		}
+
+        private static async Task<IBannedApiStorage> GetStorageAsyncWithoutLockingAsync(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider)
         {
-            bannedApiDataProvider.ThrowIfNull(nameof(bannedApiDataProvider));
-            cancellation.ThrowIfCancellationRequested();
+			var bannedApiDataProvider = customBannedApiDataProvider ?? GetDefaultDataProvider();
 
-            var bannedApis = await bannedApiDataProvider.GetBannedApiDataAsync(cancellation).ConfigureAwait(false);
-            cancellation.ThrowIfCancellationRequested();
+			var bannedApis = await bannedApiDataProvider.GetBannedApiDataAsync(cancellation).ConfigureAwait(false);
+			cancellation.ThrowIfCancellationRequested();
 
-            return bannedApis == null
-                ? new BannedApiStorage()
-                : new BannedApiStorage(bannedApis);
-        }
+			return bannedApis == null
+				? new DefaultBannedApiStorage()
+				: new DefaultBannedApiStorage(bannedApis);
+		}
 
-        public int CountOfBannedApis(ApiKind apiKind)
+		private static IBannedApiDataProvider GetDefaultDataProvider()
         {
-            var bannedApiOfThisKind = BannedApiByKind(apiKind);
-            return bannedApiOfThisKind?.Count ?? 0;
+            string filePath = Path.Combine(AppContext.BaseDirectory, _bannedApiFileRelativePath);
+            Assembly assembly = typeof(BannedApiStorage).Assembly;
+            string assemblyName = assembly.GetName().Name;
+            string fullResourceName = $"{assemblyName}.{_bannedApiAssemblyResourceName}";
+
+            var providers = new IBannedApiDataProvider[]
+            {
+                new FileDataProvider(filePath),
+                new AssemblyResourcesDataProvider(assembly, fullResourceName)
+            };
+
+            var defaultProvider = new DataProvidersCoalesceCombinator(providers);
+            return defaultProvider;
         }
-
-        public BannedApi? GetBannedApi(ApiKind apiKind, string apiDocId)
-        {
-            var bannedApisOfThisKind = BannedApiByKind(apiKind);
-            return bannedApisOfThisKind?.TryGetValue(apiDocId, out var bannedApi) == true
-                ? bannedApi
-                : null;
-        }
-
-        public bool ContainsBannedApi(ApiKind apiKind, string apiDocId) =>
-            BannedApiByKind(apiKind)?.ContainsKey(apiDocId) ?? false;
-
-        private IReadOnlyDictionary<string, BannedApi>? BannedApiByKind(ApiKind apiKind) =>
-            _bannedApisByDocIdGroupedByApiKind.TryGetValue(apiKind, out var api)
-                ? api
-                : null;
-    }
+	}
 }
