@@ -81,7 +81,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 						break;
 					
 					case ITypeSymbol typeSymbol:
-						var bannedTypeInfos = GetBannedInfosFromTypeSymbolAndItsHierarchy(typeSymbol);
+						var bannedTypeInfos = _bannedTypesInfoCollector.GetTypeBannedApiInfos(typeSymbol);
 						ReportApiList(bannedTypeInfos, usingDirectiveNode.Name);
 						break;
 				}	
@@ -91,7 +91,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 			{
 				Cancellation.ThrowIfCancellationRequested();
 
-				if (SemanticModel.GetSymbolOrFirstCandidate(genericNameNode, Cancellation) is not ITypeSymbol typeSymbol)
+				if (SemanticModel.GetSymbolOrFirstCandidate(genericNameNode, Cancellation) is not ISymbol symbol)
 				{
 					Cancellation.ThrowIfCancellationRequested();
 					base.VisitGenericName(genericNameNode);
@@ -100,22 +100,25 @@ namespace CoreCompatibilyzer.StaticAnalysis
 
 				Cancellation.ThrowIfCancellationRequested();
 
-				var bannedTypeInfos = GetBannedInfosFromTypeSymbolAndItsHierarchy(typeSymbol);
-
-				if (bannedTypeInfos?.Count > 0)
+				if (symbol is ITypeSymbol typeSymbol)
 				{
-					Location location = GetLocationFromNode(genericNameNode);
-					ReportApiList(bannedTypeInfos, location);
+					List<BannedApi>? bannedTypeInfos = typeSymbol is ITypeParameterSymbol typeParameterSymbol
+						? _bannedTypesInfoCollector.GetTypeParameterBannedApiInfos(typeParameterSymbol)
+						: _bannedTypesInfoCollector.GetTypeBannedApiInfos(typeSymbol);
+
+					if (bannedTypeInfos?.Count > 0)
+					{
+						var location = GetLocationFromNode(genericNameNode);
+						ReportApiList(bannedTypeInfos, location);
+					}
+				}
+				else if(GetBannedSymbolInfoForNonTypeSymbol(symbol) is BannedApi bannedSymbolInfo)
+				{
+					var location = GetLocationFromNode(genericNameNode);
+					ReportApi(bannedSymbolInfo, location);
 				}
 
-
-				if (_apiBanInfoRetriever.GetBanInfoForApi(typeSymbol) is BannedApi bannedTypeInfo)
-				{
-					
-					ReportApi(bannedTypeInfo, location);
-				}
-				else if (typeSymbol.)
-
+				Cancellation.ThrowIfCancellationRequested();
 				base.VisitGenericName(genericNameNode);
 
 				//----------------------------------------------------Local Function-----------------------------------------
@@ -132,13 +135,11 @@ namespace CoreCompatibilyzer.StaticAnalysis
 			{
 				Cancellation.ThrowIfCancellationRequested();
 
-				if (SemanticModel.GetSymbolOrFirstCandidate(qualifiedNameNode, Cancellation) is not ITypeSymbol typeSymbol)
+				if (SemanticModel.GetSymbolOrFirstCandidate(qualifiedNameNode, Cancellation) is not ISymbol symbol)
 					return;
 
 				Cancellation.ThrowIfCancellationRequested();
-
-				var bannedTypeInfos = GetBannedInfosFromTypeSymbolAndItsHierarchy(typeSymbol);
-				ReportApiList(bannedTypeInfos, qualifiedNameNode);
+				CheckSymbolForBannedInfo(symbol, qualifiedNameNode);
 			}
 
 			public override void VisitIdentifierName(IdentifierNameSyntax identifierNode)
@@ -149,22 +150,26 @@ namespace CoreCompatibilyzer.StaticAnalysis
 					return;
 
 				Cancellation.ThrowIfCancellationRequested();
+				CheckSymbolForBannedInfo(symbol, identifierNode);
+			}
 
+			private void CheckSymbolForBannedInfo(ISymbol symbol, SyntaxNode nodeToReport)
+			{
 				switch (symbol)
 				{
 					case ITypeParameterSymbol typeParameterSymbol:
 						var bannedTypeParameterInfos = _bannedTypesInfoCollector.GetTypeParameterBannedApiInfos(typeParameterSymbol);
-						ReportApiList(bannedTypeParameterInfos, identifierNode);
+						ReportApiList(bannedTypeParameterInfos, nodeToReport);
 						return;
 
 					case ITypeSymbol typeSymbol:
 						var bannedTypeInfos = _bannedTypesInfoCollector.GetTypeBannedApiInfos(typeSymbol);
-						ReportApiList(bannedTypeInfos, identifierNode);
+						ReportApiList(bannedTypeInfos, nodeToReport);
 						return;
 
 					default:
 						if (GetBannedSymbolInfoForNonTypeSymbol(symbol) is BannedApi bannedSymbolInfo)
-							ReportApi(bannedSymbolInfo, identifierNode);
+							ReportApi(bannedSymbolInfo, nodeToReport);
 
 						return;
 				}
