@@ -71,12 +71,13 @@ namespace CoreCompatibilyzer.Runner.Input
 
 		// Constructor arguments order must be the same as the properties order. This allows command line parser to initialize immutable options object via constructor.
 		// See this for details: https://github.com/commandlineparser/commandline/wiki/Immutable-Options-Type
-		public CommandLineOptions(string codeSource, string targetRuntime,  string? verbosity, string? msBuildPath)
+		public CommandLineOptions(string codeSource, string targetRuntime, string? verbosity, bool disableSuppressionMechanism, string? msBuildPath)
 		{
-			CodeSource = codeSource;
-			TargetRuntime = targetRuntime;
-			Verbosity = verbosity; 
-			MSBuildPath = msBuildPath;
+			CodeSource 					= codeSource;
+			TargetRuntime 				= targetRuntime;
+			Verbosity 					= verbosity;
+			DisableSuppressionMechanism = disableSuppressionMechanism;
+			MSBuildPath 				= msBuildPath;
 		}
 	}
 }
