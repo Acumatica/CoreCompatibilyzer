@@ -45,13 +45,13 @@ namespace CoreCompatibilyzer.StaticAnalysis
 		}
 
 		public static DiagnosticDescriptor CoreCompat1001_ApiNotPresentInDotNetCore { get; } =
-			Rule($"{DiagnosticsPrefix}1001", nameof(Diagnostics.CoreCompat1001Title).GetLocalizedDiagnosticName(), Category.DotNetCoreCompatibility,
+			Rule($"{DiagnosticsPrefix}1001", nameof(Diagnostics.CoreCompat1001Title).GetLocalized(), Category.DotNetCoreCompatibility,
 				DiagnosticSeverity.Error, DiagnosticsShortName.CoreCompat1001, 
-				description: nameof(Diagnostics.CoreCompat1001Description).GetLocalizedDiagnosticName());
+				description: nameof(Diagnostics.CoreCompat1001Description).GetLocalized());
 
 		public static DiagnosticDescriptor CoreCompat1002_ApiObsoleteInDotNetCore { get; } =
-			Rule($"{DiagnosticsPrefix}1002", nameof(Diagnostics.CoreCompat1002Title).GetLocalizedDiagnosticName(), Category.DotNetCoreCompatibility,
+			Rule($"{DiagnosticsPrefix}1002", nameof(Diagnostics.CoreCompat1002Title).GetLocalized(), Category.DotNetCoreCompatibility,
 				DiagnosticSeverity.Error, DiagnosticsShortName.CoreCompat1002,
-				description: nameof(Diagnostics.CoreCompat1002Description).GetLocalizedDiagnosticName());
+				description: nameof(Diagnostics.CoreCompat1002Description).GetLocalized());
 	}
 }
