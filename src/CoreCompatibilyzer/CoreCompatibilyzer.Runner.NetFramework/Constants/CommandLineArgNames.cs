@@ -13,6 +13,8 @@ namespace CoreCompatibilyzer.Runner.Constants
 
 		public const char VerbosityShort = 'v';
 		public const string VerbosityLong = "verbosity";
+
+		public const string DisableSuppressionMechanism = "noSuppression";
 		public const string MSBuildPath = "msBuildPath";
 	}
 }

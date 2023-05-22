@@ -38,7 +38,7 @@ namespace CoreCompatibilyzer.Runner.Input
 			if (codeSource == null)
 				throw new ArgumentException("Code source is not specified");
 
-			var input = new AppAnalysisContext(codeSource, targetRuntime, commandLineOptions.MSBuildPath);
+			var input = new AppAnalysisContext(codeSource, targetRuntime, commandLineOptions.DisableSuppressionMechanism, commandLineOptions.MSBuildPath);
 			return input;
 		}
 

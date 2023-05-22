@@ -24,20 +24,20 @@ namespace CoreCompatibilyzer.Runner.Input
 		/// </value>
 		public DotNetRuntime TargetRuntime { get; }
 
-		/// <summary>
-		/// Optional explicitly specified path to MSBuild. Can be null. If null then MSBuild path is retrieved automatically.
-		/// </summary>
-		/// <value>
-		/// The optional explicitly specified path to MSBuild.
-		/// </value>
+		/// <inheritdoc cref="CommandLineOptions.MSBuildPath"/>
 		public string? MSBuildPath { get; }
 
 
-		public AppAnalysisContext(ICodeSource codeSource, DotNetRuntime targetRuntime, string? msBuildPath)
+		/// <inheritdoc cref="CommandLineOptions.DisableSuppressionMechanism"/>
+		public bool DisableSuppressionMechanism { get; }
+
+
+		public AppAnalysisContext(ICodeSource codeSource, DotNetRuntime targetRuntime, bool disableSuppressionMechanism, string? msBuildPath)
 		{
-			CodeSource = codeSource.ThrowIfNull(nameof(codeSource));
-			TargetRuntime = targetRuntime;
-			MSBuildPath = msBuildPath.NullIfWhiteSpace();
+			CodeSource 					= codeSource.ThrowIfNull(nameof(codeSource));
+			TargetRuntime 				= targetRuntime;
+			DisableSuppressionMechanism = disableSuppressionMechanism;
+			MSBuildPath 				= msBuildPath.NullIfWhiteSpace();
 		}
 	}
 }

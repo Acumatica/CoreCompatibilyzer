@@ -51,6 +51,14 @@ namespace CoreCompatibilyzer.Runner.Input
 		public string? Verbosity { get; }
 
 		/// <summary>
+		/// If this flag is set to true then the code analysis won't take into consideration suppression comments present in the code.
+		/// </summary>
+		[Option(longName: CommandLineArgNames.DisableSuppressionMechanism,
+				HelpText = "When this optional flag is set to true, the code analysis would not take into consideration suppression comments present in the code " +
+							"and will report suppressed diagnostics.")]
+		public bool DisableSuppressionMechanism { get; }
+
+		/// <summary>
 		/// Optional explicitly specified path to MSBuild. Can be null. If null then MSBuild path is retrieved automatically.
 		/// </summary>
 		/// <value>

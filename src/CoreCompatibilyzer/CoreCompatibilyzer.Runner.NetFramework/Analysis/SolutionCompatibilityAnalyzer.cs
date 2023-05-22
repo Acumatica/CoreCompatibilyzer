@@ -12,6 +12,7 @@ using CoreCompatibilyzer.DotNetRuntimeVersion;
 using CoreCompatibilyzer.Runner.Analysis.Helpers;
 using CoreCompatibilyzer.Runner.Input;
 using CoreCompatibilyzer.StaticAnalysis;
+using CoreCompatibilyzer.Utils.Roslyn.Suppression;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
@@ -101,7 +102,8 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			if (!IsBannedStorageInitAndNonEmpty)
 				return RunResult.Success;
 
-			var analysisValidationResult = await RunAnalyzersOnProjectAsync(compilation, cancellationToken).ConfigureAwait(false);
+			bool useSuppressionMechanism = !analysisContext.DisableSuppressionMechanism;
+			var analysisValidationResult = await RunAnalyzersOnProjectAsync(compilation, useSuppressionMechanism, cancellationToken).ConfigureAwait(false);
 			return analysisValidationResult;
 		}
 
@@ -126,11 +128,12 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			return null;
 		}
 
-		private async Task<RunResult> RunAnalyzersOnProjectAsync(Compilation compilation, CancellationToken cancellation)
+		private async Task<RunResult> RunAnalyzersOnProjectAsync(Compilation compilation, bool useSuppressionMechanism, CancellationToken cancellation)
 		{
 			if (_diagnosticAnalyzers.IsDefaultOrEmpty)
 				return RunResult.Success;
 
+			SuppressionManager.UseSuppression = useSuppressionMechanism;
 			var compilationAnalysisOptions = new CompilationWithAnalyzersOptions(options: null!, OnAnalyzerException,
 																				 concurrentAnalysis: true, logAnalyzerExecutionTime: false);
 			CompilationWithAnalyzers compilationWithAnalyzers = compilation.WithAnalyzers(compilationAnalysisOptions, _diagnosticAnalyzers, cancellation);
