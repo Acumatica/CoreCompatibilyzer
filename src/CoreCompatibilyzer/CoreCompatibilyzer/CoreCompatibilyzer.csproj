@@ -9,6 +9,8 @@
 		<LangVersion>9.0</LangVersion>
 		<Nullable>enable</Nullable>
 		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+		<Description>The static analyzer for .Net Core 2.1 compatibility</Description>
+		<NeutralLanguage>en</NeutralLanguage>
 	</PropertyGroup>
 
 	<PropertyGroup>

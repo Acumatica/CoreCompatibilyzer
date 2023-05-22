@@ -6,7 +6,7 @@
         <Description xml:space="preserve">CoreCompatibilyzer is a static code analyzer that is designed to check the code written in .Net Framework for the compatibility with .Net Core.</Description>
         <License>LICENSE.txt</License>
         <Icon>packageIcon.ico</Icon>
-        <Tags>acumatica;.Net Core compatibility</Tags>
+        <Tags>acumatica;.Net Core 2.1 compatibility</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
@@ -14,7 +14,7 @@
         </InstallationTarget>
     </Installation>
     <Dependencies>
-        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.8,)" />
+        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.7.2,)" />
         <Dependency Id="Microsoft.VisualStudio.MPF.11.0" DisplayName="Visual Studio MPF 11.0" d:Source="Installed" Version="[11.0,12.0)" />
     </Dependencies>
     <Assets>
