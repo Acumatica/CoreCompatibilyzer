@@ -74,7 +74,8 @@ namespace CoreCompatibilyzer.StaticAnalysis
 			BannedApiStorage.GetStorage(cancellation, customBannedApiDataProvider);
 
 		protected virtual IApiBanInfoRetriever GetApiBanInfoRetriever(IBannedApiStorage bannedApiStorage) =>
-			new HierarchicalApiBanInfoRetriever(bannedApiStorage);
+			new ApiBanInfoRetrieverWithWeakCache(
+				new HierarchicalApiBanInfoRetriever(bannedApiStorage));
 
 		private void AnalyzeSyntaxTree(in SyntaxNodeAnalysisContext syntaxContext, IBannedApiStorage bannedApiStorage, IApiBanInfoRetriever apiBanInfoRetriever)
 		{
