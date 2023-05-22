@@ -95,5 +95,14 @@ namespace CoreCompatibilyzer {
                 return ResourceManager.GetString("CoreCompat1002Title", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Suppress the {0} diagnostic with a CoreCompatibilyzer suppression comment.
+        /// </summary>
+        public static string SuppressDiagnosticWithCommentCodeActionTitle {
+            get {
+                return ResourceManager.GetString("SuppressDiagnosticWithCommentCodeActionTitle", resourceCulture);
+            }
+        }
     }
 }

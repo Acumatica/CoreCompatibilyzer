@@ -129,4 +129,7 @@
   <data name="CoreCompat1002Description" xml:space="preserve">
     <value>The underlined API is not portable to .Net Core 2.1 runtime because it is obsolete. Call to this API will throw PlatformNotSupportedException. You need to change your code to eliminate its usage.</value>
   </data>
+  <data name="SuppressDiagnosticWithCommentCodeActionTitle" xml:space="preserve">
+    <value>Suppress the {0} diagnostic with a CoreCompatibilyzer suppression comment</value>
+  </data>
 </root>
