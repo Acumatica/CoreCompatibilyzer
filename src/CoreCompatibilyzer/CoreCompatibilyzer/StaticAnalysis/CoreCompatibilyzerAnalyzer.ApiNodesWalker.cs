@@ -4,6 +4,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Threading;
+using System.Xml.Linq;
 
 using CoreCompatibilyzer.BannedApiData.Model;
 using CoreCompatibilyzer.BannedApiData.Storage;
@@ -26,18 +27,15 @@ namespace CoreCompatibilyzer.StaticAnalysis
 		{
 			private readonly SyntaxNodeAnalysisContext _syntaxContext;
 			private readonly IApiBanInfoRetriever _apiBanInfoRetriever;
-			private readonly IBannedApiStorage _bannedApiStorage;
-
 			private readonly BannedTypesInfoCollector _bannedTypesInfoCollector;
 
 			private CancellationToken Cancellation => _syntaxContext.CancellationToken;
 
 			private SemanticModel SemanticModel => _syntaxContext.SemanticModel;
 
-            public ApiNodesWalker(SyntaxNodeAnalysisContext syntaxContext, IBannedApiStorage bannedApiStorage, IApiBanInfoRetriever apiBanInfoRetriever)
+            public ApiNodesWalker(SyntaxNodeAnalysisContext syntaxContext,IApiBanInfoRetriever apiBanInfoRetriever)
             {
                 _syntaxContext 		 	  = syntaxContext;
-				_bannedApiStorage 	 	  = bannedApiStorage;
 				_apiBanInfoRetriever 	  = apiBanInfoRetriever;
 				_bannedTypesInfoCollector = new BannedTypesInfoCollector(apiBanInfoRetriever, syntaxContext.CancellationToken);
 			}
@@ -153,6 +151,17 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				Cancellation.ThrowIfCancellationRequested();
 				CheckSymbolForBannedInfo(symbol, identifierNode);
 			}
+
+			public override void VisitMemberAccessExpression(MemberAccessExpressionSyntax memberAccessExpression)
+			{
+				Cancellation.ThrowIfCancellationRequested();
+
+				if (SemanticModel.GetSymbolOrFirstCandidate(memberAccessExpression, Cancellation) is not ISymbol symbol)
+					return;
+
+				CheckSymbolForBannedInfo(symbol, memberAccessExpression.Name);
+				base.VisitMemberAccessExpression(memberAccessExpression);
+		}
 
 			private void CheckSymbolForBannedInfo(ISymbol symbol, SyntaxNode nodeToReport)
 			{

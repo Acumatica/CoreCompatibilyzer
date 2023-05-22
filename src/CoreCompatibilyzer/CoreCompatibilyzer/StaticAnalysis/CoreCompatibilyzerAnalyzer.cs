@@ -66,7 +66,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 			if (apiBanInfoRetriever == null)
 				return;
 
-			compilationStartContext.RegisterSyntaxNodeAction(context => AnalyzeSyntaxTree(context, bannedApiStorage, apiBanInfoRetriever), 
+			compilationStartContext.RegisterSyntaxNodeAction(context => AnalyzeSyntaxTree(context, apiBanInfoRetriever), 
 															 SyntaxKind.CompilationUnit);
 		}
 
@@ -77,13 +77,13 @@ namespace CoreCompatibilyzer.StaticAnalysis
 			new ApiBanInfoRetrieverWithWeakCache(
 				new HierarchicalApiBanInfoRetriever(bannedApiStorage));
 
-		private void AnalyzeSyntaxTree(in SyntaxNodeAnalysisContext syntaxContext, IBannedApiStorage bannedApiStorage, IApiBanInfoRetriever apiBanInfoRetriever)
+		private void AnalyzeSyntaxTree(in SyntaxNodeAnalysisContext syntaxContext, IApiBanInfoRetriever apiBanInfoRetriever)
 		{
 			syntaxContext.CancellationToken.ThrowIfCancellationRequested();
 
 			if (syntaxContext.Node is CompilationUnitSyntax compilationUnitSyntax)
 			{
-				var apiNodesWalker = new ApiNodesWalker(syntaxContext, bannedApiStorage, apiBanInfoRetriever);
+				var apiNodesWalker = new ApiNodesWalker(syntaxContext, apiBanInfoRetriever);
 				compilationUnitSyntax.Accept(apiNodesWalker);
 			}	
 		}
