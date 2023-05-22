@@ -40,7 +40,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 
 		public sealed override void Initialize(AnalysisContext context)
 		{
-			context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.Analyze); // We want to analyze for compatibility even generated code
+			context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None); // We want to analyze for compatibility even generated code
 
 			if (!Debugger.IsAttached)
 			{

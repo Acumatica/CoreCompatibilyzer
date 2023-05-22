@@ -130,17 +130,6 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				}
 			}
 
-			public override void VisitQualifiedName(QualifiedNameSyntax qualifiedNameNode)
-			{
-				Cancellation.ThrowIfCancellationRequested();
-
-				if (SemanticModel.GetSymbolOrFirstCandidate(qualifiedNameNode, Cancellation) is not ISymbol symbol)
-					return;
-
-				Cancellation.ThrowIfCancellationRequested();
-				CheckSymbolForBannedInfo(symbol, qualifiedNameNode);
-			}
-
 			public override void VisitIdentifierName(IdentifierNameSyntax identifierNode)
 			{
 				Cancellation.ThrowIfCancellationRequested();
@@ -151,17 +140,6 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				Cancellation.ThrowIfCancellationRequested();
 				CheckSymbolForBannedInfo(symbol, identifierNode);
 			}
-
-			public override void VisitMemberAccessExpression(MemberAccessExpressionSyntax memberAccessExpression)
-			{
-				Cancellation.ThrowIfCancellationRequested();
-
-				if (SemanticModel.GetSymbolOrFirstCandidate(memberAccessExpression, Cancellation) is not ISymbol symbol)
-					return;
-
-				CheckSymbolForBannedInfo(symbol, memberAccessExpression.Name);
-				base.VisitMemberAccessExpression(memberAccessExpression);
-		}
 
 			private void CheckSymbolForBannedInfo(ISymbol symbol, SyntaxNode nodeToReport)
 			{
