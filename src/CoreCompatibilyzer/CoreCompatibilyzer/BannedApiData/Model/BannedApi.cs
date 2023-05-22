@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 
+using CoreCompatibilyzer.Constants;
 using CoreCompatibilyzer.Utils.Common;
 
 namespace CoreCompatibilyzer.BannedApiData.Model
@@ -28,7 +28,7 @@ namespace CoreCompatibilyzer.BannedApiData.Model
 
 			if (char.IsWhiteSpace(docIDWithOptionalObsoleteMarker[^2]))
 			{
-				if (char.ToUpper(docIDWithOptionalObsoleteMarker[^1]) != 'O')
+				if (char.ToUpper(docIDWithOptionalObsoleteMarker[^1]) != CommonConstants.ApiObsoletionMarker)
 					throw InvalidInputStringFormatException(docIDWithOptionalObsoleteMarker);
 
 				DocID = docIDWithOptionalObsoleteMarker.Remove(docIDWithOptionalObsoleteMarker.Length - 2);
@@ -49,11 +49,11 @@ namespace CoreCompatibilyzer.BannedApiData.Model
         }
 
 		private static ArgumentException InvalidInputStringFormatException(string docID) =>
-			 new ArgumentException($"The input API DocID string \"{docID}\" has unknown format.{Environment.NewLine}" +
+			 new ArgumentException($"The input API DocID string \"{docID}\" has unknown format.\r\n" +
 									"Please check the following link for a list of supported formats: " +
 									"https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/#id-strings" + 
-									Environment.NewLine + Environment.NewLine +
-									"CoreCompatibilyzer extends the DocID string format above with an indicator \"O\" character separated by whitespace at the end of a DocID string",
+									$"\r\n\r\nCoreCompatibilyzer extends the DocID string format above with an indicator \"{CommonConstants.ApiObsoletionMarker}\"" + 
+									" character separated by whitespace at the end of a DocID string",
 									nameof(docID));
 
 		public override bool Equals(object obj) => obj is BannedApi bannedApi && Equals(bannedApi);
