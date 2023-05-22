@@ -7,6 +7,7 @@ using System.Threading;
 
 using CoreCompatibilyzer.BannedApiData.Model;
 using CoreCompatibilyzer.BannedApiData.Storage;
+using CoreCompatibilyzer.Constants;
 using CoreCompatibilyzer.StaticAnalysis.BannedApiRetriever;
 using CoreCompatibilyzer.Utils.Common;
 using CoreCompatibilyzer.Utils.Roslyn.Semantic;
@@ -216,8 +217,10 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				if (diagnosticDescriptor == null)
 					return;
 
-				_syntaxContext.ReportDiagnosticWithSuppressionCheck(
-						Diagnostic.Create(diagnosticDescriptor, location, banApiInfo.FullName));
+				var diagnosticProperties = ImmutableDictionary<string, string>.Empty
+																			  .Add(CommonConstants.ApiNameDiagnosticProperty, banApiInfo.FullName);
+				var diagnostic = Diagnostic.Create(diagnosticDescriptor, location, diagnosticProperties!, banApiInfo.FullName);
+				_syntaxContext.ReportDiagnosticWithSuppressionCheck(diagnostic);
 			}
 
 			private DiagnosticDescriptor? GetDiagnosticFromBannedApiInfo(in BannedApi banApiInfo) => banApiInfo.BannedApiType switch

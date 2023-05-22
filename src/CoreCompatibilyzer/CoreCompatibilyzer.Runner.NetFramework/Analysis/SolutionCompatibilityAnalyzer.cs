@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 
 using CoreCompatibilyzer.BannedApiData.Providers;
 using CoreCompatibilyzer.BannedApiData.Storage;
+using CoreCompatibilyzer.Constants;
 using CoreCompatibilyzer.DotNetRuntimeVersion;
 using CoreCompatibilyzer.Runner.Analysis.Helpers;
 using CoreCompatibilyzer.Runner.Input;
 using CoreCompatibilyzer.StaticAnalysis;
+using CoreCompatibilyzer.Utils.Common;
 using CoreCompatibilyzer.Utils.Roslyn.Suppression;
 
 using Microsoft.CodeAnalysis;
@@ -160,14 +162,45 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			Log.Error(exception, errorMsg, diagnostic.Id, prettyLocation, analyzer.ToString());
 		}
 
-		[SuppressMessage("CodeQuality", "Serilog004:Constant MessageTemplate verifier", Justification = "Ok to use runtime dependent new line in message")]
+		
 		private void LogErrorForFoundDiagnostic(Diagnostic diagnostic)
 		{
-			var prettyLocation = diagnostic.Location.GetMappedLineSpan().ToString();
-			string errorMsg = $"Diagnostic message:{Environment.NewLine}{{Id}}{Environment.NewLine}{{Severity}}{Environment.NewLine}" + 
-							  $"{{Description}}{Environment.NewLine}{{Location}}";
+			if (diagnostic.Properties.Count == 0 || 
+				!diagnostic.Properties.TryGetValue(CommonConstants.ApiNameDiagnosticProperty, out string? fullApiName) || 
+				fullApiName.IsNullOrWhiteSpace())
+			{
+				LogMessage(diagnostic.Severity, diagnostic.ToString(), messageArgs: null);
+				return;
+			}
 
-			Log.Error(errorMsg, diagnostic.Id, diagnostic.Severity, diagnostic.Descriptor.Title, prettyLocation);
+			var prettyLocation = diagnostic.Location.GetMappedLineSpan().ToString();
+			var diagnosticMessage = string.Format(diagnostic.Descriptor.Title.ToString(), fullApiName);
+			string errorMsgTemplate = $"{{Id}} {{Severity}} {{Location}}:{Environment.NewLine}{{Description}}";
+
+			LogMessage(diagnostic.Severity, errorMsgTemplate, diagnostic.Id, diagnostic.Severity, prettyLocation, diagnosticMessage);
+		}
+
+		[SuppressMessage("CodeQuality", "Serilog004:Constant MessageTemplate verifier", Justification = "Ok to use runtime dependent new line in message")]
+		private void LogMessage(DiagnosticSeverity severity, string message, params object[]? messageArgs)
+		{
+			switch (severity)
+			{
+				case DiagnosticSeverity.Error:
+					Log.Error(message, messageArgs);
+					return;
+
+				case DiagnosticSeverity.Warning:
+					Log.Warning(message, messageArgs);
+					break;
+
+				case DiagnosticSeverity.Info:
+					Log.Information(message, messageArgs);
+					break;
+
+				case DiagnosticSeverity.Hidden:
+					Log.Debug(message, messageArgs);
+					break;
+			}
 		}
 	}
 }

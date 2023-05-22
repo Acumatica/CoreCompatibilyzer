@@ -8,9 +8,6 @@ namespace CoreCompatibilyzer.Constants
     {
         public const char ApiObsoletionMarker = 'O';
 
-        public static class Types
-        {
-            public static readonly string TargetFrameworkAttribute = typeof(TargetFrameworkAttribute).FullName;
-        }
+        public const string ApiNameDiagnosticProperty = nameof(ApiNameDiagnosticProperty);
     }
 }
