@@ -3,7 +3,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using VerifyCS = CoreCompatibilyzer.Test.CSharpAnalyzerVerifier<
-    CoreCompatibilyzer.StaticAnalysis.NotCompatibleWorkspaces.NotCompatibleWorkspacesAnalyzer>;
+	CoreCompatibilyzer.StaticAnalysis.CoreCompatibilyzerAnalyzer>;
 
 namespace CoreCompatibilyzer.Test
 {

@@ -11,7 +11,7 @@ using CoreCompatibilyzer.BannedApiData.Storage;
 using CoreCompatibilyzer.DotNetRuntimeVersion;
 using CoreCompatibilyzer.Runner.Analysis.Helpers;
 using CoreCompatibilyzer.Runner.Input;
-using CoreCompatibilyzer.StaticAnalysis.NotCompatibleWorkspaces;
+using CoreCompatibilyzer.StaticAnalysis;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;

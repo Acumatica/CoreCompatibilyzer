@@ -17,7 +17,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
 
-namespace CoreCompatibilyzer.StaticAnalysis.NotCompatibleWorkspaces
+namespace CoreCompatibilyzer.StaticAnalysis
 {
 	[DiagnosticAnalyzer(LanguageNames.CSharp)]
 	public class CoreCompatibilyzerAnalyzer : DiagnosticAnalyzer
