@@ -28,7 +28,25 @@ namespace CoreCompatibilyzer.BannedApiData.Storage
                 _bannedApisByDocIdGroupedByApiKind =
                     bannedApis.GroupBy(api => api.Kind)
                               .ToDictionary(keySelector: groupedApi => groupedApi.Key,
-                                            elementSelector: groupedApi => groupedApi.ToDictionary(api => api.DocID) as IReadOnlyDictionary<string, BannedApi>);
+                                            elementSelector: GetBannedApisOfSameKindByDocID);
+            }
+
+            private IReadOnlyDictionary<string, BannedApi> GetBannedApisOfSameKindByDocID(IEnumerable<BannedApi> bannedApis) 
+            {
+                Dictionary<string, BannedApi> bannedApisByDocID = new();
+
+                foreach (var api in bannedApis) 
+                {
+                    if (bannedApisByDocID.TryGetValue(api.DocID, out BannedApi duplicateApi))
+                    {
+                        if (duplicateApi.BannedApiType == BannedApiType.Obsolete && api.BannedApiType == BannedApiType.NotPresentInNetCore)
+                            bannedApisByDocID[api.DocID] = api;
+                    }
+                    else
+                        bannedApisByDocID.Add(api.DocID, api);
+                }
+
+                return bannedApisByDocID;
             }
 
             public int CountOfBannedApis(ApiKind apiKind)
