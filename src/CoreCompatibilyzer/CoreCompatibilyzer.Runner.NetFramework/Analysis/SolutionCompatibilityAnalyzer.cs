@@ -44,7 +44,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 
 		private static ImmutableArray<DiagnosticAnalyzer> CollectAnalyzers()
 		{
-			var analyzersAssemblyPath = typeof(CoreCompatibilyzerAnalyzerBase).Assembly.Location;
+			var analyzersAssemblyPath = typeof(CoreCompatibilyzerAnalyzer).Assembly.Location;
 			var analyzerReference = new AnalyzerFileReference(analyzersAssemblyPath, new AnalyzerAssemblyLoader());
 			var analyzers = analyzerReference.GetAnalyzers(LanguageNames.CSharp);
 

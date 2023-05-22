@@ -8,6 +8,7 @@
 		<PackageId>*$(MSBuildProjectFile)*</PackageId>
 		<LangVersion>9.0</LangVersion>
 		<Nullable>enable</Nullable>
+		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
 	</PropertyGroup>
 
 	<PropertyGroup>
