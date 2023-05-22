@@ -145,6 +145,10 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			if (diagnosticResults.IsDefaultOrEmpty)
 				return RunResult.Success;
 
+#pragma warning disable Serilog004 // Constant MessageTemplate verifier
+			Log.Error("Analysis found {ErrorCount}" + Environment.NewLine, diagnosticResults.Length);
+#pragma warning restore Serilog004 // Constant MessageTemplate verifier
+
 			foreach (Diagnostic diagnostic in diagnosticResults)
 			{
 				LogErrorForFoundDiagnostic(diagnostic);
