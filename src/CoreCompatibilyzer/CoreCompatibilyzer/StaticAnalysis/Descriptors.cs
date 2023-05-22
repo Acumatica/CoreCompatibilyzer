@@ -8,8 +8,6 @@ using Microsoft.CodeAnalysis;
 using CoreCompatibilyzer.Utils.Common;
 using CoreCompatibilyzer.Utils.Resources;
 
-using static CoreCompatibilyzer.Constants.CommonConstants;
-
 namespace CoreCompatibilyzer.StaticAnalysis
 {
     public enum Category
@@ -22,6 +20,11 @@ namespace CoreCompatibilyzer.StaticAnalysis
 	{
 		private const string DocumentationLinkPrefix = @"TODO";
 		private const string DocumentatonFileExtension = "md";
+
+		/// <summary>
+		/// (Immutable) The compatibility analyzer diagnostics prefix.
+		/// </summary>
+		private const string DiagnosticsPrefix = "CoreCompat";
 
 		private static string MakeDocumentationLink(string diagnosticID) =>
 			$"{DocumentationLinkPrefix}/{diagnosticID}.{DocumentatonFileExtension}";
@@ -41,10 +44,9 @@ namespace CoreCompatibilyzer.StaticAnalysis
 											isEnabledByDefault, description, diagnosticLink, customTags);
 		}
 
-		public static DiagnosticDescriptor CoreCompat1001_WorkspaceNotCompatibleWithCore { get; } =
+		public static DiagnosticDescriptor CoreCompat1001_ApiNotCompatibleWithDotNetCore { get; } =
 			Rule($"{DiagnosticsPrefix}1001", nameof(Diagnostics.CoreCompat1001Title).GetLocalizedDiagnosticName(), Category.DotNetCoreCompatibility,
 				DiagnosticSeverity.Error, DiagnosticsShortName.CoreCompat1001, 
-				messageFormat: nameof(Diagnostics.CoreCompat1001MessageFormat).GetLocalizedDiagnosticName(),
 				description: nameof(Diagnostics.CoreCompat1001Description).GetLocalizedDiagnosticName());
 	}
 }
