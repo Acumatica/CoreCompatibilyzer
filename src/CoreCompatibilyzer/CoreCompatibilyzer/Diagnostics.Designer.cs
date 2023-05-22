@@ -61,7 +61,7 @@ namespace CoreCompatibilyzer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The underlined API is not portable to .Net Core 2.1 runtime. You need to delete it and change your code to eliminate its usage..
+        ///   Looks up a localized string similar to The underlined API is not portable to .Net Core 2.1 runtime because it is not present there. You need to change your code to eliminate its usage..
         /// </summary>
         public static string CoreCompat1001Description {
             get {
@@ -70,11 +70,29 @@ namespace CoreCompatibilyzer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The underlined API is not compatible with .Net Core 2.1.
+        ///   Looks up a localized string similar to The underlined API is missing in .Net Core 2.1.
         /// </summary>
         public static string CoreCompat1001Title {
             get {
                 return ResourceManager.GetString("CoreCompat1001Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The underlined API is not portable to .Net Core 2.1 runtime because it is obsolete. Call to this API will throw PlatformNotSupportedException. You need to change your code to eliminate its usage..
+        /// </summary>
+        public static string CoreCompat1002Description {
+            get {
+                return ResourceManager.GetString("CoreCompat1002Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The underlined API is obsolete in .Net Core 2.1 runtime.
+        /// </summary>
+        public static string CoreCompat1002Title {
+            get {
+                return ResourceManager.GetString("CoreCompat1002Title", resourceCulture);
             }
         }
     }

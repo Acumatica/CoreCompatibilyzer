@@ -118,9 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CoreCompat1001Title" xml:space="preserve">
-    <value>The underlined API is not compatible with .Net Core 2.1</value>
+    <value>The underlined API is missing in .Net Core 2.1</value>
   </data>
   <data name="CoreCompat1001Description" xml:space="preserve">
-    <value>The underlined API is not portable to .Net Core 2.1 runtime. You need to delete it and change your code to eliminate its usage.</value>
+    <value>The underlined API is not portable to .Net Core 2.1 runtime because it is not present there. You need to change your code to eliminate its usage.</value>
+  </data>
+  <data name="CoreCompat1002Title" xml:space="preserve">
+    <value>The underlined API is obsolete in .Net Core 2.1 runtime</value>
+  </data>
+  <data name="CoreCompat1002Description" xml:space="preserve">
+    <value>The underlined API is not portable to .Net Core 2.1 runtime because it is obsolete. Call to this API will throw PlatformNotSupportedException. You need to change your code to eliminate its usage.</value>
   </data>
 </root>

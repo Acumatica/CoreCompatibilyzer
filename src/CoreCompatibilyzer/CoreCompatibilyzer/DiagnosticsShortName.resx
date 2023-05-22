@@ -118,6 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CoreCompat1001" xml:space="preserve">
-    <value>ApiNotPortableToDotNetCore</value>
+    <value>ApiMissingInDotNetCore</value>
+  </data>
+  <data name="CoreCompat1002" xml:space="preserve">
+    <value>ApiObsoleteInDotNetCore</value>
   </data>
 </root>

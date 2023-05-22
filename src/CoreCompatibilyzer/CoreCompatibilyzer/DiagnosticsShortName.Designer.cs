@@ -61,11 +61,20 @@ namespace CoreCompatibilyzer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ApiNotPortableToDotNetCore.
+        ///   Looks up a localized string similar to ApiMissingInDotNetCore.
         /// </summary>
         public static string CoreCompat1001 {
             get {
                 return ResourceManager.GetString("CoreCompat1001", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ApiObsoleteInDotNetCore.
+        /// </summary>
+        public static string CoreCompat1002 {
+            get {
+                return ResourceManager.GetString("CoreCompat1002", resourceCulture);
             }
         }
     }

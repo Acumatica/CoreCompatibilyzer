@@ -44,9 +44,14 @@ namespace CoreCompatibilyzer.StaticAnalysis
 											isEnabledByDefault, description, diagnosticLink, customTags);
 		}
 
-		public static DiagnosticDescriptor CoreCompat1001_ApiNotCompatibleWithDotNetCore { get; } =
+		public static DiagnosticDescriptor CoreCompat1001_ApiNotPresentInDotNetCore { get; } =
 			Rule($"{DiagnosticsPrefix}1001", nameof(Diagnostics.CoreCompat1001Title).GetLocalizedDiagnosticName(), Category.DotNetCoreCompatibility,
 				DiagnosticSeverity.Error, DiagnosticsShortName.CoreCompat1001, 
 				description: nameof(Diagnostics.CoreCompat1001Description).GetLocalizedDiagnosticName());
+
+		public static DiagnosticDescriptor CoreCompat1002_ApiObsoleteInDotNetCore { get; } =
+			Rule($"{DiagnosticsPrefix}1002", nameof(Diagnostics.CoreCompat1002Title).GetLocalizedDiagnosticName(), Category.DotNetCoreCompatibility,
+				DiagnosticSeverity.Error, DiagnosticsShortName.CoreCompat1002,
+				description: nameof(Diagnostics.CoreCompat1002Description).GetLocalizedDiagnosticName());
 	}
 }
