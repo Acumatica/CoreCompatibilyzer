@@ -153,16 +153,40 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				switch (symbol)
 				{
 					case ITypeParameterSymbol typeParameterSymbol:
-						CheckTypeParameterConstraints(identifierNode, typeParameterSymbol);
+						var bannedTypeParameterInfos = _bannedTypesInfoCollector.GetTypeParameterBannedApiInfos(typeParameterSymbol);
+						ReportApiList(bannedTypeParameterInfos, identifierNode);
 						return;
 
 					case ITypeSymbol typeSymbol:
 						var bannedTypeInfos = _bannedTypesInfoCollector.GetTypeBannedApiInfos(typeSymbol);
 						ReportApiList(bannedTypeInfos, identifierNode);
 						return;
-				}
 
-				
+					default:
+						if (GetBannedSymbolInfoForNonTypeSymbol(symbol) is BannedApi bannedSymbolInfo)
+							ReportApi(bannedSymbolInfo, identifierNode);
+
+						return;
+				}
+			}
+
+			private BannedApi? GetBannedSymbolInfoForNonTypeSymbol(ISymbol nonTypeSymbol)
+			{
+				if (_apiBanInfoRetriever.GetBanInfoForApi(nonTypeSymbol) is BannedApi bannedSymbolInfo)
+					return bannedSymbolInfo;
+
+				if (!nonTypeSymbol.IsOverride)
+					return null;
+
+				var overridesChain = nonTypeSymbol.GetOverridden();
+
+				foreach (var overriden in overridesChain)
+				{
+					if (_apiBanInfoRetriever.GetBanInfoForApi(nonTypeSymbol) is BannedApi bannedOverridenSymbolInfo)
+						return bannedOverridenSymbolInfo;
+				} 
+
+				return null;
 			}
 
 			private void ReportApiList(List<BannedApi>? bannedApisList, SyntaxNode node)
