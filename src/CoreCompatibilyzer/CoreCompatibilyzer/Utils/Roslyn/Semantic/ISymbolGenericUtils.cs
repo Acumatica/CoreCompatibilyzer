@@ -145,5 +145,26 @@ namespace CoreCompatibilyzer.Utils.Roslyn.Semantic
 				_						 => null
 			};
 		}
+
+		/// <summary>
+		/// Gets Documentation ID for symbol.
+		/// </summary>
+		/// <remarks>
+		/// <see cref="ISymbol.GetDocumentationCommentId"/> doesn't work correctly with methods because Roslyn removes braces for methods without parameters. This helper works with that problem.
+		/// </remarks>
+		/// <param name="symbol">The symbol to check.</param>
+		/// <returns>
+		/// The Documentation ID for symbol.
+		/// </returns>
+		public static string? GetDocID(this ISymbol symbol)
+		{
+			symbol.ThrowIfNull(nameof(symbol));
+			string? docID = symbol.GetDocumentationCommentId().NullIfWhiteSpace();
+
+			if (docID == null || symbol is not IMethodSymbol method || !method.Parameters.IsDefaultOrEmpty)
+				return docID;
+
+			return docID + "()";
+		}
 	}
 }

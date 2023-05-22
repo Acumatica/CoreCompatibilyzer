@@ -6,6 +6,7 @@ using CoreCompatibilyzer.BannedApiData.Model;
 using CoreCompatibilyzer.BannedApiData.Storage;
 
 using Microsoft.CodeAnalysis;
+using CoreCompatibilyzer.Utils.Roslyn.Semantic;
 
 namespace CoreCompatibilyzer.StaticAnalysis.BannedApiRetriever
 {
@@ -34,7 +35,7 @@ namespace CoreCompatibilyzer.StaticAnalysis.BannedApiRetriever
 
 		protected BannedApi? GetBanInfoForSymbol(ISymbol symbol, ApiKind symbolKind)
 		{
-			string? symbolDocID = symbol.GetDocumentationCommentId();
+			string? symbolDocID = symbol.GetDocID();
 			return symbolDocID.IsNullOrWhiteSpace()
 				? null
 				: Storage.GetBannedApi(symbolKind, symbolDocID);
