@@ -66,4 +66,8 @@
 		</EmbeddedResource>
 		<EmbeddedResource Update="Diagnostics.resx" Generator="PublicResXFileCodeGenerator" LastGenOutput="Diagnostics.Designer.cs" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Utils\Roslyn\Semantic\" />
+	</ItemGroup>
 </Project>
