@@ -101,9 +101,8 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			if (!IsBannedStorageInitAndNonEmpty)
 				return RunResult.Success;
 
-
-
-			return RunResult.Success;
+			var analysisValidationResult = await RunAnalyzersOnProjectAsync(compilation, cancellationToken).ConfigureAwait(false);
+			return analysisValidationResult;
 		}
 
 		private RunResult? ValidateProjectVersion(Project project, DotNetRuntime? projectVersion, DotNetRuntime targetVersion)
@@ -127,6 +126,28 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			return null;
 		}
 
+		private async Task<RunResult> RunAnalyzersOnProjectAsync(Compilation compilation, CancellationToken cancellation)
+		{
+			if (_diagnosticAnalyzers.IsDefaultOrEmpty)
+				return RunResult.Success;
+
+			var compilationAnalysisOptions = new CompilationWithAnalyzersOptions(options: null!, OnAnalyzerException,
+																				 concurrentAnalysis: true, logAnalyzerExecutionTime: false);
+			CompilationWithAnalyzers compilationWithAnalyzers = compilation.WithAnalyzers(compilationAnalysisOptions, _diagnosticAnalyzers, cancellation);
+
+			var diagnosticResults = await compilationWithAnalyzers.GetAnalyzerDiagnosticsAsync(cancellation).ConfigureAwait(false);
+
+			if (diagnosticResults.IsDefaultOrEmpty)
+				return RunResult.Success;
+
+			foreach (Diagnostic diagnostic in diagnosticResults)
+			{
+				LogErrorForFoundDiagnostic(diagnostic);
+			}
+
+			return RunResult.RequirementsNotMet;
+		}
+
 		[SuppressMessage("CodeQuality", "Serilog004:Constant MessageTemplate verifier", Justification = "Ok to use runtime dependent new line in message")]
 		private void OnAnalyzerException(Exception exception, DiagnosticAnalyzer analyzer, Diagnostic diagnostic)
 		{
@@ -134,6 +155,16 @@ namespace CoreCompatibilyzer.Runner.Analysis
 
 			string errorMsg = $"Analyzer error:{Environment.NewLine}{{Id}}{Environment.NewLine}{{Location}}{Environment.NewLine}{{Analyzer}}";
 			Log.Error(exception, errorMsg, diagnostic.Id, prettyLocation, analyzer.ToString());
+		}
+
+		[SuppressMessage("CodeQuality", "Serilog004:Constant MessageTemplate verifier", Justification = "Ok to use runtime dependent new line in message")]
+		private void LogErrorForFoundDiagnostic(Diagnostic diagnostic)
+		{
+			var prettyLocation = diagnostic.Location.GetMappedLineSpan().ToString();
+			string errorMsg = $"Diagnostic message:{Environment.NewLine}{{Id}}{Environment.NewLine}{{Severity}}{Environment.NewLine}" + 
+							  $"{{Description}}{Environment.NewLine}{{Location}}";
+
+			Log.Error(errorMsg, diagnostic.Id, diagnostic.Severity, diagnostic.Descriptor.Title, prettyLocation);
 		}
 	}
 }
