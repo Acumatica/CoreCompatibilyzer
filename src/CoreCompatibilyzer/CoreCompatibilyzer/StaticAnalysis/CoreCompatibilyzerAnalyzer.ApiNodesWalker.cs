@@ -27,16 +27,19 @@ namespace CoreCompatibilyzer.StaticAnalysis
 			private readonly IApiBanInfoRetriever _apiBanInfoRetriever;
 			private readonly IBannedApiStorage _bannedApiStorage;
 
+			private readonly BannedTypesInfoCollector _bannedTypesInfoCollector;
+
 			private CancellationToken Cancellation => _syntaxContext.CancellationToken;
 
 			private SemanticModel SemanticModel => _syntaxContext.SemanticModel;
 
             public ApiNodesWalker(SyntaxNodeAnalysisContext syntaxContext, IBannedApiStorage bannedApiStorage, IApiBanInfoRetriever apiBanInfoRetriever)
             {
-                _syntaxContext 		 = syntaxContext;
-				_bannedApiStorage 	 = bannedApiStorage;
-				_apiBanInfoRetriever = apiBanInfoRetriever;
-            }
+                _syntaxContext 		 	  = syntaxContext;
+				_bannedApiStorage 	 	  = bannedApiStorage;
+				_apiBanInfoRetriever 	  = apiBanInfoRetriever;
+				_bannedTypesInfoCollector = new BannedTypesInfoCollector(apiBanInfoRetriever, syntaxContext.CancellationToken);
+			}
 
 			#region Visit XML comments methods to prevent coloring in XML comments don't call base method
 			public override void VisitXmlCrefAttribute(XmlCrefAttributeSyntax node) { }
@@ -67,10 +70,21 @@ namespace CoreCompatibilyzer.StaticAnalysis
 					return;
 				}
 
-				BannedApi? bannedNamespaceOrTypeInfo = _apiBanInfoRetriever.GetBanInfoForApi(typeOrNamespaceSymbol);
+				switch (typeOrNamespaceSymbol)
+				{
+					case INamespaceSymbol namespaceSymbol:
+						BannedApi? bannedNamespaceOrTypeInfo = _apiBanInfoRetriever.GetBanInfoForApi(namespaceSymbol);
 
-				if (bannedNamespaceOrTypeInfo.HasValue)
-					ReportApi(bannedNamespaceOrTypeInfo.Value, usingDirectiveNode.Name);
+						if (bannedNamespaceOrTypeInfo.HasValue)
+							ReportApi(bannedNamespaceOrTypeInfo.Value, usingDirectiveNode.Name);
+
+						break;
+					
+					case ITypeSymbol typeSymbol:
+						var bannedTypeInfos = GetBannedInfosFromTypeSymbolAndItsHierarchy(typeSymbol);
+						ReportApiList(bannedTypeInfos, usingDirectiveNode.Name);
+						break;
+				}	
 			}
 
 			public override void VisitGenericName(GenericNameSyntax genericNameNode)
@@ -86,12 +100,18 @@ namespace CoreCompatibilyzer.StaticAnalysis
 
 				Cancellation.ThrowIfCancellationRequested();
 
-				if (genericNameNode.IsUnboundGenericName)
-					typeSymbol = typeSymbol.OriginalDefinition;
+				var bannedTypeInfos = GetBannedInfosFromTypeSymbolAndItsHierarchy(typeSymbol);
+
+				if (bannedTypeInfos?.Count > 0)
+				{
+					Location location = GetLocationFromNode(genericNameNode);
+					ReportApiList(bannedTypeInfos, location);
+				}
+
 
 				if (_apiBanInfoRetriever.GetBanInfoForApi(typeSymbol) is BannedApi bannedTypeInfo)
 				{
-					Location location = GetLocationFromNode(genericNameNode);
+					
 					ReportApi(bannedTypeInfo, location);
 				}
 				else if (typeSymbol.)
@@ -117,97 +137,44 @@ namespace CoreCompatibilyzer.StaticAnalysis
 
 				Cancellation.ThrowIfCancellationRequested();
 
-				if (_apiBanInfoRetriever.GetBanInfoForApi(typeSymbol) is BannedApi bannedTypeInfo)
-					ReportApi(bannedTypeInfo, qualifiedNameNode);
+				var bannedTypeInfos = GetBannedInfosFromTypeSymbolAndItsHierarchy(typeSymbol);
+				ReportApiList(bannedTypeInfos, qualifiedNameNode);
 			}
 
 			public override void VisitIdentifierName(IdentifierNameSyntax identifierNode)
 			{
 				Cancellation.ThrowIfCancellationRequested();
 
-				if (SemanticModel.GetSymbolOrFirstCandidate(identifierNode, Cancellation) is not ITypeSymbol typeSymbol)
+				if (SemanticModel.GetSymbolOrFirstCandidate(identifierNode, Cancellation) is not ISymbol symbol)
 					return;
 
 				Cancellation.ThrowIfCancellationRequested();
 
-				if (typeSymbol is ITypeParameterSymbol typeParameterSymbol)
+				switch (symbol)
 				{
-					CheckTypeParameterConstraints(identifierNode, typeParameterSymbol);
+					case ITypeParameterSymbol typeParameterSymbol:
+						CheckTypeParameterConstraints(identifierNode, typeParameterSymbol);
+						return;
+
+					case ITypeSymbol typeSymbol:
+						var bannedTypeInfos = _bannedTypesInfoCollector.GetTypeBannedApiInfos(typeSymbol);
+						ReportApiList(bannedTypeInfos, identifierNode);
+						return;
 				}
-				else if (_apiBanInfoRetriever.GetBanInfoForApi(typeSymbol) is BannedApi bannedTypeInfo)
-				{
-					ReportApi(bannedTypeInfo, identifierNode);
-				}
+
+				
 			}
 
-			private void CheckTypeParameterConstraints(IdentifierNameSyntax identifierNode, ITypeParameterSymbol typeParameterSymbol)
+			private void ReportApiList(List<BannedApi>? bannedApisList, SyntaxNode node)
 			{
-				if (typeParameterSymbol.ConstraintTypes.IsDefaultOrEmpty)
-					return;
-
-				Location? location = null;
-
-				foreach (INamedTypeSymbol constraintNamedType in typeParameterSymbol.ConstraintTypes.OfType<INamedTypeSymbol>())
-				{
-					var bannedTypeInfos = GetBannedInfoFromTypeSymbol(constraintNamedType);
-
-					if (bannedTypeInfos?.Count is null or 0)
-						continue;
-
-					location ??= identifierNode.GetLocation();
-
-					foreach (BannedApi bannedTypeInfo in bannedTypeInfos)
-						ReportApi(bannedTypeInfo, location);
-				}
+				if (bannedApisList?.Count > 0)
+					ReportApiList(bannedApisList, node.GetLocation());
 			}
 
-			private List<BannedApi>? GetBannedInfoFromTypeSymbol(ITypeSymbol typeSymbol)
+			private void ReportApiList(List<BannedApi> bannedApisList, Location location)
 			{
-				List<BannedApi>? typeBannedApiInfos = null;
-
-				if (_apiBanInfoRetriever.GetBanInfoForApi(typeSymbol) is BannedApi bannedTypeInfo)
-				{
-					typeBannedApiInfos ??= new List<BannedApi>(capacity: 2);
-					typeBannedApiInfos.Add(bannedTypeInfo);
-				}
-					
-
-				if (!typeSymbol.IsStatic && typeSymbol.TypeKind is TypeKind.Class or TypeKind.Interface)
-				{
-					foreach (var baseType in typeSymbol.GetBaseTypes())
-					{
-						if (baseType.SpecialType == SpecialType.System_Object)
-							break;
-
-						if (_apiBanInfoRetriever.GetBanInfoForApi(baseType) is BannedApi bannedBaseTypeInfo)
-						{
-							typeBannedApiInfos ??= new List<BannedApi>(capacity: 2);
-							typeBannedApiInfos.Add(bannedBaseTypeInfo);
-							
-							// If we found something incompatible there is no need to go lower
-							break;
-						}
-					}
-				}
-
-				var interfaces = typeSymbol.AllInterfaces;
-
-				if (!interfaces.IsDefaultOrEmpty)
-				{
-					foreach (INamedTypeSymbol @interface in interfaces)
-					{
-						if (_apiBanInfoRetriever.GetBanInfoForApi(@interface) is BannedApi bannedInterfaceTypeInfo)
-						{
-							typeBannedApiInfos ??= new List<BannedApi>(capacity: 2);
-							typeBannedApiInfos.Add(bannedInterfaceTypeInfo);
-
-							// If we found something incompatible there is no need to go lower
-							break;
-						}
-					}
-				}
-
-				return typeBannedApiInfos;
+				foreach (BannedApi bannedTypeInfo in bannedApisList)
+					ReportApi(bannedTypeInfo, location);
 			}
 
 			private void ReportApi(in BannedApi banApiInfo, SyntaxNode? node) =>
