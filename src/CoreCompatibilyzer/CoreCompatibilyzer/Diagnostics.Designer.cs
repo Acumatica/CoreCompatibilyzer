@@ -70,7 +70,7 @@ namespace CoreCompatibilyzer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The underlined API is missing in .Net Core 2.1.
+        ///   Looks up a localized string similar to &quot;{0}&quot; is missing in .Net Core 2.1 runtime.
         /// </summary>
         public static string CoreCompat1001Title {
             get {
@@ -88,7 +88,7 @@ namespace CoreCompatibilyzer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The underlined API is obsolete in .Net Core 2.1 runtime.
+        ///   Looks up a localized string similar to &quot;{0}&quot; is obsolete in .Net Core 2.1 runtime. Call to this API will throw &quot;PlatformNotSupportedException&quot;..
         /// </summary>
         public static string CoreCompat1002Title {
             get {
