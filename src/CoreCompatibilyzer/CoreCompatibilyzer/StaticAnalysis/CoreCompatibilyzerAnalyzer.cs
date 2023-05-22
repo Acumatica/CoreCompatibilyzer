@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Data;
 using System.Linq;
 using System.Threading;
 
@@ -10,10 +9,9 @@ using CoreCompatibilyzer.BannedApiData.Providers;
 using CoreCompatibilyzer.BannedApiData.Storage;
 using CoreCompatibilyzer.StaticAnalysis.BannedApiRetriever;
 using CoreCompatibilyzer.Utils.Common;
+using CoreCompatibilyzer.Utils.Roslyn.Suppression;
 
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
 
@@ -94,7 +92,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 		protected virtual IApiBanInfoRetriever GetApiBanInfoRetriever(IBannedApiStorage bannedApiStorage) =>
 			new HierarchicalApiBanInfoRetriever(bannedApiStorage);
 
-		private void AnalyzeSymbol(SymbolAnalysisContext symbolAnalysisContext, IBannedApiStorage bannedApiStorage, IApiBanInfoRetriever apiBanInfoRetriever)
+		private void AnalyzeSymbol(in SymbolAnalysisContext symbolAnalysisContext, IBannedApiStorage bannedApiStorage, IApiBanInfoRetriever apiBanInfoRetriever)
 		{
 			symbolAnalysisContext.CancellationToken.ThrowIfCancellationRequested();
 
@@ -112,12 +110,12 @@ namespace CoreCompatibilyzer.StaticAnalysis
 
 			foreach (var location in locations) 
 			{
-				symbolAnalysisContext.ReportDiagnostic(
+				symbolAnalysisContext.ReportDiagnosticWithSuppressionCheck(
 					Diagnostic.Create(diagnosticDescriptor, location, banApiInfo.FullName));
 			}
 		}
 
-		private DiagnosticDescriptor? GetDiagnosticFromBannedApiInfo(BannedApi banApiInfo) => banApiInfo.BannedApiType switch
+		private DiagnosticDescriptor? GetDiagnosticFromBannedApiInfo(in BannedApi banApiInfo) => banApiInfo.BannedApiType switch
 		{
 			BannedApiType.NotPresentInNetCore => Descriptors.CoreCompat1001_ApiNotPresentInDotNetCore,
 			BannedApiType.Obsolete			  => Descriptors.CoreCompat1002_ApiObsoleteInDotNetCore,
