@@ -17,11 +17,6 @@ namespace CoreCompatibilyzer.StaticAnalysis.BannedApiRetriever
 		private class CacheEntry
 		{
 			public BannedApi? BannedApi { get; set; }
-
-			public CacheEntry(BannedApi? bannedApi)
-			{  
-				BannedApi = bannedApi; 
-			}
 		}
 
 		private readonly ConditionalWeakTable<ISymbol, CacheEntry> _weakCache = new();
