@@ -79,12 +79,14 @@ namespace CoreCompatibilyzer.BannedApiData.Providers
 			if (!IsDataAvailable)
 				return null;
 
-			using var resourceStream = _assembly.GetManifestResourceStream(_bannedApiResourceName);
+			using (var resourceStream = _assembly.GetManifestResourceStream(_bannedApiResourceName))
+			{
 
-			if (resourceStream == null)
-				throw new BannedApiReaderException($"Can't find the source text with Resource ID \"{_bannedApiResourceName}\".");
+				if (resourceStream == null)
+					throw new BannedApiReaderException($"Can't find the source text with Resource ID \"{_bannedApiResourceName}\".");
 
-			return ParseStreamIntoBannedApis(resourceStream, cancellation);
+				return ParseStreamIntoBannedApis(resourceStream, cancellation).ToList();
+			}
 		}
 
 		protected override string GetParseErrorMessage(Exception originalException, int lineNumber)

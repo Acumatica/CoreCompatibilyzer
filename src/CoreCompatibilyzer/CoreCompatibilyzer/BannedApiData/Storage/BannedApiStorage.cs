@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 using CoreCompatibilyzer.BannedApiData.Model;
 using CoreCompatibilyzer.BannedApiData.Providers;
+using CoreCompatibilyzer.Utils.Common;
 
 namespace CoreCompatibilyzer.BannedApiData.Storage
 {
@@ -92,18 +93,26 @@ namespace CoreCompatibilyzer.BannedApiData.Storage
 
 		private static IBannedApiDataProvider GetDefaultDataProvider()
         {
-            string filePath = Path.Combine(AppContext.BaseDirectory, _bannedApiFileRelativePath);
-            Assembly assembly = typeof(BannedApiStorage).Assembly;
+			var apiDataProviders = new List<IBannedApiDataProvider>(capacity: 2);
+			Assembly assembly = typeof(BannedApiStorage).Assembly;
+
+			if (!assembly.Location.IsNullOrWhiteSpace())
+			{
+				string folderWithExtension = Path.GetDirectoryName(assembly.Location);
+				string filePath = Path.Combine(folderWithExtension, _bannedApiFileRelativePath);
+
+				apiDataProviders.Add(new FileDataProvider(filePath));
+			}
+
             string assemblyName = assembly.GetName().Name;
             string fullResourceName = $"{assemblyName}.{_bannedApiAssemblyResourceName}";
 
-            var providers = new IBannedApiDataProvider[]
-            {
-                new FileDataProvider(filePath),
-                new AssemblyResourcesDataProvider(assembly, fullResourceName)
-            };
+			apiDataProviders.Add(new AssemblyResourcesDataProvider(assembly, fullResourceName));
 
-            var defaultProvider = new DataProvidersCoalesceCombinator(providers);
+            var defaultProvider = apiDataProviders.Count > 1
+				? new DataProvidersCoalesceCombinator(apiDataProviders)
+				: apiDataProviders[0];
+
             return defaultProvider;
         }
 	}
