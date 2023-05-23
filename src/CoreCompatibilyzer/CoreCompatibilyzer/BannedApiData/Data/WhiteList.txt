@@ -1,0 +1,10 @@
+T:System.Web.Compilation.PXBuildManager
+T:System.Linq.JoinToDictionary
+T:System.Configuration.Provider.ProviderBaseDependencyHelper
+T:System.Web.Security.MembershipUserExtensions
+T:System.Net.Http.IHttpClientFactory`1
+T:System.Net.Http.HttpClientFactoryExtensions
+T:System.Net.Http.ContainerBuilderExtensions
+T:System.Net.Http.HttpClientFactoryOptionsExtensions
+T:Microsoft.Extensions.Http.ContainerBuilderExtensions
+T:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions

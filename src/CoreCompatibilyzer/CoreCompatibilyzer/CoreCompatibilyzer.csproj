@@ -23,9 +23,13 @@
 
 	<ItemGroup>
 	  <None Remove="BannedApiData\BannedApis.txt" />
+	  <None Remove="BannedApiData\Data\WhiteList.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <EmbeddedResource Include="BannedApiData\Data\WhiteList.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
 	  <EmbeddedResource Include="BannedApiData\Data\BannedApis.txt">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
