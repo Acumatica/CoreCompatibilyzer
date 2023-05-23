@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -73,7 +71,7 @@ namespace CoreCompatibilyzer.Utils.Roslyn.Suppression
 
 				containsComment = CheckSuppressionCommentOnNode(diagnostic, shortName, node);
 
-				if (node is not (StatementSyntax or MemberDeclarationSyntax) || containsComment)
+				if (node is (StatementSyntax or MemberDeclarationSyntax) || containsComment)
 					break;
 
 				node = node.Parent;
@@ -84,8 +82,12 @@ namespace CoreCompatibilyzer.Utils.Roslyn.Suppression
 
 		private static bool CheckSuppressionCommentOnNode(Diagnostic diagnostic, string? diagnosticShortName, SyntaxNode node)
 		{
-			var successfulMatch = node?.GetLeadingTrivia()
-									   .Where(x => x.IsKind(SyntaxKind.SingleLineCommentTrivia))
+			var trivia = node.GetLeadingTrivia();
+
+			if (trivia.Count == 0)
+				return false;
+
+			var successfulMatch = trivia.Where(x => x.IsKind(SyntaxKind.SingleLineCommentTrivia))
 									   .Select(trivia => _suppressPattern.Match(trivia.ToString()))
 									   .FirstOrDefault(match => match.Success && match.Groups.Count >= 2 &&
 																diagnostic.Id == match.Groups[1].Value);
