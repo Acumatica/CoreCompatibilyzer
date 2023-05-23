@@ -54,6 +54,9 @@ namespace CoreCompatibilyzer.StaticAnalysis
 
 				_cancellation.ThrowIfCancellationRequested();
 
+				if (!checkInterfaces)
+					return alreadyCollectedInfos;
+
 				var interfaces = typeSymbol.AllInterfaces;
 
 				if (interfaces.IsDefaultOrEmpty)
