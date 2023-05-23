@@ -71,7 +71,7 @@ namespace CoreCompatibilyzer.Utils.Roslyn.Suppression
 
 				containsComment = CheckSuppressionCommentOnNode(diagnostic, shortName, node);
 
-				if (node is (StatementSyntax or MemberDeclarationSyntax) || containsComment)
+				if (node is (StatementSyntax or MemberDeclarationSyntax or UsingDirectiveSyntax) || containsComment)
 					break;
 
 				node = node.Parent;

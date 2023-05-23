@@ -97,7 +97,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 
 			SyntaxNode? nodeToPlaceComment = reportedNode;
 
-			while (nodeToPlaceComment is not (StatementSyntax or MemberDeclarationSyntax or null))
+			while (nodeToPlaceComment is not (StatementSyntax or MemberDeclarationSyntax or UsingDirectiveSyntax or null))
 			{
 				nodeToPlaceComment = nodeToPlaceComment.Parent;
 			}
