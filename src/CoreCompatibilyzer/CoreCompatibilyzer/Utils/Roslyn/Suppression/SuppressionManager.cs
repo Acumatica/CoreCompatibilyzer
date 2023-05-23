@@ -89,14 +89,9 @@ namespace CoreCompatibilyzer.Utils.Roslyn.Suppression
 
 			var successfulMatch = trivia.Where(x => x.IsKind(SyntaxKind.SingleLineCommentTrivia))
 									   .Select(trivia => _suppressPattern.Match(trivia.ToString()))
-									   .FirstOrDefault(match => match.Success && match.Groups.Count >= 2 &&
-																diagnostic.Id == match.Groups[1].Value);
-			if (successfulMatch == null)
-				return false;
-			else if (diagnosticShortName == null)
-				return true;
-			else
-				return successfulMatch.Groups.Count >= 3 && diagnosticShortName == successfulMatch.Groups[2].Value;
+									   .FirstOrDefault(match => match.Success && diagnostic.Id == match.Groups[1].Value &&
+																(diagnosticShortName == null || diagnosticShortName == match.Groups[2].Value));
+			return successfulMatch != null;
 		}
 	}
 }
