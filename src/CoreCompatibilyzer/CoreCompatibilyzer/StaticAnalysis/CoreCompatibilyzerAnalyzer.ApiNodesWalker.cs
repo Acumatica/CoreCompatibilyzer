@@ -29,15 +29,18 @@ namespace CoreCompatibilyzer.StaticAnalysis
 			private readonly IApiBanInfoRetriever _apiBanInfoRetriever;
 			private readonly BannedTypesInfoCollector _bannedTypesInfoCollector;
 
+			public bool CheckInterfaces { get; }
+
 			private CancellationToken Cancellation => _syntaxContext.CancellationToken;
 
 			private SemanticModel SemanticModel => _syntaxContext.SemanticModel;
 
-            public ApiNodesWalker(SyntaxNodeAnalysisContext syntaxContext,IApiBanInfoRetriever apiBanInfoRetriever)
+            public ApiNodesWalker(SyntaxNodeAnalysisContext syntaxContext,IApiBanInfoRetriever apiBanInfoRetriever, bool checkInterfaces)
             {
                 _syntaxContext 		 	  = syntaxContext;
 				_apiBanInfoRetriever 	  = apiBanInfoRetriever;
 				_bannedTypesInfoCollector = new BannedTypesInfoCollector(apiBanInfoRetriever, syntaxContext.CancellationToken);
+				CheckInterfaces = checkInterfaces;
 			}
 
 			#region Visit XML comments methods to prevent coloring in XML comments don't call base method
@@ -80,7 +83,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 						break;
 					
 					case ITypeSymbol typeSymbol:
-						var bannedTypeInfos = _bannedTypesInfoCollector.GetTypeBannedApiInfos(typeSymbol);
+						var bannedTypeInfos = _bannedTypesInfoCollector.GetTypeBannedApiInfos(typeSymbol, CheckInterfaces);
 						ReportApiList(bannedTypeInfos, usingDirectiveNode.Name);
 						break;
 				}	
@@ -102,8 +105,8 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				if (symbol is ITypeSymbol typeSymbol)
 				{
 					List<BannedApi>? bannedTypeInfos = typeSymbol is ITypeParameterSymbol typeParameterSymbol
-						? _bannedTypesInfoCollector.GetTypeParameterBannedApiInfos(typeParameterSymbol)
-						: _bannedTypesInfoCollector.GetTypeBannedApiInfos(typeSymbol);
+						? _bannedTypesInfoCollector.GetTypeParameterBannedApiInfos(typeParameterSymbol, CheckInterfaces)
+						: _bannedTypesInfoCollector.GetTypeBannedApiInfos(typeSymbol, CheckInterfaces);
 
 					if (bannedTypeInfos?.Count > 0)
 					{
@@ -146,12 +149,12 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				switch (symbol)
 				{
 					case ITypeParameterSymbol typeParameterSymbol:
-						var bannedTypeParameterInfos = _bannedTypesInfoCollector.GetTypeParameterBannedApiInfos(typeParameterSymbol);
+						var bannedTypeParameterInfos = _bannedTypesInfoCollector.GetTypeParameterBannedApiInfos(typeParameterSymbol, CheckInterfaces);
 						ReportApiList(bannedTypeParameterInfos, nodeToReport);
 						return;
 
 					case ITypeSymbol typeSymbol:
-						var bannedTypeInfos = _bannedTypesInfoCollector.GetTypeBannedApiInfos(typeSymbol);
+						var bannedTypeInfos = _bannedTypesInfoCollector.GetTypeBannedApiInfos(typeSymbol, CheckInterfaces);
 						ReportApiList(bannedTypeInfos, nodeToReport);
 						return;
 

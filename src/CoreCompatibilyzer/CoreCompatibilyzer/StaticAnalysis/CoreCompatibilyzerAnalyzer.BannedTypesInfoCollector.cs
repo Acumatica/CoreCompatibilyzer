@@ -26,19 +26,20 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				_cancellation = cancellation;
             }
 
-			public List<BannedApi>? GetTypeParameterBannedApiInfos(ITypeParameterSymbol typeParameterSymbol)
+			public List<BannedApi>? GetTypeParameterBannedApiInfos(ITypeParameterSymbol typeParameterSymbol, bool checkInterfaces)
 			{
 				_checkedTypes.Clear();
-				return GetBannedInfosFromTypeParameter(typeParameterSymbol, alreadyCollectedInfos: null);
+				return GetBannedInfosFromTypeParameter(typeParameterSymbol, alreadyCollectedInfos: null, checkInterfaces);
 			}
 
-			public List<BannedApi>? GetTypeBannedApiInfos(ITypeSymbol typeSymbol)
+			public List<BannedApi>? GetTypeBannedApiInfos(ITypeSymbol typeSymbol, bool checkInterfaces)
 			{				
 				_checkedTypes.Clear();
-				return GetBannedInfosFromTypeSymbolAndItsHierarchy(typeSymbol, alreadyCollectedInfos: null);
+				return GetBannedInfosFromTypeSymbolAndItsHierarchy(typeSymbol, alreadyCollectedInfos: null, checkInterfaces);
 			}
 
-			private List<BannedApi>? GetBannedInfosFromTypeSymbolAndItsHierarchy(ITypeSymbol typeSymbol, List<BannedApi>? alreadyCollectedInfos)
+			private List<BannedApi>? GetBannedInfosFromTypeSymbolAndItsHierarchy(ITypeSymbol typeSymbol, List<BannedApi>? alreadyCollectedInfos, 
+																				 bool checkInterfaces)
 			{
 				if (!_checkedTypes.Add(typeSymbol))
 					return alreadyCollectedInfos;
@@ -48,8 +49,8 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				if (typeSymbol.SpecialType != SpecialType.None)
 					return alreadyCollectedInfos;
 
-				alreadyCollectedInfos = GetBannedInfosFromType(typeSymbol, alreadyCollectedInfos);
-				alreadyCollectedInfos = GetBannedInfosFromBaseTypes(typeSymbol, alreadyCollectedInfos);
+				alreadyCollectedInfos = GetBannedInfosFromType(typeSymbol, alreadyCollectedInfos, checkInterfaces);
+				alreadyCollectedInfos = GetBannedInfosFromBaseTypes(typeSymbol, alreadyCollectedInfos, checkInterfaces);
 
 				_cancellation.ThrowIfCancellationRequested();
 
@@ -63,7 +64,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 					if (_checkedTypes.Add(@interface))
 					{
 						_cancellation.ThrowIfCancellationRequested();
-						alreadyCollectedInfos = GetBannedInfosFromType(@interface, alreadyCollectedInfos);
+						alreadyCollectedInfos = GetBannedInfosFromType(@interface, alreadyCollectedInfos, checkInterfaces);
 					}
 				}
 
@@ -71,7 +72,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				return alreadyCollectedInfos;
 			}
 
-			private List<BannedApi>? GetBannedInfosFromBaseTypes(ITypeSymbol typeSymbol, List<BannedApi>? alreadyCollectedInfos)
+			private List<BannedApi>? GetBannedInfosFromBaseTypes(ITypeSymbol typeSymbol, List<BannedApi>? alreadyCollectedInfos, bool checkInterfaces)
 			{
 				if (typeSymbol.IsStatic || typeSymbol.TypeKind != TypeKind.Class)
 					return alreadyCollectedInfos;
@@ -84,7 +85,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 						return alreadyCollectedInfos;
 
 					int oldCount = alreadyCollectedInfos?.Count ?? 0;
-					alreadyCollectedInfos = GetBannedInfosFromType(typeSymbol, alreadyCollectedInfos);
+					alreadyCollectedInfos = GetBannedInfosFromType(typeSymbol, alreadyCollectedInfos, checkInterfaces);
 
 					// If we found something incompatible there is no need to go lower. We don't need to report whole incompatible inheritance chain
 					int newCount = alreadyCollectedInfos?.Count ?? 0;
@@ -96,7 +97,8 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				return alreadyCollectedInfos;
 			}
 
-			private List<BannedApi>? GetBannedInfosFromType(ITypeSymbol typeSymbol, List<BannedApi>? alreadyCollectedInfos)
+			private List<BannedApi>? GetBannedInfosFromType(ITypeSymbol typeSymbol, List<BannedApi>? alreadyCollectedInfos, 
+															bool checkInterfaces)
 			{
 				if (_apiBanInfoRetriever.GetBanInfoForApi(typeSymbol) is BannedApi bannedTypeInfo)
 				{
@@ -107,20 +109,22 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				_cancellation.ThrowIfCancellationRequested();
 
 				if (typeSymbol is INamedTypeSymbol namedTypeSymbol && namedTypeSymbol.IsGenericType)
-					alreadyCollectedInfos = GetBannedApisFromTypesList(namedTypeSymbol.TypeArguments, alreadyCollectedInfos);
+					alreadyCollectedInfos = GetBannedApisFromTypesList(namedTypeSymbol.TypeArguments, alreadyCollectedInfos, checkInterfaces);
 
 				return alreadyCollectedInfos;
 			}
 
-			private List<BannedApi>? GetBannedInfosFromTypeParameter(ITypeParameterSymbol typeParameterSymbol, List<BannedApi>? alreadyCollectedInfos)
+			private List<BannedApi>? GetBannedInfosFromTypeParameter(ITypeParameterSymbol typeParameterSymbol, List<BannedApi>? alreadyCollectedInfos, 
+																	 bool checkInterfaces)
 			{
 				if (!_checkedTypes.Add(typeParameterSymbol))
 					return alreadyCollectedInfos;
 
-				return GetBannedApisFromTypesList(typeParameterSymbol.ConstraintTypes, alreadyCollectedInfos);
+				return GetBannedApisFromTypesList(typeParameterSymbol.ConstraintTypes, alreadyCollectedInfos, checkInterfaces);
 			}
 
-			private List<BannedApi>? GetBannedApisFromTypesList(ImmutableArray<ITypeSymbol> types, List<BannedApi>? alreadyCollectedInfos)
+			private List<BannedApi>? GetBannedApisFromTypesList(ImmutableArray<ITypeSymbol> types, List<BannedApi>? alreadyCollectedInfos, 
+																bool checkInterfaces)
 			{
 				if (types.IsDefaultOrEmpty)
 					return alreadyCollectedInfos;
@@ -132,11 +136,11 @@ namespace CoreCompatibilyzer.StaticAnalysis
 					switch (constraintType)
 					{
 						case ITypeParameterSymbol otherTypeParameter:
-							alreadyCollectedInfos = GetBannedInfosFromTypeParameter(otherTypeParameter, alreadyCollectedInfos);
+							alreadyCollectedInfos = GetBannedInfosFromTypeParameter(otherTypeParameter, alreadyCollectedInfos, checkInterfaces);
 							continue;
 
 						case INamedTypeSymbol namedType:
-							alreadyCollectedInfos = GetBannedInfosFromTypeSymbolAndItsHierarchy(namedType, alreadyCollectedInfos);
+							alreadyCollectedInfos = GetBannedInfosFromTypeSymbolAndItsHierarchy(namedType, alreadyCollectedInfos, checkInterfaces);
 							continue;
 					}
 				}

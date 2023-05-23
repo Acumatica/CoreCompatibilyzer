@@ -83,7 +83,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 
 			if (syntaxContext.Node is CompilationUnitSyntax compilationUnitSyntax)
 			{
-				var apiNodesWalker = new ApiNodesWalker(syntaxContext, apiBanInfoRetriever);
+				var apiNodesWalker = new ApiNodesWalker(syntaxContext, apiBanInfoRetriever, checkInterfaces: false);
 				compilationUnitSyntax.Accept(apiNodesWalker);
 			}	
 		}
