@@ -40,7 +40,7 @@ namespace CoreCompatibilyzer.BannedApiData.Providers
 		}
 
 		/// <inheritdoc/>
-		public override async Task<IEnumerable<BannedApi>?> GetBannedApiDataAsync(CancellationToken cancellation)
+		public override async Task<IEnumerable<Api>?> GetBannedApiDataAsync(CancellationToken cancellation)
 		{
 			cancellation.ThrowIfCancellationRequested();
 
@@ -65,14 +65,14 @@ namespace CoreCompatibilyzer.BannedApiData.Providers
 			cancellation.ThrowIfCancellationRequested();
 
 			if (wholeText.IsNullOrWhiteSpace())
-				return Enumerable.Empty<BannedApi>();
+				return Enumerable.Empty<Api>();
 
 			var bannedApis = ParseTextIntoBannedApis(wholeText, cancellation);
 			return bannedApis;
 		}
 
 		/// <inheritdoc/>
-		public override IEnumerable<BannedApi>? GetBannedApiData(CancellationToken cancellation)
+		public override IEnumerable<Api>? GetBannedApiData(CancellationToken cancellation)
 		{
 			cancellation.ThrowIfCancellationRequested();
 

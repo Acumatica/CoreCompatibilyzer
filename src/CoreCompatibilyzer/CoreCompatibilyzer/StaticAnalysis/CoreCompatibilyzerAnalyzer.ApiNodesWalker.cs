@@ -9,7 +9,7 @@ using System.Xml.Linq;
 using CoreCompatibilyzer.BannedApiData.Model;
 using CoreCompatibilyzer.BannedApiData.Storage;
 using CoreCompatibilyzer.Constants;
-using CoreCompatibilyzer.StaticAnalysis.BannedApiRetriever;
+using CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers;
 using CoreCompatibilyzer.Utils.Common;
 using CoreCompatibilyzer.Utils.Roslyn.Semantic;
 using CoreCompatibilyzer.Utils.Roslyn.Suppression;
@@ -26,7 +26,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 		private class ApiNodesWalker : CSharpSyntaxWalker
 		{
 			private readonly SyntaxNodeAnalysisContext _syntaxContext;
-			private readonly IApiBanInfoRetriever _apiBanInfoRetriever;
+			private readonly IApiInfoRetriever _apiBanInfoRetriever;
 			private readonly BannedTypesInfoCollector _bannedTypesInfoCollector;
 
 			public bool CheckInterfaces { get; }
@@ -35,7 +35,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 
 			private SemanticModel SemanticModel => _syntaxContext.SemanticModel;
 
-            public ApiNodesWalker(SyntaxNodeAnalysisContext syntaxContext,IApiBanInfoRetriever apiBanInfoRetriever, bool checkInterfaces)
+            public ApiNodesWalker(SyntaxNodeAnalysisContext syntaxContext,IApiInfoRetriever apiBanInfoRetriever, bool checkInterfaces)
             {
                 _syntaxContext 		 	  = syntaxContext;
 				_apiBanInfoRetriever 	  = apiBanInfoRetriever;
@@ -75,7 +75,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				switch (typeOrNamespaceSymbol)
 				{
 					case INamespaceSymbol namespaceSymbol:
-						BannedApi? bannedNamespaceOrTypeInfo = _apiBanInfoRetriever.GetBanInfoForApi(namespaceSymbol);
+						Api? bannedNamespaceOrTypeInfo = _apiBanInfoRetriever.GetInfoForApi(namespaceSymbol);
 
 						if (bannedNamespaceOrTypeInfo.HasValue)
 							ReportApi(bannedNamespaceOrTypeInfo.Value, usingDirectiveNode.Name);
@@ -104,7 +104,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 
 				if (symbol is ITypeSymbol typeSymbol)
 				{
-					List<BannedApi>? bannedTypeInfos = typeSymbol is ITypeParameterSymbol typeParameterSymbol
+					List<Api>? bannedTypeInfos = typeSymbol is ITypeParameterSymbol typeParameterSymbol
 						? _bannedTypesInfoCollector.GetTypeParameterBannedApiInfos(typeParameterSymbol, CheckInterfaces)
 						: _bannedTypesInfoCollector.GetTypeBannedApiInfos(typeSymbol, CheckInterfaces);
 
@@ -114,7 +114,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 						ReportApiList(bannedTypeInfos, location);
 					}
 				}
-				else if(GetBannedSymbolInfoForNonTypeSymbol(symbol) is BannedApi bannedSymbolInfo)
+				else if(GetBannedSymbolInfoForNonTypeSymbol(symbol) is Api bannedSymbolInfo)
 				{
 					var location = GetLocationFromNode(genericNameNode);
 					ReportApi(bannedSymbolInfo, location);
@@ -159,16 +159,16 @@ namespace CoreCompatibilyzer.StaticAnalysis
 						return;
 
 					default:
-						if (GetBannedSymbolInfoForNonTypeSymbol(symbol) is BannedApi bannedSymbolInfo)
+						if (GetBannedSymbolInfoForNonTypeSymbol(symbol) is Api bannedSymbolInfo)
 							ReportApi(bannedSymbolInfo, nodeToReport);
 
 						return;
 				}
 			}
 
-			private BannedApi? GetBannedSymbolInfoForNonTypeSymbol(ISymbol nonTypeSymbol)
+			private Api? GetBannedSymbolInfoForNonTypeSymbol(ISymbol nonTypeSymbol)
 			{
-				if (_apiBanInfoRetriever.GetBanInfoForApi(nonTypeSymbol) is BannedApi bannedSymbolInfo)
+				if (_apiBanInfoRetriever.GetInfoForApi(nonTypeSymbol) is Api bannedSymbolInfo)
 					return bannedSymbolInfo;
 
 				if (!nonTypeSymbol.IsOverride)
@@ -178,29 +178,29 @@ namespace CoreCompatibilyzer.StaticAnalysis
 
 				foreach (var overriden in overridesChain)
 				{
-					if (_apiBanInfoRetriever.GetBanInfoForApi(nonTypeSymbol) is BannedApi bannedOverridenSymbolInfo)
+					if (_apiBanInfoRetriever.GetInfoForApi(nonTypeSymbol) is Api bannedOverridenSymbolInfo)
 						return bannedOverridenSymbolInfo;
 				} 
 
 				return null;
 			}
 
-			private void ReportApiList(List<BannedApi>? bannedApisList, SyntaxNode node)
+			private void ReportApiList(List<Api>? bannedApisList, SyntaxNode node)
 			{
 				if (bannedApisList?.Count > 0)
 					ReportApiList(bannedApisList, node.GetLocation());
 			}
 
-			private void ReportApiList(List<BannedApi> bannedApisList, Location location)
+			private void ReportApiList(List<Api> bannedApisList, Location location)
 			{
-				foreach (BannedApi bannedTypeInfo in bannedApisList)
+				foreach (Api bannedTypeInfo in bannedApisList)
 					ReportApi(bannedTypeInfo, location);
 			}
 
-			private void ReportApi(in BannedApi banApiInfo, SyntaxNode? node) =>
+			private void ReportApi(in Api banApiInfo, SyntaxNode? node) =>
 				ReportApi(banApiInfo, node?.GetLocation());
 
-			private void ReportApi(in BannedApi banApiInfo, Location? location)
+			private void ReportApi(in Api banApiInfo, Location? location)
 			{
 				var diagnosticDescriptor = GetDiagnosticFromBannedApiInfo(banApiInfo);
 
@@ -213,10 +213,10 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				_syntaxContext.ReportDiagnosticWithSuppressionCheck(diagnostic);
 			}
 
-			private DiagnosticDescriptor? GetDiagnosticFromBannedApiInfo(in BannedApi banApiInfo) => banApiInfo.BannedApiType switch
+			private DiagnosticDescriptor? GetDiagnosticFromBannedApiInfo(in Api banApiInfo) => banApiInfo.ApiInfoType switch
 			{
-				BannedApiType.NotPresentInNetCore => Descriptors.CoreCompat1001_ApiNotPresentInDotNetCore,
-				BannedApiType.Obsolete 			  => Descriptors.CoreCompat1002_ApiObsoleteInDotNetCore,
+				ApiInfoType.NotPresentInNetCore => Descriptors.CoreCompat1001_ApiNotPresentInDotNetCore,
+				ApiInfoType.Obsolete 			  => Descriptors.CoreCompat1002_ApiObsoleteInDotNetCore,
 				_ 								  => null
 			};
 		}

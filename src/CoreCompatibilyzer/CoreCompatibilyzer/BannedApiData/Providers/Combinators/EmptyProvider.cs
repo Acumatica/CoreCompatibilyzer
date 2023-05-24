@@ -13,7 +13,7 @@ namespace CoreCompatibilyzer.BannedApiData.Providers
 	/// </summary>
 	internal class EmptyProvider : IBannedApiDataProvider
 	{
-		private readonly Task<IEnumerable<BannedApi>?> _resultTask;
+		private readonly Task<IEnumerable<Api>?> _resultTask;
 
 		/// <inheritdoc/>
 		public bool IsDataAvailable { get; }
@@ -22,17 +22,17 @@ namespace CoreCompatibilyzer.BannedApiData.Providers
         {
 			IsDataAvailable = considerDataAvailable;
 			_resultTask = IsDataAvailable
-				? Task.FromResult<IEnumerable<BannedApi>?>(Enumerable.Empty<BannedApi>())
-				: Task.FromResult<IEnumerable<BannedApi>?>(null);
+				? Task.FromResult<IEnumerable<Api>?>(Enumerable.Empty<Api>())
+				: Task.FromResult<IEnumerable<Api>?>(null);
 		}
 
 		/// <inheritdoc/>
-		public Task<IEnumerable<BannedApi>?> GetBannedApiDataAsync(CancellationToken cancellation) => 
+		public Task<IEnumerable<Api>?> GetBannedApiDataAsync(CancellationToken cancellation) => 
 			_resultTask;
 
-		public IEnumerable<BannedApi>? GetBannedApiData(CancellationToken cancellation) =>
+		public IEnumerable<Api>? GetBannedApiData(CancellationToken cancellation) =>
 			IsDataAvailable
-				? Enumerable.Empty<BannedApi>()
+				? Enumerable.Empty<Api>()
 				: null;
 	}
 }

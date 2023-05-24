@@ -25,7 +25,7 @@ namespace CoreCompatibilyzer.BannedApiData.Providers
 		/// <returns>
 		/// The banned API data.
 		/// </returns>
-		IEnumerable<BannedApi>? GetBannedApiData(CancellationToken cancellation);
+		IEnumerable<Api>? GetBannedApiData(CancellationToken cancellation);
 
 		/// <summary>
 		/// Gets the banned API data asynchronously from the provider or <see langword="null"/> if the provider's banned API data is not available. <br/>
@@ -35,6 +35,6 @@ namespace CoreCompatibilyzer.BannedApiData.Providers
 		/// <returns>
 		/// The task with banned API data.
 		/// </returns>
-		Task<IEnumerable<BannedApi>?> GetBannedApiDataAsync(CancellationToken cancellation);
+		Task<IEnumerable<Api>?> GetBannedApiDataAsync(CancellationToken cancellation);
     }
 }

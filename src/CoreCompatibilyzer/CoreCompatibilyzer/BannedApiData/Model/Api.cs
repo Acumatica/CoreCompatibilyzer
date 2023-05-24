@@ -7,9 +7,9 @@ using CoreCompatibilyzer.Utils.Common;
 namespace CoreCompatibilyzer.BannedApiData.Model
 {
 	/// <summary>
-	/// A banned API data.
+	/// API data.
 	/// </summary>
-	public readonly struct BannedApi : IEquatable<BannedApi>, IComparable<BannedApi>
+	public readonly struct Api : IEquatable<Api>, IComparable<Api>
 	{
 		public string DocID { get; }
 
@@ -17,9 +17,9 @@ namespace CoreCompatibilyzer.BannedApiData.Model
 
 		public string FullName { get; }
 
-		public BannedApiType BannedApiType { get; }
+		public ApiInfoType ApiInfoType { get; }
 
-        public BannedApi(string docIDWithOptionalObsoleteMarker)
+        public Api(string docIDWithOptionalObsoleteMarker, bool isWhiteList)
         {
 			docIDWithOptionalObsoleteMarker = docIDWithOptionalObsoleteMarker.ThrowIfNullOrWhiteSpace(nameof(docIDWithOptionalObsoleteMarker)).Trim();
 
@@ -32,12 +32,12 @@ namespace CoreCompatibilyzer.BannedApiData.Model
 					throw InvalidInputStringFormatException(docIDWithOptionalObsoleteMarker);
 
 				DocID = docIDWithOptionalObsoleteMarker.Remove(docIDWithOptionalObsoleteMarker.Length - 2);
-				BannedApiType = BannedApiType.Obsolete;
+				ApiInfoType = isWhiteList ? ApiInfoType.WhiteList : ApiInfoType.Obsolete;
 			}
 			else
 			{
 				DocID = docIDWithOptionalObsoleteMarker;
-				BannedApiType = BannedApiType.NotPresentInNetCore;
+				ApiInfoType = isWhiteList ? ApiInfoType.WhiteList : ApiInfoType.NotPresentInNetCore;
 			}
 			
 			Kind = DocID.GetApiKind();
@@ -56,19 +56,19 @@ namespace CoreCompatibilyzer.BannedApiData.Model
 									" character separated by whitespace at the end of a DocID string",
 									nameof(docID));
 
-		public override bool Equals(object obj) => obj is BannedApi bannedApi && Equals(bannedApi);
+		public override bool Equals(object obj) => obj is Api api && Equals(api);
 
-		public bool Equals(BannedApi other) => 
-			string.Equals(DocID, other.DocID) && BannedApiType == other.BannedApiType;
+		public bool Equals(Api other) => 
+			string.Equals(DocID, other.DocID) && ApiInfoType == other.ApiInfoType;
 
-		public static bool operator ==(BannedApi x, BannedApi y) => x.Equals(y);
+		public static bool operator ==(Api x, Api y) => x.Equals(y);
 
-		public static bool operator !=(BannedApi x, BannedApi y) => !x.Equals(y);
+		public static bool operator !=(Api x, Api y) => !x.Equals(y);
 
 		public override string ToString() => DocID;
 
 		public override int GetHashCode() => DocID.GetHashCode();
 
-		public int CompareTo(BannedApi other) => DocID.CompareTo(other.DocID);
+		public int CompareTo(Api other) => DocID.CompareTo(other.DocID);
 	}
 }

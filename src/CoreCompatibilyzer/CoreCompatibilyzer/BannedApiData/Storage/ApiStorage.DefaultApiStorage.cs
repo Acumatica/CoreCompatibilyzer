@@ -14,16 +14,16 @@ namespace CoreCompatibilyzer.BannedApiData.Storage
 		/// </summary>
 		private class DefaultApiStorage : IApiStorage
 		{
-			private readonly IReadOnlyDictionary<ApiKind, IReadOnlyDictionary<string, BannedApi>> _ApisByDocIdGroupedByApiKind;
+			private readonly IReadOnlyDictionary<ApiKind, IReadOnlyDictionary<string, Api>> _ApisByDocIdGroupedByApiKind;
 
 			public int ApiKindsCount => _ApisByDocIdGroupedByApiKind.Count;
 
 			public DefaultApiStorage()
 			{
-				_ApisByDocIdGroupedByApiKind = ImmutableDictionary<ApiKind, IReadOnlyDictionary<string, BannedApi>>.Empty;
+				_ApisByDocIdGroupedByApiKind = ImmutableDictionary<ApiKind, IReadOnlyDictionary<string, Api>>.Empty;
 			}
 
-			public DefaultApiStorage(IEnumerable<BannedApi> apis)
+			public DefaultApiStorage(IEnumerable<Api> apis)
 			{
 				_ApisByDocIdGroupedByApiKind =
 					apis.GroupBy(api => api.Kind)
@@ -31,15 +31,15 @@ namespace CoreCompatibilyzer.BannedApiData.Storage
 									  elementSelector: GetApisOfSameKindByDocID);
 			}
 
-			private IReadOnlyDictionary<string, BannedApi> GetApisOfSameKindByDocID(IEnumerable<BannedApi> apis)
+			private IReadOnlyDictionary<string, Api> GetApisOfSameKindByDocID(IEnumerable<Api> apis)
 			{
-				Dictionary<string, BannedApi> apisByDocID = new();
+				Dictionary<string, Api> apisByDocID = new();
 
 				foreach (var api in apis)
 				{
-					if (apisByDocID.TryGetValue(api.DocID, out BannedApi duplicateApi))
+					if (apisByDocID.TryGetValue(api.DocID, out Api duplicateApi))
 					{
-						if (duplicateApi.BannedApiType == BannedApiType.Obsolete && api.BannedApiType == BannedApiType.NotPresentInNetCore)
+						if (duplicateApi.ApiInfoType == ApiInfoType.Obsolete && api.ApiInfoType == ApiInfoType.NotPresentInNetCore)
 							apisByDocID[api.DocID] = api;
 					}
 					else
@@ -55,7 +55,7 @@ namespace CoreCompatibilyzer.BannedApiData.Storage
 				return apiOfThisKind?.Count ?? 0;
 			}
 
-			public BannedApi? GetApi(ApiKind apiKind, string apiDocId)
+			public Api? GetApi(ApiKind apiKind, string apiDocId)
 			{
 				var apisOfThisKind = ApiByKind(apiKind);
 				return apisOfThisKind?.TryGetValue(apiDocId, out var bannedApi) == true
@@ -66,7 +66,7 @@ namespace CoreCompatibilyzer.BannedApiData.Storage
 			public bool ContainsApi(ApiKind apiKind, string apiDocId) =>
 				ApiByKind(apiKind)?.ContainsKey(apiDocId) ?? false;
 
-			private IReadOnlyDictionary<string, BannedApi>? ApiByKind(ApiKind apiKind) =>
+			private IReadOnlyDictionary<string, Api>? ApiByKind(ApiKind apiKind) =>
 				_ApisByDocIdGroupedByApiKind.TryGetValue(apiKind, out var api)
 					? api
 					: null;

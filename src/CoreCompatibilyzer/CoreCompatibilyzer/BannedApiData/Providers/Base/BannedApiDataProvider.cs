@@ -17,12 +17,12 @@ namespace CoreCompatibilyzer.BannedApiData.Providers
 		public abstract bool IsDataAvailable { get; }
 
 		/// <inheritdoc/>
-		public abstract IEnumerable<BannedApi>? GetBannedApiData(CancellationToken cancellation);
+		public abstract IEnumerable<Api>? GetBannedApiData(CancellationToken cancellation);
 
 		/// <inheritdoc/>
-		public abstract Task<IEnumerable<BannedApi>?> GetBannedApiDataAsync(CancellationToken cancellation);
+		public abstract Task<IEnumerable<Api>?> GetBannedApiDataAsync(CancellationToken cancellation);
 
-		protected IEnumerable<BannedApi> ParseTextIntoBannedApis(string text, CancellationToken cancellation)
+		protected IEnumerable<Api> ParseTextIntoBannedApis(string text, CancellationToken cancellation)
 		{
 			cancellation.ThrowIfCancellationRequested();
 
@@ -33,14 +33,14 @@ namespace CoreCompatibilyzer.BannedApiData.Providers
 			{
 				cancellation.ThrowIfCancellationRequested();
 
-				BannedApi bannedApi = ParseBannedApiFromLine(rawDocID, lineNumber);
+				Api bannedApi = ParseBannedApiFromLine(rawDocID, lineNumber);
 				yield return bannedApi;
 
 				lineNumber++;
 			}
 		}
 
-		protected IEnumerable<BannedApi> ParseLinesIntoBannedApis(IEnumerable<string> rawLines, CancellationToken cancellation)
+		protected IEnumerable<Api> ParseLinesIntoBannedApis(IEnumerable<string> rawLines, CancellationToken cancellation)
 		{
 			int lineNumber = 1;
 
@@ -48,14 +48,14 @@ namespace CoreCompatibilyzer.BannedApiData.Providers
 			{
 				cancellation.ThrowIfCancellationRequested();
 
-				BannedApi bannedApi = ParseBannedApiFromLine(rawDocID, lineNumber);
+				Api bannedApi = ParseBannedApiFromLine(rawDocID, lineNumber);
 				yield return bannedApi;
 
 				lineNumber++;
 			}
 		}
 
-		protected IEnumerable<BannedApi> ParseStreamIntoBannedApis(Stream resourceStream, CancellationToken cancellation)
+		protected IEnumerable<Api> ParseStreamIntoBannedApis(Stream resourceStream, CancellationToken cancellation)
 		{
 			int lineNumber = 1;
 			using var reader = new StreamReader(resourceStream);
@@ -64,18 +64,18 @@ namespace CoreCompatibilyzer.BannedApiData.Providers
 			{
 				cancellation.ThrowIfCancellationRequested();
 
-				BannedApi bannedApi = ParseBannedApiFromLine(rawDocID, lineNumber);
+				Api bannedApi = ParseBannedApiFromLine(rawDocID, lineNumber);
 				yield return bannedApi;
 
 				lineNumber++;
 			}
 		}
 
-		protected virtual BannedApi ParseBannedApiFromLine(string rawDocID, int lineNumber)
+		protected virtual Api ParseBannedApiFromLine(string rawDocID, int lineNumber)
 		{
 			try
 			{
-				return new BannedApi(rawDocID);
+				return new Api(rawDocID);
 			}
 			catch (Exception exception)
 			{

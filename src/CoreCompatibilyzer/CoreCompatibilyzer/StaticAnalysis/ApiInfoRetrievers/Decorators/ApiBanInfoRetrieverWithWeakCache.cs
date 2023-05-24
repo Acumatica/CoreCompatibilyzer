@@ -7,34 +7,34 @@ using CoreCompatibilyzer.BannedApiData.Model;
 using Microsoft.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
-namespace CoreCompatibilyzer.StaticAnalysis.BannedApiRetriever
+namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
 {
     /// <summary>
-    /// A retriever of the ban API info that only searches for the ban information of the API itself, all containing APIs are not checked.
+    /// A retriever of the API info that caches the result of another retriever.
     /// </summary>
-    public class ApiBanInfoRetrieverWithWeakCache : IApiBanInfoRetriever
+    public class ApiInfoRetrieverWithWeakCache : IApiInfoRetriever
 	{
 		private class CacheEntry
 		{
-			public BannedApi? BannedApi { get; set; }
+			public Api? BannedApi { get; set; }
 		}
 
 		private readonly ConditionalWeakTable<ISymbol, CacheEntry> _weakCache = new();
-		private readonly IApiBanInfoRetriever _innerApiInfoRetriever;
+		private readonly IApiInfoRetriever _innerApiInfoRetriever;
 
-		public ApiBanInfoRetrieverWithWeakCache(IApiBanInfoRetriever innerApiInfoRetriever)
+		public ApiInfoRetrieverWithWeakCache(IApiInfoRetriever innerApiInfoRetriever)
         {
 			_innerApiInfoRetriever = innerApiInfoRetriever.ThrowIfNull(nameof(innerApiInfoRetriever));
         }
 
-		public BannedApi? GetBanInfoForApi(ISymbol apiSymbol)
+		public Api? GetInfoForApi(ISymbol apiSymbol)
 		{
 			apiSymbol.ThrowIfNull(nameof(apiSymbol));
 
 			if (_weakCache.TryGetValue(apiSymbol, out CacheEntry cacheEntry))
 				return cacheEntry.BannedApi;
 
-			var bannedApiInfo 	 = _innerApiInfoRetriever.GetBanInfoForApi(apiSymbol);
+			var bannedApiInfo 	 = _innerApiInfoRetriever.GetInfoForApi(apiSymbol);
 			cacheEntry		  	 = _weakCache.GetOrCreateValue(apiSymbol);
 			cacheEntry.BannedApi = bannedApiInfo;
 

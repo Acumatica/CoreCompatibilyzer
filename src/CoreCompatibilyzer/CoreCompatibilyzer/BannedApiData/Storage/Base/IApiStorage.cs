@@ -31,7 +31,7 @@ namespace CoreCompatibilyzer.BannedApiData.Storage
         /// <returns>
         /// The API or null.
         /// </returns>
-        public BannedApi? GetApi(ApiKind apiKind, string apiDocId);
+        public Api? GetApi(ApiKind apiKind, string apiDocId);
 
         /// <summary>
         /// Query if the storage contains the API.

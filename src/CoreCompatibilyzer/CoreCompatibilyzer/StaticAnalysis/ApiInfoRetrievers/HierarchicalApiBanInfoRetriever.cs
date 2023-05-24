@@ -7,7 +7,7 @@ using CoreCompatibilyzer.BannedApiData.Storage;
 
 using Microsoft.CodeAnalysis;
 
-namespace CoreCompatibilyzer.StaticAnalysis.BannedApiRetriever
+namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
 {
     /// <summary>
     /// A retriever of the ban API info that also checks for banned containing APIs.
@@ -17,9 +17,9 @@ namespace CoreCompatibilyzer.StaticAnalysis.BannedApiRetriever
         public HierarchicalApiBanInfoRetriever(IApiStorage bannedApiStorage) : base(bannedApiStorage)
         { }
 
-		protected override BannedApi? GetBanInfoForApiImpl(ISymbol apiSymbol, ApiKind apiKind)
+		protected override Api? GetBanInfoForApiImpl(ISymbol apiSymbol, ApiKind apiKind)
 		{
-			BannedApi? directBanInfo = base.GetBanInfoForApiImpl(apiSymbol, apiKind);
+			Api? directBanInfo = base.GetBanInfoForApiImpl(apiSymbol, apiKind);
 
 			if (directBanInfo != null)
 				return directBanInfo;
@@ -28,7 +28,7 @@ namespace CoreCompatibilyzer.StaticAnalysis.BannedApiRetriever
 			if (apiKind is ApiKind.Namespace or ApiKind.Undefined)
 				return null;
 
-			BannedApi? namespaceBanInfo = GetBanInfoForApiNamespace(apiSymbol.ContainingNamespace);
+			Api? namespaceBanInfo = GetBanInfoForApiNamespace(apiSymbol.ContainingNamespace);
 
 			if (namespaceBanInfo != null)
 				return namespaceBanInfo;
@@ -37,7 +37,7 @@ namespace CoreCompatibilyzer.StaticAnalysis.BannedApiRetriever
 			if (apiSymbol is ITypeSymbol typeSymbol && typeSymbol.ContainingType == null) 
 				return null;
 
-			BannedApi? typeBanInfo = GetBanInfoForContainingTypes(apiSymbol.ContainingType);
+			Api? typeBanInfo = GetBanInfoForContainingTypes(apiSymbol.ContainingType);
 
 			if (typeBanInfo != null)
 				return typeBanInfo;
@@ -51,16 +51,16 @@ namespace CoreCompatibilyzer.StaticAnalysis.BannedApiRetriever
 			}
 
 			// The only API kind left to check are property and event accessors, since they can be banned via their corresponding property/event
-			BannedApi? accessorBanInfo = GetBanInfoForAccessorMethod(methodSymbol);
+			Api? accessorBanInfo = GetBanInfoForAccessorMethod(methodSymbol);
 			return accessorBanInfo;
 		}
 
-		private BannedApi? GetBanInfoForApiNamespace(INamespaceSymbol? apiNamespaceSymbol) =>
+		private Api? GetBanInfoForApiNamespace(INamespaceSymbol? apiNamespaceSymbol) =>
 			apiNamespaceSymbol != null && !apiNamespaceSymbol.IsGlobalNamespace
 				? GetBanInfoForSymbol(apiNamespaceSymbol, ApiKind.Namespace)
 				: null;
 
-		private BannedApi? GetBanInfoForContainingTypes(INamedTypeSymbol? firstContainingType)
+		private Api? GetBanInfoForContainingTypes(INamedTypeSymbol? firstContainingType)
 		{
 			INamedTypeSymbol? currentType = firstContainingType;
 
@@ -77,7 +77,7 @@ namespace CoreCompatibilyzer.StaticAnalysis.BannedApiRetriever
 			return null;
 		}
 
-		private BannedApi? GetBanInfoForAccessorMethod(IMethodSymbol acessorMethod) =>
+		private Api? GetBanInfoForAccessorMethod(IMethodSymbol acessorMethod) =>
 			acessorMethod.AssociatedSymbol switch
 			{
 				IPropertySymbol propertySymbol => GetBanInfoForSymbol(propertySymbol, ApiKind.Property),

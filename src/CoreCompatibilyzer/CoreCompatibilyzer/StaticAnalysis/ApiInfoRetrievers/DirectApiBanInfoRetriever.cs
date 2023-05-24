@@ -8,12 +8,12 @@ using CoreCompatibilyzer.BannedApiData.Storage;
 using Microsoft.CodeAnalysis;
 using CoreCompatibilyzer.Utils.Roslyn.Semantic;
 
-namespace CoreCompatibilyzer.StaticAnalysis.BannedApiRetriever
+namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
 {
     /// <summary>
     /// A retriever of the ban API info that only searches for the ban information of the API itself, all containing APIs are not checked.
     /// </summary>
-    public class DirectApiBanInfoRetriever : IApiBanInfoRetriever
+    public class DirectApiBanInfoRetriever : IApiInfoRetriever
 	{
 		protected IApiStorage Storage { get; }
 
@@ -22,18 +22,18 @@ namespace CoreCompatibilyzer.StaticAnalysis.BannedApiRetriever
 			Storage = bannedApiStorage.ThrowIfNull(nameof(bannedApiStorage));
         }
 
-		public BannedApi? GetBanInfoForApi(ISymbol apiSymbol)
+		public Api? GetInfoForApi(ISymbol apiSymbol)
 		{
 			ApiKind apiKind = apiSymbol.GetApiKind();
-			BannedApi? directBanApiInfo = GetBanInfoForApiImpl(apiSymbol, apiKind);
+			Api? directBanApiInfo = GetBanInfoForApiImpl(apiSymbol, apiKind);
 
 			return directBanApiInfo;
 		}
 
-		protected virtual BannedApi? GetBanInfoForApiImpl(ISymbol apiSymbol, ApiKind apiKind) =>
+		protected virtual Api? GetBanInfoForApiImpl(ISymbol apiSymbol, ApiKind apiKind) =>
 			GetBanInfoForSymbol(apiSymbol, apiKind);
 
-		protected BannedApi? GetBanInfoForSymbol(ISymbol symbol, ApiKind symbolKind)
+		protected Api? GetBanInfoForSymbol(ISymbol symbol, ApiKind symbolKind)
 		{
 			string? symbolDocID = symbol.GetDocID();
 			return symbolDocID.IsNullOrWhiteSpace()

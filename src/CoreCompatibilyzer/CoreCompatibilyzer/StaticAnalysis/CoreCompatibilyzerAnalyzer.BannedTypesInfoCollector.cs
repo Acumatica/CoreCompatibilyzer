@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading;
 
 using CoreCompatibilyzer.BannedApiData.Model;
-using CoreCompatibilyzer.StaticAnalysis.BannedApiRetriever;
+using CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers;
 using CoreCompatibilyzer.Utils.Roslyn.Semantic;
 
 using Microsoft.CodeAnalysis;
@@ -17,28 +17,28 @@ namespace CoreCompatibilyzer.StaticAnalysis
 		private class BannedTypesInfoCollector
 		{
 			private readonly CancellationToken _cancellation;
-			private readonly IApiBanInfoRetriever _apiBanInfoRetriever;
+			private readonly IApiInfoRetriever _apiBanInfoRetriever;
 			private readonly HashSet<ITypeSymbol> _checkedTypes = new HashSet<ITypeSymbol>(SymbolEqualityComparer.Default);
 
-            public BannedTypesInfoCollector(IApiBanInfoRetriever apiBanInfoRetriever, CancellationToken cancellation)
+            public BannedTypesInfoCollector(IApiInfoRetriever apiBanInfoRetriever, CancellationToken cancellation)
             {
 				_apiBanInfoRetriever = apiBanInfoRetriever;
 				_cancellation = cancellation;
             }
 
-			public List<BannedApi>? GetTypeParameterBannedApiInfos(ITypeParameterSymbol typeParameterSymbol, bool checkInterfaces)
+			public List<Api>? GetTypeParameterBannedApiInfos(ITypeParameterSymbol typeParameterSymbol, bool checkInterfaces)
 			{
 				_checkedTypes.Clear();
 				return GetBannedInfosFromTypeParameter(typeParameterSymbol, alreadyCollectedInfos: null, checkInterfaces);
 			}
 
-			public List<BannedApi>? GetTypeBannedApiInfos(ITypeSymbol typeSymbol, bool checkInterfaces)
+			public List<Api>? GetTypeBannedApiInfos(ITypeSymbol typeSymbol, bool checkInterfaces)
 			{				
 				_checkedTypes.Clear();
 				return GetBannedInfosFromTypeSymbolAndItsHierarchy(typeSymbol, alreadyCollectedInfos: null, checkInterfaces);
 			}
 
-			private List<BannedApi>? GetBannedInfosFromTypeSymbolAndItsHierarchy(ITypeSymbol typeSymbol, List<BannedApi>? alreadyCollectedInfos, 
+			private List<Api>? GetBannedInfosFromTypeSymbolAndItsHierarchy(ITypeSymbol typeSymbol, List<Api>? alreadyCollectedInfos, 
 																				 bool checkInterfaces)
 			{
 				if (!_checkedTypes.Add(typeSymbol))
@@ -75,7 +75,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				return alreadyCollectedInfos;
 			}
 
-			private List<BannedApi>? GetBannedInfosFromBaseTypes(ITypeSymbol typeSymbol, List<BannedApi>? alreadyCollectedInfos, bool checkInterfaces)
+			private List<Api>? GetBannedInfosFromBaseTypes(ITypeSymbol typeSymbol, List<Api>? alreadyCollectedInfos, bool checkInterfaces)
 			{
 				if (typeSymbol.IsStatic || typeSymbol.TypeKind != TypeKind.Class)
 					return alreadyCollectedInfos;
@@ -100,12 +100,12 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				return alreadyCollectedInfos;
 			}
 
-			private List<BannedApi>? GetBannedInfosFromType(ITypeSymbol typeSymbol, List<BannedApi>? alreadyCollectedInfos, 
+			private List<Api>? GetBannedInfosFromType(ITypeSymbol typeSymbol, List<Api>? alreadyCollectedInfos, 
 															bool checkInterfaces)
 			{
-				if (_apiBanInfoRetriever.GetBanInfoForApi(typeSymbol) is BannedApi bannedTypeInfo)
+				if (_apiBanInfoRetriever.GetInfoForApi(typeSymbol) is Api bannedTypeInfo)
 				{
-					alreadyCollectedInfos ??= new List<BannedApi>(capacity: 4);
+					alreadyCollectedInfos ??= new List<Api>(capacity: 4);
 					alreadyCollectedInfos.Add(bannedTypeInfo);
 				}
 
@@ -117,7 +117,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				return alreadyCollectedInfos;
 			}
 
-			private List<BannedApi>? GetBannedInfosFromTypeParameter(ITypeParameterSymbol typeParameterSymbol, List<BannedApi>? alreadyCollectedInfos, 
+			private List<Api>? GetBannedInfosFromTypeParameter(ITypeParameterSymbol typeParameterSymbol, List<Api>? alreadyCollectedInfos, 
 																	 bool checkInterfaces)
 			{
 				if (!_checkedTypes.Add(typeParameterSymbol))
@@ -126,7 +126,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				return GetBannedApisFromTypesList(typeParameterSymbol.ConstraintTypes, alreadyCollectedInfos, checkInterfaces);
 			}
 
-			private List<BannedApi>? GetBannedApisFromTypesList(ImmutableArray<ITypeSymbol> types, List<BannedApi>? alreadyCollectedInfos, 
+			private List<Api>? GetBannedApisFromTypesList(ImmutableArray<ITypeSymbol> types, List<Api>? alreadyCollectedInfos, 
 																bool checkInterfaces)
 			{
 				if (types.IsDefaultOrEmpty)

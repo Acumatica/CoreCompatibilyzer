@@ -29,7 +29,7 @@ namespace CoreCompatibilyzer.BannedApiData.Providers
         }
 
 		/// <inheritdoc/>
-		public async Task<IEnumerable<BannedApi>?> GetBannedApiDataAsync(CancellationToken cancellation)
+		public async Task<IEnumerable<Api>?> GetBannedApiDataAsync(CancellationToken cancellation)
 		{
             foreach (var provider in _providers)
             {
@@ -51,7 +51,7 @@ namespace CoreCompatibilyzer.BannedApiData.Providers
 			return null;
 		}
 
-		public IEnumerable<BannedApi>? GetBannedApiData(CancellationToken cancellation)
+		public IEnumerable<Api>? GetBannedApiData(CancellationToken cancellation)
 		{
 			foreach (var provider in _providers)
 			{

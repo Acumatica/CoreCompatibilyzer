@@ -3,9 +3,10 @@ using System.Collections.Generic;
 
 namespace CoreCompatibilyzer.BannedApiData.Model
 {
-	public enum BannedApiType : byte
+	public enum ApiInfoType : byte
 	{
 		NotPresentInNetCore,
-		Obsolete
+		Obsolete,
+		WhiteList
 	}
 }
