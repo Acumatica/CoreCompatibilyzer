@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using CoreCompatibilyzer.Constants;
 using CoreCompatibilyzer.Utils.Common;
 
-namespace CoreCompatibilyzer.BannedApiData.Model
+namespace CoreCompatibilyzer.ApiData.Model
 {
 	/// <summary>
 	/// API data.

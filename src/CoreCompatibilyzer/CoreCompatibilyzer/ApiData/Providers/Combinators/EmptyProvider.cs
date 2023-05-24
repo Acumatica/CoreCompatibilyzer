@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-using CoreCompatibilyzer.BannedApiData.Model;
+using CoreCompatibilyzer.ApiData.Model;
 
-namespace CoreCompatibilyzer.BannedApiData.Providers
+namespace CoreCompatibilyzer.ApiData.Providers
 {
 	/// <summary>
 	/// A data provider that always provides empty data.

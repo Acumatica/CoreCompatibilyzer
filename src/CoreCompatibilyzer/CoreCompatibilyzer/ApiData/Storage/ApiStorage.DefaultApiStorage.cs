@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 
-using CoreCompatibilyzer.BannedApiData.Model;
+using CoreCompatibilyzer.ApiData.Model;
 
-namespace CoreCompatibilyzer.BannedApiData.Storage
+namespace CoreCompatibilyzer.ApiData.Storage
 {
 	public partial class ApiStorage
 	{

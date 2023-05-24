@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 
 using CoreCompatibilyzer.Utils.Common;
-using CoreCompatibilyzer.BannedApiData.Model;
-using CoreCompatibilyzer.BannedApiData.Storage;
+using CoreCompatibilyzer.ApiData.Model;
+using CoreCompatibilyzer.ApiData.Storage;
 
 using Microsoft.CodeAnalysis;
 

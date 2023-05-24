@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CoreCompatibilyzer.BannedApiData.Model
+namespace CoreCompatibilyzer.ApiData.Model
 {
 	public enum ApiInfoType : byte
 	{

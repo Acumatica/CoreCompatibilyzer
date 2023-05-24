@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-using CoreCompatibilyzer.BannedApiData.Model;
+using CoreCompatibilyzer.ApiData.Model;
 
-namespace CoreCompatibilyzer.BannedApiData.Storage
+namespace CoreCompatibilyzer.ApiData.Storage
 {
     /// <summary>
     /// An interface for the API storage.

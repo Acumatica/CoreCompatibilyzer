@@ -6,10 +6,10 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
-using CoreCompatibilyzer.BannedApiData.Providers;
+using CoreCompatibilyzer.ApiData.Providers;
 using CoreCompatibilyzer.Utils.Common;
 
-namespace CoreCompatibilyzer.BannedApiData.Storage
+namespace CoreCompatibilyzer.ApiData.Storage
 {
     /// <summary>
     /// An API storage helper that keeps and retrieves the API storage.

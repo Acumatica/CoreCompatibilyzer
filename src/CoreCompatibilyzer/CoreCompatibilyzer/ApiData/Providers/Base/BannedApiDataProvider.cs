@@ -4,9 +4,9 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-using CoreCompatibilyzer.BannedApiData.Model;
+using CoreCompatibilyzer.ApiData.Model;
 
-namespace CoreCompatibilyzer.BannedApiData.Providers
+namespace CoreCompatibilyzer.ApiData.Providers
 {
     /// <summary>
     /// A banned API data provider base class to share some common logic.

@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 
 using CoreCompatibilyzer.Utils.Common;
 
-namespace CoreCompatibilyzer.BannedApiData.Errors
+namespace CoreCompatibilyzer.ApiData.Errors
 {
 	/// <summary>
 	/// A special exception class for reading banned api.

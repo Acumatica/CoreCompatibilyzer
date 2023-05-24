@@ -6,8 +6,8 @@ using System.Reflection.Emit;
 using System.Threading;
 using System.Xml.Linq;
 
-using CoreCompatibilyzer.BannedApiData.Model;
-using CoreCompatibilyzer.BannedApiData.Storage;
+using CoreCompatibilyzer.ApiData.Model;
+using CoreCompatibilyzer.ApiData.Storage;
 using CoreCompatibilyzer.Constants;
 using CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers;
 using CoreCompatibilyzer.Utils.Common;

@@ -6,7 +6,7 @@ using CoreCompatibilyzer.Utils.Common;
 
 using Microsoft.CodeAnalysis;
 
-namespace CoreCompatibilyzer.BannedApiData.Model
+namespace CoreCompatibilyzer.ApiData.Model
 {
 	public static class ApiUtils
 	{

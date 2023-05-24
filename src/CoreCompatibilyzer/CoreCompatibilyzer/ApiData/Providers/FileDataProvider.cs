@@ -7,9 +7,9 @@ using System.IO;
 using System.Diagnostics.CodeAnalysis;
 
 using CoreCompatibilyzer.Utils.Common;
-using CoreCompatibilyzer.BannedApiData.Model;
+using CoreCompatibilyzer.ApiData.Model;
 
-namespace CoreCompatibilyzer.BannedApiData.Providers
+namespace CoreCompatibilyzer.ApiData.Providers
 {
 	[SuppressMessage("MicrosoftCodeAnalysisCorrectness", "RS1035:Do not use APIs banned for analyzers", Justification = "Need to load banned API database")]
 	public class FileDataProvider : BannedApiDataProvider

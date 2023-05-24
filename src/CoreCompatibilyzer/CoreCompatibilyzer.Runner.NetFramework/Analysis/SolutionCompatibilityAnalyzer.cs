@@ -7,8 +7,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-using CoreCompatibilyzer.BannedApiData.Providers;
-using CoreCompatibilyzer.BannedApiData.Storage;
+using CoreCompatibilyzer.ApiData.Providers;
+using CoreCompatibilyzer.ApiData.Storage;
 using CoreCompatibilyzer.Constants;
 using CoreCompatibilyzer.DotNetRuntimeVersion;
 using CoreCompatibilyzer.Runner.Analysis.Helpers;

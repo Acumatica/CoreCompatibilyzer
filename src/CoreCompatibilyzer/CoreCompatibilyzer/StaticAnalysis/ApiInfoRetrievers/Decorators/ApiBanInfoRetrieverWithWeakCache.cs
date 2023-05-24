@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 using CoreCompatibilyzer.Utils.Common;
-using CoreCompatibilyzer.BannedApiData.Model;
+using CoreCompatibilyzer.ApiData.Model;
 
 using Microsoft.CodeAnalysis;
 using System.Runtime.CompilerServices;

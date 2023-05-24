@@ -7,10 +7,10 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using CoreCompatibilyzer.Utils.Common;
-using CoreCompatibilyzer.BannedApiData.Errors;
-using CoreCompatibilyzer.BannedApiData.Model;
+using CoreCompatibilyzer.ApiData.Errors;
+using CoreCompatibilyzer.ApiData.Model;
 
-namespace CoreCompatibilyzer.BannedApiData.Providers
+namespace CoreCompatibilyzer.ApiData.Providers
 {
 	public class AssemblyResourcesDataProvider : BannedApiDataProvider
 	{

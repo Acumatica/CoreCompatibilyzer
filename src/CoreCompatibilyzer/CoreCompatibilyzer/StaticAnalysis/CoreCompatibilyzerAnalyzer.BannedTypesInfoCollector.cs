@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
 
-using CoreCompatibilyzer.BannedApiData.Model;
+using CoreCompatibilyzer.ApiData.Model;
 using CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers;
 using CoreCompatibilyzer.Utils.Roslyn.Semantic;
 
