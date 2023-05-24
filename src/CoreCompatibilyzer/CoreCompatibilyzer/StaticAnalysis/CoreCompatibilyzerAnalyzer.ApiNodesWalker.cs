@@ -42,7 +42,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
                 _syntaxContext 		 	  = syntaxContext;
 				_apiBanInfoRetriever 	  = apiBanInfoRetriever;
 				_whiteListInfoRetriever   = whiteListInfoRetriever;
-				_bannedTypesInfoCollector = new BannedTypesInfoCollector(apiBanInfoRetriever, syntaxContext.CancellationToken);
+				_bannedTypesInfoCollector = new BannedTypesInfoCollector(apiBanInfoRetriever, whiteListInfoRetriever, syntaxContext.CancellationToken);
 				CheckInterfaces = checkInterfaces;
 			}
 
@@ -52,6 +52,9 @@ namespace CoreCompatibilyzer.StaticAnalysis
 
 				if (_suspiciousUsings.Count == 0)
 					return;
+
+				if (_bannedTypesInfoCollector.NamespacesWithUsedWhiteListedMembers.Count > 0)
+					_namespacesWithUsedWhiteListedMembers.AddRange(_bannedTypesInfoCollector.NamespacesWithUsedWhiteListedMembers);
 
 				var usingsToReport = _namespacesWithUsedWhiteListedMembers.Count > 0
 					? _suspiciousUsings.Where(usingInfo => !_namespacesWithUsedWhiteListedMembers.Contains(usingInfo.Namespace))

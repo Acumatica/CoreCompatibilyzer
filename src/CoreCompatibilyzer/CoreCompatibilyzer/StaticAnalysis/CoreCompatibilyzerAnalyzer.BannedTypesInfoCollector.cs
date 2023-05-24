@@ -18,12 +18,17 @@ namespace CoreCompatibilyzer.StaticAnalysis
 		{
 			private readonly CancellationToken _cancellation;
 			private readonly IApiInfoRetriever _apiBanInfoRetriever;
+			private readonly IApiInfoRetriever? _whiteListInfoRetriever;
 			private readonly HashSet<ITypeSymbol> _checkedTypes = new HashSet<ITypeSymbol>(SymbolEqualityComparer.Default);
 
-            public BannedTypesInfoCollector(IApiInfoRetriever apiBanInfoRetriever, CancellationToken cancellation)
+			public HashSet<INamespaceSymbol> NamespacesWithUsedWhiteListedMembers { get; } = new(SymbolEqualityComparer.Default);
+
+			public BannedTypesInfoCollector(IApiInfoRetriever apiBanInfoRetriever, IApiInfoRetriever? whiteListInfoRetriever, 
+											CancellationToken cancellation)
             {
-				_apiBanInfoRetriever = apiBanInfoRetriever;
-				_cancellation = cancellation;
+				_apiBanInfoRetriever 	= apiBanInfoRetriever;
+				_whiteListInfoRetriever = whiteListInfoRetriever;
+				_cancellation 			= cancellation;
             }
 
 			public List<Api>? GetTypeParameterBannedApiInfos(ITypeParameterSymbol typeParameterSymbol, bool checkInterfaces)
@@ -100,10 +105,9 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				return alreadyCollectedInfos;
 			}
 
-			private List<Api>? GetBannedInfosFromType(ITypeSymbol typeSymbol, List<Api>? alreadyCollectedInfos, 
-															bool checkInterfaces)
+			private List<Api>? GetBannedInfosFromType(ITypeSymbol typeSymbol, List<Api>? alreadyCollectedInfos, bool checkInterfaces)
 			{
-				if (_apiBanInfoRetriever.GetInfoForApi(typeSymbol) is Api bannedTypeInfo)
+				if (_apiBanInfoRetriever.GetInfoForApi(typeSymbol) is Api bannedTypeInfo && !IsInWhiteList(typeSymbol))
 				{
 					alreadyCollectedInfos ??= new List<Api>(capacity: 4);
 					alreadyCollectedInfos.Add(bannedTypeInfo);
@@ -126,8 +130,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				return GetBannedApisFromTypesList(typeParameterSymbol.ConstraintTypes, alreadyCollectedInfos, checkInterfaces);
 			}
 
-			private List<Api>? GetBannedApisFromTypesList(ImmutableArray<ITypeSymbol> types, List<Api>? alreadyCollectedInfos, 
-																bool checkInterfaces)
+			private List<Api>? GetBannedApisFromTypesList(ImmutableArray<ITypeSymbol> types, List<Api>? alreadyCollectedInfos, bool checkInterfaces)
 			{
 				if (types.IsDefaultOrEmpty)
 					return alreadyCollectedInfos;
@@ -149,6 +152,19 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				}
 
 				return alreadyCollectedInfos;
+			}
+
+			private bool IsInWhiteList(ISymbol symbol)
+			{
+				if (_whiteListInfoRetriever?.GetInfoForApi(symbol) is Api)
+				{
+					if (symbol.ContainingNamespace != null && !symbol.ContainingNamespace.IsGlobalNamespace)
+						NamespacesWithUsedWhiteListedMembers.Add(symbol.ContainingNamespace);
+
+					return true;
+				}
+
+				return false;
 			}
 		}
 	}
