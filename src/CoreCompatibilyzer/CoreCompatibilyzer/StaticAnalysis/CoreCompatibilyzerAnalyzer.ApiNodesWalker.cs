@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
-using System.Xml.Linq;
 
 using CoreCompatibilyzer.ApiData.Model;
 using CoreCompatibilyzer.Constants;
@@ -30,6 +29,8 @@ namespace CoreCompatibilyzer.StaticAnalysis
 
 			private readonly HashSet<string> _namespacesWithUsedWhiteListedMembers = new();
 			private readonly List<(UsingDirectiveSyntax Using, INamespaceSymbol Namespace, Api BanInfo)> _suspiciousUsings = new();
+
+			private readonly HashSet<(Location ErrorLocation, Api ErrorInfo)> _reportedErrors = new();
 
 			public bool CheckInterfaces { get; }
 
@@ -261,11 +262,10 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				if (checkWhiteList && IsInWhiteList(symbolToReport))
 					return;
 
-				var diagnosticDescriptor = GetDiagnosticFromBannedApiInfo(banApiInfo);
-
-				if (diagnosticDescriptor == null)
+				if (location != null && !_reportedErrors.Add((location, banApiInfo)!))
 					return;
 
+				var diagnosticDescriptor = GetDiagnosticFromBannedApiInfo(banApiInfo);
 				var diagnosticProperties = ImmutableDictionary<string, string>.Empty
 																			  .Add(CommonConstants.ApiNameDiagnosticProperty, banApiInfo.FullName);
 				var diagnostic = Diagnostic.Create(diagnosticDescriptor, location, diagnosticProperties!, banApiInfo.FullName);
@@ -285,11 +285,11 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				return false;
 			}
 
-			private DiagnosticDescriptor? GetDiagnosticFromBannedApiInfo(in Api banApiInfo) => banApiInfo.ExtraInfo switch
+			private DiagnosticDescriptor GetDiagnosticFromBannedApiInfo(in Api banApiInfo) => banApiInfo.ExtraInfo switch
 			{
-				ApiExtraInfo.None => Descriptors.CoreCompat1001_ApiNotPresentInDotNetCore,
-				ApiExtraInfo.Obsolete 			  => Descriptors.CoreCompat1002_ApiObsoleteInDotNetCore,
-				_ 								  => null
+				ApiExtraInfo.None	  => Descriptors.CoreCompat1001_ApiNotPresentInDotNetCore,
+				ApiExtraInfo.Obsolete => Descriptors.CoreCompat1002_ApiObsoleteInDotNetCore,
+				_ 					  => throw new NotSupportedException($"Value \"{banApiInfo.ExtraInfo}\" of {nameof(ApiExtraInfo)} is not supported")
 			};
 		}
 	}
