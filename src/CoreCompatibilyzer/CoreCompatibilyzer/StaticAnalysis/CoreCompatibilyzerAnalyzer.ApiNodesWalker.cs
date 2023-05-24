@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
+using System.Xml.Linq;
 
 using CoreCompatibilyzer.ApiData.Model;
 using CoreCompatibilyzer.Constants;
@@ -169,6 +170,20 @@ namespace CoreCompatibilyzer.StaticAnalysis
 						? (genericNameNode.Identifier.GetLocation() ?? genericNameNode.GetLocation())
 						: genericNameNode.GetLocation();
 				}
+			}
+
+			public override void VisitMemberAccessExpression(MemberAccessExpressionSyntax memberAccessExpression)
+			{
+				Cancellation.ThrowIfCancellationRequested();
+
+				if (SemanticModel.GetSymbolOrFirstCandidate(memberAccessExpression, Cancellation) is not ISymbol symbol)
+				{
+					base.VisitMemberAccessExpression(memberAccessExpression);
+					return;
+				}
+
+				Cancellation.ThrowIfCancellationRequested();
+				CheckSymbolForBannedInfo(symbol, memberAccessExpression.Name);
 			}
 
 			public override void VisitIdentifierName(IdentifierNameSyntax identifierNode)
