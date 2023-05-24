@@ -22,15 +22,21 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="BannedApiData\BannedApis.txt" />
-	  <None Remove="BannedApiData\Data\WhiteList.txt" />
+	  <Compile Remove="BannedApiData\**" />
+	  <EmbeddedResource Remove="BannedApiData\**" />
+	  <None Remove="BannedApiData\**" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="BannedApiData\Data\WhiteList.txt">
+	  <None Remove="ApiData\Data\BannedApis.txt" />
+	  <None Remove="ApiData\Data\WhiteList.txt" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="ApiData\Data\BannedApis.txt">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
-	  <EmbeddedResource Include="BannedApiData\Data\BannedApis.txt">
+	  <EmbeddedResource Include="ApiData\Data\WhiteList.txt">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
 	</ItemGroup>

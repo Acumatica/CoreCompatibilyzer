@@ -16,7 +16,7 @@ namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
 	{
 		private class CacheEntry
 		{
-			public Api? BannedApi { get; set; }
+			public Api? Api { get; set; }
 		}
 
 		private readonly ConditionalWeakTable<ISymbol, CacheEntry> _weakCache = new();
@@ -32,13 +32,13 @@ namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
 			apiSymbol.ThrowIfNull(nameof(apiSymbol));
 
 			if (_weakCache.TryGetValue(apiSymbol, out CacheEntry cacheEntry))
-				return cacheEntry.BannedApi;
+				return cacheEntry.Api;
 
-			var bannedApiInfo 	 = _innerApiInfoRetriever.GetInfoForApi(apiSymbol);
-			cacheEntry		  	 = _weakCache.GetOrCreateValue(apiSymbol);
-			cacheEntry.BannedApi = bannedApiInfo;
+			var apiInfo	   = _innerApiInfoRetriever.GetInfoForApi(apiSymbol);
+			cacheEntry	   = _weakCache.GetOrCreateValue(apiSymbol);
+			cacheEntry.Api = apiInfo;
 
-			return bannedApiInfo;
+			return apiInfo;
 		}
 	}
 }

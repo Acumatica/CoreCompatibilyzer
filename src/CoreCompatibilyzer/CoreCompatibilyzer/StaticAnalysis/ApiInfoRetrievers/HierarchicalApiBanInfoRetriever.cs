@@ -12,14 +12,14 @@ namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
     /// <summary>
     /// A retriever of the ban API info that also checks for banned containing APIs.
     /// </summary>
-    public class HierarchicalApiBanInfoRetriever : DirectApiBanInfoRetriever
+    public class HierarchicalApiBanInfoRetriever : DirectApiInfoRetriever
 	{
         public HierarchicalApiBanInfoRetriever(IApiStorage bannedApiStorage) : base(bannedApiStorage)
         { }
 
-		protected override Api? GetBanInfoForApiImpl(ISymbol apiSymbol, ApiKind apiKind)
+		protected override Api? GetInfoForApiImpl(ISymbol apiSymbol, ApiKind apiKind)
 		{
-			Api? directBanInfo = base.GetBanInfoForApiImpl(apiSymbol, apiKind);
+			Api? directBanInfo = base.GetInfoForApiImpl(apiSymbol, apiKind);
 
 			if (directBanInfo != null)
 				return directBanInfo;
@@ -57,7 +57,7 @@ namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
 
 		private Api? GetBanInfoForApiNamespace(INamespaceSymbol? apiNamespaceSymbol) =>
 			apiNamespaceSymbol != null && !apiNamespaceSymbol.IsGlobalNamespace
-				? GetBanInfoForSymbol(apiNamespaceSymbol, ApiKind.Namespace)
+				? GetInfoForSymbol(apiNamespaceSymbol, ApiKind.Namespace)
 				: null;
 
 		private Api? GetBanInfoForContainingTypes(INamedTypeSymbol? firstContainingType)
@@ -66,7 +66,7 @@ namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
 
 			while (currentType != null) 
 			{
-				var typeBanInfo = GetBanInfoForSymbol(currentType, ApiKind.Type);
+				var typeBanInfo = GetInfoForSymbol(currentType, ApiKind.Type);
 
 				if (typeBanInfo != null)
 					return typeBanInfo;
@@ -80,8 +80,8 @@ namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
 		private Api? GetBanInfoForAccessorMethod(IMethodSymbol acessorMethod) =>
 			acessorMethod.AssociatedSymbol switch
 			{
-				IPropertySymbol propertySymbol => GetBanInfoForSymbol(propertySymbol, ApiKind.Property),
-				IEventSymbol eventSymbol       => GetBanInfoForSymbol(eventSymbol, ApiKind.Event),
+				IPropertySymbol propertySymbol => GetInfoForSymbol(propertySymbol, ApiKind.Property),
+				IEventSymbol eventSymbol       => GetInfoForSymbol(eventSymbol, ApiKind.Event),
 				_                              => null
 			};
 	}

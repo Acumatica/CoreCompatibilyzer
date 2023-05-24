@@ -11,29 +11,29 @@ using CoreCompatibilyzer.Utils.Roslyn.Semantic;
 namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
 {
     /// <summary>
-    /// A retriever of the ban API info that only searches for the ban information of the API itself, all containing APIs are not checked.
+    /// A retriever of the API info that only searches for the information of the API itself, all containing APIs are not checked.
     /// </summary>
-    public class DirectApiBanInfoRetriever : IApiInfoRetriever
+    public class DirectApiInfoRetriever : IApiInfoRetriever
 	{
 		protected IApiStorage Storage { get; }
 
-        public DirectApiBanInfoRetriever(IApiStorage bannedApiStorage)
+        public DirectApiInfoRetriever(IApiStorage apiStorage)
         {
-			Storage = bannedApiStorage.ThrowIfNull(nameof(bannedApiStorage));
+			Storage = apiStorage.ThrowIfNull(nameof(apiStorage));
         }
 
 		public Api? GetInfoForApi(ISymbol apiSymbol)
 		{
 			ApiKind apiKind = apiSymbol.GetApiKind();
-			Api? directBanApiInfo = GetBanInfoForApiImpl(apiSymbol, apiKind);
+			Api? directApiInfo = GetInfoForApiImpl(apiSymbol, apiKind);
 
-			return directBanApiInfo;
+			return directApiInfo;
 		}
 
-		protected virtual Api? GetBanInfoForApiImpl(ISymbol apiSymbol, ApiKind apiKind) =>
-			GetBanInfoForSymbol(apiSymbol, apiKind);
+		protected virtual Api? GetInfoForApiImpl(ISymbol apiSymbol, ApiKind apiKind) =>
+			GetInfoForSymbol(apiSymbol, apiKind);
 
-		protected Api? GetBanInfoForSymbol(ISymbol symbol, ApiKind symbolKind)
+		protected Api? GetInfoForSymbol(ISymbol symbol, ApiKind symbolKind)
 		{
 			string? symbolDocID = symbol.GetDocID();
 			return symbolDocID.IsNullOrWhiteSpace()
