@@ -53,7 +53,7 @@ namespace CoreCompatibilyzer.ApiData.Providers
 			{
 
 				if (resourceStream == null)
-					throw new BannedApiReaderException($"Can't find the source text with Resource ID \"{_bannedApiResourceName}\".");
+					throw new ApiReaderException($"Can't find the source text with Resource ID \"{_bannedApiResourceName}\".");
 
 				using (var reader = new StreamReader(resourceStream))
 				{
@@ -83,7 +83,7 @@ namespace CoreCompatibilyzer.ApiData.Providers
 			{
 
 				if (resourceStream == null)
-					throw new BannedApiReaderException($"Can't find the source text with Resource ID \"{_bannedApiResourceName}\".");
+					throw new ApiReaderException($"Can't find the source text with Resource ID \"{_bannedApiResourceName}\".");
 
 				return ParseStreamIntoBannedApis(resourceStream, cancellation).ToList();
 			}

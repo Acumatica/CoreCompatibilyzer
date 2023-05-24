@@ -80,7 +80,7 @@ namespace CoreCompatibilyzer.ApiData.Providers
 			catch (Exception exception)
 			{
 				string errorMessage = GetParseErrorMessage(exception, lineNumber);
-				throw new Errors.BannedApiReaderException(errorMessage, exception);
+				throw new Errors.ApiReaderException(errorMessage, exception);
 			}
 		}
 
