@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using System.Web.Compilation;
+using System.Web.Security;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,8 +17,18 @@ namespace DemoNetFramework
 
         public static HttpContext GetHttpContext()
         {
-            return HttpContext.Current;
+            var type = System.Web.Compilation.PXBuildManager.GetType();
+			return HttpContext.Current;
 
 		}
+    }
+}
+
+
+namespace System.Web.Compilation
+{
+    public static class PXBuildManager
+    {
+        public static Type GetType() => throw new NotImplementedException();
     }
 }
