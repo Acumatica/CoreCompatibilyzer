@@ -21,7 +21,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 			private readonly IApiInfoRetriever? _whiteListInfoRetriever;
 			private readonly HashSet<ITypeSymbol> _checkedTypes = new HashSet<ITypeSymbol>(SymbolEqualityComparer.Default);
 
-			public HashSet<INamespaceSymbol> NamespacesWithUsedWhiteListedMembers { get; } = new(SymbolEqualityComparer.Default);
+			public HashSet<string> NamespacesWithUsedWhiteListedMembers { get; } = new();
 
 			public BannedTypesInfoCollector(IApiInfoRetriever apiBanInfoRetriever, IApiInfoRetriever? whiteListInfoRetriever, 
 											CancellationToken cancellation)
@@ -159,7 +159,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				if (_whiteListInfoRetriever?.GetInfoForApi(symbol) is Api)
 				{
 					if (symbol.ContainingNamespace != null && !symbol.ContainingNamespace.IsGlobalNamespace)
-						NamespacesWithUsedWhiteListedMembers.Add(symbol.ContainingNamespace);
+						NamespacesWithUsedWhiteListedMembers.Add(symbol.ContainingNamespace.ToString());
 
 					return true;
 				}

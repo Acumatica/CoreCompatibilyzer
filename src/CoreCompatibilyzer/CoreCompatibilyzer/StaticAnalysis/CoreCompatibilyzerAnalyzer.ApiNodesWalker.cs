@@ -27,7 +27,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 			private readonly IApiInfoRetriever? _whiteListInfoRetriever;
 			private readonly BannedTypesInfoCollector _bannedTypesInfoCollector;
 
-			private readonly HashSet<INamespaceSymbol> _namespacesWithUsedWhiteListedMembers = new(SymbolEqualityComparer.Default);
+			private readonly HashSet<string> _namespacesWithUsedWhiteListedMembers = new();
 			private readonly List<(UsingDirectiveSyntax Using, INamespaceSymbol Namespace, Api BanInfo)> _suspiciousUsings = new();
 
 			public bool CheckInterfaces { get; }
@@ -43,7 +43,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				_apiBanInfoRetriever 	  = apiBanInfoRetriever;
 				_whiteListInfoRetriever   = whiteListInfoRetriever;
 				_bannedTypesInfoCollector = new BannedTypesInfoCollector(apiBanInfoRetriever, whiteListInfoRetriever, syntaxContext.CancellationToken);
-				CheckInterfaces = checkInterfaces;
+				CheckInterfaces 		  = checkInterfaces;
 			}
 
 			public void CheckSyntaxTree(CompilationUnitSyntax root)
@@ -57,7 +57,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 					_namespacesWithUsedWhiteListedMembers.AddRange(_bannedTypesInfoCollector.NamespacesWithUsedWhiteListedMembers);
 
 				var usingsToReport = _namespacesWithUsedWhiteListedMembers.Count > 0
-					? _suspiciousUsings.Where(usingInfo => !_namespacesWithUsedWhiteListedMembers.Contains(usingInfo.Namespace))
+					? _suspiciousUsings.Where(usingInfo => !_namespacesWithUsedWhiteListedMembers.Contains(usingInfo.Namespace.ToString()))
 					: _suspiciousUsings;
 
 				foreach (var (@using, @namespace, banInfo) in usingsToReport)
@@ -262,7 +262,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				if (_whiteListInfoRetriever?.GetInfoForApi(symbol) is Api)
 				{
 					if (symbol.ContainingNamespace != null && !symbol.ContainingNamespace.IsGlobalNamespace)
-						_namespacesWithUsedWhiteListedMembers.Add(symbol.ContainingNamespace);
+						_namespacesWithUsedWhiteListedMembers.Add(symbol.ContainingNamespace.ToString());
 
 					return true;
 				}
