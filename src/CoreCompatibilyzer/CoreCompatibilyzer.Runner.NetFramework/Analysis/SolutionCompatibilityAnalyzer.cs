@@ -45,8 +45,8 @@ namespace CoreCompatibilyzer.Runner.Analysis
 		public static async Task<SolutionCompatibilityAnalyzer> CreateAnalyzer(CancellationToken cancellationToken, 
 																			   IBannedApiDataProvider? customBannedApiDataProvider = null)
 		{
-			var bannedApiTask = BannedApiStorage.BannedApi.GetStorageAsync(cancellationToken, customBannedApiDataProvider);
-			var whiteListTask = BannedApiStorage.WhiteList.GetStorageAsync(cancellationToken, customBannedApiDataProvider);
+			var bannedApiTask = ApiStorage.BannedApi.GetStorageAsync(cancellationToken, customBannedApiDataProvider);
+			var whiteListTask = ApiStorage.WhiteList.GetStorageAsync(cancellationToken, customBannedApiDataProvider);
 
 			var bannedApiAndWhiteList = await Task.WhenAll(bannedApiTask, whiteListTask).ConfigureAwait(false);
 

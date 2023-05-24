@@ -12,9 +12,9 @@ using CoreCompatibilyzer.Utils.Common;
 namespace CoreCompatibilyzer.BannedApiData.Storage
 {
     /// <summary>
-    /// A banned API storage helper that keeps and retrieves the banned API storage.
+    /// An API storage helper that keeps and retrieves the API storage.
     /// </summary>
-    public partial class BannedApiStorage
+    public partial class ApiStorage
     {
         private const string _bannedApiFileRelativePath = @"BannedApiData\Data\BannedApis.txt";
         private const string _bannedApiAssemblyResourceName = @"BannedApiData.Data.BannedApis.txt";
@@ -28,11 +28,11 @@ namespace CoreCompatibilyzer.BannedApiData.Storage
 		private readonly string? _dataFileRelativePath;
 		private readonly string? _dataAssemblyResourceName;
 
-		public static BannedApiStorage BannedApi { get; } = new BannedApiStorage(_bannedApiFileRelativePath, _bannedApiAssemblyResourceName);
+		public static ApiStorage BannedApi { get; } = new ApiStorage(_bannedApiFileRelativePath, _bannedApiAssemblyResourceName);
 
-		public static BannedApiStorage WhiteList { get; } = new BannedApiStorage(_whiteListFileRelativePath, _whiteListAssemblyResourceName);
+		public static ApiStorage WhiteList { get; } = new ApiStorage(_whiteListFileRelativePath, _whiteListAssemblyResourceName);
 
-		public BannedApiStorage(string? dataFileRelativePath, string? dataAssemblyResourceName)
+		public ApiStorage(string? dataFileRelativePath, string? dataAssemblyResourceName)
 		{
 			_dataFileRelativePath = dataFileRelativePath.NullIfWhiteSpace();
 			_dataAssemblyResourceName = dataAssemblyResourceName.NullIfWhiteSpace();
@@ -68,8 +68,8 @@ namespace CoreCompatibilyzer.BannedApiData.Storage
 			cancellation.ThrowIfCancellationRequested();
 
 			return bannedApis == null
-				? new DefaultBannedApiStorage()
-				: new DefaultBannedApiStorage(bannedApis);
+				? new DefaultApiStorage()
+				: new DefaultApiStorage(bannedApis);
 		}
 
 		public async Task<IApiStorage> GetStorageAsync(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider = null)
@@ -102,8 +102,8 @@ namespace CoreCompatibilyzer.BannedApiData.Storage
 			cancellation.ThrowIfCancellationRequested();
 
 			return bannedApis == null
-				? new DefaultBannedApiStorage()
-				: new DefaultBannedApiStorage(bannedApis);
+				? new DefaultApiStorage()
+				: new DefaultApiStorage(bannedApis);
 		}
 
 		private IBannedApiDataProvider GetDefaultDataProvider()
@@ -111,7 +111,7 @@ namespace CoreCompatibilyzer.BannedApiData.Storage
 			if (_dataFileRelativePath == null && _dataAssemblyResourceName == null)
 				return new EmptyProvider(considerDataAvailable: false);
 
-			Assembly assembly 		 = typeof(BannedApiStorage).Assembly;
+			Assembly assembly 		 = typeof(ApiStorage).Assembly;
 			var fileDataProvider 	 = MakeFileDataProvider(assembly);
 			var assemblyDataProvider = MakeAssemblyDataProvider(assembly);
 
