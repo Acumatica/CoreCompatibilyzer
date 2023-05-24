@@ -65,10 +65,34 @@ namespace CoreCompatibilyzer.ApiData.Model
 
 		public static bool operator !=(Api x, Api y) => !x.Equals(y);
 
-		public override string ToString() => DocID;
+		public override string ToString() => 
+			ExtraInfo == ApiExtraInfo.Obsolete
+				? $"{DocID} {ApiExtraInfo.Obsolete}"
+				: DocID;
 
-		public override int GetHashCode() => DocID.GetHashCode();
+		public override int GetHashCode()
+		{
+			int hash = 17;
 
-		public int CompareTo(Api other) => DocID.CompareTo(other.DocID);
+			unchecked
+			{
+				hash = 23 * hash + DocID.GetHashCode();
+				hash = 23 * hash + (int)ExtraInfo;
+			}
+
+			return hash;
+		}
+
+		public int CompareTo(Api other)
+		{
+			var docIdCompareResult = DocID.CompareTo(other.DocID);
+
+			if (docIdCompareResult == 0 || ExtraInfo == other.ExtraInfo)
+				return 0;
+			else if (ExtraInfo == ApiExtraInfo.None)
+				return -1;
+			else
+				return 1;
+		}
 	}
 }

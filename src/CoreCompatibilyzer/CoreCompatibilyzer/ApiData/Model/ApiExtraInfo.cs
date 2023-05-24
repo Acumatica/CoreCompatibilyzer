@@ -6,6 +6,6 @@ namespace CoreCompatibilyzer.ApiData.Model
 	public enum ApiExtraInfo : byte
 	{
 		None,
-		Obsolete	
+		Obsolete
 	}
 }
