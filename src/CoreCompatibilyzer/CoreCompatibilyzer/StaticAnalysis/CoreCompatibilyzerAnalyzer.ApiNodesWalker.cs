@@ -211,9 +211,9 @@ namespace CoreCompatibilyzer.StaticAnalysis
 
 				var overridesChain = nonTypeSymbol.GetOverridden();
 
-				foreach (var overriden in overridesChain)
+				foreach (var overridenSymbol in overridesChain)
 				{
-					if (_apiBanInfoRetriever.GetInfoForApi(nonTypeSymbol) is Api bannedOverridenSymbolInfo)
+					if (_apiBanInfoRetriever.GetInfoForApi(overridenSymbol) is Api bannedOverridenSymbolInfo)
 						return bannedOverridenSymbolInfo;
 				} 
 
