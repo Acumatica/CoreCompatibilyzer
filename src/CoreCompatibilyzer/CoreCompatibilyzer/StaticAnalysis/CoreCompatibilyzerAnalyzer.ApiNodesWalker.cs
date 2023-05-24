@@ -107,6 +107,23 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				}	
 			}
 
+			public override void VisitNamespaceDeclaration(NamespaceDeclarationSyntax namespaceDeclaration)
+			{
+				Cancellation.ThrowIfCancellationRequested();
+
+				foreach (var attributeList in namespaceDeclaration.AttributeLists)
+					attributeList.Accept(this);
+
+				foreach (var @using in namespaceDeclaration.Usings)
+					@using.Accept(this);
+
+				foreach (var @extern in namespaceDeclaration.Externs)
+					@extern.Accept(this);
+
+				foreach (var member in namespaceDeclaration.Members)
+					member.Accept(this);
+			}
+
 			public override void VisitGenericName(GenericNameSyntax genericNameNode)
 			{
 				Cancellation.ThrowIfCancellationRequested();
