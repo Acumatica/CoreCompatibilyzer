@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Reflection.Emit;
 using System.Threading;
-using System.Xml.Linq;
 
 using CoreCompatibilyzer.ApiData.Model;
-using CoreCompatibilyzer.ApiData.Storage;
 using CoreCompatibilyzer.Constants;
 using CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers;
 using CoreCompatibilyzer.Utils.Common;
@@ -27,7 +24,11 @@ namespace CoreCompatibilyzer.StaticAnalysis
 		{
 			private readonly SyntaxNodeAnalysisContext _syntaxContext;
 			private readonly IApiInfoRetriever _apiBanInfoRetriever;
+			private readonly IApiInfoRetriever? _whiteListInfoRetriever;
 			private readonly BannedTypesInfoCollector _bannedTypesInfoCollector;
+
+			private readonly HashSet<INamespaceSymbol> _namespacesWithUsedWhiteListedMembers = new(SymbolEqualityComparer.Default);
+			private readonly List<(UsingDirectiveSyntax Using, INamespaceSymbol Namespace, Api BanInfo)> _suspiciousUsings = new();
 
 			public bool CheckInterfaces { get; }
 
@@ -35,12 +36,31 @@ namespace CoreCompatibilyzer.StaticAnalysis
 
 			private SemanticModel SemanticModel => _syntaxContext.SemanticModel;
 
-            public ApiNodesWalker(SyntaxNodeAnalysisContext syntaxContext,IApiInfoRetriever apiBanInfoRetriever, bool checkInterfaces)
+            public ApiNodesWalker(SyntaxNodeAnalysisContext syntaxContext, IApiInfoRetriever apiBanInfoRetriever,
+								  IApiInfoRetriever? whiteListInfoRetriever, bool checkInterfaces)
             {
                 _syntaxContext 		 	  = syntaxContext;
 				_apiBanInfoRetriever 	  = apiBanInfoRetriever;
+				_whiteListInfoRetriever   = whiteListInfoRetriever;
 				_bannedTypesInfoCollector = new BannedTypesInfoCollector(apiBanInfoRetriever, syntaxContext.CancellationToken);
 				CheckInterfaces = checkInterfaces;
+			}
+
+			public void CheckSyntaxTree(CompilationUnitSyntax root)
+			{
+				root.Accept(this);
+
+				if (_suspiciousUsings.Count == 0)
+					return;
+
+				var usingsToReport = _namespacesWithUsedWhiteListedMembers.Count > 0
+					? _suspiciousUsings.Where(usingInfo => !_namespacesWithUsedWhiteListedMembers.Contains(usingInfo.Namespace))
+					: _suspiciousUsings;
+
+				foreach (var (@using, @namespace, banInfo) in usingsToReport)
+				{
+					ReportApi(@namespace, banInfo, @using.Name);
+				}
 			}
 
 			#region Visit XML comments methods to prevent coloring in XML comments don't call base method
@@ -75,16 +95,14 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				switch (typeOrNamespaceSymbol)
 				{
 					case INamespaceSymbol namespaceSymbol:
-						Api? bannedNamespaceOrTypeInfo = _apiBanInfoRetriever.GetInfoForApi(namespaceSymbol);
-
-						if (bannedNamespaceOrTypeInfo.HasValue)
-							ReportApi(bannedNamespaceOrTypeInfo.Value, usingDirectiveNode.Name);
+						if (_apiBanInfoRetriever.GetInfoForApi(namespaceSymbol) is Api bannedNamespaceInfo)
+							_suspiciousUsings.Add((usingDirectiveNode, namespaceSymbol, bannedNamespaceInfo));
 
 						break;
 					
 					case ITypeSymbol typeSymbol:
 						var bannedTypeInfos = _bannedTypesInfoCollector.GetTypeBannedApiInfos(typeSymbol, CheckInterfaces);
-						ReportApiList(bannedTypeInfos, usingDirectiveNode.Name);
+						ReportApiList(typeSymbol, bannedTypeInfos, usingDirectiveNode.Name);
 						break;
 				}	
 			}
@@ -111,13 +129,13 @@ namespace CoreCompatibilyzer.StaticAnalysis
 					if (bannedTypeInfos?.Count > 0)
 					{
 						var location = GetLocationFromNode(genericNameNode);
-						ReportApiList(bannedTypeInfos, location);
+						ReportApiList(typeSymbol, bannedTypeInfos, location);
 					}
 				}
 				else if(GetBannedSymbolInfoForNonTypeSymbol(symbol) is Api bannedSymbolInfo)
 				{
 					var location = GetLocationFromNode(genericNameNode);
-					ReportApi(bannedSymbolInfo, location);
+					ReportApi(symbol, bannedSymbolInfo, location, checkWhiteList: true);
 				}
 
 				Cancellation.ThrowIfCancellationRequested();
@@ -150,17 +168,17 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				{
 					case ITypeParameterSymbol typeParameterSymbol:
 						var bannedTypeParameterInfos = _bannedTypesInfoCollector.GetTypeParameterBannedApiInfos(typeParameterSymbol, CheckInterfaces);
-						ReportApiList(bannedTypeParameterInfos, nodeToReport);
+						ReportApiList(typeParameterSymbol, bannedTypeParameterInfos, nodeToReport);
 						return;
 
 					case ITypeSymbol typeSymbol:
 						var bannedTypeInfos = _bannedTypesInfoCollector.GetTypeBannedApiInfos(typeSymbol, CheckInterfaces);
-						ReportApiList(bannedTypeInfos, nodeToReport);
+						ReportApiList(typeSymbol, bannedTypeInfos, nodeToReport);
 						return;
 
 					default:
 						if (GetBannedSymbolInfoForNonTypeSymbol(symbol) is Api bannedSymbolInfo)
-							ReportApi(bannedSymbolInfo, nodeToReport);
+							ReportApi(symbol, bannedSymbolInfo, nodeToReport);
 
 						return;
 				}
@@ -185,23 +203,29 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				return null;
 			}
 
-			private void ReportApiList(List<Api>? bannedApisList, SyntaxNode node)
+			private void ReportApiList(ISymbol symbolToReport, List<Api>? bannedApisList, SyntaxNode node)
 			{
 				if (bannedApisList?.Count > 0)
-					ReportApiList(bannedApisList, node.GetLocation());
+					ReportApiList(symbolToReport, bannedApisList, node.GetLocation());
 			}
 
-			private void ReportApiList(List<Api> bannedApisList, Location location)
+			private void ReportApiList(ISymbol symbolToReport, List<Api> bannedApisList, Location location)
 			{
+				if (IsInWhiteList(symbolToReport))
+					return;
+
 				foreach (Api bannedTypeInfo in bannedApisList)
-					ReportApi(bannedTypeInfo, location);
+					ReportApi(symbolToReport, bannedTypeInfo, location, checkWhiteList: false);
 			}
 
-			private void ReportApi(in Api banApiInfo, SyntaxNode? node) =>
-				ReportApi(banApiInfo, node?.GetLocation());
+			private void ReportApi(ISymbol symbolToReport, in Api banApiInfo, SyntaxNode? node) =>
+				ReportApi(symbolToReport, banApiInfo, node?.GetLocation(), checkWhiteList: true);
 
-			private void ReportApi(in Api banApiInfo, Location? location)
+			private void ReportApi(ISymbol symbolToReport, in Api banApiInfo, Location? location, bool checkWhiteList)
 			{
+				if (checkWhiteList && IsInWhiteList(symbolToReport))
+					return;
+
 				var diagnosticDescriptor = GetDiagnosticFromBannedApiInfo(banApiInfo);
 
 				if (diagnosticDescriptor == null)
@@ -211,6 +235,19 @@ namespace CoreCompatibilyzer.StaticAnalysis
 																			  .Add(CommonConstants.ApiNameDiagnosticProperty, banApiInfo.FullName);
 				var diagnostic = Diagnostic.Create(diagnosticDescriptor, location, diagnosticProperties!, banApiInfo.FullName);
 				_syntaxContext.ReportDiagnosticWithSuppressionCheck(diagnostic);
+			}
+
+			private bool IsInWhiteList(ISymbol symbol)
+			{
+				if (_whiteListInfoRetriever?.GetInfoForApi(symbol) is Api)
+				{
+					if (symbol.ContainingNamespace != null && !symbol.ContainingNamespace.IsGlobalNamespace)
+						_namespacesWithUsedWhiteListedMembers.Add(symbol.ContainingNamespace);
+
+					return true;
+				}
+
+				return false;
 			}
 
 			private DiagnosticDescriptor? GetDiagnosticFromBannedApiInfo(in Api banApiInfo) => banApiInfo.ExtraInfo switch

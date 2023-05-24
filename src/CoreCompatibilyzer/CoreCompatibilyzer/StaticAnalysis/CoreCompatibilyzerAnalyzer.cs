@@ -75,16 +75,15 @@ namespace CoreCompatibilyzer.StaticAnalysis
 
 			compilationStartContext.CancellationToken.ThrowIfCancellationRequested();
 
-			var whiteListStorage = _customWhiteList ?? GetWhiteListStorage(compilationStartContext.CancellationToken);
-
 			var apiBanInfoRetriever = _customBanInfoRetriever ?? GetApiBanInfoRetriever(bannedApiStorage);
 
 			if (apiBanInfoRetriever == null)
 				return;
 
-			var whiteListInfoRetriever = 
+			var whiteListStorage = _customWhiteList ?? GetWhiteListStorage(compilationStartContext.CancellationToken);
+			var whiteListInfoRetriever = _customWhiteListInfoRetriever ?? GetWhiteListInfoRetriever(whiteListStorage);
 
-			compilationStartContext.RegisterSyntaxNodeAction(context => AnalyzeSyntaxTree(context, apiBanInfoRetriever), 
+			compilationStartContext.RegisterSyntaxNodeAction(context => AnalyzeSyntaxTree(context, apiBanInfoRetriever, whiteListInfoRetriever), 
 															 SyntaxKind.CompilationUnit);
 		}
 
@@ -98,20 +97,23 @@ namespace CoreCompatibilyzer.StaticAnalysis
 			GetHierarchicalApiInfoRetrieverWithCache(bannedApiStorage);
 
 		protected virtual IApiInfoRetriever? GetWhiteListInfoRetriever(IApiStorage whiteListStorage) =>
-			whiteListStorage. GetHierarchicalApiInfoRetrieverWithCache(whiteListStorage);
+			whiteListStorage.ApiKindsCount > 0
+				? GetHierarchicalApiInfoRetrieverWithCache(whiteListStorage)
+				: null;
 
 		protected IApiInfoRetriever GetHierarchicalApiInfoRetrieverWithCache(IApiStorage storage) =>
 			new ApiInfoRetrieverWithWeakCache(
 				new HierarchicalApiBanInfoRetriever(storage));
 
-		private void AnalyzeSyntaxTree(in SyntaxNodeAnalysisContext syntaxContext, IApiInfoRetriever apiBanInfoRetriever)
+		private void AnalyzeSyntaxTree(in SyntaxNodeAnalysisContext syntaxContext, IApiInfoRetriever apiBanInfoRetriever, 
+									   IApiInfoRetriever? whiteListInfoRetriever)
 		{
 			syntaxContext.CancellationToken.ThrowIfCancellationRequested();
 
 			if (syntaxContext.Node is CompilationUnitSyntax compilationUnitSyntax)
 			{
-				var apiNodesWalker = new ApiNodesWalker(syntaxContext, apiBanInfoRetriever, checkInterfaces: false);
-				compilationUnitSyntax.Accept(apiNodesWalker);
+				var apiNodesWalker = new ApiNodesWalker(syntaxContext, apiBanInfoRetriever, whiteListInfoRetriever, checkInterfaces: false);
+				apiNodesWalker.CheckSyntaxTree(compilationUnitSyntax);
 			}	
 		}
 	}
