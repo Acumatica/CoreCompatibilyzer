@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
+using System.Xml.Linq;
 
 using CoreCompatibilyzer.ApiData.Model;
 using CoreCompatibilyzer.Constants;
@@ -196,6 +197,20 @@ namespace CoreCompatibilyzer.StaticAnalysis
 
 				Cancellation.ThrowIfCancellationRequested();
 				CheckSymbolForBannedInfo(symbol, identifierNode);
+			}
+
+			public override void VisitQualifiedName(QualifiedNameSyntax qualifiedName)
+			{
+				Cancellation.ThrowIfCancellationRequested();
+
+				if (SemanticModel.GetSymbolOrFirstCandidate(qualifiedName, Cancellation) is not ISymbol symbol)
+				{
+					base.VisitQualifiedName(qualifiedName);
+					return;
+				}
+
+				Cancellation.ThrowIfCancellationRequested();
+				CheckSymbolForBannedInfo(symbol, qualifiedName.Right);
 			}
 
 			private void CheckSymbolForBannedInfo(ISymbol symbol, SyntaxNode nodeToReport)
