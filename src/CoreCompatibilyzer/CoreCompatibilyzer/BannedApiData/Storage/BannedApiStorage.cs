@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
-using CoreCompatibilyzer.BannedApiData.Model;
 using CoreCompatibilyzer.BannedApiData.Providers;
 using CoreCompatibilyzer.Utils.Common;
 
@@ -15,15 +14,31 @@ namespace CoreCompatibilyzer.BannedApiData.Storage
     /// <summary>
     /// A banned API storage helper that keeps and retrieves the banned API storage.
     /// </summary>
-    public static partial class BannedApiStorage
+    public partial class BannedApiStorage
     {
         private const string _bannedApiFileRelativePath = @"BannedApiData\Data\BannedApis.txt";
         private const string _bannedApiAssemblyResourceName = @"BannedApiData.Data.BannedApis.txt";
 
-        private static readonly SemaphoreSlim _initializationLock = new SemaphoreSlim(initialCount: 1, maxCount: 1);
-        private static volatile IBannedApiStorage? _instance;
+		private const string _whiteListFileRelativePath = @"BannedApiData\Data\WhiteList.txt";
+		private const string _whiteListAssemblyResourceName = @"BannedApiData.Data.WhiteList.txt";
 
-		public static IBannedApiStorage GetStorage(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider = null)
+		private readonly SemaphoreSlim _initializationLock = new SemaphoreSlim(initialCount: 1, maxCount: 1);
+        private volatile IBannedApiStorage? _instance;
+
+		private readonly string? _dataFileRelativePath;
+		private readonly string? _dataAssemblyResourceName;
+
+		public static BannedApiStorage BannedApi { get; } = new BannedApiStorage(_bannedApiFileRelativePath, _bannedApiAssemblyResourceName);
+
+		public static BannedApiStorage WhiteList { get; } = new BannedApiStorage(_whiteListFileRelativePath, _whiteListAssemblyResourceName);
+
+		public BannedApiStorage(string? dataFileRelativePath, string? dataAssemblyResourceName)
+		{
+			_dataFileRelativePath = dataFileRelativePath.NullIfWhiteSpace();
+			_dataAssemblyResourceName = dataAssemblyResourceName.NullIfWhiteSpace();
+		}
+
+		public IBannedApiStorage GetStorage(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider = null)
         {
 			cancellation.ThrowIfCancellationRequested();
 
@@ -45,7 +60,7 @@ namespace CoreCompatibilyzer.BannedApiData.Storage
 			}
 		}
 
-		private static IBannedApiStorage GetStorageAsyncWithoutLocking(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider)
+		private IBannedApiStorage GetStorageAsyncWithoutLocking(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider)
 		{
 			var bannedApiDataProvider = customBannedApiDataProvider ?? GetDefaultDataProvider();
 			var bannedApis = bannedApiDataProvider.GetBannedApiData(cancellation);
@@ -57,7 +72,7 @@ namespace CoreCompatibilyzer.BannedApiData.Storage
 				: new DefaultBannedApiStorage(bannedApis);
 		}
 
-		public static async Task<IBannedApiStorage> GetStorageAsync(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider = null)
+		public async Task<IBannedApiStorage> GetStorageAsync(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider = null)
         {
 			cancellation.ThrowIfCancellationRequested();
 
@@ -79,7 +94,7 @@ namespace CoreCompatibilyzer.BannedApiData.Storage
 			}		
 		}
 
-        private static async Task<IBannedApiStorage> GetStorageAsyncWithoutLockingAsync(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider)
+        private async Task<IBannedApiStorage> GetStorageAsyncWithoutLockingAsync(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider)
         {
 			var bannedApiDataProvider = customBannedApiDataProvider ?? GetDefaultDataProvider();
 
@@ -91,29 +106,45 @@ namespace CoreCompatibilyzer.BannedApiData.Storage
 				: new DefaultBannedApiStorage(bannedApis);
 		}
 
-		private static IBannedApiDataProvider GetDefaultDataProvider()
+		private IBannedApiDataProvider GetDefaultDataProvider()
         {
-			var apiDataProviders = new List<IBannedApiDataProvider>(capacity: 2);
-			Assembly assembly = typeof(BannedApiStorage).Assembly;
+			if (_dataFileRelativePath == null && _dataAssemblyResourceName == null)
+				return new EmptyProvider(considerDataAvailable: false);
 
-			if (!assembly.Location.IsNullOrWhiteSpace())
-			{
-				string folderWithExtension = Path.GetDirectoryName(assembly.Location);
-				string filePath = Path.Combine(folderWithExtension, _bannedApiFileRelativePath);
+			Assembly assembly 		 = typeof(BannedApiStorage).Assembly;
+			var fileDataProvider 	 = MakeFileDataProvider(assembly);
+			var assemblyDataProvider = MakeAssemblyDataProvider(assembly);
 
-				apiDataProviders.Add(new FileDataProvider(filePath));
-			}
+			if (fileDataProvider == null)
+				return assemblyDataProvider!;
+			else if (assemblyDataProvider == null)
+				return fileDataProvider;
 
-            string assemblyName = assembly.GetName().Name;
-            string fullResourceName = $"{assemblyName}.{_bannedApiAssemblyResourceName}";
-
-			apiDataProviders.Add(new AssemblyResourcesDataProvider(assembly, fullResourceName));
-
-            var defaultProvider = apiDataProviders.Count > 1
-				? new DataProvidersCoalesceCombinator(apiDataProviders)
-				: apiDataProviders[0];
-
-            return defaultProvider;
+			var apiDataProviders = new IBannedApiDataProvider[] { fileDataProvider, assemblyDataProvider };
+			var defaultProvider = new DataProvidersCoalesceCombinator(apiDataProviders);
+			return defaultProvider;
         }
+
+		private FileDataProvider? MakeFileDataProvider(Assembly currentAssembly)
+		{
+			if (_dataFileRelativePath == null || currentAssembly.Location.IsNullOrWhiteSpace())
+				return null;
+
+			string folderWithExtension = Path.GetDirectoryName(currentAssembly.Location);
+			string filePath = Path.Combine(folderWithExtension, _dataFileRelativePath);
+
+			return new FileDataProvider(filePath);
+		}
+
+		private AssemblyResourcesDataProvider? MakeAssemblyDataProvider(Assembly currentAssembly)
+		{
+			if (_dataAssemblyResourceName == null)
+				return null;
+
+			string assemblyName = currentAssembly.GetName().Name;
+			string fullResourceName = $"{assemblyName}.{_dataAssemblyResourceName}";
+
+			return new AssemblyResourcesDataProvider(currentAssembly, fullResourceName);
+		}
 	}
 }

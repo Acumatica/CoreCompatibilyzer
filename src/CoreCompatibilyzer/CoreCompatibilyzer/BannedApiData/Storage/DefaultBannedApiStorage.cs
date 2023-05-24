@@ -7,7 +7,7 @@ using CoreCompatibilyzer.BannedApiData.Model;
 
 namespace CoreCompatibilyzer.BannedApiData.Storage
 {
-    public static partial class BannedApiStorage
+    public partial class BannedApiStorage
     {
         /// <summary>
         /// A default banned API storage.
