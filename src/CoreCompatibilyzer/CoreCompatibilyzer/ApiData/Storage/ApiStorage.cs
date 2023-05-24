@@ -16,11 +16,11 @@ namespace CoreCompatibilyzer.ApiData.Storage
     /// </summary>
     public partial class ApiStorage
     {
-        private const string _bannedApiFileRelativePath = @"BannedApiData\Data\BannedApis.txt";
-        private const string _bannedApiAssemblyResourceName = @"BannedApiData.Data.BannedApis.txt";
+        private const string _bannedApiFileRelativePath = @"ApiData\Data\BannedApis.txt";
+        private const string _bannedApiAssemblyResourceName = @"ApiData.Data.BannedApis.txt";
 
-		private const string _whiteListFileRelativePath = @"BannedApiData\Data\WhiteList.txt";
-		private const string _whiteListAssemblyResourceName = @"BannedApiData.Data.WhiteList.txt";
+		private const string _whiteListFileRelativePath = @"ApiData\Data\WhiteList.txt";
+		private const string _whiteListAssemblyResourceName = @"ApiData.Data.WhiteList.txt";
 
 		private readonly SemaphoreSlim _initializationLock = new SemaphoreSlim(initialCount: 1, maxCount: 1);
         private volatile IApiStorage? _instance;
