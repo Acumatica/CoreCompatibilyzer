@@ -17,9 +17,9 @@ namespace CoreCompatibilyzer.ApiData.Model
 
 		public string FullName { get; }
 
-		public ApiInfoType ApiInfoType { get; }
+		public ApiExtraInfo ExtraInfo { get; }
 
-        public Api(string docIDWithOptionalObsoleteMarker, bool isWhiteList)
+        public Api(string docIDWithOptionalObsoleteMarker)
         {
 			docIDWithOptionalObsoleteMarker = docIDWithOptionalObsoleteMarker.ThrowIfNullOrWhiteSpace(nameof(docIDWithOptionalObsoleteMarker)).Trim();
 
@@ -32,12 +32,12 @@ namespace CoreCompatibilyzer.ApiData.Model
 					throw InvalidInputStringFormatException(docIDWithOptionalObsoleteMarker);
 
 				DocID = docIDWithOptionalObsoleteMarker.Remove(docIDWithOptionalObsoleteMarker.Length - 2);
-				ApiInfoType = isWhiteList ? ApiInfoType.WhiteList : ApiInfoType.Obsolete;
+				ExtraInfo = ApiExtraInfo.Obsolete;
 			}
 			else
 			{
 				DocID = docIDWithOptionalObsoleteMarker;
-				ApiInfoType = isWhiteList ? ApiInfoType.WhiteList : ApiInfoType.NotPresentInNetCore;
+				ExtraInfo = ApiExtraInfo.None;
 			}
 			
 			Kind = DocID.GetApiKind();
@@ -59,7 +59,7 @@ namespace CoreCompatibilyzer.ApiData.Model
 		public override bool Equals(object obj) => obj is Api api && Equals(api);
 
 		public bool Equals(Api other) => 
-			string.Equals(DocID, other.DocID) && ApiInfoType == other.ApiInfoType;
+			string.Equals(DocID, other.DocID) && ExtraInfo == other.ExtraInfo;
 
 		public static bool operator ==(Api x, Api y) => x.Equals(y);
 

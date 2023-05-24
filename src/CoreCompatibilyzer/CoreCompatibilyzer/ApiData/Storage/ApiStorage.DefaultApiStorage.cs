@@ -39,7 +39,7 @@ namespace CoreCompatibilyzer.ApiData.Storage
 				{
 					if (apisByDocID.TryGetValue(api.DocID, out Api duplicateApi))
 					{
-						if (duplicateApi.ApiInfoType == ApiInfoType.Obsolete && api.ApiInfoType == ApiInfoType.NotPresentInNetCore)
+						if (duplicateApi.ExtraInfo == ApiExtraInfo.Obsolete && api.ExtraInfo == ApiExtraInfo.None)
 							apisByDocID[api.DocID] = api;
 					}
 					else

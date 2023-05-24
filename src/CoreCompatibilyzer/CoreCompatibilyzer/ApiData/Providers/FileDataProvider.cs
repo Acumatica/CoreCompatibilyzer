@@ -12,7 +12,7 @@ using CoreCompatibilyzer.ApiData.Model;
 namespace CoreCompatibilyzer.ApiData.Providers
 {
 	[SuppressMessage("MicrosoftCodeAnalysisCorrectness", "RS1035:Do not use APIs banned for analyzers", Justification = "Need to load banned API database")]
-	public class FileDataProvider : BannedApiDataProvider
+	public class FileDataProvider : ApiDataProvider
 	{
 		private readonly string _filePath;
 
@@ -25,7 +25,7 @@ namespace CoreCompatibilyzer.ApiData.Providers
 		}
 
 		/// <inheritdoc/>
-		public override async Task<IEnumerable<Api>?> GetBannedApiDataAsync(CancellationToken cancellation)
+		public override async Task<IEnumerable<Api>?> GetApiDataAsync(CancellationToken cancellation)
 		{
 			cancellation.ThrowIfCancellationRequested();
 
@@ -45,23 +45,20 @@ namespace CoreCompatibilyzer.ApiData.Providers
 			if (wholeText.IsNullOrWhiteSpace())
 				return Enumerable.Empty<Api>();
 
-			var bannedApis = ParseTextIntoBannedApis(wholeText, cancellation);
-			return bannedApis;
+			var apis = ParseTextIntoApis(wholeText, cancellation);
+			return apis;
 		}
 
 		/// <inheritdoc/>
-		public override IEnumerable<Api>? GetBannedApiData(CancellationToken cancellation) =>
-			GetBannedApiDataFromFile(cancellation);
-
-		private IEnumerable<Api>? GetBannedApiDataFromFile(CancellationToken cancellation)
+		public override IEnumerable<Api>? GetApiData(CancellationToken cancellation)
 		{
 			cancellation.ThrowIfCancellationRequested();
 
 			if (!IsDataAvailable)
 				return null;
-	
-			var lines	   = File.ReadLines(_filePath);
-			var bannedApis = ParseLinesIntoBannedApis(lines, cancellation);
+
+			var lines = File.ReadLines(_filePath);
+			var bannedApis = ParseLinesIntoApis(lines, cancellation);
 
 			return bannedApis;
 		}

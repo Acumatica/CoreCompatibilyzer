@@ -213,10 +213,10 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				_syntaxContext.ReportDiagnosticWithSuppressionCheck(diagnostic);
 			}
 
-			private DiagnosticDescriptor? GetDiagnosticFromBannedApiInfo(in Api banApiInfo) => banApiInfo.ApiInfoType switch
+			private DiagnosticDescriptor? GetDiagnosticFromBannedApiInfo(in Api banApiInfo) => banApiInfo.ExtraInfo switch
 			{
-				ApiInfoType.NotPresentInNetCore => Descriptors.CoreCompat1001_ApiNotPresentInDotNetCore,
-				ApiInfoType.Obsolete 			  => Descriptors.CoreCompat1002_ApiObsoleteInDotNetCore,
+				ApiExtraInfo.None => Descriptors.CoreCompat1001_ApiNotPresentInDotNetCore,
+				ApiExtraInfo.Obsolete 			  => Descriptors.CoreCompat1002_ApiObsoleteInDotNetCore,
 				_ 								  => null
 			};
 		}

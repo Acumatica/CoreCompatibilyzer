@@ -11,7 +11,7 @@ namespace CoreCompatibilyzer.ApiData.Providers
 	/// <summary>
 	/// A data provider that always provides empty data.
 	/// </summary>
-	internal class EmptyProvider : IBannedApiDataProvider
+	internal class EmptyProvider : IApiDataProvider
 	{
 		private readonly Task<IEnumerable<Api>?> _resultTask;
 
@@ -27,10 +27,10 @@ namespace CoreCompatibilyzer.ApiData.Providers
 		}
 
 		/// <inheritdoc/>
-		public Task<IEnumerable<Api>?> GetBannedApiDataAsync(CancellationToken cancellation) => 
+		public Task<IEnumerable<Api>?> GetApiDataAsync(CancellationToken cancellation) => 
 			_resultTask;
 
-		public IEnumerable<Api>? GetBannedApiData(CancellationToken cancellation) =>
+		public IEnumerable<Api>? GetApiData(CancellationToken cancellation) =>
 			IsDataAvailable
 				? Enumerable.Empty<Api>()
 				: null;

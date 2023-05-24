@@ -19,57 +19,57 @@ namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
 
 		protected override Api? GetInfoForApiImpl(ISymbol apiSymbol, ApiKind apiKind)
 		{
-			Api? directBanInfo = base.GetInfoForApiImpl(apiSymbol, apiKind);
+			Api? directInfo = base.GetInfoForApiImpl(apiSymbol, apiKind);
 
-			if (directBanInfo != null)
-				return directBanInfo;
+			if (directInfo != null)
+				return directInfo;
 
-			// We just checked API for ban directly. There is no containing API that could be banned for namespaces and undefined APIs.
+			// We just checked API for directly. There is no containing API for namespaces and undefined APIs.
 			if (apiKind is ApiKind.Namespace or ApiKind.Undefined)
 				return null;
 
-			Api? namespaceBanInfo = GetBanInfoForApiNamespace(apiSymbol.ContainingNamespace);
+			Api? namespaceInfo = GetInfoForApiNamespace(apiSymbol.ContainingNamespace);
 
-			if (namespaceBanInfo != null)
-				return namespaceBanInfo;
+			if (namespaceInfo != null)
+				return namespaceInfo;
 
-			// We checked API for ban info directly and for banned namespaces. Non nested types don't have other parent APIs that could be banned
+			// We checked API for info directly and for namespaces. Non nested types don't have other parent APIs
 			if (apiSymbol is ITypeSymbol typeSymbol && typeSymbol.ContainingType == null) 
 				return null;
 
-			Api? typeBanInfo = GetBanInfoForContainingTypes(apiSymbol.ContainingType);
+			Api? typeInfo = GetInfoForContainingTypes(apiSymbol.ContainingType);
 
-			if (typeBanInfo != null)
-				return typeBanInfo;
+			if (typeInfo != null)
+				return typeInfo;
 
 			// We checked API directly and its containing namespace and types. 
-			// Fields, events, properties and normal methods don't have other parent APIs that could be banned	
+			// Fields, events, properties and normal methods don't have other parent APIs
 			if ((apiKind is ApiKind.Field or ApiKind.Property or ApiKind.Event) ||
 				apiSymbol is not IMethodSymbol methodSymbol)
 			{
 				return null;
 			}
 
-			// The only API kind left to check are property and event accessors, since they can be banned via their corresponding property/event
-			Api? accessorBanInfo = GetBanInfoForAccessorMethod(methodSymbol);
+			// The only API kind left to check are property and event accessors, since they are contained inside their corresponding property/event
+			Api? accessorBanInfo = GetInfoForAccessorMethod(methodSymbol);
 			return accessorBanInfo;
 		}
 
-		private Api? GetBanInfoForApiNamespace(INamespaceSymbol? apiNamespaceSymbol) =>
+		private Api? GetInfoForApiNamespace(INamespaceSymbol? apiNamespaceSymbol) =>
 			apiNamespaceSymbol != null && !apiNamespaceSymbol.IsGlobalNamespace
 				? GetInfoForSymbol(apiNamespaceSymbol, ApiKind.Namespace)
 				: null;
 
-		private Api? GetBanInfoForContainingTypes(INamedTypeSymbol? firstContainingType)
+		private Api? GetInfoForContainingTypes(INamedTypeSymbol? firstContainingType)
 		{
 			INamedTypeSymbol? currentType = firstContainingType;
 
 			while (currentType != null) 
 			{
-				var typeBanInfo = GetInfoForSymbol(currentType, ApiKind.Type);
+				var typeInfo = GetInfoForSymbol(currentType, ApiKind.Type);
 
-				if (typeBanInfo != null)
-					return typeBanInfo;
+				if (typeInfo != null)
+					return typeInfo;
 
 				currentType = currentType.BaseType;
 			}
@@ -77,7 +77,7 @@ namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
 			return null;
 		}
 
-		private Api? GetBanInfoForAccessorMethod(IMethodSymbol acessorMethod) =>
+		private Api? GetInfoForAccessorMethod(IMethodSymbol acessorMethod) =>
 			acessorMethod.AssociatedSymbol switch
 			{
 				IPropertySymbol propertySymbol => GetInfoForSymbol(propertySymbol, ApiKind.Property),

@@ -7,34 +7,34 @@ using CoreCompatibilyzer.ApiData.Model;
 
 namespace CoreCompatibilyzer.ApiData.Providers
 {
-    public interface IBannedApiDataProvider
+    public interface IApiDataProvider
 	{
 		/// <summary>
-		/// Gets a value indicating whether the provider's banned API data is available.
+		/// Gets a value indicating whether the provider's API data is available.
 		/// </summary>
 		/// <value>
-		/// True if the banned API data is available, false if not.
+		/// True if the API data is available, false if not.
 		/// </value>
 		bool IsDataAvailable { get; }
 
 		/// <summary>
-		/// Gets banned API data synchronously from the provider or <see langword="null"/> if the provider's banned API data is not available. <br/>
+		/// Gets API data synchronously from the provider or <see langword="null"/> if the provider's API data is not available. <br/>
 		/// On the latter case the <see cref="IsDataAvailable"/> flag value is <see langword="false"/>.
 		/// </summary>
 		/// <param name="cancellation">A token that allows processing to be cancelled.</param>
 		/// <returns>
-		/// The banned API data.
+		/// The API data.
 		/// </returns>
-		IEnumerable<Api>? GetBannedApiData(CancellationToken cancellation);
+		IEnumerable<Api>? GetApiData(CancellationToken cancellation);
 
 		/// <summary>
-		/// Gets the banned API data asynchronously from the provider or <see langword="null"/> if the provider's banned API data is not available. <br/>
+		/// Gets the API data asynchronously from the provider or <see langword="null"/> if the provider's API data is not available. <br/>
 		/// On the latter case the <see cref="IsDataAvailable"/> flag value is <see langword="false"/>.
 		/// </summary>
 		/// <param name="cancellation">A token that allows processing to be cancelled.</param>
 		/// <returns>
-		/// The task with banned API data.
+		/// The task with API data.
 		/// </returns>
-		Task<IEnumerable<Api>?> GetBannedApiDataAsync(CancellationToken cancellation);
+		Task<IEnumerable<Api>?> GetApiDataAsync(CancellationToken cancellation);
     }
 }

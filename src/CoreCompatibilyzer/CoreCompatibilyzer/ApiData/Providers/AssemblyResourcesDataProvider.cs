@@ -12,10 +12,10 @@ using CoreCompatibilyzer.ApiData.Model;
 
 namespace CoreCompatibilyzer.ApiData.Providers
 {
-	public class AssemblyResourcesDataProvider : BannedApiDataProvider
+	public class AssemblyResourcesDataProvider : ApiDataProvider
 	{
 		private readonly Assembly _assembly;
-		private readonly string _bannedApiResourceName;
+		private readonly string _apiResourceName;
 		private bool? _isDataAvailable;
 
 		/// <inheritdoc/>
@@ -26,21 +26,21 @@ namespace CoreCompatibilyzer.ApiData.Providers
 				if (_isDataAvailable.HasValue)
 					return _isDataAvailable.Value;
 
-				var resourceInfo = _assembly.GetManifestResourceInfo(_bannedApiResourceName);
+				var resourceInfo = _assembly.GetManifestResourceInfo(_apiResourceName);
 				_isDataAvailable = resourceInfo != null;
 
 				return _isDataAvailable.Value;
 			}
 		}
 
-		public AssemblyResourcesDataProvider(Assembly assembly, string bannedApiResourceName)
+		public AssemblyResourcesDataProvider(Assembly assembly, string apiResourceName)
         {
 			_assembly = assembly.ThrowIfNull(nameof(assembly));
-			_bannedApiResourceName = bannedApiResourceName.ThrowIfNullOrWhiteSpace(nameof(bannedApiResourceName));
+			_apiResourceName = apiResourceName.ThrowIfNullOrWhiteSpace(nameof(apiResourceName));
 		}
 
 		/// <inheritdoc/>
-		public override async Task<IEnumerable<Api>?> GetBannedApiDataAsync(CancellationToken cancellation)
+		public override async Task<IEnumerable<Api>?> GetApiDataAsync(CancellationToken cancellation)
 		{
 			cancellation.ThrowIfCancellationRequested();
 
@@ -49,11 +49,11 @@ namespace CoreCompatibilyzer.ApiData.Providers
 
 			string wholeText;
 
-			using (var resourceStream = _assembly.GetManifestResourceStream(_bannedApiResourceName))
+			using (var resourceStream = _assembly.GetManifestResourceStream(_apiResourceName))
 			{
 
 				if (resourceStream == null)
-					throw new ApiReaderException($"Can't find the source text with Resource ID \"{_bannedApiResourceName}\".");
+					throw new ApiReaderException($"Can't find the source text with Resource ID \"{_apiResourceName}\".");
 
 				using (var reader = new StreamReader(resourceStream))
 				{
@@ -67,25 +67,25 @@ namespace CoreCompatibilyzer.ApiData.Providers
 			if (wholeText.IsNullOrWhiteSpace())
 				return Enumerable.Empty<Api>();
 
-			var bannedApis = ParseTextIntoBannedApis(wholeText, cancellation);
+			var bannedApis = ParseTextIntoApis(wholeText, cancellation);
 			return bannedApis;
 		}
 
 		/// <inheritdoc/>
-		public override IEnumerable<Api>? GetBannedApiData(CancellationToken cancellation)
+		public override IEnumerable<Api>? GetApiData(CancellationToken cancellation)
 		{
 			cancellation.ThrowIfCancellationRequested();
 
 			if (!IsDataAvailable)
 				return null;
 
-			using (var resourceStream = _assembly.GetManifestResourceStream(_bannedApiResourceName))
+			using (var resourceStream = _assembly.GetManifestResourceStream(_apiResourceName))
 			{
 
 				if (resourceStream == null)
-					throw new ApiReaderException($"Can't find the source text with Resource ID \"{_bannedApiResourceName}\".");
+					throw new ApiReaderException($"Can't find the source text with Resource ID \"{_apiResourceName}\".");
 
-				return ParseStreamIntoBannedApis(resourceStream, cancellation).ToList();
+				return ParseStreamIntoApis(resourceStream, cancellation).ToList();
 			}
 		}
 
@@ -93,7 +93,7 @@ namespace CoreCompatibilyzer.ApiData.Providers
 		{
 			var assemblyName = _assembly.GetName().Name;
 			return $"An error happened during the reading of the line {lineNumber} from the" + 
-				   $" resource \"{_bannedApiResourceName}\" of the assembly \"{assemblyName}\"";
+				   $" resource \"{_apiResourceName}\" of the assembly \"{assemblyName}\"";
 		}
 	}
 }

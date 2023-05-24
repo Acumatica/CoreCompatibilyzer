@@ -38,7 +38,7 @@ namespace CoreCompatibilyzer.ApiData.Storage
 			_dataAssemblyResourceName = dataAssemblyResourceName.NullIfWhiteSpace();
 		}
 
-		public IApiStorage GetStorage(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider = null)
+		public IApiStorage GetStorage(CancellationToken cancellation, IApiDataProvider? customBannedApiDataProvider = null)
         {
 			cancellation.ThrowIfCancellationRequested();
 
@@ -60,10 +60,10 @@ namespace CoreCompatibilyzer.ApiData.Storage
 			}
 		}
 
-		private IApiStorage GetStorageAsyncWithoutLocking(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider)
+		private IApiStorage GetStorageAsyncWithoutLocking(CancellationToken cancellation, IApiDataProvider? customBannedApiDataProvider)
 		{
 			var bannedApiDataProvider = customBannedApiDataProvider ?? GetDefaultDataProvider();
-			var bannedApis = bannedApiDataProvider.GetBannedApiData(cancellation);
+			var bannedApis = bannedApiDataProvider.GetApiData(cancellation);
 
 			cancellation.ThrowIfCancellationRequested();
 
@@ -72,7 +72,7 @@ namespace CoreCompatibilyzer.ApiData.Storage
 				: new DefaultApiStorage(bannedApis);
 		}
 
-		public async Task<IApiStorage> GetStorageAsync(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider = null)
+		public async Task<IApiStorage> GetStorageAsync(CancellationToken cancellation, IApiDataProvider? customBannedApiDataProvider = null)
         {
 			cancellation.ThrowIfCancellationRequested();
 
@@ -94,11 +94,11 @@ namespace CoreCompatibilyzer.ApiData.Storage
 			}		
 		}
 
-        private async Task<IApiStorage> GetStorageAsyncWithoutLockingAsync(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider)
+        private async Task<IApiStorage> GetStorageAsyncWithoutLockingAsync(CancellationToken cancellation, IApiDataProvider? customBannedApiDataProvider)
         {
 			var bannedApiDataProvider = customBannedApiDataProvider ?? GetDefaultDataProvider();
 
-			var bannedApis = await bannedApiDataProvider.GetBannedApiDataAsync(cancellation).ConfigureAwait(false);
+			var bannedApis = await bannedApiDataProvider.GetApiDataAsync(cancellation).ConfigureAwait(false);
 			cancellation.ThrowIfCancellationRequested();
 
 			return bannedApis == null
@@ -106,7 +106,7 @@ namespace CoreCompatibilyzer.ApiData.Storage
 				: new DefaultApiStorage(bannedApis);
 		}
 
-		private IBannedApiDataProvider GetDefaultDataProvider()
+		private IApiDataProvider GetDefaultDataProvider()
         {
 			if (_dataFileRelativePath == null && _dataAssemblyResourceName == null)
 				return new EmptyProvider(considerDataAvailable: false);
@@ -120,7 +120,7 @@ namespace CoreCompatibilyzer.ApiData.Storage
 			else if (assemblyDataProvider == null)
 				return fileDataProvider;
 
-			var apiDataProviders = new IBannedApiDataProvider[] { fileDataProvider, assemblyDataProvider };
+			var apiDataProviders = new IApiDataProvider[] { fileDataProvider, assemblyDataProvider };
 			var defaultProvider = new DataProvidersCoalesceCombinator(apiDataProviders);
 			return defaultProvider;
         }

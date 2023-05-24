@@ -26,10 +26,10 @@ namespace CoreCompatibilyzer.StaticAnalysis
 			   Descriptors.CoreCompat1002_ApiObsoleteInDotNetCore);
 
 		private readonly IApiStorage? _customBannedApi;
-		private readonly IBannedApiDataProvider? _customBannedApiDataProvider;
+		private readonly IApiDataProvider? _customBannedApiDataProvider;
 
 		private readonly IApiStorage? _customWhiteList;
-		private readonly IBannedApiDataProvider? _customWhiteListDataProvider;
+		private readonly IApiDataProvider? _customWhiteListDataProvider;
 
 		private readonly IApiInfoRetriever? _customBanInfoRetriever;
 		private readonly IApiInfoRetriever? _customWhiteListInfoRetriever;
@@ -40,8 +40,8 @@ namespace CoreCompatibilyzer.StaticAnalysis
         {          
         }
 
-		public CoreCompatibilyzerAnalyzer(IApiStorage? customBannedApi, IBannedApiDataProvider? customBannedApiDataProvider, 
-										  IApiStorage? customWhiteList, IBannedApiDataProvider? customWhiteListDataProvider,
+		public CoreCompatibilyzerAnalyzer(IApiStorage? customBannedApi, IApiDataProvider? customBannedApiDataProvider, 
+										  IApiStorage? customWhiteList, IApiDataProvider? customWhiteListDataProvider,
 										  IApiInfoRetriever? customBanInfoRetriever, IApiInfoRetriever? customWhiteListInfoRetriever)
 		{
 			_customBannedApi 			  = customBannedApi;

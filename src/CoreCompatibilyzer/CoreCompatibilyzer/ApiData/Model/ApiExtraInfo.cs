@@ -3,10 +3,9 @@ using System.Collections.Generic;
 
 namespace CoreCompatibilyzer.ApiData.Model
 {
-	public enum ApiInfoType : byte
+	public enum ApiExtraInfo : byte
 	{
-		NotPresentInNetCore,
-		Obsolete,
-		WhiteList
+		None,
+		Obsolete	
 	}
 }
