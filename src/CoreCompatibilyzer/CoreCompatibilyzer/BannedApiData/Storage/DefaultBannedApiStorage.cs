@@ -12,11 +12,11 @@ namespace CoreCompatibilyzer.BannedApiData.Storage
         /// <summary>
         /// A default banned API storage.
         /// </summary>
-        private class DefaultBannedApiStorage : IBannedApiStorage
+        private class DefaultBannedApiStorage : IApiStorage
         {
             private readonly IReadOnlyDictionary<ApiKind, IReadOnlyDictionary<string, BannedApi>> _bannedApisByDocIdGroupedByApiKind;
 
-            public int BannedApiKindsCount => _bannedApisByDocIdGroupedByApiKind.Count;
+            public int ApiKindsCount => _bannedApisByDocIdGroupedByApiKind.Count;
 
             public DefaultBannedApiStorage()
             {
@@ -49,13 +49,13 @@ namespace CoreCompatibilyzer.BannedApiData.Storage
                 return bannedApisByDocID;
             }
 
-            public int CountOfBannedApis(ApiKind apiKind)
+            public int CountOfApis(ApiKind apiKind)
             {
                 var bannedApiOfThisKind = BannedApiByKind(apiKind);
                 return bannedApiOfThisKind?.Count ?? 0;
             }
 
-            public BannedApi? GetBannedApi(ApiKind apiKind, string apiDocId)
+            public BannedApi? GetApi(ApiKind apiKind, string apiDocId)
             {
                 var bannedApisOfThisKind = BannedApiByKind(apiKind);
                 return bannedApisOfThisKind?.TryGetValue(apiDocId, out var bannedApi) == true
@@ -63,7 +63,7 @@ namespace CoreCompatibilyzer.BannedApiData.Storage
                     : null;
             }
 
-            public bool ContainsBannedApi(ApiKind apiKind, string apiDocId) =>
+            public bool ContainsApi(ApiKind apiKind, string apiDocId) =>
                 BannedApiByKind(apiKind)?.ContainsKey(apiDocId) ?? false;
 
             private IReadOnlyDictionary<string, BannedApi>? BannedApiByKind(ApiKind apiKind) =>

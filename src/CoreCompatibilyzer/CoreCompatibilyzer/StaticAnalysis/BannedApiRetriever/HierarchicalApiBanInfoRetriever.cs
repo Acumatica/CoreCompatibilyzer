@@ -14,7 +14,7 @@ namespace CoreCompatibilyzer.StaticAnalysis.BannedApiRetriever
     /// </summary>
     public class HierarchicalApiBanInfoRetriever : DirectApiBanInfoRetriever
 	{
-        public HierarchicalApiBanInfoRetriever(IBannedApiStorage bannedApiStorage) : base(bannedApiStorage)
+        public HierarchicalApiBanInfoRetriever(IApiStorage bannedApiStorage) : base(bannedApiStorage)
         { }
 
 		protected override BannedApi? GetBanInfoForApiImpl(ISymbol apiSymbol, ApiKind apiKind)

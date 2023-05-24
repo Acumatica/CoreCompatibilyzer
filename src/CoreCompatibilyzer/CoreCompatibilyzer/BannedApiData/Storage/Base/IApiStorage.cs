@@ -8,39 +8,39 @@ using CoreCompatibilyzer.BannedApiData.Model;
 namespace CoreCompatibilyzer.BannedApiData.Storage
 {
     /// <summary>
-    /// An interface for the banned API storage.
+    /// An interface for the API storage.
     /// </summary>
-    public interface IBannedApiStorage
+    public interface IApiStorage
     {
-        public int BannedApiKindsCount { get; }
+        public int ApiKindsCount { get; }
 
         /// <summary>
-        /// Count of banned APIs of the <paramref name="apiKind"/> kind.
+        /// Count of APIs of the <paramref name="apiKind"/> kind.
         /// </summary>
         /// <param name="apiKind">The API kind.</param>
         /// <returns>
-        /// The number of banned APIs of the <paramref name="apiKind"/> kind.
+        /// The number of APIs of the <paramref name="apiKind"/> kind.
         /// </returns>
-        public int CountOfBannedApis(ApiKind apiKind);
+        public int CountOfApis(ApiKind apiKind);
 
         /// <summary>
-        /// Gets the banned API or null if there is no such API in the storage.
-        /// </summary>
-        /// <param name="apiKind">The API kind.</param>
-        /// <param name="apiDocId">The API Doc ID.</param>
-        /// <returns>
-        /// The banned API or null.
-        /// </returns>
-        public BannedApi? GetBannedApi(ApiKind apiKind, string apiDocId);
-
-        /// <summary>
-        /// Query if the storage contains the banned API.
+        /// Gets the API or null if there is no such API in the storage.
         /// </summary>
         /// <param name="apiKind">The API kind.</param>
         /// <param name="apiDocId">The API Doc ID.</param>
         /// <returns>
-        /// True if the storage contains the banned API, false if not.
+        /// The API or null.
         /// </returns>
-        public bool ContainsBannedApi(ApiKind apiKind, string apiDocId);
+        public BannedApi? GetApi(ApiKind apiKind, string apiDocId);
+
+        /// <summary>
+        /// Query if the storage contains the API.
+        /// </summary>
+        /// <param name="apiKind">The API kind.</param>
+        /// <param name="apiDocId">The API Doc ID.</param>
+        /// <returns>
+        /// True if the storage contains the API, false if not.
+        /// </returns>
+        public bool ContainsApi(ApiKind apiKind, string apiDocId);
     }
 }

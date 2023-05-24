@@ -15,9 +15,9 @@ namespace CoreCompatibilyzer.StaticAnalysis.BannedApiRetriever
     /// </summary>
     public class DirectApiBanInfoRetriever : IApiBanInfoRetriever
 	{
-		protected IBannedApiStorage Storage { get; }
+		protected IApiStorage Storage { get; }
 
-        public DirectApiBanInfoRetriever(IBannedApiStorage bannedApiStorage)
+        public DirectApiBanInfoRetriever(IApiStorage bannedApiStorage)
         {
 			Storage = bannedApiStorage.ThrowIfNull(nameof(bannedApiStorage));
         }
@@ -38,7 +38,7 @@ namespace CoreCompatibilyzer.StaticAnalysis.BannedApiRetriever
 			string? symbolDocID = symbol.GetDocID();
 			return symbolDocID.IsNullOrWhiteSpace()
 				? null
-				: Storage.GetBannedApi(symbolKind, symbolDocID);
+				: Storage.GetApi(symbolKind, symbolDocID);
 		}
 	}
 }

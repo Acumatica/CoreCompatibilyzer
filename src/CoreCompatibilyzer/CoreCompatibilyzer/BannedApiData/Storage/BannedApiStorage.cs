@@ -23,7 +23,7 @@ namespace CoreCompatibilyzer.BannedApiData.Storage
 		private const string _whiteListAssemblyResourceName = @"BannedApiData.Data.WhiteList.txt";
 
 		private readonly SemaphoreSlim _initializationLock = new SemaphoreSlim(initialCount: 1, maxCount: 1);
-        private volatile IBannedApiStorage? _instance;
+        private volatile IApiStorage? _instance;
 
 		private readonly string? _dataFileRelativePath;
 		private readonly string? _dataAssemblyResourceName;
@@ -38,7 +38,7 @@ namespace CoreCompatibilyzer.BannedApiData.Storage
 			_dataAssemblyResourceName = dataAssemblyResourceName.NullIfWhiteSpace();
 		}
 
-		public IBannedApiStorage GetStorage(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider = null)
+		public IApiStorage GetStorage(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider = null)
         {
 			cancellation.ThrowIfCancellationRequested();
 
@@ -60,7 +60,7 @@ namespace CoreCompatibilyzer.BannedApiData.Storage
 			}
 		}
 
-		private IBannedApiStorage GetStorageAsyncWithoutLocking(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider)
+		private IApiStorage GetStorageAsyncWithoutLocking(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider)
 		{
 			var bannedApiDataProvider = customBannedApiDataProvider ?? GetDefaultDataProvider();
 			var bannedApis = bannedApiDataProvider.GetBannedApiData(cancellation);
@@ -72,7 +72,7 @@ namespace CoreCompatibilyzer.BannedApiData.Storage
 				: new DefaultBannedApiStorage(bannedApis);
 		}
 
-		public async Task<IBannedApiStorage> GetStorageAsync(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider = null)
+		public async Task<IApiStorage> GetStorageAsync(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider = null)
         {
 			cancellation.ThrowIfCancellationRequested();
 
@@ -94,7 +94,7 @@ namespace CoreCompatibilyzer.BannedApiData.Storage
 			}		
 		}
 
-        private async Task<IBannedApiStorage> GetStorageAsyncWithoutLockingAsync(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider)
+        private async Task<IApiStorage> GetStorageAsyncWithoutLockingAsync(CancellationToken cancellation, IBannedApiDataProvider? customBannedApiDataProvider)
         {
 			var bannedApiDataProvider = customBannedApiDataProvider ?? GetDefaultDataProvider();
 

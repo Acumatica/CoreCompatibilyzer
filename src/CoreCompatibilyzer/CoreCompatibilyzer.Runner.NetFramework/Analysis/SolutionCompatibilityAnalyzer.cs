@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
@@ -26,23 +27,34 @@ namespace CoreCompatibilyzer.Runner.Analysis
     internal sealed class SolutionCompatibilityAnalyzer
 	{
 		private ImmutableArray<DiagnosticAnalyzer> _diagnosticAnalyzers;
-		private readonly IBannedApiStorage _bannedApiStorage;
+		private readonly IApiStorage _bannedApiStorage;
+		private readonly IApiStorage _whiteListStorage;
 
-		private bool IsBannedStorageInitAndNonEmpty => _bannedApiStorage?.BannedApiKindsCount > 0;
+		private bool IsBannedStorageInitAndNonEmpty => _bannedApiStorage.ApiKindsCount > 0;
 
-		private SolutionCompatibilityAnalyzer(IBannedApiStorage bannedApiStorage, ImmutableArray<DiagnosticAnalyzer> diagnosticAnalyzers)
+		private bool IsWhiteListInitAndNonEmpty => _whiteListStorage.ApiKindsCount > 0;
+
+		private SolutionCompatibilityAnalyzer(IApiStorage bannedApiStorage, IApiStorage whiteListStorage,
+											  ImmutableArray<DiagnosticAnalyzer> diagnosticAnalyzers)
         {
             _bannedApiStorage	 = bannedApiStorage;
+			_whiteListStorage	 = whiteListStorage;
 			_diagnosticAnalyzers = diagnosticAnalyzers;
         }
 
 		public static async Task<SolutionCompatibilityAnalyzer> CreateAnalyzer(CancellationToken cancellationToken, 
 																			   IBannedApiDataProvider? customBannedApiDataProvider = null)
 		{
-			var bannedApiStorage = await BannedApiStorage.GetStorageAsync(cancellationToken, customBannedApiDataProvider)
-														 .ConfigureAwait(false);
+			var bannedApiTask = BannedApiStorage.BannedApi.GetStorageAsync(cancellationToken, customBannedApiDataProvider);
+			var whiteListTask = BannedApiStorage.WhiteList.GetStorageAsync(cancellationToken, customBannedApiDataProvider);
+
+			var bannedApiAndWhiteList = await Task.WhenAll(bannedApiTask, whiteListTask).ConfigureAwait(false);
+
+			IApiStorage bannedApiStorage = bannedApiAndWhiteList[0];
+			IApiStorage whiteListStorage = bannedApiAndWhiteList[1];
 			var diagnosticAnalyzers = CollectAnalyzers();
-			return new SolutionCompatibilityAnalyzer(bannedApiStorage, diagnosticAnalyzers);
+
+			return new SolutionCompatibilityAnalyzer(bannedApiStorage, whiteListStorage, diagnosticAnalyzers);
 		}
 
 		private static ImmutableArray<DiagnosticAnalyzer> CollectAnalyzers()
@@ -70,7 +82,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 					return solutionValidationResult;
 				}
 
-				var projectValidationResult = await AnalyseProject(project, analysisContext, cancellationToken);
+				var projectValidationResult = await AnalyseProject(project, analysisContext, cancellationToken).ConfigureAwait(false);
 				solutionValidationResult = solutionValidationResult.Combine(projectValidationResult);
 
 				Log.Information("Finished validation of the project \"{ProjectName}\". Project valudation result: {Result}.", 
@@ -83,7 +95,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 		private async Task<RunResult> AnalyseProject(Project project, AppAnalysisContext analysisContext, CancellationToken cancellationToken)
 		{
 			Log.Debug("Obtaining Roslyn compilation data for the project \"{ProjectName}\".", project.Name);
-			var compilation = await project.GetCompilationAsync(cancellationToken);
+			var compilation = await project.GetCompilationAsync(cancellationToken).ConfigureAwait(false);
 
 			if (compilation == null)
 			{
@@ -137,7 +149,8 @@ namespace CoreCompatibilyzer.Runner.Analysis
 
 			SuppressionManager.UseSuppression = useSuppressionMechanism;
 			var compilationAnalysisOptions = new CompilationWithAnalyzersOptions(options: null!, OnAnalyzerException,
-																				 concurrentAnalysis: true, logAnalyzerExecutionTime: false);
+																				 concurrentAnalysis: !Debugger.IsAttached, 
+																				 logAnalyzerExecutionTime: false);
 			CompilationWithAnalyzers compilationWithAnalyzers = compilation.WithAnalyzers(compilationAnalysisOptions, _diagnosticAnalyzers, cancellation);
 
 			var diagnosticResults = await compilationWithAnalyzers.GetAnalyzerDiagnosticsAsync(cancellation).ConfigureAwait(false);
