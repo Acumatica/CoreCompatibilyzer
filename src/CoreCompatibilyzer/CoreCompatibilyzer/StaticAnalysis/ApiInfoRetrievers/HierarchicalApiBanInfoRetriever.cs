@@ -71,7 +71,7 @@ namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
 				if (typeInfo != null)
 					return typeInfo;
 
-				currentType = currentType.BaseType;
+				currentType = currentType.ContainingType;
 			}
 
 			return null;
