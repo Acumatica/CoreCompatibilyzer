@@ -12,12 +12,19 @@ namespace DemoNetFramework
 {
     public class Class1
     {
-        public static void Abort() => Thread.CurrentThread.Abort();
+        public static void Abort() => Thread.CurrentThread.Abort("error");
 
 
         public static HttpContext GetHttpContext()
         {
             var type = System.Web.Compilation.PXBuildManager.GetType();
+
+            if (type == null)
+            {
+                string error = "error";
+				Thread.CurrentThread.Abort(error);
+			}
+
 			return HttpContext.Current;
 
 		}
