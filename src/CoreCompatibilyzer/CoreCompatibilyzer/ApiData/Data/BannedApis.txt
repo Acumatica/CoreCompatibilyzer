@@ -3914,17 +3914,17 @@ M:System.Xml.Xsl.XslTransform.Load(System.Xml.XPath.XPathNavigator,System.Xml.Xm
 F:Microsoft.VisualBasic.Constants.vbNewLine O
 T:System.ComponentModel.DataAnnotations.AssociationAttribute O
 T:System.ComponentModel.DataAnnotations.FilterUIHintAttribute O
-M:System.AppDomain.CreateDomain(String) O
-M:System.AppDomain.ExecuteAssembly(String, String[], Byte[], AssemblyHashAlgorithm) O
-M:System.AppDomain.Unload(AppDomain) O
+M:System.AppDomain.CreateDomain(System.String) O
+M:System.AppDomain.ExecuteAssembly(System.String,System.String[],System.Byte[],System.Configuration.Assemblies.AssemblyHashAlgorithm) O
+M:System.AppDomain.Unload(System.AppDomain) O
 P:System.AppDomain.PermissionSet O
 E:System.Exception.SerializeObjectState O
 M:System.MarshalByRefObject.GetLifetimeService() O
 M:System.MarshalByRefObject.InitializeLifetimeService() O
-M:System.String.Copy(String) O
+M:System.String.Copy(System.String) O
 T:System.TimeZone O
-M:System.Type.ReflectionOnlyGetType(String, Boolean, Boolean) O
-M:System.Uri.EscapeUriString(String) O
+M:System.Type.ReflectionOnlyGetType(System.String,System.Boolean,System.Boolean) O
+M:System.Uri.EscapeUriString(System.String) O
 M:System.Drawing.Graphics.GetContextInfo() O
 T:System.Xml.XmlSecureResolver O
 F:System.Data.SerializationFormat.Binary O
@@ -3932,10 +3932,10 @@ T:System.Data.Common.DBDataPermission O
 T:System.Data.Common.DBDataPermissionAttribute O
 M:System.Runtime.CompilerServices.DebugInfoGenerator.CreatePdbGenerator() O
 T:System.Runtime.CompilerServices.DisablePrivateReflectionAttribute O
-M:System.Runtime.CompilerServices.RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup(TryCode, CleanupCode, Object) O
+M:System.Runtime.CompilerServices.RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup(System.Runtime.CompilerServices.RuntimeHelpers.TryCode,System.Runtime.CompilerServices.RuntimeHelpers.CleanupCode,System.Object) O
 M:System.Runtime.CompilerServices.RuntimeHelpers.PrepareConstrainedRegions() O
 M:System.Runtime.CompilerServices.RuntimeHelpers.PrepareConstrainedRegionsNoOP() O
-M:System.Runtime.CompilerServices.RuntimeHelpers.PrepareContractedDelegate(Delegate) O
+M:System.Runtime.CompilerServices.RuntimeHelpers.PrepareContractedDelegate(System.Delegate) O
 M:System.Runtime.CompilerServices.RuntimeHelpers.ProbeForSufficientStack() O
 P:System.Runtime.CompilerServices.RuntimeHelpers.OffsetToStringData O
 T:System.Runtime.CompilerServices.SuppressIldasmAttribute O
@@ -3945,7 +3945,7 @@ T:System.Diagnostics.PerformanceCounterPermission O
 T:System.Diagnostics.PerformanceCounterPermissionAttribute O
 P:System.Text.Encoding.UTF7 O
 M:System.Text.UTF7Encoding.UTF7Encoding() O
-M:System.Text.UTF7Encoding.UTF7Encoding(Boolean) O
+M:System.Text.UTF7Encoding.UTF7Encoding(System.Boolean) O
 T:System.Runtime.InteropServices.AllowReversePInvokeCallsAttribute O
 T:System.Runtime.InteropServices.BStrWrapper O
 F:System.Runtime.InteropServices.ClassInterfaceType.AutoDispatch O
@@ -3963,40 +3963,40 @@ T:System.Runtime.InteropServices.DispatchWrapper O
 T:System.Runtime.InteropServices.ErrorWrapper O
 T:System.Runtime.InteropServices.ICustomAdapter O
 T:System.Runtime.InteropServices.ICustomQueryInterface O
-M:System.Runtime.InteropServices.Marshal.CreateAggregatedObject(IntPtr, Object) O
-M:System.Runtime.InteropServices.Marshal.CreateWrapperOfType(Object, Type) O
-M:System.Runtime.InteropServices.Marshal.DestroyStructure(IntPtr, Type) O
-M:System.Runtime.InteropServices.Marshal.GetComInterfaceForObject(Object, Type) O
-M:System.Runtime.InteropServices.Marshal.GetComInterfaceForObject(Object, Type, CustomQueryInterfaceMode) O
-M:System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer(IntPtr, Type) O
+M:System.Runtime.InteropServices.Marshal.CreateAggregatedObject(System.IntPtr,System.Object) O
+M:System.Runtime.InteropServices.Marshal.CreateWrapperOfType(System.Object,System.Type) O
+M:System.Runtime.InteropServices.Marshal.DestroyStructure(System.IntPtr,System.Type) O
+M:System.Runtime.InteropServices.Marshal.GetComInterfaceForObject(System.Object,System.Type) O
+M:System.Runtime.InteropServices.Marshal.GetComInterfaceForObject(System.Object,System.Type,System.Runtime.InteropServices.CustomQueryInterfaceMode) O
+M:System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer(System.IntPtr,System.Type) O
 M:System.Runtime.InteropServices.Marshal.GetExceptionCode() O
-M:System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(Delegate) O
-M:System.Runtime.InteropServices.Marshal.GetNativeVariantForObject(Object, IntPtr) O
-M:System.Runtime.InteropServices.Marshal.GetNativeVariantForObject<T>(T, IntPtr) O
-M:System.Runtime.InteropServices.Marshal.GetObjectForNativeVariant(IntPtr) O
-M:System.Runtime.InteropServices.Marshal.GetObjectForNativeVariant<T>(IntPtr) O
-M:System.Runtime.InteropServices.Marshal.GetObjectsForNativeVariants(IntPtr, Int32) O
-M:System.Runtime.InteropServices.Marshal.GetObjectsForNativeVariants<T>(IntPtr, Int32) O
-M:System.Runtime.InteropServices.Marshal.OffsetOf(Type, String) O
-M:System.Runtime.InteropServices.Marshal.PtrToStructure(IntPtr, Object) O
-M:System.Runtime.InteropServices.Marshal.PtrToStructure(IntPtr, Type) O
-M:System.Runtime.InteropServices.Marshal.ReadByte(Object, Int32) O
-M:System.Runtime.InteropServices.Marshal.ReadInt16(Object, Int32) O
-M:System.Runtime.InteropServices.Marshal.ReadInt32(Object, Int32) O
-M:System.Runtime.InteropServices.Marshal.ReadInt64(Object, Int32) O
-M:System.Runtime.InteropServices.Marshal.ReadIntPtr(Object, Int32) O
-M:System.Runtime.InteropServices.Marshal.SizeOf(Object) O
-M:System.Runtime.InteropServices.Marshal.SizeOf(Type) O
-M:System.Runtime.InteropServices.Marshal.StructureToPtr(Object, IntPtr, Boolean) O
-M:System.Runtime.InteropServices.Marshal.UnsafeAddrOfPinnedArrayElement(Array, Int32) O
-M:System.Runtime.InteropServices.Marshal.WriteByte(Object, Int32, Byte) O
-M:System.Runtime.InteropServices.Marshal.WriteInt16(Object, Int32, Char) O
-M:System.Runtime.InteropServices.Marshal.WriteInt16(Object, Int32, Int16) O
-M:System.Runtime.InteropServices.Marshal.WriteInt32(Object, Int32, Int32) O
-M:System.Runtime.InteropServices.Marshal.WriteInt64(Object, Int32, Int64) O
-M:System.Runtime.InteropServices.Marshal.WriteIntPtr(Object, Int32, IntPtr) O
-M:System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeInterfaceAsIntPtr(Guid, Guid) O
-M:System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeInterfaceAsObject(Guid, Guid) O
+M:System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(System.Delegate) O
+M:System.Runtime.InteropServices.Marshal.GetNativeVariantForObject(System.Object,System.IntPtr) O
+M:System.Runtime.InteropServices.Marshal.GetNativeVariantForObject``1(``0,System.IntPtr) O
+M:System.Runtime.InteropServices.Marshal.GetObjectForNativeVariant(System.IntPtr) O
+M:System.Runtime.InteropServices.Marshal.GetObjectForNativeVariant``1(System.IntPtr) O
+M:System.Runtime.InteropServices.Marshal.GetObjectsForNativeVariants(System.IntPtr,System.Int32) O
+M:System.Runtime.InteropServices.Marshal.GetObjectsForNativeVariants``1(System.IntPtr,System.Int32) O
+M:System.Runtime.InteropServices.Marshal.OffsetOf(System.Type,System.String) O
+M:System.Runtime.InteropServices.Marshal.PtrToStructure(System.IntPtr,System.Object) O
+M:System.Runtime.InteropServices.Marshal.PtrToStructure(System.IntPtr,System.Type) O
+M:System.Runtime.InteropServices.Marshal.ReadByte(System.Object,System.Int32) O
+M:System.Runtime.InteropServices.Marshal.ReadInt16(System.Object,System.Int32) O
+M:System.Runtime.InteropServices.Marshal.ReadInt32(System.Object,System.Int32) O
+M:System.Runtime.InteropServices.Marshal.ReadInt64(System.Object,System.Int32) O
+M:System.Runtime.InteropServices.Marshal.ReadIntPtr(System.Object,System.Int32) O
+M:System.Runtime.InteropServices.Marshal.SizeOf(System.Object) O
+M:System.Runtime.InteropServices.Marshal.SizeOf(System.Type) O
+M:System.Runtime.InteropServices.Marshal.StructureToPtr(System.Object,System.IntPtr,System.Boolean) O
+M:System.Runtime.InteropServices.Marshal.UnsafeAddrOfPinnedArrayElement(System.Array,System.Int32) O
+M:System.Runtime.InteropServices.Marshal.WriteByte(System.Object,System.Int32,System.Byte) O
+M:System.Runtime.InteropServices.Marshal.WriteInt16(System.Object,System.Int32,System.Char) O
+M:System.Runtime.InteropServices.Marshal.WriteInt16(System.Object,System.Int32,System.Int16) O
+M:System.Runtime.InteropServices.Marshal.WriteInt32(System.Object,System.Int32,System.Int32) O
+M:System.Runtime.InteropServices.Marshal.WriteInt64(System.Object,System.Int32,System.Int64) O
+M:System.Runtime.InteropServices.Marshal.WriteIntPtr(System.Object,System.Int32,System.IntPtr) O
+M:System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeInterfaceAsIntPtr(System.Guid,System.Guid) O
+M:System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeInterfaceAsObject(System.Guid,System.Guid) O
 P:System.Runtime.InteropServices.RuntimeEnvironment.SystemConfigurationFile O
 T:System.Runtime.InteropServices.UnknownWrapper O
 F:System.Runtime.InteropServices.UnmanagedType.Currency O
@@ -4011,26 +4011,26 @@ F:System.Runtime.InteropServices.UnmanagedType.AsAny O
 T:System.Runtime.InteropServices.VarEnum O
 T:System.Runtime.InteropServices.VariantWrapper O
 P:System.Net.Http.HttpRequestMessage.Properties O
-M:System.Net.AuthenticationManager.Authenticate(String, WebRequest, ICredentials) O
-M:System.Net.AuthenticationManager.PreAuthenticate(WebRequest, ICredentials) O
-M:System.Net.FileWebRequest.GetObjectData(SerializationInfo, StreamingContext) O
-M:System.Net.FileWebResponse.GetObjectData(SerializationInfo, StreamingContext) O
-M:System.Net.HttpWebRequest.GetObjectData(SerializationInfo, StreamingContext) O
-M:System.Net.HttpWebResponse.GetObjectData(SerializationInfo, StreamingContext) O
+M:System.Net.AuthenticationManager.Authenticate(System.String,System.Net.WebRequest,System.Net.ICredentials) O
+M:System.Net.AuthenticationManager.PreAuthenticate(System.Net.WebRequest,System.Net.ICredentials) O
+M:System.Net.FileWebRequest.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.System.IO.StreamingContext) O
+M:System.Net.FileWebResponse.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.System.IO.StreamingContext) O
+M:System.Net.HttpWebRequest.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.System.IO.StreamingContext) O
+M:System.Net.HttpWebResponse.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.System.IO.StreamingContext) O
 M:System.Net.WebRequest.WebRequest() O
-M:System.Net.WebRequest.WebRequest(SerializationInfo, StreamingContext) O
-M:System.Net.WebRequest.Create(String) O
-M:System.Net.WebRequest.Create(Uri) O
-M:System.Net.WebRequest.CreateDefault(Uri) O
-M:System.Net.WebRequest.CreateHttp(String) O
-M:System.Net.WebRequest.CreateHttp(Uri) O
-M:System.Net.WebRequest.GetObjectData(SerializationInfo, StreamingContext) O
-M:System.Net.WebResponse.WebResponse(SerializationInfo, StreamingContext) O
-M:System.Net.WebResponse.GetObjectData(SerializationInfo, StreamingContext) O
+M:System.Net.WebRequest.WebRequest(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.System.IO.StreamingContext) O
+M:System.Net.WebRequest.Create(System.String) O
+M:System.Net.WebRequest.Create(System.Uri) O
+M:System.Net.WebRequest.CreateDefault(System.Uri) O
+M:System.Net.WebRequest.CreateHttp(System.String) O
+M:System.Net.WebRequest.CreateHttp(System.Uri) O
+M:System.Net.WebRequest.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.System.IO.StreamingContext) O
+M:System.Net.WebResponse.WebResponse(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.System.IO.StreamingContext) O
+M:System.Net.WebResponse.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.System.IO.StreamingContext) O
 F:System.Net.SecurityProtocolType.Ssl3 O
-M:System.Net.ServicePointManager.FindServicePoint(String, IWebProxy) O
-M:System.Net.ServicePointManager.FindServicePoint(Uri) O
-M:System.Net.ServicePointManager.FindServicePoint(Uri, IWebProxy) O
+M:System.Net.ServicePointManager.FindServicePoint(System.String,System.Net.IWebProxy) O
+M:System.Net.ServicePointManager.FindServicePoint(System.Uri) O
+M:System.Net.ServicePointManager.FindServicePoint(System.Uri,System.Net.IWebProxy) O
 M:System.Net.WebClient.WebClient() O
 T:System.Net.DnsPermissionAttribute O
 T:System.Net.DnsPermission O
@@ -4052,9 +4052,9 @@ P:System.Net.Sockets.Socket.UseOnlyOverlappedIO O
 F:System.Net.Sockets.SocketInformationOptions.UseOnlyOverlappedIO O
 F:System.Net.Security.EncryptionPolicy.AllowNoEncryption O
 F:System.Net.Security.EncryptionPolicy.NoEncryption O
-M:System.Reflection.Assembly.ReflectionOnlyLoad(Byte[]) O
-M:System.Reflection.Assembly.ReflectionOnlyLoad(String) O
-M:System.Reflection.Assembly.ReflectionOnlyLoadFrom(String) O
+M:System.Reflection.Assembly.ReflectionOnlyLoad(System.Byte[]) O
+M:System.Reflection.Assembly.ReflectionOnlyLoad(System.String) O
+M:System.Reflection.Assembly.ReflectionOnlyLoadFrom(System.String) O
 P:System.Reflection.Assembly.CodeBase O
 P:System.Reflection.Assembly.EscapedCodeBase O
 P:System.Reflection.Assembly.GlobalAssemblyCache O
@@ -4071,19 +4071,19 @@ T:System.Security.IPermission O
 T:System.Security.IStackWalk O
 T:System.Security.PermissionSet O
 T:System.Security.CodeAccessPermission O
-M:System.Security.HostSecurityManager.ResolvePolicy(Evidence) O
+M:System.Security.HostSecurityManager.ResolvePolicy(System.Security.Policy.Evidence) O
 T:System.Security.NamedPermissionSet O
 T:System.Security.SecurityContext O
 T:System.Security.HostProtectionException O
 T:System.Security.SecurityManager O
-M:System.Runtime.Serialization.Formatter.Deserialize(Stream) O
-M:System.Runtime.Serialization.Formatter.Serialize(Stream, Object) O
-M:System.Runtime.Serialization.IFormatter.Deserialize(Stream) O
-M:System.Runtime.Serialization.IFormatter.Serialize(Stream, Object) O
-M:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream) O
-M:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Serialize(Stream, Object) O
+M:System.Runtime.Serialization.Formatter.Deserialize(System.IO.Stream) O
+M:System.Runtime.Serialization.Formatter.Serialize(System.IO.Stream,System.Object) O
+M:System.Runtime.Serialization.IFormatter.Deserialize(System.IO.Stream) O
+M:System.Runtime.Serialization.IFormatter.Serialize(System.IO.Stream,System.Object) O
+M:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(System.IO.Stream) O
+M:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Serialize(System.IO.Stream,System.Object) O
 M:System.Threading.Thread.Abort() O
-M:System.Threading.Thread.Abort(Object) O
+M:System.Threading.Thread.Abort(System.Object) O
 M:System.Threading.Thread.ResetAbort() O
 F:System.Security.Principal.WellKnownSidType.MaxDefined O
 T:System.Security.Permissions.CodeAccessSecurityAttribute O
@@ -4109,7 +4109,7 @@ T:System.Security.Permissions.FileDialogPermissionAttribute O
 T:System.Security.Permissions.FileIOPermissionAttribute O
 T:System.Security.Permissions.KeyContainerPermissionAttribute O
 T:System.Security.Permissions.PrincipalPermissionAttribute O
-M:System.Security.Permissions.PrincipalPermissionAttribute.PrincipalPermissionAttribute(SecurityAction) O
+M:System.Security.Permissions.PrincipalPermissionAttribute.PrincipalPermissionAttribute(System.Security.Permissions.SecurityAction) O
 T:System.Security.Permissions.ReflectionPermissionAttribute O
 T:System.Security.Permissions.RegistryPermissionAttribute O
 T:System.Security.Permissions.UIPermissionAttribute O
@@ -4162,47 +4162,47 @@ T:System.Security.Permissions.ResourcePermissionBaseEntry O
 T:System.Security.Permissions.DataProtectionPermission O
 T:System.Security.Permissions.DataProtectionPermissionAttribute O
 T:System.Security.Permissions.DataProtectionPermissionFlags O
-M:System.Security.Cryptography.Aes.Create(String) O
+M:System.Security.Cryptography.Aes.Create(System.String) O
 T:System.Security.Cryptography.AesManaged O
-M:System.Security.Cryptography.CryptoConfig.EncodeOID(String) O
-M:System.Security.Cryptography.DES.Create(String) O
-M:System.Security.Cryptography.DSA.Create(String) O
-M:System.Security.Cryptography.ECDiffieHellman.Create(String) O
-M:System.Security.Cryptography.ECDiffieHellmanPublicKey.ECDiffieHellmanPublicKey(Byte[]) O
+M:System.Security.Cryptography.CryptoConfig.EncodeOID(System.String) O
+M:System.Security.Cryptography.DES.Create(System.String) O
+M:System.Security.Cryptography.DSA.Create(System.String) O
+M:System.Security.Cryptography.ECDiffieHellman.Create(System.String) O
+M:System.Security.Cryptography.ECDiffieHellmanPublicKey.ECDiffieHellmanPublicKey(System.Byte[]) O
 M:System.Security.Cryptography.ECDiffieHellmanPublicKey.ToByteArray() O
 M:System.Security.Cryptography.ECDiffieHellmanPublicKey.ToXmlString() O
-M:System.Security.Cryptography.ECDsa.Create(String) O
-M:System.Security.Cryptography.HMACSHA1.HMACSHA1(Byte[], Boolean) O
+M:System.Security.Cryptography.ECDsa.Create(System.String) O
+M:System.Security.Cryptography.HMACSHA1.HMACSHA1(System.Byte[],System.Boolean) O
 P:System.Security.Cryptography.HMACSHA384.ProduceLegacyHmacValues O
 P:System.Security.Cryptography.HMACSHA512.ProduceLegacyHmacValues O
-M:System.Security.Cryptography.MD5.Create(String) O
-M:System.Security.Cryptography.RandomNumberGenerator.Create(String) O
-M:System.Security.Cryptography.RC2.Create(String) O
-M:System.Security.Cryptography.Rfc2898DeriveBytes.Rfc2898DeriveBytes(Byte[], Byte[], Int32) O
-M:System.Security.Cryptography.Rfc2898DeriveBytes.Rfc2898DeriveBytes(String, Byte[]) O
-M:System.Security.Cryptography.Rfc2898DeriveBytes.Rfc2898DeriveBytes(String, Byte[], Int32) O
-M:System.Security.Cryptography.Rfc2898DeriveBytes.Rfc2898DeriveBytes(String, Int32) O
-M:System.Security.Cryptography.Rfc2898DeriveBytes.Rfc2898DeriveBytes(String, Int32, Int32) O
-M:System.Security.Cryptography.Rfc2898DeriveBytes.CryptDeriveKey(String, String, Int32, Byte[]) O
+M:System.Security.Cryptography.MD5.Create(System.String) O
+M:System.Security.Cryptography.RandomNumberGenerator.Create(System.String) O
+M:System.Security.Cryptography.RC2.Create(System.String) O
+M:System.Security.Cryptography.Rfc2898DeriveBytes.Rfc2898DeriveBytes(System.Byte[],System.Byte[],System.Int32) O
+M:System.Security.Cryptography.Rfc2898DeriveBytes.Rfc2898DeriveBytes(System.String,System.Byte[]) O
+M:System.Security.Cryptography.Rfc2898DeriveBytes.Rfc2898DeriveBytes(System.String,System.Byte[],System.Int32) O
+M:System.Security.Cryptography.Rfc2898DeriveBytes.Rfc2898DeriveBytes(System.String,System.Int32) O
+M:System.Security.Cryptography.Rfc2898DeriveBytes.Rfc2898DeriveBytes(System.String,System.Int32,System.Int32) O
+M:System.Security.Cryptography.Rfc2898DeriveBytes.CryptDeriveKey(System.String,System.String,System.Int32,System.Byte[]) O
 T:System.Security.Cryptography.Rijndael O
-M:System.Security.Cryptography.Rijndael.Create(String) O
+M:System.Security.Cryptography.Rijndael.Create(System.String) O
 T:System.Security.Cryptography.RijndaelManaged O
-M:System.Security.Cryptography.RSA.Create(String) O
-M:System.Security.Cryptography.SHA1.Create(String) O
+M:System.Security.Cryptography.RSA.Create(System.String) O
+M:System.Security.Cryptography.SHA1.Create(System.String) O
 T:System.Security.Cryptography.SHA1Managed O
-M:System.Security.Cryptography.SHA256.Create(String) O
+M:System.Security.Cryptography.SHA256.Create(System.String) O
 T:System.Security.Cryptography.SHA256Managed O
-M:System.Security.Cryptography.SHA384.Create(String) O
+M:System.Security.Cryptography.SHA384.Create(System.String) O
 T:System.Security.Cryptography.SHA384Managed O
-M:System.Security.Cryptography.SHA512.Create(String) O
+M:System.Security.Cryptography.SHA512.Create(System.String) O
 T:System.Security.Cryptography.SHA512Managed O
-M:System.Security.Cryptography.TripleDES.Create(String) O
-M:System.Security.Cryptography.ECDiffieHellmanCng.FromXmlString(String, ECKeyXmlFormat) O
-M:System.Security.Cryptography.ECDiffieHellmanCng.ToXmlString(ECKeyXmlFormat) O
-M:System.Security.Cryptography.ECDiffieHellmanCngPublicKey.FromXmlString(String) O
+M:System.Security.Cryptography.TripleDES.Create(System.String) O
+M:System.Security.Cryptography.ECDiffieHellmanCng.FromXmlString(System.String,System.Security.Cryptography.ECKeyXmlFormat) O
+M:System.Security.Cryptography.ECDiffieHellmanCng.ToXmlString(System.Security.Cryptography.ECKeyXmlFormat) O
+M:System.Security.Cryptography.ECDiffieHellmanCngPublicKey.FromXmlString(System.String) O
 M:System.Security.Cryptography.ECDiffieHellmanCngPublicKey.ToXmlString() O
-M:System.Security.Cryptography.ECDsaCng.FromXmlString(String, ECKeyXmlFormat) O
-M:System.Security.Cryptography.ECDsaCng.ToXmlString(ECKeyXmlFormat) O
+M:System.Security.Cryptography.ECDsaCng.FromXmlString(System.String,System.Security.Cryptography.ECKeyXmlFormat) O
+M:System.Security.Cryptography.ECDsaCng.ToXmlString(System.Security.Cryptography.ECKeyXmlFormat) O
 T:System.Security.Cryptography.AesCryptoServiceProvider O
 T:System.Security.Cryptography.DESCryptoServiceProvider O
 T:System.Security.Cryptography.MD5CryptoServiceProvider O
@@ -4214,31 +4214,31 @@ T:System.Security.Cryptography.SHA384CryptoServiceProvider O
 T:System.Security.Cryptography.SHA512CryptoServiceProvider O
 T:System.Security.Cryptography.TripleDESCryptoServiceProvider O
 M:System.Security.Cryptography.AsymmetricAlgorithm.Create() O
-M:System.Security.Cryptography.AsymmetricAlgorithm.Create(String) O
+M:System.Security.Cryptography.AsymmetricAlgorithm.Create(System.String) O
 M:System.Security.Cryptography.HashAlgorithm.Create() O
-M:System.Security.Cryptography.HashAlgorithm.Create(String) O
+M:System.Security.Cryptography.HashAlgorithm.Create(System.String) O
 M:System.Security.Cryptography.HMAC.Create() O
-M:System.Security.Cryptography.HMAC.Create(String) O
+M:System.Security.Cryptography.HMAC.Create(System.String) O
 M:System.Security.Cryptography.KeyedHashAlgorithm.Create() O
-M:System.Security.Cryptography.KeyedHashAlgorithm.Create(String) O
+M:System.Security.Cryptography.KeyedHashAlgorithm.Create(System.String) O
 M:System.Security.Cryptography.SymmetricAlgorithm.Create() O
-M:System.Security.Cryptography.SymmetricAlgorithm.Create(String) O
+M:System.Security.Cryptography.SymmetricAlgorithm.Create(System.String) O
 T:System.Runtime.ExceptionServices.HandleProcessCorruptedStateExceptionsAttribute O
 T:System.Runtime.ConstrainedExecution.Cer O
 T:System.Runtime.ConstrainedExecution.Consistency O
 T:System.Runtime.ConstrainedExecution.PrePrepareMethodAttribute O
 T:System.Runtime.ConstrainedExecution.ReliabilityContractAttribute O
-M:System.Security.Policy.ApplicationTrust.ApplicationTrust(PermissionSet, IEnumerable<StrongName>) O
+M:System.Security.Policy.ApplicationTrust.ApplicationTrust(System.Security.PermissionSet,System.Collections.Generic.IEnumerable{System.Security.Policy.StrongName}) O
 P:System.Security.Policy.ApplicationTrust.FullTrustAssemblies O
 T:System.Security.Policy.FileCodeGroup O
 T:System.Security.Policy.IIdentityPermissionFactory O
-M:System.Security.Policy.PolicyLevel.AddNamedPermissionSet(NamedPermissionSet) O
-M:System.Security.Policy.PolicyLevel.RemoveNamedPermissionSet(NamedPermissionSet) O
-M:System.Security.Policy.PolicyLevel.RemoveNamedPermissionSet(String) O
-M:System.Security.Policy.PolicyLevel.ChangeNamedPermissionSet(String, PermissionSet) O
-M:System.Security.Policy.PolicyLevel.GetNamedPermissionSet(String) O
-M:System.Security.Policy.PolicyStatement.PolicyStatement(PermissionSet) O
-M:System.Security.Policy.PolicyStatement.PolicyStatement(PermissionSet, PolicyStatementAttribute) O
+M:System.Security.Policy.PolicyLevel.AddNamedPermissionSet(NamedSystem.Security.PermissionSet) O
+M:System.Security.Policy.PolicyLevel.RemoveNamedPermissionSet(NamedSystem.Security.PermissionSet) O
+M:System.Security.Policy.PolicyLevel.RemoveNamedPermissionSet(System.String) O
+M:System.Security.Policy.PolicyLevel.ChangeNamedPermissionSet(System.String,System.Security.PermissionSet) O
+M:System.Security.Policy.PolicyLevel.GetNamedPermissionSet(System.String) O
+M:System.Security.Policy.PolicyStatement.PolicyStatement(System.Security.PermissionSet) O
+M:System.Security.Policy.PolicyStatement.PolicyStatement(System.Security.PermissionSet,System.Security.Policy.PolicyStatementAttribute) O
 P:System.Security.Policy.PolicyStatement.PermissionSet O
 T:System.Security.Policy.Site O
 T:System.Security.Policy.StrongName O
@@ -4249,23 +4249,23 @@ T:System.Security.Policy.GacInstalled O
 T:System.Security.Policy.Publisher O
 P:System.Security.Cryptography.X509Certificates.PublicKey.Key O
 M:System.Security.Cryptography.X509Certificates.X509Certificate.X509Certificate() O
-M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(Byte[]) O
-M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(Byte[], SecureString, X509KeyStorageFlags) O
-M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(Byte[], String, X509KeyStorageFlags) O
-M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(String) O
-M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(String, SecureString, X509KeyStorageFlags) O
-M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(String, String, X509KeyStorageFlags) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(System.Byte[]) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(System.Byte[],SecureSystem.String,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(System.Byte[],System.String,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(System.String) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(System.String,SecureSystem.String,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(System.String,System.String,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
 M:System.Security.Cryptography.X509Certificates.X509Certificate2.X509Certificate2() O
-M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(Byte[]) O
-M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(Byte[], SecureString, X509KeyStorageFlags) O
-M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(Byte[], String, X509KeyStorageFlags) O
-M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(String) O
-M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(String, SecureString, X509KeyStorageFlags) O
-M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(String, String, X509KeyStorageFlags) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(System.Byte[]) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(System.Byte[],SecureSystem.String,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(System.Byte[],System.String,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(System.String) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(System.String,SecureSystem.String,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(System.String,System.String,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
 P:System.Security.Cryptography.X509Certificates.X509Certificate2.PrivateKey O
-M:System.Text.RegularExpressions.Regex.CompileToAssembly(RegexCompilationInfo[], AssemblyName) O
-M:System.Text.RegularExpressions.Regex.CompileToAssembly(RegexCompilationInfo[], AssemblyName, CustomAttributeBuilder[]) O
-M:System.Text.RegularExpressions.Regex.CompileToAssembly(RegexCompilationInfo[], AssemblyName, CustomAttributeBuilder[], String) O
+M:System.Text.RegularExpressions.Regex.CompileToAssembly(System.Text.RegularExpressions.RegexCompilationInfo[],System.Reflection.AssemblyName) O
+M:System.Text.RegularExpressions.Regex.CompileToAssembly(System.Text.RegularExpressions.RegexCompilationInfo[],System.Reflection.AssemblyName,System.Reflection.Emit.CustomAttributeBuilder[]) O
+M:System.Text.RegularExpressions.Regex.CompileToAssembly(System.Text.RegularExpressions.RegexCompilationInfo[],System.Reflection.AssemblyName,System.Reflection.Emit.CustomAttributeBuilder[],System.String) O
 T:System.Text.RegularExpressions.RegexCompilationInfo O
 T:System.Transactions.DistributedTransactionPermission O
 T:System.Transactions.DistributedTransactionPermissionAttribute O
@@ -4284,7 +4284,7 @@ T:System.ServiceProcess.ServiceControllerPermissionAttribute O
 T:System.Drawing.Printing.PrintingPermission O
 T:System.Drawing.Printing.PrintingPermissionAttribute O
 T:System.Xaml.Permissions.XamlLoadPermission O
-M:System.Security.Cryptography.Pkcs.CmsSigner.CmsSigner(CspParameters) O
+M:System.Security.Cryptography.Pkcs.CmsSigner.CmsSigner(System.Security.Cryptography.CspParameters) O
 M:System.Security.Cryptography.Pkcs.SignerInfo.ComputeCounterSignature() O
 T:System.Net.PeerToPeer.PnrpPermissionAttribute O
 T:System.Net.PeerToPeer.PnrpPermission O
