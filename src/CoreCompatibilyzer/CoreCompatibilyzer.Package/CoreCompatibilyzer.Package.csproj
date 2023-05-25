@@ -19,10 +19,10 @@
 		<PackageId>CoreCompatibilyzer</PackageId>
 		<PackageVersion>1.0.0.0</PackageVersion>
 		<Authors>Acumatica</Authors>
-		<PackageLicenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</PackageLicenseUrl>
-		<PackageProjectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</PackageProjectUrl>
+		<PackageLicenseUrl>https://github.com/Acumatica/CoreCompatibilyzer/blob/main/LICENSE.txt</PackageLicenseUrl>
+		<!--<PackageProjectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</PackageProjectUrl>-->
 		<PackageIcon>packageIcon.png</PackageIcon>
-		<RepositoryUrl>http://REPOSITORY_URL_HERE_OR_DELETE_THIS_LINE</RepositoryUrl>
+		<RepositoryUrl>https://github.com/Acumatica/CoreCompatibilyzer</RepositoryUrl>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 		<Description>CoreCompatibilyzer</Description>
 		<PackageReleaseNotes>Summary of changes made in this release of the package.</PackageReleaseNotes>
@@ -34,13 +34,20 @@
 		<TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<DebugType>embedded</DebugType>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<ProjectReference Include="..\CoreCompatibilyzer\CoreCompatibilyzer.csproj" />
 	</ItemGroup>
-
 	<ItemGroup>
 		<None Update="packageIcon.png" CopyToOutputDirectory="PreserveNewest" Pack="true" PackagePath="" />
 		<None Update="tools\*.ps1" CopyToOutputDirectory="PreserveNewest" Pack="true" PackagePath="" />
+
+		<Content Include="..\CoreCompatibilyzer\ApiData\Data\*.*" Pack="true" PackagePath="analyzers\dotnet\cs\ApiData\Data">
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+		</Content>
 	</ItemGroup>
 
 	<Target Name="_AddAnalyzersToOutput">
