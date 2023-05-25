@@ -113,6 +113,10 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				}	
 			}
 
+			/// <summary>
+			/// Skip visit of the namespace declaration name.
+			/// </summary>
+			/// <param name="namespaceDeclaration">The namespace declaration.</param>
 			public override void VisitNamespaceDeclaration(NamespaceDeclarationSyntax namespaceDeclaration)
 			{
 				Cancellation.ThrowIfCancellationRequested();
