@@ -35,7 +35,7 @@ namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
 
 		protected Api? GetInfoForSymbol(ISymbol symbol, ApiKind symbolKind)
 		{
-			string? symbolDocID = symbol.GetDocID();
+			string? symbolDocID = symbol.GetDocumentationCommentId().NullIfWhiteSpace();
 			return symbolDocID.IsNullOrWhiteSpace()
 				? null
 				: Storage.GetApi(symbolKind, symbolDocID);
