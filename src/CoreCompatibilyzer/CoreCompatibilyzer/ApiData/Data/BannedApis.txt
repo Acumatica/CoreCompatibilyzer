@@ -2022,488 +2022,6 @@ T:System.Web.UnvalidatedRequestValuesWrapper
 T:System.Web.VirtualPathUtility
 T:System.Web.WebPageTraceListener
 T:System.Web.XmlSiteMapProvider
-T:System.Windows.Automation.AutomationElement.AutomationElementInformation
-T:System.Windows.Automation.DockPattern.DockPatternInformation
-T:System.Windows.Automation.ExpandCollapsePattern.ExpandCollapsePatternInformation
-T:System.Windows.Automation.GridItemPattern.GridItemPatternInformation
-T:System.Windows.Automation.GridPattern.GridPatternInformation
-T:System.Windows.Automation.MultipleViewPattern.MultipleViewPatternInformation
-T:System.Windows.Automation.RangeValuePattern.RangeValuePatternInformation
-T:System.Windows.Automation.ScrollPattern.ScrollPatternInformation
-T:System.Windows.Automation.SelectionItemPattern.SelectionItemPatternInformation
-T:System.Windows.Automation.SelectionPattern.SelectionPatternInformation
-T:System.Windows.Automation.TableItemPattern.TableItemPatternInformation
-T:System.Windows.Automation.TablePattern.TablePatternInformation
-T:System.Windows.Automation.TogglePattern.TogglePatternInformation
-T:System.Windows.Automation.TransformPattern.TransformPatternInformation
-T:System.Windows.Automation.ValuePattern.ValuePatternInformation
-T:System.Windows.Automation.WindowPattern.WindowPatternInformation
-T:System.Windows.BaseCompatibilityPreferences.HandleDispatcherRequestProcessingFailureOptions
-T:System.Windows.Forms.Application.MessageLoopCallback
-T:System.Windows.Forms.AxHost.AboutBoxDelegate
-T:System.Windows.Forms.AxHost.ActiveXInvokeKind
-T:System.Windows.Forms.AxHost.AxComponentEditor
-T:System.Windows.Forms.AxHost.ClsidAttribute
-T:System.Windows.Forms.AxHost.ConnectionPointCookie
-T:System.Windows.Forms.AxHost.InvalidActiveXStateException
-T:System.Windows.Forms.AxHost.State
-T:System.Windows.Forms.AxHost.StateConverter
-T:System.Windows.Forms.AxHost.TypeLibraryTimeStampAttribute
-T:System.Windows.Forms.ButtonBase.ButtonBaseAccessibleObject
-T:System.Windows.Forms.CheckBox.CheckBoxAccessibleObject
-T:System.Windows.Forms.CheckedListBox.CheckedIndexCollection
-T:System.Windows.Forms.CheckedListBox.CheckedItemCollection
-T:System.Windows.Forms.CheckedListBox.ObjectCollection
-T:System.Windows.Forms.ComboBox.ChildAccessibleObject
-T:System.Windows.Forms.ComboBox.ObjectCollection
-T:System.Windows.Forms.Control.ControlAccessibleObject
-T:System.Windows.Forms.Control.ControlCollection
-T:System.Windows.Forms.DataFormats.Format
-T:System.Windows.Forms.DataGrid.HitTestInfo
-T:System.Windows.Forms.DataGrid.HitTestType
-T:System.Windows.Forms.DataGridColumnStyle.CompModSwitches
-T:System.Windows.Forms.DataGridColumnStyle.DataGridColumnHeaderAccessibleObject
-T:System.Windows.Forms.DataGridView.DataGridViewAccessibleObject
-T:System.Windows.Forms.DataGridView.DataGridViewControlCollection
-T:System.Windows.Forms.DataGridView.DataGridViewTopRowAccessibleObject
-T:System.Windows.Forms.DataGridView.HitTestInfo
-T:System.Windows.Forms.DataGridViewButtonCell.DataGridViewButtonCellAccessibleObject
-T:System.Windows.Forms.DataGridViewCell.DataGridViewCellAccessibleObject
-T:System.Windows.Forms.DataGridViewCheckBoxCell.DataGridViewCheckBoxCellAccessibleObject
-T:System.Windows.Forms.DataGridViewColumnHeaderCell.DataGridViewColumnHeaderCellAccessibleObject
-T:System.Windows.Forms.DataGridViewComboBoxCell.DataGridViewComboBoxCellAccessibleObject
-T:System.Windows.Forms.DataGridViewComboBoxCell.ObjectCollection
-T:System.Windows.Forms.DataGridViewImageCell.DataGridViewImageCellAccessibleObject
-T:System.Windows.Forms.DataGridViewLinkCell.DataGridViewLinkCellAccessibleObject
-T:System.Windows.Forms.DataGridViewRow.DataGridViewRowAccessibleObject
-T:System.Windows.Forms.DataGridViewRowHeaderCell.DataGridViewRowHeaderCellAccessibleObject
-T:System.Windows.Forms.DataGridViewTextBoxCell.DataGridViewTextBoxCellAccessibleObject
-T:System.Windows.Forms.DataGridViewTopLeftHeaderCell.DataGridViewTopLeftHeaderCellAccessibleObject
-T:System.Windows.Forms.DateTimePicker.DateTimePickerAccessibleObject
-T:System.Windows.Forms.Design.AxImporter.IReferenceResolver
-T:System.Windows.Forms.Design.AxImporter.Options
-T:System.Windows.Forms.Design.ControlDesigner.ControlDesignerAccessibleObject
-T:System.Windows.Forms.Design.FolderNameEditor.FolderBrowser
-T:System.Windows.Forms.Design.FolderNameEditor.FolderBrowserFolder
-T:System.Windows.Forms.Design.FolderNameEditor.FolderBrowserStyles
-T:System.Windows.Forms.DomainUpDown.DomainItemAccessibleObject
-T:System.Windows.Forms.DomainUpDown.DomainUpDownAccessibleObject
-T:System.Windows.Forms.DomainUpDown.DomainUpDownItemCollection
-T:System.Windows.Forms.Form.ControlCollection
-T:System.Windows.Forms.ImageList.ImageCollection
-T:System.Windows.Forms.LinkArea.LinkAreaConverter
-T:System.Windows.Forms.LinkLabel.Link
-T:System.Windows.Forms.LinkLabel.LinkCollection
-T:System.Windows.Forms.ListBox.IntegerCollection
-T:System.Windows.Forms.ListBox.ObjectCollection
-T:System.Windows.Forms.ListBox.SelectedIndexCollection
-T:System.Windows.Forms.ListBox.SelectedObjectCollection
-T:System.Windows.Forms.ListView.CheckedIndexCollection
-T:System.Windows.Forms.ListView.CheckedListViewItemCollection
-T:System.Windows.Forms.ListView.ColumnHeaderCollection
-T:System.Windows.Forms.ListView.ListViewItemCollection
-T:System.Windows.Forms.ListView.SelectedIndexCollection
-T:System.Windows.Forms.ListView.SelectedListViewItemCollection
-T:System.Windows.Forms.ListViewItem.ListViewSubItem
-T:System.Windows.Forms.ListViewItem.ListViewSubItemCollection
-T:System.Windows.Forms.MdiClient.ControlCollection
-T:System.Windows.Forms.Menu.MenuItemCollection
-T:System.Windows.Forms.MonthCalendar.HitArea
-T:System.Windows.Forms.MonthCalendar.HitTestInfo
-T:System.Windows.Forms.PropertyGrid.PropertyTabCollection
-T:System.Windows.Forms.RadioButton.RadioButtonAccessibleObject
-T:System.Windows.Forms.ScrollableControl.DockPaddingEdges
-T:System.Windows.Forms.ScrollableControl.DockPaddingEdgesConverter
-T:System.Windows.Forms.StatusBar.StatusBarPanelCollection
-T:System.Windows.Forms.TabControl.ControlCollection
-T:System.Windows.Forms.TabControl.TabPageCollection
-T:System.Windows.Forms.TabPage.TabPageControlCollection
-T:System.Windows.Forms.ToolBar.ToolBarButtonCollection
-T:System.Windows.Forms.ToolStrip.ToolStripAccessibleObject
-T:System.Windows.Forms.ToolStripDropDown.ToolStripDropDownAccessibleObject
-T:System.Windows.Forms.ToolStripItem.ToolStripItemAccessibleObject
-T:System.Windows.Forms.ToolStripPanel.ToolStripPanelRowCollection
-T:System.Windows.Forms.ToolStripSplitButton.ToolStripSplitButtonAccessibleObject
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Button
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Button.CheckBox
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Button.GroupBox
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Button.PushButton
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Button.RadioButton
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Button.UserButton
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ComboBox
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ComboBox.DropDownButton
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ExplorerBar
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ExplorerBar.HeaderBackground
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ExplorerBar.HeaderClose
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ExplorerBar.HeaderPin
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ExplorerBar.IEBarMenu
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ExplorerBar.NormalGroupBackground
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ExplorerBar.NormalGroupCollapse
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ExplorerBar.NormalGroupExpand
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ExplorerBar.NormalGroupHead
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ExplorerBar.SpecialGroupBackground
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ExplorerBar.SpecialGroupCollapse
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ExplorerBar.SpecialGroupExpand
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ExplorerBar.SpecialGroupHead
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Header
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Header.Item
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Header.ItemLeft
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Header.ItemRight
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Header.SortArrow
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ListView
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ListView.Detail
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ListView.EmptyText
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ListView.Group
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ListView.Item
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ListView.SortedDetail
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Menu
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Menu.BarDropDown
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Menu.BarItem
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Menu.Chevron
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Menu.DropDown
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Menu.Item
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Menu.Separator
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.MenuBand
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.MenuBand.NewApplicationButton
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.MenuBand.Separator
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Page
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Page.Down
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Page.DownHorizontal
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Page.Up
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Page.UpHorizontal
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar.Bar
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar.BarVertical
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar.Chunk
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar.ChunkVertical
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar.Band
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar.Chevron
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar.ChevronVertical
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar.Gripper
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar.GripperVertical
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ScrollBar
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ScrollBar.ArrowButton
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ScrollBar.GripperHorizontal
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ScrollBar.GripperVertical
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ScrollBar.LeftTrackHorizontal
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ScrollBar.LowerTrackVertical
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ScrollBar.RightTrackHorizontal
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ScrollBar.SizeBox
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ScrollBar.ThumbButtonHorizontal
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ScrollBar.ThumbButtonVertical
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ScrollBar.UpperTrackVertical
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Spin
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Spin.Down
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Spin.DownHorizontal
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Spin.Up
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Spin.UpHorizontal
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel.LogOff
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel.LogOffButtons
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel.MorePrograms
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel.MoreProgramsArrow
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel.PlaceList
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel.PlaceListSeparator
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel.Preview
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel.ProgList
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel.ProgListSeparator
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel.UserPane
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel.UserPicture
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Status
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Status.Bar
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Status.Gripper
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Status.GripperPane
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Status.Pane
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Tab
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Tab.Body
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Tab.Pane
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Tab.TabItem
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Tab.TabItemBothEdges
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Tab.TabItemLeftEdge
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Tab.TabItemRightEdge
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Tab.TopTabItem
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Tab.TopTabItemBothEdges
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Tab.TopTabItemLeftEdge
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Tab.TopTabItemRightEdge
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TaskBand
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TaskBand.FlashButton
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TaskBand.FlashButtonGroupMenu
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TaskBand.GroupCount
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Taskbar
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Taskbar.BackgroundBottom
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Taskbar.BackgroundLeft
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Taskbar.BackgroundRight
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Taskbar.BackgroundTop
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Taskbar.SizingBarBottom
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Taskbar.SizingBarLeft
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Taskbar.SizingBarRight
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Taskbar.SizingBarTop
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock.Time
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox.Caret
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox.TextEdit
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar.Button
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar.DropDownButton
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar.SeparatorHorizontal
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar.SeparatorVertical
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar.SplitButton
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar.SplitButtonDropDown
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip.Balloon
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip.BalloonTitle
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip.Close
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip.Standard
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip.StandardTitle
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar.Thumb
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar.ThumbBottom
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar.ThumbLeft
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar.ThumbRight
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar.ThumbTop
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar.ThumbVertical
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar.Ticks
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar.TicksVertical
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar.Track
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar.TrackVertical
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify.AnimateBackground
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify.Background
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TreeView
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TreeView.Branch
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TreeView.Glyph
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.TreeView.Item
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.Caption
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.CaptionSizingTemplate
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.CloseButton
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.Dialog
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.FrameBottom
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.FrameBottomSizingTemplate
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.FrameLeft
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.FrameLeftSizingTemplate
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.FrameRight
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.FrameRightSizingTemplate
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.HelpButton
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.HorizontalScroll
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.HorizontalThumb
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.MaxButton
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.MaxCaption
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.MdiCloseButton
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.MdiHelpButton
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.MdiMinButton
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.MdiRestoreButton
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.MdiSysButton
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.MinButton
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.MinCaption
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.RestoreButton
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.SmallCaption
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.SmallCaptionSizingTemplate
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.SmallCloseButton
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.SmallFrameBottom
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.SmallFrameBottomSizingTemplate
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.SmallFrameLeft
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.SmallFrameLeftSizingTemplate
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.SmallFrameRight
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.SmallFrameRightSizingTemplate
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.SmallMaxCaption
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.SmallMinCaption
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.SysButton
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.VerticalScroll
-T:System.Windows.Forms.VisualStyles.VisualStyleElement.Window.VerticalThumb
-T:System.Windows.Forms.WebBrowser.WebBrowserSite
-T:System.Windows.FreezableCollection`1.Enumerator
-T:System.Windows.Input.AccessKeyEventArgs
-T:System.Windows.Input.AccessKeyManager
-T:System.Windows.Input.AccessKeyPressedEventArgs
-T:System.Windows.Input.AccessKeyPressedEventHandler
-T:System.Windows.Input.ApplicationCommands
-T:System.Windows.Input.CanExecuteChangedEventManager
-T:System.Windows.Input.CanExecuteRoutedEventArgs
-T:System.Windows.Input.CanExecuteRoutedEventHandler
-T:System.Windows.Input.CaptureMode
-T:System.Windows.Input.CommandBinding
-T:System.Windows.Input.CommandBindingCollection
-T:System.Windows.Input.CommandConverter
-T:System.Windows.Input.CommandManager
-T:System.Windows.Input.ComponentCommands
-T:System.Windows.Input.Cursor
-T:System.Windows.Input.CursorConverter
-T:System.Windows.Input.Cursors
-T:System.Windows.Input.CursorType
-T:System.Windows.Input.ExecutedRoutedEventArgs
-T:System.Windows.Input.ExecutedRoutedEventHandler
-T:System.Windows.Input.FocusManager
-T:System.Windows.Input.FocusNavigationDirection
-T:System.Windows.Input.ICommandSource
-T:System.Windows.Input.IInputLanguageSource
-T:System.Windows.Input.IManipulator
-T:System.Windows.Input.ImeConversionModeValues
-T:System.Windows.Input.ImeSentenceModeValues
-T:System.Windows.Input.InertiaExpansionBehavior
-T:System.Windows.Input.InertiaRotationBehavior
-T:System.Windows.Input.InertiaTranslationBehavior
-T:System.Windows.Input.InputBinding
-T:System.Windows.Input.InputBindingCollection
-T:System.Windows.Input.InputDevice
-T:System.Windows.Input.InputEventArgs
-T:System.Windows.Input.InputEventHandler
-T:System.Windows.Input.InputGesture
-T:System.Windows.Input.InputGestureCollection
-T:System.Windows.Input.InputLanguageChangedEventArgs
-T:System.Windows.Input.InputLanguageChangingEventArgs
-T:System.Windows.Input.InputLanguageEventArgs
-T:System.Windows.Input.InputLanguageEventHandler
-T:System.Windows.Input.InputLanguageManager
-T:System.Windows.Input.InputManager
-T:System.Windows.Input.InputMethod
-T:System.Windows.Input.InputMethodState
-T:System.Windows.Input.InputMethodStateChangedEventArgs
-T:System.Windows.Input.InputMethodStateChangedEventHandler
-T:System.Windows.Input.InputMode
-T:System.Windows.Input.InputScope
-T:System.Windows.Input.InputScopeConverter
-T:System.Windows.Input.InputScopeName
-T:System.Windows.Input.InputScopeNameConverter
-T:System.Windows.Input.InputScopeNameValue
-T:System.Windows.Input.InputScopePhrase
-T:System.Windows.Input.InputType
-T:System.Windows.Input.Key
-T:System.Windows.Input.KeyBinding
-T:System.Windows.Input.Keyboard
-T:System.Windows.Input.KeyboardDevice
-T:System.Windows.Input.KeyboardEventArgs
-T:System.Windows.Input.KeyboardEventHandler
-T:System.Windows.Input.KeyboardFocusChangedEventArgs
-T:System.Windows.Input.KeyboardFocusChangedEventHandler
-T:System.Windows.Input.KeyboardInputProviderAcquireFocusEventArgs
-T:System.Windows.Input.KeyboardInputProviderAcquireFocusEventHandler
-T:System.Windows.Input.KeyboardNavigation
-T:System.Windows.Input.KeyboardNavigationMode
-T:System.Windows.Input.KeyConverter
-T:System.Windows.Input.KeyEventArgs
-T:System.Windows.Input.KeyEventHandler
-T:System.Windows.Input.KeyGesture
-T:System.Windows.Input.KeyGestureConverter
-T:System.Windows.Input.KeyGestureValueSerializer
-T:System.Windows.Input.KeyInterop
-T:System.Windows.Input.KeyStates
-T:System.Windows.Input.KeyValueSerializer
-T:System.Windows.Input.Manipulation
-T:System.Windows.Input.ManipulationBoundaryFeedbackEventArgs
-T:System.Windows.Input.ManipulationCompletedEventArgs
-T:System.Windows.Input.ManipulationDelta
-T:System.Windows.Input.ManipulationDeltaEventArgs
-T:System.Windows.Input.ManipulationInertiaStartingEventArgs
-T:System.Windows.Input.ManipulationModes
-T:System.Windows.Input.ManipulationPivot
-T:System.Windows.Input.ManipulationStartedEventArgs
-T:System.Windows.Input.ManipulationStartingEventArgs
-T:System.Windows.Input.ManipulationVelocities
-T:System.Windows.Input.MediaCommands
-T:System.Windows.Input.ModifierKeys
-T:System.Windows.Input.ModifierKeysConverter
-T:System.Windows.Input.ModifierKeysValueSerializer
-T:System.Windows.Input.Mouse
-T:System.Windows.Input.MouseAction
-T:System.Windows.Input.MouseActionConverter
-T:System.Windows.Input.MouseActionValueSerializer
-T:System.Windows.Input.MouseBinding
-T:System.Windows.Input.MouseButton
-T:System.Windows.Input.MouseButtonEventArgs
-T:System.Windows.Input.MouseButtonEventHandler
-T:System.Windows.Input.MouseButtonState
-T:System.Windows.Input.MouseDevice
-T:System.Windows.Input.MouseEventArgs
-T:System.Windows.Input.MouseEventHandler
-T:System.Windows.Input.MouseGesture
-T:System.Windows.Input.MouseGestureConverter
-T:System.Windows.Input.MouseGestureValueSerializer
-T:System.Windows.Input.MouseWheelEventArgs
-T:System.Windows.Input.MouseWheelEventHandler
-T:System.Windows.Input.NavigationCommands
-T:System.Windows.Input.NotifyInputEventArgs
-T:System.Windows.Input.NotifyInputEventHandler
-T:System.Windows.Input.PreProcessInputEventArgs
-T:System.Windows.Input.PreProcessInputEventHandler
-T:System.Windows.Input.ProcessInputEventArgs
-T:System.Windows.Input.ProcessInputEventHandler
-T:System.Windows.Input.QueryCursorEventArgs
-T:System.Windows.Input.QueryCursorEventHandler
-T:System.Windows.Input.RestoreFocusMode
-T:System.Windows.Input.RoutedCommand
-T:System.Windows.Input.RoutedUICommand
-T:System.Windows.Input.SpeechMode
-T:System.Windows.Input.StagingAreaInputItem
-T:System.Windows.Input.Stylus
-T:System.Windows.Input.StylusButton
-T:System.Windows.Input.StylusButtonCollection
-T:System.Windows.Input.StylusButtonEventArgs
-T:System.Windows.Input.StylusButtonEventHandler
-T:System.Windows.Input.StylusButtonState
-T:System.Windows.Input.StylusDevice
-T:System.Windows.Input.StylusDeviceCollection
-T:System.Windows.Input.StylusDownEventArgs
-T:System.Windows.Input.StylusDownEventHandler
-T:System.Windows.Input.StylusEventArgs
-T:System.Windows.Input.StylusEventHandler
-T:System.Windows.Input.StylusPoint
-T:System.Windows.Input.StylusPointCollection
-T:System.Windows.Input.StylusPointDescription
-T:System.Windows.Input.StylusPointProperties
-T:System.Windows.Input.StylusPointProperty
-T:System.Windows.Input.StylusPointPropertyInfo
-T:System.Windows.Input.StylusPointPropertyUnit
-T:System.Windows.Input.StylusSystemGestureEventArgs
-T:System.Windows.Input.StylusSystemGestureEventHandler
-T:System.Windows.Input.SystemGesture
-T:System.Windows.Input.Tablet
-T:System.Windows.Input.TabletDevice
-T:System.Windows.Input.TabletDeviceCollection
-T:System.Windows.Input.TabletDeviceType
-T:System.Windows.Input.TabletHardwareCapabilities
-T:System.Windows.Input.TextComposition
-T:System.Windows.Input.TextCompositionAutoComplete
-T:System.Windows.Input.TextCompositionEventArgs
-T:System.Windows.Input.TextCompositionEventHandler
-T:System.Windows.Input.TextCompositionManager
-T:System.Windows.Input.Touch
-T:System.Windows.Input.TouchAction
-T:System.Windows.Input.TouchDevice
-T:System.Windows.Input.TouchEventArgs
-T:System.Windows.Input.TouchFrameEventArgs
-T:System.Windows.Input.TouchFrameEventHandler
-T:System.Windows.Input.TouchPoint
-T:System.Windows.Input.TouchPointCollection
-T:System.Windows.Input.TraversalRequest
-T:System.Windows.Media.Animation.TimelineCollection.Enumerator
-T:System.Windows.Media.DoubleCollection.Enumerator
-T:System.Windows.Media.DrawingCollection.Enumerator
-T:System.Windows.Media.Effects.BitmapEffectCollection.Enumerator
-T:System.Windows.Media.GeneralTransformCollection.Enumerator
-T:System.Windows.Media.GeometryCollection.Enumerator
-T:System.Windows.Media.GradientStopCollection.Enumerator
-T:System.Windows.Media.Int32Collection.Enumerator
-T:System.Windows.Media.Media3D.GeneralTransform3DCollection.Enumerator
-T:System.Windows.Media.Media3D.MaterialCollection.Enumerator
-T:System.Windows.Media.Media3D.Model3DCollection.Enumerator
-T:System.Windows.Media.Media3D.Point3DCollection.Enumerator
-T:System.Windows.Media.Media3D.Transform3DCollection.Enumerator
-T:System.Windows.Media.Media3D.Vector3DCollection.Enumerator
-T:System.Windows.Media.Media3D.Visual3DCollection.Enumerator
-T:System.Windows.Media.PathFigureCollection.Enumerator
-T:System.Windows.Media.PathSegmentCollection.Enumerator
-T:System.Windows.Media.PointCollection.Enumerator
-T:System.Windows.Media.TextEffectCollection.Enumerator
-T:System.Windows.Media.TransformCollection.Enumerator
-T:System.Windows.Media.VectorCollection.Enumerator
-T:System.Windows.Media.VisualCollection.Enumerator
-T:System.Windows.TemplateKey.TemplateType
-T:System.Windows.TextDecorationCollection.Enumerator
-T:System.Windows.WeakEventManager.ListenerList
-T:System.Windows.WeakEventManager.ListenerList`1
 T:System.Workflow.Runtime.Hosting.WorkflowCommitWorkBatchService.CommitWorkBatchCallback
 T:System.Xml.IXmlMtomReaderInitializer
 T:System.Xml.IXmlMtomWriterInitializer
@@ -2749,8 +2267,6 @@ T:System.Collections.Generic.DictionaryExtensions
 T:System.Data.Entity.Migrations.Design.ToolingException
 T:System.Data.Entity.Migrations.Design.ToolingFacade
 T:System.Diagnostics.TraceSourceExtensions
-T:System.IdentityModel.Claims.Rights
-T:System.IdentityModel.Claims.WindowsClaimSet
 T:System.Net.DnsEx
 T:System.Net.Http.Formatting.UriPathExtensionMapping
 T:System.Net.Http.HttpClientHandlerExtensions
@@ -3293,9 +2809,6 @@ P:System.Xml.Xsl.XslCompiledTransform.TemporaryFiles
 P:System.Xml.Xsl.XsltCompileException.Message
 P:Microsoft.AspNet.SignalR.WebSockets.WebSocketHandler.WebSocket
 P:Microsoft.Build.Tasks.Deployment.ManifestUtilities.TrustInfo.PermissionSet
-P:Microsoft.Build.Tasks.XamlTaskFactory.TaskElementContents
-P:Microsoft.Build.Tasks.XamlTaskFactory.TaskName
-P:Microsoft.Build.Tasks.XamlTaskFactory.TaskNamespace
 P:Microsoft.Data.SqlClient.SqlClientFactory.CanCreateDataSourceEnumerator
 P:Microsoft.Data.SqlClient.SqlCommand.NotificationAutoEnlist
 P:Microsoft.Data.SqlClient.SqlConnection.DbProviderFactory
@@ -3310,28 +2823,6 @@ P:Microsoft.VisualBasic.ApplicationServices.ConsoleApplicationBase.IsNetworkDepl
 P:Microsoft.VisualBasic.Devices.Computer.Ports
 P:Microsoft.VisualBasic.MyServices.RegistryProxy.DynData
 P:Newtonsoft.Json.Schema.JSchemaUrlResolver.Timeout
-P:System.AppDomainSetup.ActivationArguments
-P:System.AppDomainSetup.AppDomainInitializer
-P:System.AppDomainSetup.AppDomainInitializerArguments
-P:System.AppDomainSetup.AppDomainManagerAssembly
-P:System.AppDomainSetup.AppDomainManagerType
-P:System.AppDomainSetup.ApplicationName
-P:System.AppDomainSetup.ApplicationTrust
-P:System.AppDomainSetup.CachePath
-P:System.AppDomainSetup.ConfigurationFile
-P:System.AppDomainSetup.DisallowApplicationBaseProbing
-P:System.AppDomainSetup.DisallowBindingRedirects
-P:System.AppDomainSetup.DisallowCodeDownload
-P:System.AppDomainSetup.DisallowPublisherPolicy
-P:System.AppDomainSetup.DynamicBase
-P:System.AppDomainSetup.LicenseFile
-P:System.AppDomainSetup.LoaderOptimization
-P:System.AppDomainSetup.PartialTrustVisibleAssemblies
-P:System.AppDomainSetup.PrivateBinPath
-P:System.AppDomainSetup.PrivateBinPathProbe
-P:System.AppDomainSetup.SandboxInterop
-P:System.AppDomainSetup.ShadowCopyDirectories
-P:System.AppDomainSetup.ShadowCopyFiles
 P:System.Data.OleDb.OleDbCommandBuilder.QuotePrefix
 P:System.Data.OleDb.OleDbCommandBuilder.QuoteSuffix
 P:System.Data.OleDb.OleDbException.Message
@@ -4844,6 +4335,126 @@ M:Microsoft.Data.SqlClient.SqlDataAdapter.GetBatchedRecordsAffected(System.Int32
 M:Microsoft.Data.SqlClient.SqlParameterCollection.Add(System.String,System.Object)
 M:Microsoft.Extensions.DependencyInjection.ApplicationModelConventionExtensions.Add(System.Collections.Generic.IList{Microsoft.AspNetCore.Mvc.ApplicationModels.IApplicationModelConvention},Microsoft.AspNetCore.Mvc.ApplicationModels.IActionModelConvention)
 M:Microsoft.Extensions.DependencyInjection.ApplicationModelConventionExtensions.Add(System.Collections.Generic.IList{Microsoft.AspNetCore.Mvc.ApplicationModels.IApplicationModelConvention},Microsoft.AspNetCore.Mvc.ApplicationModels.IControllerModelConvention)
+M:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.Authentication.SharedAuthenticationOptions})
+M:Microsoft.Extensions.DependencyInjection.AuthorizationServiceCollectionExtensions.AddAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.Authorization.AuthorizationOptions})
+M:Microsoft.Extensions.DependencyInjection.AuthorizationServiceCollectionExtensions.AddAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+M:Microsoft.Extensions.DependencyInjection.DataProtectionServiceCollectionExtensions.ConfigureDataProtection(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNet.DataProtection.DataProtectionConfiguration})
+M:Microsoft.Extensions.DependencyInjection.ElmServiceCollectionExtensions.ConfigureElm(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNet.Diagnostics.Elm.ElmOptions})
+M:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.AddIdentity``2(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNet.Identity.IdentityOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.AddControllersAsServices(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Collections.Generic.IEnumerable{System.Reflection.Assembly})
+M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.AddControllersAsServices(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Collections.Generic.IEnumerable{System.Type})
+M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.AddFormatterMappings(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{Microsoft.AspNet.Mvc.Formatters.FormatterMappings})
+M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.AddMvcOptions(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{MvcOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddAuthorization(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Authorization.AuthorizationOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddControllersAsServices(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Collections.Generic.IEnumerable{System.Reflection.Assembly})
+M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddControllersAsServices(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Collections.Generic.IEnumerable{System.Type})
+M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddFormatterMappings(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Mvc.Formatters.FormatterMappings})
+M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddMvcOptions(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Mvc.MvcOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcCoreServiceCollectionExtensions.AddMvcCore(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNet.Mvc.MvcOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcCorsMvcCoreBuilderExtensions.AddCors(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Cors.Infrastructure.CorsOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcCorsMvcCoreBuilderExtensions.ConfigureCors(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Cors.Infrastructure.CorsOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcDataAnnotationsMvcBuilderExtensions.AddDataAnnotationsLocalization(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{Microsoft.AspNet.Mvc.ModelBinding.Validation.MvcDataAnnotationsLocalizationOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcDataAnnotationsMvcCoreBuilderExtensions.AddDataAnnotationsLocalization(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Mvc.ModelBinding.Validation.MvcDataAnnotationsLocalizationOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcJsonMvcBuilderExtensions.AddJsonOptions(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{Microsoft.AspNet.Mvc.MvcJsonOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcLocalizationMvcBuilderExtensions.AddViewLocalization(Microsoft.Extensions.DependencyInjection.IMvcBuilder,Microsoft.AspNet.Mvc.Razor.LanguageViewLocationExpanderFormat,System.Action{Microsoft.Extensions.Localization.LocalizationOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcLocalizationMvcBuilderExtensions.AddViewLocalization(Microsoft.Extensions.DependencyInjection.IMvcBuilder,Microsoft.AspNet.Mvc.Razor.LanguageViewLocationExpanderFormat)
+M:Microsoft.Extensions.DependencyInjection.MvcLocalizationMvcCoreBuilderExtensions.AddViewLocalization(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,Microsoft.AspNet.Mvc.Razor.LanguageViewLocationExpanderFormat,System.Action{Microsoft.Extensions.Localization.LocalizationOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcLocalizationMvcCoreBuilderExtensions.AddViewLocalization(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,Microsoft.AspNet.Mvc.Razor.LanguageViewLocationExpanderFormat)
+M:Microsoft.Extensions.DependencyInjection.MvcRazorMvcBuilderExtensions.AddPrecompiledRazorViews(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Reflection.Assembly[])
+M:Microsoft.Extensions.DependencyInjection.MvcRazorMvcBuilderExtensions.AddRazorOptions(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{Microsoft.AspNet.Mvc.Razor.RazorViewEngineOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcRazorMvcBuilderExtensions.InitializeTagHelper``1(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{``0,Microsoft.AspNet.Mvc.Rendering.ViewContext})
+M:Microsoft.Extensions.DependencyInjection.MvcRazorMvcCoreBuilderExtensions.AddPrecompiledRazorViews(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Reflection.Assembly[])
+M:Microsoft.Extensions.DependencyInjection.MvcRazorMvcCoreBuilderExtensions.AddRazorViewEngine(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Mvc.Razor.RazorViewEngineOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcRazorMvcCoreBuilderExtensions.InitializeTagHelper``1(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{``0,Microsoft.AspNet.Mvc.Rendering.ViewContext})
+M:Microsoft.Extensions.DependencyInjection.MvcViewFeaturesMvcBuilderExtensions.AddViewOptions(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{Microsoft.AspNet.Mvc.MvcViewOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcViewFeaturesMvcCoreBuilderExtensions.AddViews(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Mvc.MvcViewOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcViewFeaturesMvcCoreBuilderExtensions.ConfigureViews(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Mvc.MvcViewOptions})
+M:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)
+M:Microsoft.Extensions.DependencyInjection.SessionServiceCollectionExtensions.AddSession(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNet.Session.SessionOptions})
+M:Microsoft.VisualBasic.ApplicationServices.User.IsInRole(Microsoft.VisualBasic.ApplicationServices.BuiltInRole)
+M:Newtonsoft.Json.Schema.JSchemaException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+M:Newtonsoft.Json.Schema.JSchemaReaderException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+M:Newtonsoft.Json.Schema.JSchemaValidationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+M:System.Data.Entity.Core.EntityClient.EntityProviderFactory.CreatePermission(System.Security.Permissions.PermissionState)
+M:System.Data.Odbc.OdbcCommandBuilder.Dispose(System.Boolean)
+M:System.Data.Odbc.OdbcDataAdapter.Dispose(System.Boolean)
+M:System.Data.OleDb.OleDbCommandBuilder.Dispose(System.Boolean)
+M:System.Data.OleDb.OleDbConnection.EnlistDistributedTransaction(System.EnterpriseServices.ITransaction)
+M:System.Data.OleDb.OleDbConnectionStringBuilder.GetProperties(System.Collections.Hashtable)
+M:System.Data.OleDb.OleDbDataAdapter.Dispose(System.Boolean)
+M:System.Data.OleDb.OleDbFactory.CreatePermission(System.Security.Permissions.PermissionState)
+M:System.Data.SqlClient.SqlCommand.#ctor(System.String,System.Data.SqlClient.SqlConnection,System.Data.SqlClient.SqlTransaction,System.Data.SqlClient.SqlCommandColumnEncryptionSetting)
+M:System.Data.SqlClient.SqlCommandBuilder.Dispose(System.Boolean)
+M:System.Data.SqlClient.SqlConnection.RegisterColumnEncryptionKeyStoreProviders(System.Collections.Generic.IDictionary{System.String,System.Data.SqlClient.SqlColumnEncryptionKeyStoreProvider})
+M:System.Data.SqlClient.SqlConnectionStringBuilder.GetProperties(System.Collections.Hashtable)
+M:System.Data.SqlClient.SqlDataAdapter.AddToBatch(System.Data.IDbCommand)
+M:System.Data.SqlClient.SqlDataAdapter.CreateRowUpdatedEvent(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)
+M:System.Data.SqlClient.SqlDataAdapter.CreateRowUpdatingEvent(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)
+M:System.Data.SqlClient.SqlDataAdapter.Dispose(System.Boolean)
+M:System.Data.SqlClient.SqlDataAdapter.GetBatchedParameter(System.Int32,System.Int32)
+M:System.Data.SqlClient.SqlDataAdapter.GetBatchedRecordsAffected(System.Int32,System.Int32,System.Exception)
+M:System.Data.SqlTypes.SqlFileStream.Dispose(System.Boolean)
+M:System.Diagnostics.Eventing.Reader.EventBookmark.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+M:System.Diagnostics.Eventing.Reader.EventBookmark.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+M:System.IdentityModel.Claims.Claim.CreateDenyOnlyWindowsSidClaim(System.Security.Principal.SecurityIdentifier)
+M:System.IdentityModel.Claims.Claim.CreateMailAddressClaim(System.Net.Mail.MailAddress)
+M:System.IO.IsolatedStorage.IsolatedStorageFile.GetPermission(System.Security.PermissionSet)
+M:System.Net.Http.Formatting.MediaTypeFormatterExtensions.AddUriPathExtensionMapping(System.Net.Http.Formatting.MediaTypeFormatter,System.String,System.Net.Http.Headers.MediaTypeHeaderValue)
+M:System.Net.Http.Formatting.MediaTypeFormatterExtensions.AddUriPathExtensionMapping(System.Net.Http.Formatting.MediaTypeFormatter,System.String,System.String)
+M:System.Net.Http.HttpContentExtensions.IsJson(System.Net.Http.HttpContent)
+M:System.Net.Http.HttpContentExtensions.IsXml(System.Net.Http.HttpContent)
+M:System.Net.Http.HttpRequestMessageExtensions.CreateErrorResponse(System.Net.Http.HttpRequestMessage,System.Net.HttpStatusCode,System.Web.Http.ModelBinding.ModelStateDictionary)
+M:System.Net.Http.HttpRequestMessageExtensions.CreateErrorResponse(System.Net.Http.HttpRequestMessage,System.Net.Http.InvalidByteRangeException)
+M:System.Net.Http.HttpRequestMessageExtensions.CreateResponse``1(System.Net.Http.HttpRequestMessage,System.Net.HttpStatusCode,``0,System.Web.Http.HttpConfiguration)
+M:System.Net.Http.HttpRequestMessageExtensions.DisposeRequestResources(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.GetActionDescriptor(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.GetClientCertificate(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.GetConfiguration(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.GetCorrelationId(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.GetDependencyScope(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.GetQueryNameValuePairs(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.GetRequestContext(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.GetResourcesForDisposal(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.GetRouteData(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.GetSecurityMessageProperty(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.GetSynchronizationContext(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.GetUrlHelper(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.IsBatchRequest(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.IsLocal(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.RegisterForDispose(System.Net.Http.HttpRequestMessage,System.IDisposable)
+M:System.Net.Http.HttpRequestMessageExtensions.RegisterForDispose(System.Net.Http.HttpRequestMessage,System.Collections.Generic.IEnumerable{System.IDisposable})
+M:System.Net.Http.HttpRequestMessageExtensions.SetConfiguration(System.Net.Http.HttpRequestMessage,System.Web.Http.HttpConfiguration)
+M:System.Net.Http.HttpRequestMessageExtensions.SetRequestContext(System.Net.Http.HttpRequestMessage,System.Web.Http.Controllers.HttpRequestContext)
+M:System.Net.Http.HttpRequestMessageExtensions.SetRouteData(System.Net.Http.HttpRequestMessage,System.Web.Http.Routing.IHttpRouteData)
+M:System.Net.Http.HttpRequestMessageExtensions.ShouldIncludeErrorDetail(System.Net.Http.HttpRequestMessage)
+M:System.Security.Claims.PrincipalExtensions.GetUserId(System.Security.Claims.ClaimsPrincipal)
+M:System.Security.Claims.PrincipalExtensions.GetUserName(System.Security.Claims.ClaimsPrincipal)
+M:System.Security.Claims.PrincipalExtensions.IsSignedIn(System.Security.Claims.ClaimsPrincipal)
+M:System.ServiceModel.Channels.TransportSecurityBindingElement.BuildChannelListenerCore``1(System.ServiceModel.Channels.BindingContext)
+M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsAsymmetricKeyWrapAlgorithmSupported(System.String)
+M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsAsymmetricSignatureAlgorithmSupported(System.String)
+M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsCanonicalizationAlgorithmSupported(System.String)
+M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsDigestAlgorithmSupported(System.String)
+M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsEncryptionAlgorithmSupported(System.String)
+M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsEncryptionKeyDerivationAlgorithmSupported(System.String)
+M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsSignatureKeyDerivationAlgorithmSupported(System.String)
+M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsSymmetricKeyWrapAlgorithmSupported(System.String)
+M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsSymmetricSignatureAlgorithmSupported(System.String)
+M:System.Web.Http.ApiController.BadRequest(System.Web.Http.ModelBinding.ModelStateDictionary)
+M:System.Web.Http.ApiController.Content``1(System.Net.HttpStatusCode,``0,System.Net.Http.Formatting.MediaTypeFormatter,System.Net.Http.Headers.MediaTypeHeaderValue)
+M:System.Web.Http.ApiController.Content``1(System.Net.HttpStatusCode,``0,System.Net.Http.Formatting.MediaTypeFormatter,System.String)
+M:System.Web.Http.ApiController.Content``1(System.Net.HttpStatusCode,``0,System.Net.Http.Formatting.MediaTypeFormatter)
+M:System.Web.Http.ApiController.Created``1(System.String,``0)
+M:System.Web.Http.ApiController.Created``1(System.Uri,``0)
+M:System.Web.Http.ApiController.CreatedAtRoute``1(System.String,System.Collections.Generic.IDictionary{System.String,System.Object},``0)
+M:System.Web.Http.ApiController.CreatedAtRoute``1(System.String,System.Object,``0)
+M:System.Web.Http.ApiController.ExecuteAsync(System.Web.Http.Controllers.HttpControllerContext,System.Threading.CancellationToken)
+M:System.Web.Http.ApiController.Initialize(System.Web.Http.Controllers.HttpControllerContext)
+M:System.Web.Http.ApiController.RedirectToRoute(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})
+M:System.Web.Http.ApiController.Unauthorized(System.Net.Http.Headers.AuthenticationHeaderValue[])
+M:System.Web.Http.ApiController.Unauthorized(System.Collections.Generic.IEnumerable{System.Net.Http.Headers.AuthenticationHeaderValue})
+M:System.Web.Http.FromUriAttribute.GetValueProviderFactories(System.Web.Http.HttpConfiguration)
+M:System.Web.Http.HttpError.#ctor(System.Web.Http.ModelBinding.ModelStateDictionary,System.Boolean)
 T:Microsoft.AspNetCore.Hosting.EnvironmentName O
 T:Microsoft.AspNetCore.Hosting.IApplicationLifetime O
 T:Microsoft.AspNetCore.Hosting.IHostingEnvironment O
@@ -5071,3 +4682,116 @@ M:System.Security.Cryptography.X509Certificates.X509Certificate2.#ctor O
 M:System.Text.UTF7Encoding.#ctor O
 M:System.Threading.Thread.Abort O
 M:System.Threading.Thread.ResetAbort O
+M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(System.String,System.String,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(System.String) O
+M:System.Security.Policy.ApplicationTrust.#ctor(System.Security.PermissionSet,System.Collections.Generic.IEnumerable{System.Security.Policy.StrongName}) O
+M:System.Security.Policy.PolicyLevel.AddNamedPermissionSet(System.Security.NamedPermissionSet) O
+M:System.Security.Policy.PolicyLevel.ChangeNamedPermissionSet(System.String,System.Security.PermissionSet) O
+M:System.Security.Policy.PolicyLevel.GetNamedPermissionSet(System.String) O
+M:System.Security.Policy.PolicyLevel.RemoveNamedPermissionSet(System.Security.NamedPermissionSet) O
+M:System.Security.Policy.PolicyLevel.RemoveNamedPermissionSet(System.String) O
+M:System.Security.Policy.PolicyStatement.#ctor(System.Security.PermissionSet,System.Security.Policy.PolicyStatementAttribute) O
+M:System.Security.Policy.PolicyStatement.#ctor(System.Security.PermissionSet) O
+M:System.String.Copy(System.String) O
+M:System.Text.RegularExpressions.Regex.CompileToAssembly(System.Text.RegularExpressions.RegexCompilationInfo[],System.Reflection.AssemblyName,CustomAttributeBuilder[],System.String) O
+M:System.Text.RegularExpressions.Regex.CompileToAssembly(System.Text.RegularExpressions.RegexCompilationInfo[],System.Reflection.AssemblyName,CustomAttributeBuilder[]) O
+M:System.Text.RegularExpressions.Regex.CompileToAssembly(System.Text.RegularExpressions.RegexCompilationInfo[],System.Reflection.AssemblyName) O
+M:System.Text.UTF7Encoding.#ctor(System.Boolean) O
+M:System.Threading.Thread.Abort(System.Object) O
+M:System.Type.ReflectionOnlyGetType(System.String,System.Boolean,System.Boolean) O
+M:System.Uri.EscapeUriString(System.String) O
+M:System.Security.Cryptography.RSA.Create(System.String) O
+M:System.Security.Cryptography.SHA1.Create(System.String) O
+M:System.Security.Cryptography.SHA256.Create(System.String) O
+M:System.Security.Cryptography.SHA384.Create(System.String) O
+M:System.Security.Cryptography.SHA512.Create(System.String) O
+M:System.Security.Cryptography.SymmetricAlgorithm.Create(System.String) O
+M:System.Security.Cryptography.TripleDES.Create(System.String) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(System.Byte[],System.Security.SecureString,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(System.Byte[],System.String,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(System.Byte[]) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(System.String,System.Security.SecureString,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(System.String,System.String,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(System.String) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(System.Byte[],System.Security.SecureString,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(System.Byte[],System.String,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(System.Byte[]) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(System.String,System.Security.SecureString,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
+M:System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeInterfaceAsIntPtr(System.Guid,System.Guid) O
+M:System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeInterfaceAsObject(System.Guid,System.Guid) O
+M:System.Runtime.Serialization.Formatter.Deserialize(System.IO.Stream) O
+M:System.Runtime.Serialization.Formatter.Serialize(System.IO.Stream,System.Object) O
+M:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(System.IO.Stream) O
+M:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Serialize(System.IO.Stream,System.Object) O
+M:System.Runtime.Serialization.IFormatter.Deserialize(System.IO.Stream) O
+M:System.Runtime.Serialization.IFormatter.Serialize(System.IO.Stream,System.Object) O
+M:System.Security.Cryptography.Aes.Create(System.String) O
+M:System.Security.Cryptography.AsymmetricAlgorithm.Create(System.String) O
+M:System.Security.Cryptography.CryptoConfig.EncodeOID(System.String) O
+M:System.Security.Cryptography.DES.Create(System.String) O
+M:System.Security.Cryptography.DSA.Create(System.String) O
+M:System.Security.Cryptography.ECDiffieHellman.Create(System.String) O
+M:System.Security.Cryptography.ECDiffieHellmanCng.FromXmlString(System.String,System.Security.Cryptography.ECKeyXmlFormat) O
+M:System.Security.Cryptography.ECDiffieHellmanCng.ToXmlString(System.Security.Cryptography.ECKeyXmlFormat) O
+M:System.Security.Cryptography.ECDiffieHellmanCngPublicKey.FromXmlString(System.String) O
+M:System.Security.Cryptography.ECDiffieHellmanPublicKey.#ctor(System.Byte[]) O
+M:System.Security.Cryptography.ECDsa.Create(System.String) O
+M:System.Security.Cryptography.ECDsaCng.FromXmlString(System.String,System.Security.Cryptography.ECKeyXmlFormat) O
+M:System.Security.Cryptography.ECDsaCng.ToXmlString(System.Security.Cryptography.ECKeyXmlFormat) O
+M:System.Security.Cryptography.HashAlgorithm.Create(System.String) O
+M:System.Security.Cryptography.HMAC.Create(System.String) O
+M:System.Security.Cryptography.HMACSHA1.#ctor(System.Byte[],System.Boolean) O
+M:System.Security.Cryptography.KeyedHashAlgorithm.Create(System.String) O
+M:System.Security.Cryptography.MD5.Create(System.String) O
+M:System.Security.Cryptography.Pkcs.CmsSigner.#ctor(System.Security.Cryptography.CspParameters) O
+M:System.Security.Cryptography.RandomNumberGenerator.Create(System.String) O
+M:System.Security.Cryptography.RC2.Create(System.String) O
+M:System.Security.Cryptography.Rfc2898DeriveBytes.#ctor(System.Byte[],System.Byte[],System.Int32) O
+M:System.Security.Cryptography.Rfc2898DeriveBytes.#ctor(System.String,System.Byte[],System.Int32) O
+M:System.Security.Cryptography.Rfc2898DeriveBytes.#ctor(System.String,System.Byte[]) O
+M:System.Security.Cryptography.Rfc2898DeriveBytes.#ctor(System.String,System.Int32,System.Int32) O
+M:System.Security.Cryptography.Rfc2898DeriveBytes.#ctor(System.String,System.Int32) O
+M:System.Security.Cryptography.Rfc2898DeriveBytes.CryptDeriveKey(System.String,System.String,System.Int32,System.Byte[]) O
+M:System.Net.AuthenticationManager.Authenticate(System.String,System.Net.WebRequest,System.Net.ICredentials) O
+M:System.Net.AuthenticationManager.PreAuthenticate(System.Net.WebRequest,System.Net.ICredentials) O
+M:System.Net.FileWebRequest.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext) O
+M:System.Net.FileWebResponse.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext) O
+M:System.Net.HttpWebRequest.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext) O
+M:System.Net.HttpWebResponse.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext) O
+M:System.Net.ServicePointManager.FindServicePoint(System.String,System.Net.IWebProxy) O
+M:System.Net.ServicePointManager.FindServicePoint(System.Uri,System.Net.IWebProxy) O
+M:System.Net.ServicePointManager.FindServicePoint(System.Uri) O
+M:System.Net.WebRequest.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext) O
+M:System.Net.WebRequest.Create(System.String) O
+M:System.Net.WebRequest.Create(System.Uri) O
+M:System.Net.WebRequest.CreateDefault(System.Uri) O
+M:System.Net.WebRequest.CreateHttp(System.String) O
+M:System.Net.WebRequest.CreateHttp(System.Uri) O
+M:System.Net.WebRequest.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext) O
+M:System.Net.WebResponse.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext) O
+M:System.Net.WebResponse.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext) O
+M:System.Reflection.Assembly.ReflectionOnlyLoad(System.Byte[]) O
+M:System.Reflection.Assembly.ReflectionOnlyLoad(System.String) O
+M:System.Reflection.Assembly.ReflectionOnlyLoadFrom(System.String) O
+M:System.Runtime.CompilerServices.RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup(System.Runtime.CompilerServices.RuntimeHelpers.TryCode,System.Runtime.CompilerServices.RuntimeHelpers.CleanupCode,System.Object) O
+M:System.Runtime.CompilerServices.RuntimeHelpers.PrepareContractedDelegate(System.Delegate) O
+M:System.AppDomain.CreateDomain(System.String) O
+M:System.AppDomain.ExecuteAssembly(System.String,System.String[],System.Byte[],System.Configuration.Assemblies.AssemblyHashAlgorithm) O
+M:System.AppDomain.Unload(System.AppDomain) O
+M:System.HashCode.Equals(System.Object) O
+M:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer.WithCulture(System.Globalization.CultureInfo) O
+M:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer`1.WithCulture(System.Globalization.CultureInfo) O
+M:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer.WithCulture(System.Globalization.CultureInfo) O
+M:Microsoft.AspNetCore.Mvc.Localization.ViewLocalizer.WithCulture(System.Globalization.CultureInfo) O
+M:Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.ModelMetadataIdentity.ForProperty(System.Type,System.String,System.Type) O
+M:Microsoft.AspNetCore.Mvc.ViewFeatures.ViewComponentResultExecutor.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.AspNet.Mvc.MvcViewOptions},Microsoft.Extensions.Logging.ILoggerFactory,System.Text.Encodings.Web.HtmlEncoder,Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider,Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionaryFactory) O
+M:Microsoft.AspNetCore.Server.IIS.HttpContextExtensions.GetIISServerVariable(Microsoft.AspNetCore.Http.HttpContext,System.String) O
+M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion(Microsoft.Extensions.DependencyInjection.IMvcBuilder,Microsoft.AspNetCore.Mvc.CompatibilityVersion) O
+M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.SetCompatibilityVersion(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,Microsoft.AspNetCore.Mvc.CompatibilityVersion) O
+M:Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Options.IOptions{Microsoft.AspNetCore.Builder.RequestLocalizationOptions}) O
+M:Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor.#ctor(Microsoft.AspNetCore.Mvc.Infrastructure.OutputFormatterSelector,Microsoft.AspNetCore.Mvc.Infrastructure.IHttpResponseStreamWriterFactory,Microsoft.Extensions.Logging.ILoggerFactory) O
+M:Microsoft.AspNetCore.Mvc.Infrastructure.PhysicalFileResultExecutor.GetFileStream(System.String) O
+M:Microsoft.AspNetCore.Mvc.Infrastructure.VirtualFileResultExecutor.GetFileStream(Microsoft.Extensions.FileProviders.IFileInfo) O
+M:Microsoft.AspNetCore.Builder.ConnectionsAppBuilderExtensions.UseConnections(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action{Microsoft.AspNetCore.Http.Connections.ConnectionsRouteBuilder}) O
+M:Microsoft.AspNetCore.Builder.SignalRAppBuilderExtensions.UseSignalR(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action{Microsoft.AspNetCore.SignalR.HubRouteBuilder}) O
+M:Microsoft.AspNetCore.Http.Features.ResponseCookiesFeature.#ctor(Microsoft.AspNetCore.Http.Features.IFeatureCollection,Microsoft.Extensions.ObjectPool.ObjectPool{System.Text.StringBuilder}) O
