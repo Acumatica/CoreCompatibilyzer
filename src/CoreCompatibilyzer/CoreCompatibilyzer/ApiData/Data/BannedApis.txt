@@ -1,341 +1,11 @@
 N:Accessibility
 N:Debugging
 N:IEHost.Execute
+N:Microsoft
 N:Microsoft.Activities.Build
 N:Microsoft.Activities.Build.Debugger
 N:Microsoft.Activities.Build.Expressions
 N:Microsoft.Activities.Build.Validation
-N:Microsoft.Aspnet.Snapin
-N:Microsoft.Build.BuildEngine
-N:Microsoft.Build.Construction
-N:Microsoft.Build.Conversion
-N:Microsoft.Build.Debugging
-N:Microsoft.Build.Evaluation
-N:Microsoft.Build.Exceptions
-N:Microsoft.Build.Execution
-N:Microsoft.Build.Framework
-N:Microsoft.Build.Framework.XamlTypes
-N:Microsoft.Build.Logging
-N:Microsoft.Build.Tasks
-N:Microsoft.Build.Tasks.Deployment.Bootstrapper
-N:Microsoft.Build.Tasks.Deployment.ManifestUtilities
-N:Microsoft.Build.Tasks.Hosting
-N:Microsoft.Build.Tasks.Windows
-N:Microsoft.Build.Tasks.Xaml
-N:Microsoft.Build.Utilities
-N:Microsoft.CLRAdmin
-N:Microsoft.CSharp.Activities
-N:Microsoft.IE
-N:Microsoft.JScript
-N:Microsoft.JScript.Vsa
-N:Microsoft.VisualBasic.Activities
-N:Microsoft.VisualBasic.Activities.XamlIntegration
-N:Microsoft.VisualBasic.ApplicationServices
-N:Microsoft.VisualBasic.Compatibility.VB6
-N:Microsoft.VisualBasic.Devices
-N:Microsoft.VisualBasic.FileIO
-N:Microsoft.VisualBasic.Logging
-N:Microsoft.VisualBasic.MyServices
-N:Microsoft.VisualBasic.MyServices.Internal
-N:Microsoft.VisualBasic.Vsa
-N:Microsoft.VisualC
-N:Microsoft.VisualC.StlClr
-N:Microsoft.VisualC.StlClr.Generic
-N:Microsoft.VisualStudio.VCCodeModel
-N:Microsoft.VisualStudio.VCProject
-N:Microsoft.VisualStudio.VCProjectEngine
-N:Microsoft.VisualStudio.VsWizard
-N:Microsoft.Vsa
-N:Microsoft.Vsa.Vb.CodeDOM
-N:Microsoft.VSDesigner.MobileWebForms
-N:Microsoft.Windows.Input
-N:Microsoft.Windows.Themes
-N:Microsoft_VsaVb
-N:RegCode
-N:System.Activities
-N:System.Activities.Core.Presentation
-N:System.Activities.Core.Presentation.Factories
-N:System.Activities.Core.Presentation.Themes
-N:System.Activities.Debugger
-N:System.Activities.Debugger.Symbol
-N:System.Activities.DurableInstancing
-N:System.Activities.DynamicUpdate
-N:System.Activities.ExpressionParser
-N:System.Activities.Expressions
-N:System.Activities.Hosting
-N:System.Activities.Persistence
-N:System.Activities.Presentation
-N:System.Activities.Presentation.Annotations
-N:System.Activities.Presentation.Converters
-N:System.Activities.Presentation.Debug
-N:System.Activities.Presentation.Expressions
-N:System.Activities.Presentation.Hosting
-N:System.Activities.Presentation.Metadata
-N:System.Activities.Presentation.Model
-N:System.Activities.Presentation.PropertyEditing
-N:System.Activities.Presentation.Services
-N:System.Activities.Presentation.Sqm
-N:System.Activities.Presentation.Toolbox
-N:System.Activities.Presentation.Validation
-N:System.Activities.Presentation.View
-N:System.Activities.Presentation.View.OutlineView
-N:System.Activities.Presentation.ViewState
-N:System.Activities.Statements
-N:System.Activities.Statements.Tracking
-N:System.Activities.Tracking
-N:System.Activities.Validation
-N:System.Activities.XamlIntegration
-N:System.AddIn
-N:System.AddIn.Contract
-N:System.AddIn.Contract.Automation
-N:System.AddIn.Contract.Collections
-N:System.AddIn.Hosting
-N:System.AddIn.Pipeline
-N:System.ComponentModel.Composition.Registration
-N:System.ComponentModel.Design.Data
-N:System.Configuration.Install
-N:System.Data.Common.CommandTrees
-N:System.Data.Common.CommandTrees.ExpressionBuilder
-N:System.Data.Common.CommandTrees.ExpressionBuilder.Spatial
-N:System.Data.Common.EntitySql
-N:System.Data.Design
-N:System.Data.Entity.Design
-N:System.Data.Entity.Design.AspNet
-N:System.Data.Entity.Design.PluralizationServices
-N:System.Data.EntityClient
-N:System.Data.Linq
-N:System.Data.Linq.Mapping
-N:System.Data.Linq.SqlClient
-N:System.Data.Linq.SqlClient.Implementation
-N:System.Data.Mapping
-N:System.Data.Metadata.Edm
-N:System.Data.Objects
-N:System.Data.Objects.DataClasses
-N:System.Data.Objects.SqlClient
-N:System.Data.Services
-N:System.Data.Services.BuildProvider
-N:System.Data.Services.Client
-N:System.Data.Services.Configuration
-N:System.Data.Services.Design
-N:System.Data.Services.Internal
-N:System.Data.Services.Providers
-N:System.Data.Spatial
-N:System.Deployment.Application
-N:System.Deployment.Internal
-N:System.Deployment.Internal.CodeSigning
-N:System.Device.Location
-N:System.Diagnostics.Contracts.Internal
-N:System.Diagnostics.Design
-N:System.Diagnostics.Eventing
-N:System.Diagnostics.Eventing.Reader
-N:System.EnterpriseServices
-N:System.EnterpriseServices.CompensatingResourceManager
-N:System.EnterpriseServices.Internal
-N:System.IdentityModel
-N:System.IdentityModel.Claims
-N:System.IdentityModel.Configuration
-N:System.IdentityModel.Metadata
-N:System.IdentityModel.Policy
-N:System.IdentityModel.Protocols.WSTrust
-N:System.IdentityModel.Services
-N:System.IdentityModel.Services.Configuration
-N:System.IdentityModel.Services.Tokens
-N:System.IO.Log
-N:System.Management.Instrumentation
-N:System.Media
-N:System.Messaging
-N:System.Messaging.Design
-N:System.Net.Configuration
-N:System.Printing
-N:System.Printing.IndexedProperties
-N:System.Printing.Interop
-N:System.Reflection.Context
-N:System.Resources.Tools
-N:System.Runtime.Caching.Configuration
-N:System.Runtime.DesignerServices
-N:System.Runtime.DurableInstancing
-N:System.Runtime.Hosting
-N:System.Runtime.InteropServices.CustomMarshalers
-N:System.Runtime.InteropServices.Expando
-N:System.Runtime.Remoting
-N:System.Runtime.Remoting.Activation
-N:System.Runtime.Remoting.Channels
-N:System.Runtime.Remoting.Channels.Http
-N:System.Runtime.Remoting.Channels.Ipc
-N:System.Runtime.Remoting.Channels.Smtp
-N:System.Runtime.Remoting.Channels.Tcp
-N:System.Runtime.Remoting.Contexts
-N:System.Runtime.Remoting.Lifetime
-N:System.Runtime.Remoting.Messaging
-N:System.Runtime.Remoting.Metadata
-N:System.Runtime.Remoting.Metadata.W3cXsd2001
-N:System.Runtime.Remoting.MetadataServices
-N:System.Runtime.Remoting.Proxies
-N:System.Runtime.Remoting.Services
-N:System.Runtime.Serialization.Configuration
-N:System.Runtime.Serialization.Formatters.Soap
-N:System.Security.Authentication.ExtendedProtection.Configuration
-N:System.Security.RightsManagement
-N:System.ServiceModel.Activation
-N:System.ServiceModel.Activation.Configuration
-N:System.ServiceModel.Activities
-N:System.ServiceModel.Activities.Activation
-N:System.ServiceModel.Activities.Configuration
-N:System.ServiceModel.Activities.Description
-N:System.ServiceModel.Activities.Presentation
-N:System.ServiceModel.Activities.Presentation.Factories
-N:System.ServiceModel.Activities.Tracking
-N:System.ServiceModel.Activities.Tracking.Configuration
-N:System.ServiceModel.ComIntegration
-N:System.ServiceModel.Configuration
-N:System.ServiceModel.Diagnostics
-N:System.ServiceModel.Discovery
-N:System.ServiceModel.Discovery.Configuration
-N:System.ServiceModel.Discovery.Version11
-N:System.ServiceModel.Discovery.VersionApril2005
-N:System.ServiceModel.Discovery.VersionCD1
-N:System.ServiceModel.MsmqIntegration
-N:System.ServiceModel.PeerResolvers
-N:System.ServiceModel.Persistence
-N:System.ServiceModel.Routing
-N:System.ServiceModel.Routing.Configuration
-N:System.ServiceModel.Web
-N:System.ServiceModel.XamlIntegration
-N:System.ServiceProcess.Design
-N:System.Speech.AudioFormat
-N:System.Speech.Recognition
-N:System.Speech.Recognition.SrgsGrammar
-N:System.Speech.Synthesis
-N:System.Speech.Synthesis.TtsEngine
-N:System.Transactions.Configuration
-N:System.Web.ApplicationServices
-N:System.Web.Caching
-N:System.Web.ClientServices
-N:System.Web.ClientServices.Providers
-N:System.Web.Compilation
-N:System.Web.Configuration
-N:System.Web.Configuration.Internal
-N:System.Web.DynamicData
-N:System.Web.DynamicData.Design
-N:System.Web.DynamicData.ModelProviders
-N:System.Web.Globalization
-N:System.Web.Handlers
-N:System.Web.Hosting
-N:System.Web.Instrumentation
-N:System.Web.Mail
-N:System.Web.Management
-N:System.Web.Mobile
-N:System.Web.ModelBinding
-N:System.Web.Profile
-N:System.Web.Query.Dynamic
-N:System.Web.RegularExpressions
-N:System.Web.Routing
-N:System.Web.Script
-N:System.Web.Script.Serialization
-N:System.Web.Script.Services
-N:System.Web.Security
-N:System.Web.Security.AntiXss
-N:System.Web.Services
-N:System.Web.Services.Configuration
-N:System.Web.Services.Description
-N:System.Web.Services.Discovery
-N:System.Web.Services.Protocols
-N:System.Web.SessionState
-N:System.Web.UI
-N:System.Web.UI.Adapters
-N:System.Web.UI.DataVisualization.Charting
-N:System.Web.UI.Design
-N:System.Web.UI.Design.Directives
-N:System.Web.UI.Design.MobileControls
-N:System.Web.UI.Design.MobileControls.Converters
-N:System.Web.UI.Design.WebControls
-N:System.Web.UI.Design.WebControls.WebParts
-N:System.Web.UI.HtmlControls
-N:System.Web.UI.MobileControls
-N:System.Web.UI.MobileControls.Adapters
-N:System.Web.UI.MobileControls.Adapters.XhtmlAdapters
-N:System.Web.UI.MobileControls.ShippedAdapterSource
-N:System.Web.UI.WebControls
-N:System.Web.UI.WebControls.Adapters
-N:System.Web.UI.WebControls.Expressions
-N:System.Web.UI.WebControls.WebParts
-N:System.Web.Util
-N:System.Web.WebSockets
-N:System.Windows
-N:System.Windows.Annotations
-N:System.Windows.Annotations.Storage
-N:System.Windows.Automation
-N:System.Windows.Automation.Peers
-N:System.Windows.Automation.Provider
-N:System.Windows.Automation.Text
-N:System.Windows.Baml2006
-N:System.Windows.Controls
-N:System.Windows.Controls.Primitives
-N:System.Windows.Controls.Ribbon
-N:System.Windows.Controls.Ribbon.Primitives
-N:System.Windows.Converters
-N:System.Windows.Data
-N:System.Windows.Diagnostics
-N:System.Windows.Documents
-N:System.Windows.Documents.DocumentStructures
-N:System.Windows.Documents.Serialization
-N:System.Windows.Forms
-N:System.Windows.Forms.Automation
-N:System.Windows.Forms.ComponentModel.Com2Interop
-N:System.Windows.Forms.DataVisualization.Charting
-N:System.Windows.Forms.Design
-N:System.Windows.Forms.Design.Behavior
-N:System.Windows.Forms.Integration
-N:System.Windows.Forms.Layout
-N:System.Windows.Forms.PropertyGridInternal
-N:System.Windows.Forms.VisualStyles
-N:System.Windows.Ink
-N:System.Windows.Input.Manipulations
-N:System.Windows.Input.StylusPlugIns
-N:System.Windows.Input.StylusWisp
-N:System.Windows.Interop
-N:System.Windows.Markup
-N:System.Windows.Markup.Localizer
-N:System.Windows.Markup.Primitives
-N:System.Windows.Media
-N:System.Windows.Media.Animation
-N:System.Windows.Media.Converters
-N:System.Windows.Media.Effects
-N:System.Windows.Media.Imaging
-N:System.Windows.Media.Media3D
-N:System.Windows.Media.Media3D.Converters
-N:System.Windows.Media.TextFormatting
-N:System.Windows.Navigation
-N:System.Windows.Resources
-N:System.Windows.Shapes
-N:System.Windows.Shell
-N:System.Windows.Threading
-N:System.Windows.Xps
-N:System.Windows.Xps.Packaging
-N:System.Windows.Xps.Serialization
-N:System.Workflow.Activities
-N:System.Workflow.Activities.Configuration
-N:System.Workflow.Activities.Rules
-N:System.Workflow.Activities.Rules.Design
-N:System.Workflow.ComponentModel
-N:System.Workflow.ComponentModel.Compiler
-N:System.Workflow.ComponentModel.Design
-N:System.Workflow.ComponentModel.Serialization
-N:System.Workflow.Runtime
-N:System.Workflow.Runtime.Configuration
-N:System.Workflow.Runtime.DebugEngine
-N:System.Workflow.Runtime.Hosting
-N:System.Workflow.Runtime.Tracking
-N:System.Xaml
-N:System.Xaml.Permissions
-N:System.Xaml.Schema
-N:System.Xml.Serialization.Advanced
-N:System.Xml.Serialization.Configuration
-N:System.Xml.XmlConfiguration
-N:System.Xml.Xsl.Runtime
-N:UIAutomationClientsideProviders
-N:XamlGeneratedNamespace
-N:Microsoft
 N:Microsoft.AspNet.Antiforgery
 N:Microsoft.AspNet.Authentication
 N:Microsoft.AspNet.Authentication.Cookies
@@ -472,6 +142,7 @@ N:Microsoft.AspNet.SignalR.SqlServer
 N:Microsoft.AspNet.SignalR.StackExchangeRedis
 N:Microsoft.AspNet.SignalR.Tracing
 N:Microsoft.AspNet.SignalR.Transports
+N:Microsoft.Aspnet.Snapin
 N:Microsoft.AspNet.StaticFiles
 N:Microsoft.AspNet.StaticFiles.Infrastructure
 N:Microsoft.AspNet.TelemetryCorrelation
@@ -494,8 +165,27 @@ N:Microsoft.AspNet.WebSockets.Protocol
 N:Microsoft.AspNet.WebSockets.Server
 N:Microsoft.AspNet.WebUtilities
 N:Microsoft.AspNetCore.DataProtection.SystemWeb
+N:Microsoft.Build.BuildEngine
+N:Microsoft.Build.Construction
+N:Microsoft.Build.Conversion
+N:Microsoft.Build.Debugging
+N:Microsoft.Build.Evaluation
+N:Microsoft.Build.Exceptions
+N:Microsoft.Build.Execution
+N:Microsoft.Build.Framework
+N:Microsoft.Build.Framework.XamlTypes
+N:Microsoft.Build.Logging
+N:Microsoft.Build.Tasks
+N:Microsoft.Build.Tasks.Deployment.Bootstrapper
+N:Microsoft.Build.Tasks.Deployment.ManifestUtilities
+N:Microsoft.Build.Tasks.Hosting
+N:Microsoft.Build.Tasks.Windows
+N:Microsoft.Build.Tasks.Xaml
+N:Microsoft.Build.Utilities
+N:Microsoft.CLRAdmin
 N:Microsoft.CodeAnalysis.Editor.Peek
 N:Microsoft.CodeAnalysis.Editor.Tags
+N:Microsoft.CSharp.Activities
 N:Microsoft.Data.Entity.FunctionalTests
 N:Microsoft.Data.Entity.FunctionalTests.TestModels.NorthwindSproc
 N:Microsoft.Data.Entity.Relational.Design.FunctionalTests.Compilation
@@ -515,11 +205,34 @@ N:Microsoft.Data.Tools.Schema.Utilities.Sql.Settings.Internal
 N:Microsoft.Extensions.Caching.SqlConfig
 N:Microsoft.Extensions.MemoryPool
 N:Microsoft.Extensions.OptionsModel
+N:Microsoft.IE
+N:Microsoft.JScript
+N:Microsoft.JScript.Vsa
 N:Microsoft.Owin.Security
 N:Microsoft.Runtime.CompilerServices
 N:Microsoft.ScriptManager.MSAjaxv45
 N:Microsoft.ScriptManager.WebFormsv45
 N:Microsoft.SqlServer.Management.Common
+N:Microsoft.VisualBasic.Activities
+N:Microsoft.VisualBasic.Activities.XamlIntegration
+N:Microsoft.VisualBasic.ApplicationServices
+N:Microsoft.VisualBasic.Compatibility.VB6
+N:Microsoft.VisualBasic.Devices
+N:Microsoft.VisualBasic.FileIO
+N:Microsoft.VisualBasic.Logging
+N:Microsoft.VisualBasic.MyServices
+N:Microsoft.VisualBasic.MyServices.Internal
+N:Microsoft.VisualBasic.Vsa
+N:Microsoft.VisualC
+N:Microsoft.VisualC.StlClr
+N:Microsoft.VisualC.StlClr.Generic
+N:Microsoft.VisualStudio.VCCodeModel
+N:Microsoft.VisualStudio.VCProject
+N:Microsoft.VisualStudio.VCProjectEngine
+N:Microsoft.VisualStudio.VsWizard
+N:Microsoft.Vsa
+N:Microsoft.Vsa.Vb.CodeDOM
+N:Microsoft.VSDesigner.MobileWebForms
 N:Microsoft.Web.Helpers
 N:Microsoft.Web.Mvc
 N:Microsoft.Web.Mvc.Controls
@@ -527,12 +240,185 @@ N:Microsoft.Web.Mvc.Html
 N:Microsoft.Web.Mvc.Internal
 N:Microsoft.Web.Mvc.ModelBinding
 N:Microsoft.Web.Mvc.Resources
+N:Microsoft.Windows.Input
+N:Microsoft.Windows.Themes
+N:Microsoft_VsaVb
 N:Owin
+N:RegCode
+N:System.Activities
+N:System.Activities.Core.Presentation
+N:System.Activities.Core.Presentation.Factories
+N:System.Activities.Core.Presentation.Themes
+N:System.Activities.Debugger
+N:System.Activities.Debugger.Symbol
+N:System.Activities.DurableInstancing
+N:System.Activities.DynamicUpdate
+N:System.Activities.ExpressionParser
+N:System.Activities.Expressions
+N:System.Activities.Hosting
+N:System.Activities.Persistence
+N:System.Activities.Presentation
+N:System.Activities.Presentation.Annotations
+N:System.Activities.Presentation.Converters
+N:System.Activities.Presentation.Debug
+N:System.Activities.Presentation.Expressions
+N:System.Activities.Presentation.Hosting
+N:System.Activities.Presentation.Metadata
+N:System.Activities.Presentation.Model
+N:System.Activities.Presentation.PropertyEditing
+N:System.Activities.Presentation.Services
+N:System.Activities.Presentation.Sqm
+N:System.Activities.Presentation.Toolbox
+N:System.Activities.Presentation.Validation
+N:System.Activities.Presentation.View
+N:System.Activities.Presentation.View.OutlineView
+N:System.Activities.Presentation.ViewState
+N:System.Activities.Statements
+N:System.Activities.Statements.Tracking
+N:System.Activities.Tracking
+N:System.Activities.Validation
+N:System.Activities.XamlIntegration
+N:System.AddIn
+N:System.AddIn.Contract
+N:System.AddIn.Contract.Automation
+N:System.AddIn.Contract.Collections
+N:System.AddIn.Hosting
+N:System.AddIn.Pipeline
+N:System.ComponentModel.Composition.Registration
+N:System.ComponentModel.Design.Data
+N:System.Configuration.Install
+N:System.Data.Common.CommandTrees
+N:System.Data.Common.CommandTrees.ExpressionBuilder
+N:System.Data.Common.CommandTrees.ExpressionBuilder.Spatial
+N:System.Data.Common.EntitySql
+N:System.Data.Design
+N:System.Data.Entity.Design
+N:System.Data.Entity.Design.AspNet
+N:System.Data.Entity.Design.PluralizationServices
 N:System.Data.Entity.SqlServerCompact
 N:System.Data.Entity.SqlServerCompact.Legacy
+N:System.Data.EntityClient
+N:System.Data.Linq
+N:System.Data.Linq.Mapping
+N:System.Data.Linq.SqlClient
+N:System.Data.Linq.SqlClient.Implementation
+N:System.Data.Mapping
+N:System.Data.Metadata.Edm
+N:System.Data.Objects
+N:System.Data.Objects.DataClasses
+N:System.Data.Objects.SqlClient
+N:System.Data.Services
+N:System.Data.Services.BuildProvider
+N:System.Data.Services.Client
 N:System.Data.Services.Common
+N:System.Data.Services.Configuration
+N:System.Data.Services.Design
+N:System.Data.Services.Internal
+N:System.Data.Services.Providers
+N:System.Data.Spatial
+N:System.Deployment.Application
+N:System.Deployment.Internal
+N:System.Deployment.Internal.CodeSigning
+N:System.Device.Location
+N:System.Diagnostics.Contracts.Internal
+N:System.Diagnostics.Design
+N:System.Diagnostics.Eventing
+N:System.Diagnostics.Eventing.Reader
+N:System.EnterpriseServices
+N:System.EnterpriseServices.CompensatingResourceManager
+N:System.EnterpriseServices.Internal
+N:System.IdentityModel
+N:System.IdentityModel.Claims
+N:System.IdentityModel.Configuration
+N:System.IdentityModel.Metadata
+N:System.IdentityModel.Policy
+N:System.IdentityModel.Protocols.WSTrust
+N:System.IdentityModel.Services
+N:System.IdentityModel.Services.Configuration
+N:System.IdentityModel.Services.Tokens
+N:System.IO.Log
+N:System.Management.Instrumentation
+N:System.Media
+N:System.Messaging
+N:System.Messaging.Design
+N:System.Net.Configuration
+N:System.Printing
+N:System.Printing.IndexedProperties
+N:System.Printing.Interop
+N:System.Reflection.Context
+N:System.Resources.Tools
+N:System.Runtime.Caching.Configuration
+N:System.Runtime.DesignerServices
+N:System.Runtime.DurableInstancing
+N:System.Runtime.Hosting
+N:System.Runtime.InteropServices.CustomMarshalers
+N:System.Runtime.InteropServices.Expando
+N:System.Runtime.Remoting
+N:System.Runtime.Remoting.Activation
+N:System.Runtime.Remoting.Channels
+N:System.Runtime.Remoting.Channels.Http
+N:System.Runtime.Remoting.Channels.Ipc
+N:System.Runtime.Remoting.Channels.Smtp
+N:System.Runtime.Remoting.Channels.Tcp
+N:System.Runtime.Remoting.Contexts
+N:System.Runtime.Remoting.Lifetime
+N:System.Runtime.Remoting.Messaging
+N:System.Runtime.Remoting.Metadata
+N:System.Runtime.Remoting.Metadata.W3cXsd2001
+N:System.Runtime.Remoting.MetadataServices
+N:System.Runtime.Remoting.Proxies
+N:System.Runtime.Remoting.Services
+N:System.Runtime.Serialization.Configuration
+N:System.Runtime.Serialization.Formatters.Soap
+N:System.Security.Authentication.ExtendedProtection.Configuration
+N:System.Security.RightsManagement
+N:System.ServiceModel.Activation
+N:System.ServiceModel.Activation.Configuration
+N:System.ServiceModel.Activities
+N:System.ServiceModel.Activities.Activation
+N:System.ServiceModel.Activities.Configuration
+N:System.ServiceModel.Activities.Description
+N:System.ServiceModel.Activities.Presentation
+N:System.ServiceModel.Activities.Presentation.Factories
+N:System.ServiceModel.Activities.Tracking
+N:System.ServiceModel.Activities.Tracking.Configuration
+N:System.ServiceModel.ComIntegration
+N:System.ServiceModel.Configuration
+N:System.ServiceModel.Diagnostics
+N:System.ServiceModel.Discovery
+N:System.ServiceModel.Discovery.Configuration
+N:System.ServiceModel.Discovery.Version11
+N:System.ServiceModel.Discovery.VersionApril2005
+N:System.ServiceModel.Discovery.VersionCD1
+N:System.ServiceModel.MsmqIntegration
+N:System.ServiceModel.PeerResolvers
+N:System.ServiceModel.Persistence
+N:System.ServiceModel.Routing
+N:System.ServiceModel.Routing.Configuration
+N:System.ServiceModel.Web
+N:System.ServiceModel.XamlIntegration
+N:System.ServiceProcess.Design
+N:System.Speech.AudioFormat
+N:System.Speech.Recognition
+N:System.Speech.Recognition.SrgsGrammar
+N:System.Speech.Synthesis
+N:System.Speech.Synthesis.TtsEngine
+N:System.Transactions.Configuration
+N:System.Web.ApplicationServices
+N:System.Web.Caching
+N:System.Web.ClientServices
+N:System.Web.ClientServices.Providers
+N:System.Web.Compilation
+N:System.Web.Configuration
+N:System.Web.Configuration.Internal
 N:System.Web.Cors
+N:System.Web.DynamicData
+N:System.Web.DynamicData.Design
+N:System.Web.DynamicData.ModelProviders
+N:System.Web.Globalization
+N:System.Web.Handlers
 N:System.Web.Helpers
+N:System.Web.Hosting
 N:System.Web.Http.Batch
 N:System.Web.Http.Common
 N:System.Web.Http.Controllers
@@ -574,6 +460,11 @@ N:System.Web.Http.Validation.Validators
 N:System.Web.Http.ValueProviders
 N:System.Web.Http.ValueProviders.Providers
 N:System.Web.Http.WebHost
+N:System.Web.Instrumentation
+N:System.Web.Mail
+N:System.Web.Management
+N:System.Web.Mobile
+N:System.Web.ModelBinding
 N:System.Web.Mvc
 N:System.Web.Mvc.Ajax
 N:System.Web.Mvc.Async
@@ -583,8 +474,10 @@ N:System.Web.Mvc.Razor
 N:System.Web.Mvc.Routing
 N:System.Web.Mvc.Routing.Constraints
 N:System.Web.Optimization
+N:System.Web.Profile
 N:System.Web.Providers
 N:System.Web.Providers.Entities
+N:System.Web.Query.Dynamic
 N:System.Web.Razor
 N:System.Web.Razor.Editor
 N:System.Web.Razor.Generator
@@ -593,6 +486,38 @@ N:System.Web.Razor.Parser.SyntaxTree
 N:System.Web.Razor.Text
 N:System.Web.Razor.Tokenizer
 N:System.Web.Razor.Tokenizer.Symbols
+N:System.Web.RegularExpressions
+N:System.Web.Routing
+N:System.Web.Script
+N:System.Web.Script.Serialization
+N:System.Web.Script.Services
+N:System.Web.Security
+N:System.Web.Security.AntiXss
+N:System.Web.Services
+N:System.Web.Services.Configuration
+N:System.Web.Services.Description
+N:System.Web.Services.Discovery
+N:System.Web.Services.Protocols
+N:System.Web.SessionState
+N:System.Web.UI
+N:System.Web.UI.Adapters
+N:System.Web.UI.DataVisualization.Charting
+N:System.Web.UI.Design
+N:System.Web.UI.Design.Directives
+N:System.Web.UI.Design.MobileControls
+N:System.Web.UI.Design.MobileControls.Converters
+N:System.Web.UI.Design.WebControls
+N:System.Web.UI.Design.WebControls.WebParts
+N:System.Web.UI.HtmlControls
+N:System.Web.UI.MobileControls
+N:System.Web.UI.MobileControls.Adapters
+N:System.Web.UI.MobileControls.Adapters.XhtmlAdapters
+N:System.Web.UI.MobileControls.ShippedAdapterSource
+N:System.Web.UI.WebControls
+N:System.Web.UI.WebControls.Adapters
+N:System.Web.UI.WebControls.Expressions
+N:System.Web.UI.WebControls.WebParts
+N:System.Web.Util
 N:System.Web.WebPages
 N:System.Web.WebPages.Administration
 N:System.Web.WebPages.Administration.PackageManager
@@ -602,11 +527,89 @@ N:System.Web.WebPages.Instrumentation
 N:System.Web.WebPages.Razor
 N:System.Web.WebPages.Razor.Configuration
 N:System.Web.WebPages.Scope
+N:System.Web.WebSockets
+N:System.Windows
+N:System.Windows.Annotations
+N:System.Windows.Annotations.Storage
+N:System.Windows.Automation
+N:System.Windows.Automation.Peers
+N:System.Windows.Automation.Provider
+N:System.Windows.Automation.Text
+N:System.Windows.Baml2006
+N:System.Windows.Controls
+N:System.Windows.Controls.Primitives
+N:System.Windows.Controls.Ribbon
+N:System.Windows.Controls.Ribbon.Primitives
+N:System.Windows.Converters
+N:System.Windows.Data
+N:System.Windows.Diagnostics
+N:System.Windows.Documents
+N:System.Windows.Documents.DocumentStructures
+N:System.Windows.Documents.Serialization
+N:System.Windows.Forms
+N:System.Windows.Forms.Automation
+N:System.Windows.Forms.ComponentModel.Com2Interop
+N:System.Windows.Forms.DataVisualization.Charting
+N:System.Windows.Forms.Design
+N:System.Windows.Forms.Design.Behavior
+N:System.Windows.Forms.Integration
+N:System.Windows.Forms.Layout
+N:System.Windows.Forms.PropertyGridInternal
+N:System.Windows.Forms.VisualStyles
+N:System.Windows.Ink
+N:System.Windows.Input.Manipulations
+N:System.Windows.Input.StylusPlugIns
+N:System.Windows.Input.StylusWisp
+N:System.Windows.Interop
+N:System.Windows.Markup
+N:System.Windows.Markup.Localizer
+N:System.Windows.Markup.Primitives
+N:System.Windows.Media
+N:System.Windows.Media.Animation
+N:System.Windows.Media.Converters
+N:System.Windows.Media.Effects
+N:System.Windows.Media.Imaging
+N:System.Windows.Media.Media3D
+N:System.Windows.Media.Media3D.Converters
+N:System.Windows.Media.TextFormatting
+N:System.Windows.Navigation
+N:System.Windows.Resources
+N:System.Windows.Shapes
+N:System.Windows.Shell
+N:System.Windows.Threading
+N:System.Windows.Xps
+N:System.Windows.Xps.Packaging
+N:System.Windows.Xps.Serialization
+N:System.Workflow.Activities
+N:System.Workflow.Activities.Configuration
+N:System.Workflow.Activities.Rules
+N:System.Workflow.Activities.Rules.Design
+N:System.Workflow.ComponentModel
+N:System.Workflow.ComponentModel.Compiler
+N:System.Workflow.ComponentModel.Design
+N:System.Workflow.ComponentModel.Serialization
+N:System.Workflow.Runtime
+N:System.Workflow.Runtime.Configuration
+N:System.Workflow.Runtime.DebugEngine
+N:System.Workflow.Runtime.Hosting
+N:System.Workflow.Runtime.Tracking
+N:System.Xaml
+N:System.Xaml.Permissions
+N:System.Xaml.Schema
+N:System.Xml.Serialization.Advanced
+N:System.Xml.Serialization.Configuration
+N:System.Xml.XmlConfiguration
+N:System.Xml.Xsl.Runtime
 N:TestResources
 N:TestResources.NetFX
+N:UIAutomationClientsideProviders
 N:WebMatrix.Data
 N:WebMatrix.WebData
+N:XamlGeneratedNamespace
 T:_GUID
+T:AsyncExtensions
+T:AsyncPlatformExtensions
+T:AwaitExtensions
 T:IStream
 T:ISymUnmanagedBinder
 T:ISymUnmanagedDocument
@@ -617,24 +620,236 @@ T:ISymUnmanagedScope
 T:ISymUnmanagedVariable
 T:ISymUnmanagedWriter
 T:IUnknown
+T:Microsoft.AspNet.Mvc.ModelBinding.ModelStateDictionary.PrefixEnumerable
+T:Microsoft.AspNet.Mvc.ModelBinding.ModelStateDictionary.PrefixEnumerator
+T:Microsoft.AspNet.Mvc.ViewFeatures.AttributeDictionary.Enumerator
+T:Microsoft.AspNet.SignalR.Client.Http.HttpWebRequestWrapper
+T:Microsoft.AspNet.SignalR.Client.Http.HttpWebResponseWrapper
+T:Microsoft.AspNet.SignalR.WebSockets.DefaultWebSocketHandler
+T:Microsoft.AspNet.WebHooks.AzureAlertCondition
+T:Microsoft.AspNet.WebHooks.AzureAlertContext
+T:Microsoft.AspNet.WebHooks.AzureAlertNotification
+T:Microsoft.AspNet.WebHooks.AzureAlertWebHookReceiver
+T:Microsoft.AspNet.WebHooks.AzureWebHookDequeueManager
+T:Microsoft.AspNet.WebHooks.AzureWebHookSender
+T:Microsoft.AspNet.WebHooks.AzureWebHookStore
+T:Microsoft.AspNet.WebHooks.BitbucketAuthor
+T:Microsoft.AspNet.WebHooks.BitbucketLink
+T:Microsoft.AspNet.WebHooks.BitbucketParent
+T:Microsoft.AspNet.WebHooks.BitbucketRepository
+T:Microsoft.AspNet.WebHooks.BitbucketTarget
+T:Microsoft.AspNet.WebHooks.BitbucketUser
+T:Microsoft.AspNet.WebHooks.BitbucketWebHookReceiver
+T:Microsoft.AspNet.WebHooks.CustomNotifications
+T:Microsoft.AspNet.WebHooks.CustomWebHookReceiver
+T:Microsoft.AspNet.WebHooks.DataflowWebHookSender
+T:Microsoft.AspNet.WebHooks.DbWebHookStore`2
+T:Microsoft.AspNet.WebHooks.DefaultWebHookIdValidator
+T:Microsoft.AspNet.WebHooks.DependencyScopeExtensions
+T:Microsoft.AspNet.WebHooks.DropboxWebHookReceiver
+T:Microsoft.AspNet.WebHooks.DynamicsCrmWebHookReceiver
+T:Microsoft.AspNet.WebHooks.EncodingUtilities
+T:Microsoft.AspNet.WebHooks.GenericJsonWebHookReceiver
+T:Microsoft.AspNet.WebHooks.GitHubWebHookReceiver
+T:Microsoft.AspNet.WebHooks.InstagramNotification
+T:Microsoft.AspNet.WebHooks.InstagramNotificationCollection
+T:Microsoft.AspNet.WebHooks.InstagramNotificationData
+T:Microsoft.AspNet.WebHooks.InstagramWebHookReceiver
+T:Microsoft.AspNet.WebHooks.IWebHookFilterManager
+T:Microsoft.AspNet.WebHooks.IWebHookFilterProvider
+T:Microsoft.AspNet.WebHooks.IWebHookHandler
+T:Microsoft.AspNet.WebHooks.IWebHookHandlerSorter
+T:Microsoft.AspNet.WebHooks.IWebHookIdValidator
+T:Microsoft.AspNet.WebHooks.IWebHookManager
+T:Microsoft.AspNet.WebHooks.IWebHookReceiver
+T:Microsoft.AspNet.WebHooks.IWebHookReceiverConfig
+T:Microsoft.AspNet.WebHooks.IWebHookReceiverManager
+T:Microsoft.AspNet.WebHooks.IWebHookRegistrar
+T:Microsoft.AspNet.WebHooks.IWebHookSender
+T:Microsoft.AspNet.WebHooks.IWebHookStore
+T:Microsoft.AspNet.WebHooks.IWebHookUser
+T:Microsoft.AspNet.WebHooks.KuduNotification
+T:Microsoft.AspNet.WebHooks.KuduWebHookReceiver
+T:Microsoft.AspNet.WebHooks.LogExtensions
+T:Microsoft.AspNet.WebHooks.MailChimpWebHookReceiver
+T:Microsoft.AspNet.WebHooks.MemoryWebHookStore
+T:Microsoft.AspNet.WebHooks.MyGetWebHookHandlerBase
+T:Microsoft.AspNet.WebHooks.MyGetWebHookReceiver
+T:Microsoft.AspNet.WebHooks.NotificationDictionary
+T:Microsoft.AspNet.WebHooks.PaypalWebHookReceiver
+T:Microsoft.AspNet.WebHooks.PusherNotifications
+T:Microsoft.AspNet.WebHooks.PusherWebHookReceiver
+T:Microsoft.AspNet.WebHooks.ReceiverServices
+T:Microsoft.AspNet.WebHooks.SalesforceNamespaces
+T:Microsoft.AspNet.WebHooks.SalesforceNotifications
+T:Microsoft.AspNet.WebHooks.SalesforceSoapWebHookReceiver
+T:Microsoft.AspNet.WebHooks.SlackAttachment
+T:Microsoft.AspNet.WebHooks.SlackCommand
+T:Microsoft.AspNet.WebHooks.SlackField
+T:Microsoft.AspNet.WebHooks.SlackResponse
+T:Microsoft.AspNet.WebHooks.SlackSlashResponse
+T:Microsoft.AspNet.WebHooks.SlackWebHookReceiver
+T:Microsoft.AspNet.WebHooks.SqlWebHookStore
+T:Microsoft.AspNet.WebHooks.StoreResult
+T:Microsoft.AspNet.WebHooks.StripeEvent
+T:Microsoft.AspNet.WebHooks.StripeEventData
+T:Microsoft.AspNet.WebHooks.StripeWebHookReceiver
+T:Microsoft.AspNet.WebHooks.TableResultExtensions
+T:Microsoft.AspNet.WebHooks.TrelloWebHookClient
+T:Microsoft.AspNet.WebHooks.TrelloWebHookReceiver
+T:Microsoft.AspNet.WebHooks.VstsWebHookHandlerBase
+T:Microsoft.AspNet.WebHooks.VstsWebHookReceiver
+T:Microsoft.AspNet.WebHooks.WebHook
+T:Microsoft.AspNet.WebHooks.WebHookAssemblyResolver
+T:Microsoft.AspNet.WebHooks.WebHookExtensions
+T:Microsoft.AspNet.WebHooks.WebHookFilter
+T:Microsoft.AspNet.WebHooks.WebHookFilterManager
+T:Microsoft.AspNet.WebHooks.WebHookHandler
+T:Microsoft.AspNet.WebHooks.WebHookHandlerContext
+T:Microsoft.AspNet.WebHooks.WebHookHandlerContextExtensions
+T:Microsoft.AspNet.WebHooks.WebHookHandlerSorter
+T:Microsoft.AspNet.WebHooks.WebHookManager
+T:Microsoft.AspNet.WebHooks.WebHookManagerExtensions
+T:Microsoft.AspNet.WebHooks.WebHookQueueContext
+T:Microsoft.AspNet.WebHooks.WebHookQueueHandler
+T:Microsoft.AspNet.WebHooks.WebHookReceiver
+T:Microsoft.AspNet.WebHooks.WebHookReceiverConfig
+T:Microsoft.AspNet.WebHooks.WebHookReceiverConfigExtensions
+T:Microsoft.AspNet.WebHooks.WebHookReceiverManager
+T:Microsoft.AspNet.WebHooks.WebHookRegistrar
+T:Microsoft.AspNet.WebHooks.WebHookSender
+T:Microsoft.AspNet.WebHooks.WebHookStore
+T:Microsoft.AspNet.WebHooks.WebHookStoreContext
+T:Microsoft.AspNet.WebHooks.WebHookUser
+T:Microsoft.AspNet.WebHooks.WebHookWorkItem
+T:Microsoft.AspNet.WebHooks.WildcardWebHookFilterProvider
+T:Microsoft.AspNet.WebHooks.WordPressWebHookReceiver
+T:Microsoft.AspNet.WebHooks.ZendeskDevice
+T:Microsoft.AspNet.WebHooks.ZendeskNotification
+T:Microsoft.AspNet.WebHooks.ZendeskPost
+T:Microsoft.AspNet.WebHooks.ZendeskWebHookReceiver
+T:Microsoft.AspNet.WebSockets.Client.Constants.Headers
+T:Microsoft.AspNet.WebSockets.Protocol.Constants.Headers
+T:Microsoft.AspNet.WebSockets.Protocol.Constants.OpCodes
+T:Microsoft.AspNet.WebSockets.Protocol.Utilities.Utf8MessageState
 T:Microsoft.Build.Debugging.DebuggerManager.IslandThread
 T:Microsoft.Build.Evaluation.ProjectCollection.ProjectAddedEventHandler
 T:Microsoft.Build.Evaluation.ProjectCollection.ProjectAddedToProjectCollectionEventArgs
+T:Microsoft.Build.Tasks.AL
+T:Microsoft.Build.Tasks.AppDomainIsolatedTaskExtension
+T:Microsoft.Build.Tasks.AspNetCompiler
+T:Microsoft.Build.Tasks.CreateTemporaryVCProject
+T:Microsoft.Build.Tasks.Csc
 T:Microsoft.Build.Tasks.Deployment.ManifestUtilities.AssemblyIdentity.FullNameFlags
+T:Microsoft.Build.Tasks.GenerateBootstrapper
+T:Microsoft.Build.Tasks.GenerateTrustInfo
+T:Microsoft.Build.Tasks.GetFrameworkSdkPath
+T:Microsoft.Build.Tasks.ManagedCompiler
+T:Microsoft.Build.Tasks.RegisterAssembly
+T:Microsoft.Build.Tasks.RequiresFramework35SP1Assembly
+T:Microsoft.Build.Tasks.ResolveNativeReference
+T:Microsoft.Build.Tasks.ResolveVCProjectOutput
+T:Microsoft.Build.Tasks.UnregisterAssembly
+T:Microsoft.Build.Tasks.UpdateManifest
+T:Microsoft.Build.Tasks.Vbc
+T:Microsoft.Build.Tasks.VCBuild
+T:Microsoft.Build.Tasks.WinMDExp
+T:Microsoft.Build.Utilities.CanonicalTrackedInputFiles
+T:Microsoft.Build.Utilities.CanonicalTrackedOutputFiles
+T:Microsoft.Build.Utilities.DependencyFilter
+T:Microsoft.Build.Utilities.ExecutableType
+T:Microsoft.Build.Utilities.FileTracker
+T:Microsoft.Build.Utilities.FlatTrackingData
+T:Microsoft.Build.Utilities.UpToDateCheckType
 T:Microsoft.CSharp.Compiler
 T:Microsoft.CSharp.CompilerError
 T:Microsoft.CSharp.ErrorLevel
+T:Microsoft.Data.Entity.FunctionalTests.MappingQueryTestBase.MappedCustomer
+T:Microsoft.Data.Entity.FunctionalTests.MappingQueryTestBase.MappedEmployee
+T:Microsoft.Data.Entity.FunctionalTests.MappingQueryTestBase.MappedOrder
+T:Microsoft.Data.Entity.FunctionalTests.MappingQueryTestBase.ShipVia
+T:Microsoft.Data.Entity.FunctionalTests.MigrationsFixtureBase.MigrationsContext
+T:Microsoft.Data.SqlClient.SqlClientPermission
+T:Microsoft.Data.SqlClient.SqlClientPermissionAttribute
+T:Microsoft.Data.SqlClient.SQLDebugging
+T:Microsoft.Data.Tools.Schema.Tasks.Sql.ClrApi.IMetadataImportPrivateComVisible
+T:Microsoft.Diagnostics.Tracing.DiagnosticCounter
+T:Microsoft.Diagnostics.Tracing.EventActivityOptions
+T:Microsoft.Diagnostics.Tracing.EventAttribute
+T:Microsoft.Diagnostics.Tracing.EventChannel
+T:Microsoft.Diagnostics.Tracing.EventCommand
+T:Microsoft.Diagnostics.Tracing.EventCommandEventArgs
+T:Microsoft.Diagnostics.Tracing.EventCounter
+T:Microsoft.Diagnostics.Tracing.EventDataAttribute
+T:Microsoft.Diagnostics.Tracing.EventFieldAttribute
+T:Microsoft.Diagnostics.Tracing.EventFieldFormat
+T:Microsoft.Diagnostics.Tracing.EventFieldTags
+T:Microsoft.Diagnostics.Tracing.EventIgnoreAttribute
+T:Microsoft.Diagnostics.Tracing.EventKeywords
+T:Microsoft.Diagnostics.Tracing.EventLevel
+T:Microsoft.Diagnostics.Tracing.EventListener
+T:Microsoft.Diagnostics.Tracing.EventManifestOptions
+T:Microsoft.Diagnostics.Tracing.EventOpcode
+T:Microsoft.Diagnostics.Tracing.EventSource
+T:Microsoft.Diagnostics.Tracing.EventSource.EventData
+T:Microsoft.Diagnostics.Tracing.EventSourceAttribute
+T:Microsoft.Diagnostics.Tracing.EventSourceCreatedEventArgs
+T:Microsoft.Diagnostics.Tracing.EventSourceException
+T:Microsoft.Diagnostics.Tracing.EventSourceOptions
+T:Microsoft.Diagnostics.Tracing.EventSourceSettings
+T:Microsoft.Diagnostics.Tracing.EventTags
+T:Microsoft.Diagnostics.Tracing.EventTask
+T:Microsoft.Diagnostics.Tracing.EventWrittenEventArgs
+T:Microsoft.Diagnostics.Tracing.IncrementingEventCounter
+T:Microsoft.Diagnostics.Tracing.IncrementingPollingCounter
+T:Microsoft.Diagnostics.Tracing.NonEventAttribute
+T:Microsoft.Diagnostics.Tracing.PollingCounter
+T:Microsoft.Diagnostics.Tracing.TraceLoggingEventTypes
+T:Microsoft.Extensions.Configuration.FileProviderExtensions
+T:Microsoft.Extensions.DependencyInjection.DataProtectionServices
+T:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions
+T:Microsoft.Extensions.WebEncoders.CodePointFilter
+T:Microsoft.Extensions.WebEncoders.EncoderExtensions
+T:Microsoft.Extensions.WebEncoders.EncoderServiceProviderExtensions
+T:Microsoft.Extensions.WebEncoders.HtmlEncoder
+T:Microsoft.Extensions.WebEncoders.ICodePointFilter
+T:Microsoft.Extensions.WebEncoders.IHtmlEncoder
+T:Microsoft.Extensions.WebEncoders.IJavaScriptStringEncoder
+T:Microsoft.Extensions.WebEncoders.IUrlEncoder
+T:Microsoft.Extensions.WebEncoders.JavaScriptStringEncoder
+T:Microsoft.Extensions.WebEncoders.UnicodeRange
+T:Microsoft.Extensions.WebEncoders.UnicodeRanges
+T:Microsoft.Extensions.WebEncoders.UrlEncoder
 T:Microsoft.IE.Manager.URL_CANONFLAGS
 T:Microsoft.IE.Manager.URL_IS
 T:Microsoft.IE.Manager.URL_PART
 T:Microsoft.IE.SecureFactory.WININET_CACHE_ENTRY
 T:Microsoft.JScript.Vsa.BaseVsaEngine.Pre
+T:Microsoft.ML.Probabilistic.Compiler.Visualizers.AttributeView
+T:Microsoft.ML.Probabilistic.Compiler.Visualizers.CodeElementInspectorView
+T:Microsoft.ML.Probabilistic.Compiler.Visualizers.CollapsedCodeView
+T:Microsoft.ML.Probabilistic.Compiler.Visualizers.ConsolidatingEventListener`1
+T:Microsoft.ML.Probabilistic.Compiler.Visualizers.DeclarationView
+T:Microsoft.ML.Probabilistic.Compiler.Visualizers.LineOfCodeView
+T:Microsoft.ML.Probabilistic.Compiler.Visualizers.SyntaxHighlighting
+T:Microsoft.ML.Probabilistic.Compiler.Visualizers.TransformChainView
+T:Microsoft.ML.Probabilistic.Compiler.Visualizers.TransformerView
+T:Microsoft.ML.Probabilistic.Compiler.Visualizers.WindowsVisualizer
+T:Microsoft.ML.Probabilistic.Compiler.Visualizers.WindowsVisualizer.FormHelper
+T:Microsoft.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter
+T:Microsoft.Runtime.CompilerServices.ConfiguredTaskAwaitable`1.ConfiguredTaskAwaiter
+T:Microsoft.Runtime.CompilerServices.YieldAwaitable.YieldAwaiter
+T:Microsoft.SqlServer.Management.Common.ConnectionManager.ExecuteTSqlAction
+T:Microsoft.SqlServer.Management.Common.SqlConnectionInfo.AuthenticationMethod
 T:Microsoft.SqlServer.Server.SqlContext
 T:Microsoft.SqlServer.Server.SqlPipe
 T:Microsoft.SqlServer.Server.SqlProcedureAttribute
 T:Microsoft.SqlServer.Server.SqlTriggerAttribute
 T:Microsoft.SqlServer.Server.SqlTriggerContext
 T:Microsoft.SqlServer.Server.TriggerAction
+T:Microsoft.VisualBasic.ApplicationServices.BuiltInRole
+T:Microsoft.VisualBasic.ApplicationServices.BuiltInRoleConverter
+T:Microsoft.VisualBasic.ApplicationServices.WebUser
 T:Microsoft.VisualBasic.AppWinStyle
 T:Microsoft.VisualBasic.AudioPlayMode
 T:Microsoft.VisualBasic.Collection
@@ -682,6 +897,7 @@ T:Microsoft.VisualBasic.Conversion
 T:Microsoft.VisualBasic.DateAndTime
 T:Microsoft.VisualBasic.DateFormat
 T:Microsoft.VisualBasic.DateInterval
+T:Microsoft.VisualBasic.Devices.Ports
 T:Microsoft.VisualBasic.DueDate
 T:Microsoft.VisualBasic.ErrObject
 T:Microsoft.VisualBasic.FileAttribute
@@ -692,6 +908,7 @@ T:Microsoft.VisualBasic.FirstWeekOfYear
 T:Microsoft.VisualBasic.Globals
 T:Microsoft.VisualBasic.Information
 T:Microsoft.VisualBasic.Interaction
+T:Microsoft.VisualBasic.Logging.AspLog
 T:Microsoft.VisualBasic.MsgBoxResult
 T:Microsoft.VisualBasic.MsgBoxStyle
 T:Microsoft.VisualBasic.MyGroupCollectionAttribute
@@ -707,6 +924,8 @@ T:Microsoft.VisualBasic.VBFixedStringAttribute
 T:Microsoft.VisualBasic.VBMath
 T:Microsoft.VisualBasic.VbStrConv
 T:Microsoft.Vsa.BaseVsaEngine.Pre
+T:Microsoft.Web.Helpers.Facebook.UserProfile
+T:Microsoft.Web.Helpers.Maps.MapLocation
 T:Microsoft.Win32.CommonDialog
 T:Microsoft.Win32.FileDialog
 T:Microsoft.Win32.FileDialogCustomPlace
@@ -714,6 +933,15 @@ T:Microsoft.Win32.FileDialogCustomPlaces
 T:Microsoft.Win32.IntranetZoneCredentialPolicy
 T:Microsoft.Win32.OpenFileDialog
 T:Microsoft.Win32.SaveFileDialog
+T:Newtonsoft.Json.Serialization.Action
+T:Newtonsoft.Json.Serialization.Action`2
+T:Newtonsoft.Json.Serialization.Action`3
+T:Newtonsoft.Json.Serialization.Action`4
+T:Newtonsoft.Json.Serialization.Func`1
+T:Newtonsoft.Json.Serialization.Func`2
+T:Newtonsoft.Json.Serialization.Func`3
+T:Newtonsoft.Json.Serialization.Func`4
+T:Newtonsoft.Json.Serialization.Func`5
 T:System._AppDomain
 T:System.ActivationContext
 T:System.ActivationContext.ContextForm
@@ -726,6 +954,7 @@ T:System.AppDomainManager
 T:System.AppDomainManagerInitializationOptions
 T:System.AppDomainSetup
 T:System.ArgIterator
+T:System.Collections.Generic.DictionaryExtensions
 T:System.Collections.Generic.SynchronizedKeyedCollection`2
 T:System.Collections.Generic.SynchronizedReadOnlyCollection`1
 T:System.Collections.Specialized.CollectionChangedEventManager
@@ -848,6 +1077,8 @@ T:System.Data.Common.EntityRecordInfo
 T:System.Data.Common.FieldMetadata
 T:System.Data.DataSetSchemaImporterExtension
 T:System.Data.Design.TypedDataSetGenerator.GenerateOption
+T:System.Data.Entity.Migrations.Design.ToolingException
+T:System.Data.Entity.Migrations.Design.ToolingFacade
 T:System.Data.EntityCommandCompilationException
 T:System.Data.EntityCommandExecutionException
 T:System.Data.EntityException
@@ -993,6 +1224,7 @@ T:System.Diagnostics.SymbolStore.SymVariableBase
 T:System.Diagnostics.SymbolStore.SymWriter
 T:System.Diagnostics.SymbolStore.SymWriterBase
 T:System.Diagnostics.TraceLogRetentionOption
+T:System.Diagnostics.TraceSourceExtensions
 T:System.Diagnostics.UnescapedXmlDiagnosticData
 T:System.Diagnostics.XmlWriterTraceListener
 T:System.DirectoryServices.DirectoryServicesPermission
@@ -1240,6 +1472,12 @@ T:System.IO.PipeException
 T:System.Net.Configuration.ProxyElement.AutoDetectValues
 T:System.Net.Configuration.ProxyElement.BypassOnLocalValues
 T:System.Net.Configuration.ProxyElement.UseSystemDefaultValues
+T:System.Net.DnsEx
+T:System.Net.Http.Formatting.UriPathExtensionMapping
+T:System.Net.Http.HttpClientHandlerExtensions
+T:System.Net.Http.HttpResponseMessageExtensions
+T:System.Net.Http.ODataHttpRequestMessageExtensions
+T:System.Net.Http.OwinHttpRequestMessageExtensions
 T:System.Net.Http.WebRequestHandler
 T:System.Net.ICertificatePolicy
 T:System.Net.INetworkProgress
@@ -1422,8 +1660,27 @@ T:System.Runtime.InteropServices.WindowsRuntime.DesignerNamespaceResolveEventArg
 T:System.Runtime.InteropServices.WindowsRuntime.NamespaceResolveEventArgs
 T:System.Runtime.InteropServices.WindowsRuntime.WindowsRuntimeMetadata
 T:System.Runtime.ProfileOptimization
+T:System.Runtime.Remoting.ActivatedClientTypeEntry
+T:System.Runtime.Remoting.ActivatedServiceTypeEntry
 T:System.Runtime.Remoting.Channels.BinaryServerFormatterSink.Protocol
 T:System.Runtime.Remoting.Channels.SoapServerFormatterSink.Protocol
+T:System.Runtime.Remoting.CustomErrorsModes
+T:System.Runtime.Remoting.IChannelInfo
+T:System.Runtime.Remoting.IEnvoyInfo
+T:System.Runtime.Remoting.InternalRemotingServices
+T:System.Runtime.Remoting.IObjectHandle
+T:System.Runtime.Remoting.IRemotingTypeInfo
+T:System.Runtime.Remoting.ObjRef
+T:System.Runtime.Remoting.RemotingConfiguration
+T:System.Runtime.Remoting.RemotingException
+T:System.Runtime.Remoting.RemotingServices
+T:System.Runtime.Remoting.RemotingTimeoutException
+T:System.Runtime.Remoting.ServerException
+T:System.Runtime.Remoting.SoapServices
+T:System.Runtime.Remoting.TypeEntry
+T:System.Runtime.Remoting.WellKnownClientTypeEntry
+T:System.Runtime.Remoting.WellKnownObjectMode
+T:System.Runtime.Remoting.WellKnownServiceTypeEntry
 T:System.Runtime.Serialization.Formatters.InternalRM
 T:System.Runtime.Serialization.Formatters.InternalST
 T:System.Runtime.Serialization.Formatters.ISoapMessage
@@ -1901,6 +2158,9 @@ T:System.ServiceModel.XPathMessageQuery
 T:System.ServiceProcess.ServiceAccount
 T:System.ServiceProcess.ServiceInstaller
 T:System.ServiceProcess.ServiceProcessInstaller
+T:System.StringExtensions
+T:System.Threading.Tasks.TaskEx
+T:System.UriExtensions
 T:System.UriTemplate
 T:System.UriTemplateEquivalenceComparer
 T:System.UriTemplateMatch
@@ -1916,6 +2176,58 @@ T:System.Web.EndEventHandler
 T:System.Web.EventHandlerTaskAsyncHelper
 T:System.Web.Hosting.RecycleLimitMonitor.RecycleLimitMonitorSingleton
 T:System.Web.HtmlString
+T:System.Web.Http.AcceptVerbsAttribute
+T:System.Web.Http.ActionNameAttribute
+T:System.Web.Http.AllowAnonymousAttribute
+T:System.Web.Http.ApiControllerExtensions
+T:System.Web.Http.AuthorizeAttribute
+T:System.Web.Http.CorsHttpConfigurationExtensions
+T:System.Web.Http.FromBodyAttribute
+T:System.Web.Http.GlobalConfiguration
+T:System.Web.Http.HostAuthenticationAttribute
+T:System.Web.Http.HostAuthenticationFilter
+T:System.Web.Http.HttpBindNeverAttribute
+T:System.Web.Http.HttpBindRequiredAttribute
+T:System.Web.Http.HttpConfiguration
+T:System.Web.Http.HttpConfigurationExtensions
+T:System.Web.Http.HttpConfigurationTracingExtensions
+T:System.Web.Http.HttpDeleteAttribute
+T:System.Web.Http.HttpGetAttribute
+T:System.Web.Http.HttpHeadAttribute
+T:System.Web.Http.HttpOptionsAttribute
+T:System.Web.Http.HttpPatchAttribute
+T:System.Web.Http.HttpPostAttribute
+T:System.Web.Http.HttpPutAttribute
+T:System.Web.Http.HttpRequestMessageCommonExtensions
+T:System.Web.Http.HttpRouteCollection
+T:System.Web.Http.HttpRouteCollectionExtensions
+T:System.Web.Http.HttpServer
+T:System.Web.Http.HubController
+T:System.Web.Http.HubController`1
+T:System.Web.Http.HubControllerBase
+T:System.Web.Http.IHttpActionResult
+T:System.Web.Http.IncludeErrorDetailPolicy
+T:System.Web.Http.NonActionAttribute
+T:System.Web.Http.ODataHttpConfigurationExtensions
+T:System.Web.Http.ODataHttpErrorExtensions
+T:System.Web.Http.ODataHttpRouteCollectionExtensions
+T:System.Web.Http.ODataMediaTypeFormatterCollectionExtensions
+T:System.Web.Http.ODataUrlHelperExtensions
+T:System.Web.Http.OverrideActionFiltersAttribute
+T:System.Web.Http.OverrideAuthenticationAttribute
+T:System.Web.Http.OverrideAuthorizationAttribute
+T:System.Web.Http.OverrideExceptionFiltersAttribute
+T:System.Web.Http.OwinHttpConfigurationExtensions
+T:System.Web.Http.ParameterBindingAttribute
+T:System.Web.Http.QueryableAttribute
+T:System.Web.Http.RouteAttribute
+T:System.Web.Http.RouteCollectionExtensions
+T:System.Web.Http.RouteParameter
+T:System.Web.Http.RoutePrefixAttribute
+T:System.Web.Http.ServicesExtensions
+T:System.Web.Http.SingleResult
+T:System.Web.Http.SingleResult`1
+T:System.Web.Http.TrelloWebHookClientExtensions
 T:System.Web.HttpApplication
 T:System.Web.HttpApplicationState
 T:System.Web.HttpApplicationStateBase
@@ -1989,369 +2301,15 @@ T:System.Web.ProcessInfo
 T:System.Web.ProcessModelInfo
 T:System.Web.ProcessShutdownReason
 T:System.Web.ProcessStatus
-T:System.Web.ReadEntityBodyMode
-T:System.Web.RequestNotification
-T:System.Web.RequestNotificationStatus
-T:System.Web.SameSiteMode
-T:System.Web.Services.Discovery.DiscoveryClientProtocol.DiscoveryClientResultsFile
-T:System.Web.SiteMap
-T:System.Web.SiteMapNode
-T:System.Web.SiteMapNodeCollection
-T:System.Web.SiteMapProvider
-T:System.Web.SiteMapProviderCollection
-T:System.Web.SiteMapResolveEventArgs
-T:System.Web.SiteMapResolveEventHandler
-T:System.Web.StaticSiteMapProvider
-T:System.Web.TaskEventHandler
-T:System.Web.TraceContext
-T:System.Web.TraceContextEventArgs
-T:System.Web.TraceContextEventHandler
-T:System.Web.TraceContextRecord
-T:System.Web.TraceMode
-T:System.Web.UI.HtmlControls.HtmlTable.HtmlTableRowControlCollection
-T:System.Web.UI.HtmlControls.HtmlTableRow.HtmlTableCellControlCollection
-T:System.Web.UI.MobileControls.Adapters.WmlMobileTextWriter.WmlFormat
-T:System.Web.UI.MobileControls.Adapters.WmlMobileTextWriter.WmlLayout
-T:System.Web.UI.MobileControls.ShippedAdapterSource.WmlMobileTextWriter.WmlFormat
-T:System.Web.UI.MobileControls.ShippedAdapterSource.WmlMobileTextWriter.WmlLayout
-T:System.Web.UI.WebControls.Table.RowControlCollection
-T:System.Web.UI.WebControls.TableRow.CellControlCollection
-T:System.Web.UnvalidatedRequestValues
-T:System.Web.UnvalidatedRequestValuesBase
-T:System.Web.UnvalidatedRequestValuesWrapper
-T:System.Web.VirtualPathUtility
-T:System.Web.WebPageTraceListener
-T:System.Web.XmlSiteMapProvider
-T:System.Workflow.Runtime.Hosting.WorkflowCommitWorkBatchService.CommitWorkBatchCallback
-T:System.Xml.IXmlMtomReaderInitializer
-T:System.Xml.IXmlMtomWriterInitializer
-T:System.Xml.Serialization.CodeExporter
-T:System.Xml.Serialization.Configuration.DateTimeSerializationSection.DateTimeSerializationMode
-T:System.Xml.Serialization.SoapCodeExporter
-T:System.Xml.Serialization.SoapSchemaExporter
-T:System.Xml.Serialization.SoapSchemaImporter
-T:System.Xml.Serialization.XmlCodeExporter
-T:System.Xml.XmlDataDocument
-T:System.Xml.XmlXapResolver
-T:tagPROPVARIANT
-T:tagVARIANT
-T:AsyncExtensions
-T:AsyncPlatformExtensions
-T:AwaitExtensions
-T:Microsoft.AspNet.Mvc.ModelBinding.ModelStateDictionary.PrefixEnumerable
-T:Microsoft.AspNet.Mvc.ModelBinding.ModelStateDictionary.PrefixEnumerator
-T:Microsoft.AspNet.Mvc.ViewFeatures.AttributeDictionary.Enumerator
-T:Microsoft.AspNet.SignalR.Client.Http.HttpWebRequestWrapper
-T:Microsoft.AspNet.SignalR.Client.Http.HttpWebResponseWrapper
-T:Microsoft.AspNet.SignalR.WebSockets.DefaultWebSocketHandler
-T:Microsoft.AspNet.WebHooks.AzureAlertCondition
-T:Microsoft.AspNet.WebHooks.AzureAlertContext
-T:Microsoft.AspNet.WebHooks.AzureAlertNotification
-T:Microsoft.AspNet.WebHooks.AzureAlertWebHookReceiver
-T:Microsoft.AspNet.WebHooks.AzureWebHookDequeueManager
-T:Microsoft.AspNet.WebHooks.AzureWebHookSender
-T:Microsoft.AspNet.WebHooks.AzureWebHookStore
-T:Microsoft.AspNet.WebHooks.BitbucketAuthor
-T:Microsoft.AspNet.WebHooks.BitbucketLink
-T:Microsoft.AspNet.WebHooks.BitbucketParent
-T:Microsoft.AspNet.WebHooks.BitbucketRepository
-T:Microsoft.AspNet.WebHooks.BitbucketTarget
-T:Microsoft.AspNet.WebHooks.BitbucketUser
-T:Microsoft.AspNet.WebHooks.BitbucketWebHookReceiver
-T:Microsoft.AspNet.WebHooks.CustomNotifications
-T:Microsoft.AspNet.WebHooks.CustomWebHookReceiver
-T:Microsoft.AspNet.WebHooks.DataflowWebHookSender
-T:Microsoft.AspNet.WebHooks.DbWebHookStore`2
-T:Microsoft.AspNet.WebHooks.DefaultWebHookIdValidator
-T:Microsoft.AspNet.WebHooks.DependencyScopeExtensions
-T:Microsoft.AspNet.WebHooks.DropboxWebHookReceiver
-T:Microsoft.AspNet.WebHooks.DynamicsCrmWebHookReceiver
-T:Microsoft.AspNet.WebHooks.EncodingUtilities
-T:Microsoft.AspNet.WebHooks.GenericJsonWebHookReceiver
-T:Microsoft.AspNet.WebHooks.GitHubWebHookReceiver
-T:Microsoft.AspNet.WebHooks.InstagramNotification
-T:Microsoft.AspNet.WebHooks.InstagramNotificationCollection
-T:Microsoft.AspNet.WebHooks.InstagramNotificationData
-T:Microsoft.AspNet.WebHooks.InstagramWebHookReceiver
-T:Microsoft.AspNet.WebHooks.IWebHookFilterManager
-T:Microsoft.AspNet.WebHooks.IWebHookFilterProvider
-T:Microsoft.AspNet.WebHooks.IWebHookHandler
-T:Microsoft.AspNet.WebHooks.IWebHookHandlerSorter
-T:Microsoft.AspNet.WebHooks.IWebHookIdValidator
-T:Microsoft.AspNet.WebHooks.IWebHookManager
-T:Microsoft.AspNet.WebHooks.IWebHookReceiver
-T:Microsoft.AspNet.WebHooks.IWebHookReceiverConfig
-T:Microsoft.AspNet.WebHooks.IWebHookReceiverManager
-T:Microsoft.AspNet.WebHooks.IWebHookRegistrar
-T:Microsoft.AspNet.WebHooks.IWebHookSender
-T:Microsoft.AspNet.WebHooks.IWebHookStore
-T:Microsoft.AspNet.WebHooks.IWebHookUser
-T:Microsoft.AspNet.WebHooks.KuduNotification
-T:Microsoft.AspNet.WebHooks.KuduWebHookReceiver
-T:Microsoft.AspNet.WebHooks.LogExtensions
-T:Microsoft.AspNet.WebHooks.MailChimpWebHookReceiver
-T:Microsoft.AspNet.WebHooks.MemoryWebHookStore
-T:Microsoft.AspNet.WebHooks.MyGetWebHookHandlerBase
-T:Microsoft.AspNet.WebHooks.MyGetWebHookReceiver
-T:Microsoft.AspNet.WebHooks.NotificationDictionary
-T:Microsoft.AspNet.WebHooks.PaypalWebHookReceiver
-T:Microsoft.AspNet.WebHooks.PusherNotifications
-T:Microsoft.AspNet.WebHooks.PusherWebHookReceiver
-T:Microsoft.AspNet.WebHooks.ReceiverServices
-T:Microsoft.AspNet.WebHooks.SalesforceNamespaces
-T:Microsoft.AspNet.WebHooks.SalesforceNotifications
-T:Microsoft.AspNet.WebHooks.SalesforceSoapWebHookReceiver
-T:Microsoft.AspNet.WebHooks.SlackAttachment
-T:Microsoft.AspNet.WebHooks.SlackCommand
-T:Microsoft.AspNet.WebHooks.SlackField
-T:Microsoft.AspNet.WebHooks.SlackResponse
-T:Microsoft.AspNet.WebHooks.SlackSlashResponse
-T:Microsoft.AspNet.WebHooks.SlackWebHookReceiver
-T:Microsoft.AspNet.WebHooks.SqlWebHookStore
-T:Microsoft.AspNet.WebHooks.StoreResult
-T:Microsoft.AspNet.WebHooks.StripeEvent
-T:Microsoft.AspNet.WebHooks.StripeEventData
-T:Microsoft.AspNet.WebHooks.StripeWebHookReceiver
-T:Microsoft.AspNet.WebHooks.TableResultExtensions
-T:Microsoft.AspNet.WebHooks.TrelloWebHookClient
-T:Microsoft.AspNet.WebHooks.TrelloWebHookReceiver
-T:Microsoft.AspNet.WebHooks.VstsWebHookHandlerBase
-T:Microsoft.AspNet.WebHooks.VstsWebHookReceiver
-T:Microsoft.AspNet.WebHooks.WebHook
-T:Microsoft.AspNet.WebHooks.WebHookAssemblyResolver
-T:Microsoft.AspNet.WebHooks.WebHookExtensions
-T:Microsoft.AspNet.WebHooks.WebHookFilter
-T:Microsoft.AspNet.WebHooks.WebHookFilterManager
-T:Microsoft.AspNet.WebHooks.WebHookHandler
-T:Microsoft.AspNet.WebHooks.WebHookHandlerContext
-T:Microsoft.AspNet.WebHooks.WebHookHandlerContextExtensions
-T:Microsoft.AspNet.WebHooks.WebHookHandlerSorter
-T:Microsoft.AspNet.WebHooks.WebHookManager
-T:Microsoft.AspNet.WebHooks.WebHookManagerExtensions
-T:Microsoft.AspNet.WebHooks.WebHookQueueContext
-T:Microsoft.AspNet.WebHooks.WebHookQueueHandler
-T:Microsoft.AspNet.WebHooks.WebHookReceiver
-T:Microsoft.AspNet.WebHooks.WebHookReceiverConfig
-T:Microsoft.AspNet.WebHooks.WebHookReceiverConfigExtensions
-T:Microsoft.AspNet.WebHooks.WebHookReceiverManager
-T:Microsoft.AspNet.WebHooks.WebHookRegistrar
-T:Microsoft.AspNet.WebHooks.WebHookSender
-T:Microsoft.AspNet.WebHooks.WebHookStore
-T:Microsoft.AspNet.WebHooks.WebHookStoreContext
-T:Microsoft.AspNet.WebHooks.WebHookUser
-T:Microsoft.AspNet.WebHooks.WebHookWorkItem
-T:Microsoft.AspNet.WebHooks.WildcardWebHookFilterProvider
-T:Microsoft.AspNet.WebHooks.WordPressWebHookReceiver
-T:Microsoft.AspNet.WebHooks.ZendeskDevice
-T:Microsoft.AspNet.WebHooks.ZendeskNotification
-T:Microsoft.AspNet.WebHooks.ZendeskPost
-T:Microsoft.AspNet.WebHooks.ZendeskWebHookReceiver
-T:Microsoft.AspNet.WebSockets.Client.Constants.Headers
-T:Microsoft.AspNet.WebSockets.Protocol.Constants.Headers
-T:Microsoft.AspNet.WebSockets.Protocol.Constants.OpCodes
-T:Microsoft.AspNet.WebSockets.Protocol.Utilities.Utf8MessageState
-T:Microsoft.Build.Tasks.AL
-T:Microsoft.Build.Tasks.AppDomainIsolatedTaskExtension
-T:Microsoft.Build.Tasks.AspNetCompiler
-T:Microsoft.Build.Tasks.CreateTemporaryVCProject
-T:Microsoft.Build.Tasks.Csc
-T:Microsoft.Build.Tasks.GenerateBootstrapper
-T:Microsoft.Build.Tasks.GenerateTrustInfo
-T:Microsoft.Build.Tasks.GetFrameworkSdkPath
-T:Microsoft.Build.Tasks.ManagedCompiler
-T:Microsoft.Build.Tasks.RegisterAssembly
-T:Microsoft.Build.Tasks.RequiresFramework35SP1Assembly
-T:Microsoft.Build.Tasks.ResolveNativeReference
-T:Microsoft.Build.Tasks.ResolveVCProjectOutput
-T:Microsoft.Build.Tasks.UnregisterAssembly
-T:Microsoft.Build.Tasks.UpdateManifest
-T:Microsoft.Build.Tasks.Vbc
-T:Microsoft.Build.Tasks.VCBuild
-T:Microsoft.Build.Tasks.WinMDExp
-T:Microsoft.Build.Utilities.CanonicalTrackedInputFiles
-T:Microsoft.Build.Utilities.CanonicalTrackedOutputFiles
-T:Microsoft.Build.Utilities.DependencyFilter
-T:Microsoft.Build.Utilities.ExecutableType
-T:Microsoft.Build.Utilities.FileTracker
-T:Microsoft.Build.Utilities.FlatTrackingData
-T:Microsoft.Build.Utilities.UpToDateCheckType
-T:Microsoft.Data.Entity.FunctionalTests.MappingQueryTestBase.MappedCustomer
-T:Microsoft.Data.Entity.FunctionalTests.MappingQueryTestBase.MappedEmployee
-T:Microsoft.Data.Entity.FunctionalTests.MappingQueryTestBase.MappedOrder
-T:Microsoft.Data.Entity.FunctionalTests.MappingQueryTestBase.ShipVia
-T:Microsoft.Data.Entity.FunctionalTests.MigrationsFixtureBase.MigrationsContext
-T:Microsoft.Data.SqlClient.SqlClientPermission
-T:Microsoft.Data.SqlClient.SqlClientPermissionAttribute
-T:Microsoft.Data.SqlClient.SQLDebugging
-T:Microsoft.Data.Tools.Schema.Tasks.Sql.ClrApi.IMetadataImportPrivateComVisible
-T:Microsoft.Diagnostics.Tracing.DiagnosticCounter
-T:Microsoft.Diagnostics.Tracing.EventActivityOptions
-T:Microsoft.Diagnostics.Tracing.EventAttribute
-T:Microsoft.Diagnostics.Tracing.EventChannel
-T:Microsoft.Diagnostics.Tracing.EventCommand
-T:Microsoft.Diagnostics.Tracing.EventCommandEventArgs
-T:Microsoft.Diagnostics.Tracing.EventCounter
-T:Microsoft.Diagnostics.Tracing.EventDataAttribute
-T:Microsoft.Diagnostics.Tracing.EventFieldAttribute
-T:Microsoft.Diagnostics.Tracing.EventFieldFormat
-T:Microsoft.Diagnostics.Tracing.EventFieldTags
-T:Microsoft.Diagnostics.Tracing.EventIgnoreAttribute
-T:Microsoft.Diagnostics.Tracing.EventKeywords
-T:Microsoft.Diagnostics.Tracing.EventLevel
-T:Microsoft.Diagnostics.Tracing.EventListener
-T:Microsoft.Diagnostics.Tracing.EventManifestOptions
-T:Microsoft.Diagnostics.Tracing.EventOpcode
-T:Microsoft.Diagnostics.Tracing.EventSource
-T:Microsoft.Diagnostics.Tracing.EventSource.EventData
-T:Microsoft.Diagnostics.Tracing.EventSourceAttribute
-T:Microsoft.Diagnostics.Tracing.EventSourceCreatedEventArgs
-T:Microsoft.Diagnostics.Tracing.EventSourceException
-T:Microsoft.Diagnostics.Tracing.EventSourceOptions
-T:Microsoft.Diagnostics.Tracing.EventSourceSettings
-T:Microsoft.Diagnostics.Tracing.EventTags
-T:Microsoft.Diagnostics.Tracing.EventTask
-T:Microsoft.Diagnostics.Tracing.EventWrittenEventArgs
-T:Microsoft.Diagnostics.Tracing.IncrementingEventCounter
-T:Microsoft.Diagnostics.Tracing.IncrementingPollingCounter
-T:Microsoft.Diagnostics.Tracing.NonEventAttribute
-T:Microsoft.Diagnostics.Tracing.PollingCounter
-T:Microsoft.Diagnostics.Tracing.TraceLoggingEventTypes
-T:Microsoft.Extensions.Configuration.FileProviderExtensions
-T:Microsoft.Extensions.DependencyInjection.DataProtectionServices
-T:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions
-T:Microsoft.Extensions.WebEncoders.CodePointFilter
-T:Microsoft.Extensions.WebEncoders.EncoderExtensions
-T:Microsoft.Extensions.WebEncoders.EncoderServiceProviderExtensions
-T:Microsoft.Extensions.WebEncoders.HtmlEncoder
-T:Microsoft.Extensions.WebEncoders.ICodePointFilter
-T:Microsoft.Extensions.WebEncoders.IHtmlEncoder
-T:Microsoft.Extensions.WebEncoders.IJavaScriptStringEncoder
-T:Microsoft.Extensions.WebEncoders.IUrlEncoder
-T:Microsoft.Extensions.WebEncoders.JavaScriptStringEncoder
-T:Microsoft.Extensions.WebEncoders.UnicodeRange
-T:Microsoft.Extensions.WebEncoders.UnicodeRanges
-T:Microsoft.Extensions.WebEncoders.UrlEncoder
-T:Microsoft.ML.Probabilistic.Compiler.Visualizers.AttributeView
-T:Microsoft.ML.Probabilistic.Compiler.Visualizers.CodeElementInspectorView
-T:Microsoft.ML.Probabilistic.Compiler.Visualizers.CollapsedCodeView
-T:Microsoft.ML.Probabilistic.Compiler.Visualizers.ConsolidatingEventListener`1
-T:Microsoft.ML.Probabilistic.Compiler.Visualizers.DeclarationView
-T:Microsoft.ML.Probabilistic.Compiler.Visualizers.LineOfCodeView
-T:Microsoft.ML.Probabilistic.Compiler.Visualizers.SyntaxHighlighting
-T:Microsoft.ML.Probabilistic.Compiler.Visualizers.TransformChainView
-T:Microsoft.ML.Probabilistic.Compiler.Visualizers.TransformerView
-T:Microsoft.ML.Probabilistic.Compiler.Visualizers.WindowsVisualizer
-T:Microsoft.ML.Probabilistic.Compiler.Visualizers.WindowsVisualizer.FormHelper
-T:Microsoft.Runtime.CompilerServices.ConfiguredTaskAwaitable.ConfiguredTaskAwaiter
-T:Microsoft.Runtime.CompilerServices.ConfiguredTaskAwaitable`1.ConfiguredTaskAwaiter
-T:Microsoft.Runtime.CompilerServices.YieldAwaitable.YieldAwaiter
-T:Microsoft.SqlServer.Management.Common.ConnectionManager.ExecuteTSqlAction
-T:Microsoft.SqlServer.Management.Common.SqlConnectionInfo.AuthenticationMethod
-T:Microsoft.VisualBasic.ApplicationServices.BuiltInRole
-T:Microsoft.VisualBasic.ApplicationServices.BuiltInRoleConverter
-T:Microsoft.VisualBasic.ApplicationServices.WebUser
-T:Microsoft.VisualBasic.Devices.Ports
-T:Microsoft.VisualBasic.Logging.AspLog
-T:Microsoft.Web.Helpers.Facebook.UserProfile
-T:Microsoft.Web.Helpers.Maps.MapLocation
-T:Newtonsoft.Json.Serialization.Action
-T:Newtonsoft.Json.Serialization.Action`2
-T:Newtonsoft.Json.Serialization.Action`3
-T:Newtonsoft.Json.Serialization.Action`4
-T:Newtonsoft.Json.Serialization.Func`1
-T:Newtonsoft.Json.Serialization.Func`2
-T:Newtonsoft.Json.Serialization.Func`3
-T:Newtonsoft.Json.Serialization.Func`4
-T:Newtonsoft.Json.Serialization.Func`5
-T:System.Collections.Generic.DictionaryExtensions
-T:System.Data.Entity.Migrations.Design.ToolingException
-T:System.Data.Entity.Migrations.Design.ToolingFacade
-T:System.Diagnostics.TraceSourceExtensions
-T:System.Net.DnsEx
-T:System.Net.Http.Formatting.UriPathExtensionMapping
-T:System.Net.Http.HttpClientHandlerExtensions
-T:System.Net.Http.HttpResponseMessageExtensions
-T:System.Net.Http.ODataHttpRequestMessageExtensions
-T:System.Net.Http.OwinHttpRequestMessageExtensions
-T:System.Runtime.Remoting.ActivatedClientTypeEntry
-T:System.Runtime.Remoting.ActivatedServiceTypeEntry
-T:System.Runtime.Remoting.CustomErrorsModes
-T:System.Runtime.Remoting.IChannelInfo
-T:System.Runtime.Remoting.IEnvoyInfo
-T:System.Runtime.Remoting.InternalRemotingServices
-T:System.Runtime.Remoting.IObjectHandle
-T:System.Runtime.Remoting.IRemotingTypeInfo
-T:System.Runtime.Remoting.ObjRef
-T:System.Runtime.Remoting.RemotingConfiguration
-T:System.Runtime.Remoting.RemotingException
-T:System.Runtime.Remoting.RemotingServices
-T:System.Runtime.Remoting.RemotingTimeoutException
-T:System.Runtime.Remoting.ServerException
-T:System.Runtime.Remoting.SoapServices
-T:System.Runtime.Remoting.TypeEntry
-T:System.Runtime.Remoting.WellKnownClientTypeEntry
-T:System.Runtime.Remoting.WellKnownObjectMode
-T:System.Runtime.Remoting.WellKnownServiceTypeEntry
-T:System.StringExtensions
-T:System.Threading.Tasks.TaskEx
-T:System.UriExtensions
-T:System.Web.Http.AcceptVerbsAttribute
-T:System.Web.Http.ActionNameAttribute
-T:System.Web.Http.AllowAnonymousAttribute
-T:System.Web.Http.ApiControllerExtensions
-T:System.Web.Http.AuthorizeAttribute
-T:System.Web.Http.CorsHttpConfigurationExtensions
-T:System.Web.Http.FromBodyAttribute
-T:System.Web.Http.GlobalConfiguration
-T:System.Web.Http.HostAuthenticationAttribute
-T:System.Web.Http.HostAuthenticationFilter
-T:System.Web.Http.HttpBindNeverAttribute
-T:System.Web.Http.HttpBindRequiredAttribute
-T:System.Web.Http.HttpConfiguration
-T:System.Web.Http.HttpConfigurationExtensions
-T:System.Web.Http.HttpConfigurationTracingExtensions
-T:System.Web.Http.HttpDeleteAttribute
-T:System.Web.Http.HttpGetAttribute
-T:System.Web.Http.HttpHeadAttribute
-T:System.Web.Http.HttpOptionsAttribute
-T:System.Web.Http.HttpPatchAttribute
-T:System.Web.Http.HttpPostAttribute
-T:System.Web.Http.HttpPutAttribute
-T:System.Web.Http.HttpRequestMessageCommonExtensions
-T:System.Web.Http.HttpRouteCollection
-T:System.Web.Http.HttpRouteCollectionExtensions
-T:System.Web.Http.HttpServer
-T:System.Web.Http.HubController
-T:System.Web.Http.HubController`1
-T:System.Web.Http.HubControllerBase
-T:System.Web.Http.IHttpActionResult
-T:System.Web.Http.IncludeErrorDetailPolicy
-T:System.Web.Http.NonActionAttribute
-T:System.Web.Http.ODataHttpConfigurationExtensions
-T:System.Web.Http.ODataHttpErrorExtensions
-T:System.Web.Http.ODataHttpRouteCollectionExtensions
-T:System.Web.Http.ODataMediaTypeFormatterCollectionExtensions
-T:System.Web.Http.ODataUrlHelperExtensions
-T:System.Web.Http.OverrideActionFiltersAttribute
-T:System.Web.Http.OverrideAuthenticationAttribute
-T:System.Web.Http.OverrideAuthorizationAttribute
-T:System.Web.Http.OverrideExceptionFiltersAttribute
-T:System.Web.Http.OwinHttpConfigurationExtensions
-T:System.Web.Http.ParameterBindingAttribute
-T:System.Web.Http.QueryableAttribute
-T:System.Web.Http.RouteAttribute
-T:System.Web.Http.RouteCollectionExtensions
-T:System.Web.Http.RouteParameter
-T:System.Web.Http.RoutePrefixAttribute
-T:System.Web.Http.ServicesExtensions
-T:System.Web.Http.SingleResult
-T:System.Web.Http.SingleResult`1
-T:System.Web.Http.TrelloWebHookClientExtensions
 T:System.Web.Razor.Parser.CSharpCodeParser.Block
 T:System.Web.Razor.Parser.SyntaxConstants.CSharp
 T:System.Web.Razor.Parser.SyntaxConstants.VB
 T:System.Web.Razor.StateMachine`1.State
 T:System.Web.Razor.StateMachine`1.StateResult
+T:System.Web.ReadEntityBodyMode
+T:System.Web.RequestNotification
+T:System.Web.RequestNotificationStatus
+T:System.Web.SameSiteMode
 T:System.Web.Services.Configuration.DiagnosticsElement
 T:System.Web.Services.Configuration.PriorityGroup
 T:System.Web.Services.Configuration.ProtocolElement
@@ -2383,14 +2341,72 @@ T:System.Web.Services.Description.WebReference
 T:System.Web.Services.Description.WebReferenceCollection
 T:System.Web.Services.Description.WebReferenceOptions
 T:System.Web.Services.Description.WebServicesInteroperability
+T:System.Web.Services.Discovery.DiscoveryClientProtocol.DiscoveryClientResultsFile
 T:System.Web.Services.WebMethodAttribute
 T:System.Web.Services.WebService
 T:System.Web.Services.WebServiceAttribute
 T:System.Web.Services.WebServiceBindingAttribute
+T:System.Web.SiteMap
+T:System.Web.SiteMapNode
+T:System.Web.SiteMapNodeCollection
+T:System.Web.SiteMapProvider
+T:System.Web.SiteMapProviderCollection
+T:System.Web.SiteMapResolveEventArgs
+T:System.Web.SiteMapResolveEventHandler
+T:System.Web.StaticSiteMapProvider
+T:System.Web.TaskEventHandler
+T:System.Web.TraceContext
+T:System.Web.TraceContextEventArgs
+T:System.Web.TraceContextEventHandler
+T:System.Web.TraceContextRecord
+T:System.Web.TraceMode
+T:System.Web.UI.HtmlControls.HtmlTable.HtmlTableRowControlCollection
+T:System.Web.UI.HtmlControls.HtmlTableRow.HtmlTableCellControlCollection
+T:System.Web.UI.MobileControls.Adapters.WmlMobileTextWriter.WmlFormat
+T:System.Web.UI.MobileControls.Adapters.WmlMobileTextWriter.WmlLayout
+T:System.Web.UI.MobileControls.ShippedAdapterSource.WmlMobileTextWriter.WmlFormat
+T:System.Web.UI.MobileControls.ShippedAdapterSource.WmlMobileTextWriter.WmlLayout
+T:System.Web.UI.WebControls.Table.RowControlCollection
+T:System.Web.UI.WebControls.TableRow.CellControlCollection
+T:System.Web.UnvalidatedRequestValues
+T:System.Web.UnvalidatedRequestValuesBase
+T:System.Web.UnvalidatedRequestValuesWrapper
+T:System.Web.VirtualPathUtility
+T:System.Web.WebPageTraceListener
+T:System.Web.XmlSiteMapProvider
 T:System.Windows.Forms.Design.AxParameterData
 T:System.Windows.Forms.Design.AxWrapperGen
 T:System.Windows.Interop.DocObjHost
 T:System.Windows.ReachCompatibilityPreferences
+T:System.Workflow.Runtime.Hosting.WorkflowCommitWorkBatchService.CommitWorkBatchCallback
+T:System.Xml.IXmlMtomReaderInitializer
+T:System.Xml.IXmlMtomWriterInitializer
+T:System.Xml.Serialization.CodeExporter
+T:System.Xml.Serialization.Configuration.DateTimeSerializationSection.DateTimeSerializationMode
+T:System.Xml.Serialization.SoapCodeExporter
+T:System.Xml.Serialization.SoapSchemaExporter
+T:System.Xml.Serialization.SoapSchemaImporter
+T:System.Xml.Serialization.XmlCodeExporter
+T:System.Xml.XmlDataDocument
+T:System.Xml.XmlXapResolver
+T:tagPROPVARIANT
+T:tagVARIANT
+P:Microsoft.AspNet.SignalR.WebSockets.WebSocketHandler.WebSocket
+P:Microsoft.Build.Tasks.Deployment.ManifestUtilities.TrustInfo.PermissionSet
+P:Microsoft.Data.SqlClient.SqlClientFactory.CanCreateDataSourceEnumerator
+P:Microsoft.Data.SqlClient.SqlCommand.NotificationAutoEnlist
+P:Microsoft.Data.SqlClient.SqlConnection.DbProviderFactory
+P:Microsoft.Data.SqlClient.SqlConnectionStringBuilder.ConnectionReset
+P:Microsoft.Data.SqlClient.SqlConnectionStringBuilder.ContextConnection
+P:Microsoft.Data.SqlClient.SqlConnectionStringBuilder.NetworkLibrary
+P:Microsoft.Data.SqlClient.SqlConnectionStringBuilder.TransparentNetworkIPResolution
+P:Microsoft.Data.SqlClient.SqlParameterCollection.IsSynchronized
+P:Microsoft.Extensions.WebEncoders.WebEncoderOptions.CodePointFilter
+P:Microsoft.VisualBasic.ApplicationServices.ConsoleApplicationBase.Deployment
+P:Microsoft.VisualBasic.ApplicationServices.ConsoleApplicationBase.IsNetworkDeployed
+P:Microsoft.VisualBasic.Devices.Computer.Ports
+P:Microsoft.VisualBasic.MyServices.RegistryProxy.DynData
+P:Newtonsoft.Json.Schema.JSchemaUrlResolver.Timeout
 P:System.AppDomain.ActivationContext
 P:System.AppDomain.ApplicationIdentity
 P:System.AppDomain.ApplicationTrust
@@ -2418,12 +2434,17 @@ P:System.Data.DataTableCollection.List
 P:System.Data.Odbc.OdbcCommandBuilder.QuotePrefix
 P:System.Data.Odbc.OdbcCommandBuilder.QuoteSuffix
 P:System.Data.Odbc.OdbcException.Message
+P:System.Data.OleDb.OleDbCommandBuilder.QuotePrefix
+P:System.Data.OleDb.OleDbCommandBuilder.QuoteSuffix
+P:System.Data.OleDb.OleDbException.Message
+P:System.Data.OleDb.OleDbException.Source
 P:System.Data.SqlClient.SqlClientFactory.CanCreateDataSourceEnumerator
 P:System.Data.SqlClient.SqlCommand.ColumnEncryptionSetting
 P:System.Data.SqlClient.SqlCommand.NotificationAutoEnlist
 P:System.Data.SqlClient.SqlConnection.ColumnEncryptionKeyCacheTtl
 P:System.Data.SqlClient.SqlConnection.ColumnEncryptionQueryMetadataCacheEnabled
 P:System.Data.SqlClient.SqlConnection.ColumnEncryptionTrustedMasterKeyPaths
+P:System.Data.SqlClient.SqlConnection.DbProviderFactory
 P:System.Data.SqlClient.SqlConnectionStringBuilder.AsynchronousProcessing
 P:System.Data.SqlClient.SqlConnectionStringBuilder.Authentication
 P:System.Data.SqlClient.SqlConnectionStringBuilder.ColumnEncryptionSetting
@@ -2440,10 +2461,33 @@ P:System.Data.SqlTypes.SqlFileStream.CanTimeout
 P:System.Data.SqlTypes.SqlFileStream.ReadTimeout
 P:System.Data.SqlTypes.SqlFileStream.WriteTimeout
 P:System.Diagnostics.Debug.Listeners
+P:System.IdentityModel.Claims.ClaimSet.Windows
+P:System.IdentityModel.Claims.ClaimTypes.Country
+P:System.IdentityModel.Claims.ClaimTypes.DateOfBirth
+P:System.IdentityModel.Claims.ClaimTypes.Gender
+P:System.IdentityModel.Claims.ClaimTypes.GivenName
+P:System.IdentityModel.Claims.ClaimTypes.HomePhone
+P:System.IdentityModel.Claims.ClaimTypes.Locality
+P:System.IdentityModel.Claims.ClaimTypes.MobilePhone
+P:System.IdentityModel.Claims.ClaimTypes.OtherPhone
+P:System.IdentityModel.Claims.ClaimTypes.PostalCode
+P:System.IdentityModel.Claims.ClaimTypes.PPID
+P:System.IdentityModel.Claims.ClaimTypes.StateOrProvince
+P:System.IdentityModel.Claims.ClaimTypes.StreetAddress
+P:System.IdentityModel.Claims.ClaimTypes.Surname
+P:System.IdentityModel.Claims.ClaimTypes.Webpage
+P:System.IdentityModel.Selectors.SecurityTokenRequirement.IsOptionalTokenProperty
+P:System.IdentityModel.Selectors.SecurityTokenRequirement.KeySizeProperty
+P:System.IdentityModel.Selectors.SecurityTokenRequirement.KeyTypeProperty
+P:System.IdentityModel.Selectors.SecurityTokenRequirement.KeyUsageProperty
+P:System.IdentityModel.Selectors.SecurityTokenRequirement.PeerAuthenticationMode
+P:System.IdentityModel.Selectors.SecurityTokenRequirement.RequireCryptographicTokenProperty
+P:System.IdentityModel.Selectors.SecurityTokenRequirement.TokenTypeProperty
 P:System.IdentityModel.Selectors.X509CertificateValidator.ChainTrust
 P:System.IdentityModel.Selectors.X509CertificateValidator.None
 P:System.IdentityModel.Selectors.X509CertificateValidator.PeerOrChainTrust
 P:System.IdentityModel.Selectors.X509CertificateValidator.PeerTrust
+P:System.IdentityModel.Selectors.X509SecurityTokenAuthenticator.MapCertificateToWindowsAccount
 P:System.IdentityModel.Tokens.SamlAssertionKeyIdentifierClause.AssertionId
 P:System.IO.DirectoryInfo.FullName
 P:System.Net.ServicePointManager.CertificatePolicy
@@ -2596,6 +2640,7 @@ P:System.ServiceModel.Channels.WebSocketTransportSettings.CreateNotificationOnCo
 P:System.ServiceModel.Channels.WebSocketTransportSettings.MaxPendingConnections
 P:System.ServiceModel.Channels.WindowsStreamSecurityBindingElement.ProtectionLevel
 P:System.ServiceModel.ClientBase`1.CacheSetting
+P:System.ServiceModel.DeliveryRequirementsAttribute.TargetContract
 P:System.ServiceModel.Description.ClientCredentials.IssuedToken
 P:System.ServiceModel.Description.ClientCredentials.Peer
 P:System.ServiceModel.Description.ClientCredentials.SecurityTokenHandlerCollectionManager
@@ -2624,6 +2669,27 @@ P:System.ServiceModel.Description.ServiceEndpoint.Behaviors
 P:System.ServiceModel.Description.ServiceEndpoint.IsSystemEndpoint
 P:System.ServiceModel.Description.ServiceEndpoint.ListenUri
 P:System.ServiceModel.Description.ServiceEndpoint.ListenUriMode
+P:System.ServiceModel.Dispatcher.ChannelDispatcher.AsynchronousTransactedAcceptEnabled
+P:System.ServiceModel.Dispatcher.ChannelDispatcher.BindingName
+P:System.ServiceModel.Dispatcher.ChannelDispatcher.ChannelInitializers
+P:System.ServiceModel.Dispatcher.ChannelDispatcher.DefaultCloseTimeout
+P:System.ServiceModel.Dispatcher.ChannelDispatcher.DefaultOpenTimeout
+P:System.ServiceModel.Dispatcher.ChannelDispatcher.Endpoints
+P:System.ServiceModel.Dispatcher.ChannelDispatcher.ErrorHandlers
+P:System.ServiceModel.Dispatcher.ChannelDispatcher.Host
+P:System.ServiceModel.Dispatcher.ChannelDispatcher.IsTransactedAccept
+P:System.ServiceModel.Dispatcher.ChannelDispatcher.IsTransactedReceive
+P:System.ServiceModel.Dispatcher.ChannelDispatcher.Listener
+P:System.ServiceModel.Dispatcher.ChannelDispatcher.ManualAddressing
+P:System.ServiceModel.Dispatcher.ChannelDispatcher.MaxPendingReceives
+P:System.ServiceModel.Dispatcher.ChannelDispatcher.MaxTransactedBatchSize
+P:System.ServiceModel.Dispatcher.ChannelDispatcher.MessageVersion
+P:System.ServiceModel.Dispatcher.ChannelDispatcher.ReceiveContextEnabled
+P:System.ServiceModel.Dispatcher.ChannelDispatcher.ReceiveSynchronously
+P:System.ServiceModel.Dispatcher.ChannelDispatcher.SendAsynchronously
+P:System.ServiceModel.Dispatcher.ChannelDispatcher.ServiceThrottle
+P:System.ServiceModel.Dispatcher.ChannelDispatcher.TransactionIsolationLevel
+P:System.ServiceModel.Dispatcher.ChannelDispatcher.TransactionTimeout
 P:System.ServiceModel.Dispatcher.ClientOperation.BeginMethod
 P:System.ServiceModel.Dispatcher.ClientOperation.EndMethod
 P:System.ServiceModel.Dispatcher.ClientOperation.IsInitiating
@@ -2756,6 +2822,15 @@ P:System.ServiceModel.Security.SecurityAlgorithmSuite.TripleDesRsa15
 P:System.ServiceModel.Security.SecurityAlgorithmSuite.TripleDesSha256
 P:System.ServiceModel.Security.SecurityAlgorithmSuite.TripleDesSha256Rsa15
 P:System.ServiceModel.Security.SecurityPolicyVersion.WSSecurityPolicy12
+P:System.ServiceModel.Security.Tokens.IssuedSecurityTokenParameters.AdditionalRequestParameters
+P:System.ServiceModel.Security.Tokens.IssuedSecurityTokenParameters.ClaimTypeRequirements
+P:System.ServiceModel.Security.Tokens.IssuedSecurityTokenParameters.HasAsymmetricKey
+P:System.ServiceModel.Security.Tokens.IssuedSecurityTokenParameters.IssuerMetadataAddress
+P:System.ServiceModel.Security.Tokens.IssuedSecurityTokenParameters.KeySize
+P:System.ServiceModel.Security.Tokens.IssuedSecurityTokenParameters.SupportsClientAuthentication
+P:System.ServiceModel.Security.Tokens.IssuedSecurityTokenParameters.SupportsClientWindowsIdentity
+P:System.ServiceModel.Security.Tokens.IssuedSecurityTokenParameters.SupportsServerAuthentication
+P:System.ServiceModel.Security.Tokens.IssuedSecurityTokenParameters.UseStrTransform
 P:System.ServiceModel.Security.Tokens.SecureConversationSecurityTokenParameters.BootstrapProtectionRequirements
 P:System.ServiceModel.Security.Tokens.SecureConversationSecurityTokenParameters.CanRenewSession
 P:System.ServiceModel.Security.Tokens.SecureConversationSecurityTokenParameters.HasAsymmetricKey
@@ -2770,118 +2845,6 @@ P:System.ServiceModel.Security.Tokens.SecurityTokenParameters.RequireDerivedKeys
 P:System.ServiceModel.Security.Tokens.SecurityTokenParameters.SupportsClientAuthentication
 P:System.ServiceModel.Security.Tokens.SecurityTokenParameters.SupportsClientWindowsIdentity
 P:System.ServiceModel.Security.Tokens.SecurityTokenParameters.SupportsServerAuthentication
-P:System.ServiceModel.Security.Tokens.SupportingTokenParameters.Signed
-P:System.ServiceModel.Security.Tokens.SupportingTokenParameters.SignedEndorsing
-P:System.ServiceModel.Security.Tokens.UserNameSecurityTokenParameters.HasAsymmetricKey
-P:System.ServiceModel.Security.Tokens.UserNameSecurityTokenParameters.SupportsClientAuthentication
-P:System.ServiceModel.Security.Tokens.UserNameSecurityTokenParameters.SupportsClientWindowsIdentity
-P:System.ServiceModel.Security.Tokens.UserNameSecurityTokenParameters.SupportsServerAuthentication
-P:System.ServiceModel.Security.TrustVersion.WSTrust13
-P:System.ServiceModel.Security.WindowsClientCredential.AllowNtlm
-P:System.ServiceModel.ServiceContractAttribute.HasProtectionLevel
-P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel
-P:System.ServiceModel.TcpTransportSecurity.ExtendedProtectionPolicy
-P:System.ServiceModel.TcpTransportSecurity.ProtectionLevel
-P:System.ServiceModel.WSHttpBindingBase.HostNameComparisonMode
-P:System.ServiceModel.WSHttpBindingBase.MessageEncoding
-P:System.ServiceModel.WSHttpBindingBase.ReliableSession
-P:System.ServiceModel.WSHttpBindingBase.System#ServiceModel#Channels#IBindingRuntimePreferences#ReceiveSynchronously
-P:System.Threading.Thread.CurrentContext
-P:System.Xml.Serialization.SchemaImporter.Extensions
-P:System.Xml.Serialization.XmlMembersMapping.ElementName
-P:System.Xml.Serialization.XmlMembersMapping.Namespace
-P:System.Xml.Serialization.XmlTypeMapping.ElementName
-P:System.Xml.Serialization.XmlTypeMapping.Namespace
-P:System.Xml.XmlNodeReader.Item(System.Int32)
-P:System.Xml.XmlNodeReader.Item(System.String)
-P:System.Xml.XmlNodeReader.Item(System.String,System.String)
-P:System.Xml.XmlNodeReader.QuoteChar
-P:System.Xml.XmlTextReader.Item(System.Int32)
-P:System.Xml.XmlTextReader.Item(System.String)
-P:System.Xml.XmlTextReader.Item(System.String,System.String)
-P:System.Xml.XmlTextReader.Settings
-P:System.Xml.XmlValidatingReader.Item(System.Int32)
-P:System.Xml.XmlValidatingReader.Item(System.String)
-P:System.Xml.XmlValidatingReader.Item(System.String,System.String)
-P:System.Xml.XmlValidatingReader.Settings
-P:System.Xml.XPath.XPathNavigator.Value
-P:System.Xml.Xsl.XslCompiledTransform.TemporaryFiles
-P:System.Xml.Xsl.XsltCompileException.Message
-P:Microsoft.AspNet.SignalR.WebSockets.WebSocketHandler.WebSocket
-P:Microsoft.Build.Tasks.Deployment.ManifestUtilities.TrustInfo.PermissionSet
-P:Microsoft.Data.SqlClient.SqlClientFactory.CanCreateDataSourceEnumerator
-P:Microsoft.Data.SqlClient.SqlCommand.NotificationAutoEnlist
-P:Microsoft.Data.SqlClient.SqlConnection.DbProviderFactory
-P:Microsoft.Data.SqlClient.SqlConnectionStringBuilder.ConnectionReset
-P:Microsoft.Data.SqlClient.SqlConnectionStringBuilder.ContextConnection
-P:Microsoft.Data.SqlClient.SqlConnectionStringBuilder.NetworkLibrary
-P:Microsoft.Data.SqlClient.SqlConnectionStringBuilder.TransparentNetworkIPResolution
-P:Microsoft.Data.SqlClient.SqlParameterCollection.IsSynchronized
-P:Microsoft.Extensions.WebEncoders.WebEncoderOptions.CodePointFilter
-P:Microsoft.VisualBasic.ApplicationServices.ConsoleApplicationBase.Deployment
-P:Microsoft.VisualBasic.ApplicationServices.ConsoleApplicationBase.IsNetworkDeployed
-P:Microsoft.VisualBasic.Devices.Computer.Ports
-P:Microsoft.VisualBasic.MyServices.RegistryProxy.DynData
-P:Newtonsoft.Json.Schema.JSchemaUrlResolver.Timeout
-P:System.Data.OleDb.OleDbCommandBuilder.QuotePrefix
-P:System.Data.OleDb.OleDbCommandBuilder.QuoteSuffix
-P:System.Data.OleDb.OleDbException.Message
-P:System.Data.OleDb.OleDbException.Source
-P:System.Data.SqlClient.SqlConnection.DbProviderFactory
-P:System.IdentityModel.Claims.ClaimSet.Windows
-P:System.IdentityModel.Claims.ClaimTypes.Country
-P:System.IdentityModel.Claims.ClaimTypes.DateOfBirth
-P:System.IdentityModel.Claims.ClaimTypes.Gender
-P:System.IdentityModel.Claims.ClaimTypes.GivenName
-P:System.IdentityModel.Claims.ClaimTypes.HomePhone
-P:System.IdentityModel.Claims.ClaimTypes.Locality
-P:System.IdentityModel.Claims.ClaimTypes.MobilePhone
-P:System.IdentityModel.Claims.ClaimTypes.OtherPhone
-P:System.IdentityModel.Claims.ClaimTypes.PostalCode
-P:System.IdentityModel.Claims.ClaimTypes.PPID
-P:System.IdentityModel.Claims.ClaimTypes.StateOrProvince
-P:System.IdentityModel.Claims.ClaimTypes.StreetAddress
-P:System.IdentityModel.Claims.ClaimTypes.Surname
-P:System.IdentityModel.Claims.ClaimTypes.Webpage
-P:System.IdentityModel.Selectors.SecurityTokenRequirement.IsOptionalTokenProperty
-P:System.IdentityModel.Selectors.SecurityTokenRequirement.KeySizeProperty
-P:System.IdentityModel.Selectors.SecurityTokenRequirement.KeyTypeProperty
-P:System.IdentityModel.Selectors.SecurityTokenRequirement.KeyUsageProperty
-P:System.IdentityModel.Selectors.SecurityTokenRequirement.PeerAuthenticationMode
-P:System.IdentityModel.Selectors.SecurityTokenRequirement.RequireCryptographicTokenProperty
-P:System.IdentityModel.Selectors.SecurityTokenRequirement.TokenTypeProperty
-P:System.IdentityModel.Selectors.X509SecurityTokenAuthenticator.MapCertificateToWindowsAccount
-P:System.ServiceModel.DeliveryRequirementsAttribute.TargetContract
-P:System.ServiceModel.Dispatcher.ChannelDispatcher.AsynchronousTransactedAcceptEnabled
-P:System.ServiceModel.Dispatcher.ChannelDispatcher.BindingName
-P:System.ServiceModel.Dispatcher.ChannelDispatcher.ChannelInitializers
-P:System.ServiceModel.Dispatcher.ChannelDispatcher.DefaultCloseTimeout
-P:System.ServiceModel.Dispatcher.ChannelDispatcher.DefaultOpenTimeout
-P:System.ServiceModel.Dispatcher.ChannelDispatcher.Endpoints
-P:System.ServiceModel.Dispatcher.ChannelDispatcher.ErrorHandlers
-P:System.ServiceModel.Dispatcher.ChannelDispatcher.Host
-P:System.ServiceModel.Dispatcher.ChannelDispatcher.IsTransactedAccept
-P:System.ServiceModel.Dispatcher.ChannelDispatcher.IsTransactedReceive
-P:System.ServiceModel.Dispatcher.ChannelDispatcher.Listener
-P:System.ServiceModel.Dispatcher.ChannelDispatcher.ManualAddressing
-P:System.ServiceModel.Dispatcher.ChannelDispatcher.MaxPendingReceives
-P:System.ServiceModel.Dispatcher.ChannelDispatcher.MaxTransactedBatchSize
-P:System.ServiceModel.Dispatcher.ChannelDispatcher.MessageVersion
-P:System.ServiceModel.Dispatcher.ChannelDispatcher.ReceiveContextEnabled
-P:System.ServiceModel.Dispatcher.ChannelDispatcher.ReceiveSynchronously
-P:System.ServiceModel.Dispatcher.ChannelDispatcher.SendAsynchronously
-P:System.ServiceModel.Dispatcher.ChannelDispatcher.ServiceThrottle
-P:System.ServiceModel.Dispatcher.ChannelDispatcher.TransactionIsolationLevel
-P:System.ServiceModel.Dispatcher.ChannelDispatcher.TransactionTimeout
-P:System.ServiceModel.Security.Tokens.IssuedSecurityTokenParameters.AdditionalRequestParameters
-P:System.ServiceModel.Security.Tokens.IssuedSecurityTokenParameters.ClaimTypeRequirements
-P:System.ServiceModel.Security.Tokens.IssuedSecurityTokenParameters.HasAsymmetricKey
-P:System.ServiceModel.Security.Tokens.IssuedSecurityTokenParameters.IssuerMetadataAddress
-P:System.ServiceModel.Security.Tokens.IssuedSecurityTokenParameters.KeySize
-P:System.ServiceModel.Security.Tokens.IssuedSecurityTokenParameters.SupportsClientAuthentication
-P:System.ServiceModel.Security.Tokens.IssuedSecurityTokenParameters.SupportsClientWindowsIdentity
-P:System.ServiceModel.Security.Tokens.IssuedSecurityTokenParameters.SupportsServerAuthentication
-P:System.ServiceModel.Security.Tokens.IssuedSecurityTokenParameters.UseStrTransform
 P:System.ServiceModel.Security.Tokens.ServiceModelSecurityTokenRequirement.AuditLogLocationProperty
 P:System.ServiceModel.Security.Tokens.ServiceModelSecurityTokenRequirement.DuplexClientLocalAddressProperty
 P:System.ServiceModel.Security.Tokens.ServiceModelSecurityTokenRequirement.EndpointFilterTableProperty
@@ -2909,8 +2872,25 @@ P:System.ServiceModel.Security.Tokens.ServiceModelSecurityTokenRequirement.Suppr
 P:System.ServiceModel.Security.Tokens.ServiceModelSecurityTokenRequirement.TargetAddressProperty
 P:System.ServiceModel.Security.Tokens.ServiceModelSecurityTokenRequirement.TransportSchemeProperty
 P:System.ServiceModel.Security.Tokens.ServiceModelSecurityTokenRequirement.ViaProperty
+P:System.ServiceModel.Security.Tokens.SupportingTokenParameters.Signed
+P:System.ServiceModel.Security.Tokens.SupportingTokenParameters.SignedEndorsing
+P:System.ServiceModel.Security.Tokens.UserNameSecurityTokenParameters.HasAsymmetricKey
+P:System.ServiceModel.Security.Tokens.UserNameSecurityTokenParameters.SupportsClientAuthentication
+P:System.ServiceModel.Security.Tokens.UserNameSecurityTokenParameters.SupportsClientWindowsIdentity
+P:System.ServiceModel.Security.Tokens.UserNameSecurityTokenParameters.SupportsServerAuthentication
+P:System.ServiceModel.Security.TrustVersion.WSTrust13
+P:System.ServiceModel.Security.WindowsClientCredential.AllowNtlm
+P:System.ServiceModel.ServiceContractAttribute.HasProtectionLevel
+P:System.ServiceModel.ServiceContractAttribute.ProtectionLevel
 P:System.ServiceModel.ServiceSecurityContext.Current
 P:System.ServiceModel.ServiceSecurityContext.WindowsIdentity
+P:System.ServiceModel.TcpTransportSecurity.ExtendedProtectionPolicy
+P:System.ServiceModel.TcpTransportSecurity.ProtectionLevel
+P:System.ServiceModel.WSHttpBindingBase.HostNameComparisonMode
+P:System.ServiceModel.WSHttpBindingBase.MessageEncoding
+P:System.ServiceModel.WSHttpBindingBase.ReliableSession
+P:System.ServiceModel.WSHttpBindingBase.System#ServiceModel#Channels#IBindingRuntimePreferences#ReceiveSynchronously
+P:System.Threading.Thread.CurrentContext
 P:System.Web.Http.ApiController.Configuration
 P:System.Web.Http.ApiController.RequestContext
 P:System.Web.Services.Description.Binding.Name
@@ -2945,6 +2925,26 @@ P:System.Windows.Forms.ProgressBar.RightToLeft
 P:System.Windows.Forms.TextBox.DefaultImeMode
 P:System.Windows.Forms.TextBox.SelectionLength
 P:System.Windows.Forms.WindowsFormsSection.Properties
+P:System.Xml.Serialization.SchemaImporter.Extensions
+P:System.Xml.Serialization.XmlMembersMapping.ElementName
+P:System.Xml.Serialization.XmlMembersMapping.Namespace
+P:System.Xml.Serialization.XmlTypeMapping.ElementName
+P:System.Xml.Serialization.XmlTypeMapping.Namespace
+P:System.Xml.XmlNodeReader.Item(System.Int32)
+P:System.Xml.XmlNodeReader.Item(System.String)
+P:System.Xml.XmlNodeReader.Item(System.String,System.String)
+P:System.Xml.XmlNodeReader.QuoteChar
+P:System.Xml.XmlTextReader.Item(System.Int32)
+P:System.Xml.XmlTextReader.Item(System.String)
+P:System.Xml.XmlTextReader.Item(System.String,System.String)
+P:System.Xml.XmlTextReader.Settings
+P:System.Xml.XmlValidatingReader.Item(System.Int32)
+P:System.Xml.XmlValidatingReader.Item(System.String)
+P:System.Xml.XmlValidatingReader.Item(System.String,System.String)
+P:System.Xml.XmlValidatingReader.Settings
+P:System.Xml.XPath.XPathNavigator.Value
+P:System.Xml.Xsl.XslCompiledTransform.TemporaryFiles
+P:System.Xml.Xsl.XsltCompileException.Message
 F:Microsoft.VisualBasic.Constants.vbAbort
 F:Microsoft.VisualBasic.Constants.vbAbortRetryIgnore
 F:Microsoft.VisualBasic.Constants.vbApplicationModal
@@ -3037,6 +3037,11 @@ F:Microsoft.VisualBasic.Constants.vbWide
 F:Microsoft.VisualBasic.Constants.vbYes
 F:Microsoft.VisualBasic.Constants.vbYesNo
 F:Microsoft.VisualBasic.Constants.vbYesNoCancel
+F:Microsoft.VisualBasic.MsgBoxResult.OK
+F:Microsoft.VisualBasic.MsgBoxStyle.OKCancel
+F:Microsoft.VisualBasic.MsgBoxStyle.OKOnly
+F:Microsoft.VisualBasic.VbStrConv.LowerCase
+F:Microsoft.VisualBasic.VbStrConv.UpperCase
 F:Microsoft.Win32.Registry.DynData
 F:Microsoft.Win32.RegistryHive.DynData
 F:System.Data.SqlClient.SqlBulkCopyOptions.AllowEncryptedValueModifications
@@ -3051,27 +3056,22 @@ F:System.Resources.ResourceManager.ResourceSets
 F:System.Resources.ResourceSet.Reader
 F:System.Resources.ResourceSet.Table
 F:System.Runtime.CompilerServices.MethodImplOptions.SecurityMitigations
+F:System.Runtime.InteropServices.Architecture.value__
 F:System.Security.Authentication.SslProtocols.Tls13
 F:System.ServiceModel.Channels.SecurityHeaderLayout.LaxTimestampFirst
 F:System.ServiceModel.Channels.SecurityHeaderLayout.LaxTimestampLast
 F:System.ServiceModel.Channels.WebSocketTransportSettings.BinaryEncoderTransferModeHeader
 F:System.ServiceModel.Channels.WebSocketTransportSettings.ConnectionOpenedAction
 F:System.ServiceModel.Channels.WebSocketTransportSettings.SoapContentTypeHeader
+F:System.ServiceModel.Security.Tokens.ServiceModelSecurityTokenRequirement.Namespace
 F:System.Xml.Serialization.XmlDeserializationEvents.OnUnknownAttribute
 F:System.Xml.Serialization.XmlDeserializationEvents.OnUnknownElement
 F:System.Xml.Serialization.XmlDeserializationEvents.OnUnknownNode
 F:System.Xml.Serialization.XmlDeserializationEvents.OnUnreferencedObject
-F:Microsoft.VisualBasic.MsgBoxResult.OK
-F:Microsoft.VisualBasic.MsgBoxStyle.OKCancel
-F:Microsoft.VisualBasic.MsgBoxStyle.OKOnly
-F:Microsoft.VisualBasic.VbStrConv.LowerCase
-F:Microsoft.VisualBasic.VbStrConv.UpperCase
-F:System.Runtime.InteropServices.Architecture.value__
-F:System.ServiceModel.Security.Tokens.ServiceModelSecurityTokenRequirement.Namespace
 E:System.Data.Common.DbDataAdapter.FillError
 E:System.Data.Odbc.OdbcConnection.StateChange
-E:System.Data.SqlClient.SqlConnection.StateChange
 E:System.Data.OleDb.OleDbConnection.StateChange
+E:System.Data.SqlClient.SqlConnection.StateChange
 E:System.Windows.Forms.AxHost.TabIndexChanged
 E:System.Windows.Forms.AxHost.TabStopChanged
 E:System.Windows.Forms.ListView.BackgroundImageChanged
@@ -3079,7 +3079,90 @@ E:System.Windows.Forms.ProgressBar.BackColorChanged
 E:System.Windows.Forms.ProgressBar.ForeColorChanged
 E:System.Windows.Forms.ProgressBar.RightToLeftChanged
 E:System.Windows.Forms.RichTextBox.DoubleClick
+M:Accessibility.CAccPropServicesClass.DecomposeHmenuIdentityString(System.Byte,System.UInt32,Accessibility._RemotableHandle,System.UInt32)
+M:Accessibility.CAccPropServicesClass.DecomposeHwndIdentityString(System.Byte,System.UInt32,Accessibility._RemotableHandle,System.UInt32,System.UInt32)
+M:Accessibility.IAccPropServices.DecomposeHmenuIdentityString(System.Byte,System.UInt32,Accessibility._RemotableHandle,System.UInt32)
+M:Accessibility.IAccPropServices.DecomposeHwndIdentityString(System.Byte,System.UInt32,Accessibility._RemotableHandle,System.UInt32,System.UInt32)
+M:Microsoft.AspNet.SignalR.WebSockets.WebSocketHandler.#ctor(System.Threading.Tasks.TaskCompletionSource{System.Object},System.Nullable{System.Int32})
+M:Microsoft.AspNet.SignalR.WebSockets.WebSocketHandler.ProcessWebSocketRequestAsync(System.Net.WebSockets.WebSocket,System.Threading.CancellationToken)
+M:Microsoft.AspNet.SignalR.WebSockets.WebSocketHandler.SendAsync(System.String)
+M:Microsoft.AspNetCore.Mvc.Razor.MvcRazorHost.#ctor(System.String)
+M:Microsoft.Build.CommandLine.MSBuildApp.Execute(System.String)
+M:Microsoft.Build.CommandLine.MSBuildApp.Main
+M:Microsoft.Build.Experimental.MSBuildClient.#ctor(System.String,System.String)
+M:Microsoft.Build.Tasks.Deployment.ManifestUtilities.SecurityUtilities.ComputeZonePermissionSet(System.String,System.Security.PermissionSet,System.String[])
+M:Microsoft.Build.Tasks.Deployment.ManifestUtilities.SecurityUtilities.IdentityListToPermissionSet(System.String[])
+M:Microsoft.Build.Tasks.Deployment.ManifestUtilities.SecurityUtilities.PermissionSetToIdentityList(System.Security.PermissionSet)
+M:Microsoft.Build.Tasks.Deployment.ManifestUtilities.SecurityUtilities.XmlToPermissionSet(System.Xml.XmlElement)
+M:Microsoft.Build.Tasks.Deployment.ManifestUtilities.TrustInfo.set_IsFullTrust
+M:Microsoft.Build.Tasks.Exec.set_ConsoleOutput
+M:Microsoft.Build.Tasks.GenerateManifestBase.CompareFrameworkVersions(System.String,System.String)
+M:Microsoft.Build.Tasks.GenerateManifestBase.ConvertFrameworkVersionToString(System.String)
+M:Microsoft.Build.Tasks.GetFrameworkPath.set_Path
+M:Microsoft.Build.Tasks.MSBuild.set_SkipNonexistentProjects
+M:Microsoft.Build.Tasks.ResolveAssemblyReference.set_InstalledAssemblyTables
+M:Microsoft.Build.Tasks.SGen.GenerateCommandLineCommands
+M:Microsoft.Build.Tasks.SGen.SkipTaskExecution
+M:Microsoft.Build.Tasks.SGen.ValidateParameters
+M:Microsoft.Build.Utilities.TaskItem.InitializeLifetimeService
+M:Microsoft.Build.Utilities.TaskLoggingHelper.InitializeLifetimeService
+M:Microsoft.Build.Utilities.TaskLoggingHelper.MarkAsInactive
+M:Microsoft.Data.SqlClient.ActiveDirectoryAuthenticationProvider.SetIWin32WindowFunc(System.Func{System.Windows.Forms.IWin32Window})
+M:Microsoft.Data.SqlClient.SqlClientFactory.CreateDataSourceEnumerator
+M:Microsoft.Data.SqlClient.SqlClientFactory.CreatePermission(System.Security.Permissions.PermissionState)
+M:Microsoft.Data.SqlClient.SqlConnection.EnlistDistributedTransaction(System.EnterpriseServices.ITransaction)
+M:Microsoft.Data.SqlClient.SqlConnection.EnlistTransaction(System.Transactions.Transaction)
+M:Microsoft.Data.SqlClient.SqlDataAdapter.AddToBatch(System.Data.IDbCommand)
+M:Microsoft.Data.SqlClient.SqlDataAdapter.ClearBatch
+M:Microsoft.Data.SqlClient.SqlDataAdapter.CreateRowUpdatedEvent(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)
+M:Microsoft.Data.SqlClient.SqlDataAdapter.CreateRowUpdatingEvent(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)
+M:Microsoft.Data.SqlClient.SqlDataAdapter.ExecuteBatch
+M:Microsoft.Data.SqlClient.SqlDataAdapter.GetBatchedParameter(System.Int32,System.Int32)
+M:Microsoft.Data.SqlClient.SqlDataAdapter.GetBatchedRecordsAffected(System.Int32,System.Int32,System.Exception)
+M:Microsoft.Data.SqlClient.SqlDataAdapter.InitializeBatching
+M:Microsoft.Data.SqlClient.SqlDataAdapter.TerminateBatching
+M:Microsoft.Data.SqlClient.SqlParameterCollection.Add(System.String,System.Object)
+M:Microsoft.Extensions.DependencyInjection.ApplicationModelConventionExtensions.Add(System.Collections.Generic.IList{Microsoft.AspNetCore.Mvc.ApplicationModels.IApplicationModelConvention},Microsoft.AspNetCore.Mvc.ApplicationModels.IActionModelConvention)
+M:Microsoft.Extensions.DependencyInjection.ApplicationModelConventionExtensions.Add(System.Collections.Generic.IList{Microsoft.AspNetCore.Mvc.ApplicationModels.IApplicationModelConvention},Microsoft.AspNetCore.Mvc.ApplicationModels.IControllerModelConvention)
+M:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.Authentication.SharedAuthenticationOptions})
+M:Microsoft.Extensions.DependencyInjection.AuthorizationServiceCollectionExtensions.AddAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection)
+M:Microsoft.Extensions.DependencyInjection.AuthorizationServiceCollectionExtensions.AddAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.Authorization.AuthorizationOptions})
+M:Microsoft.Extensions.DependencyInjection.DataProtectionServiceCollectionExtensions.ConfigureDataProtection(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNet.DataProtection.DataProtectionConfiguration})
+M:Microsoft.Extensions.DependencyInjection.ElmServiceCollectionExtensions.ConfigureElm(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNet.Diagnostics.Elm.ElmOptions})
+M:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.AddIdentity``2(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNet.Identity.IdentityOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.AddControllersAsServices(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Collections.Generic.IEnumerable{System.Reflection.Assembly})
+M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.AddControllersAsServices(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Collections.Generic.IEnumerable{System.Type})
+M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.AddFormatterMappings(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{Microsoft.AspNet.Mvc.Formatters.FormatterMappings})
+M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.AddMvcOptions(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{MvcOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddAuthorization(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Authorization.AuthorizationOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddControllersAsServices(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Collections.Generic.IEnumerable{System.Reflection.Assembly})
+M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddControllersAsServices(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Collections.Generic.IEnumerable{System.Type})
+M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddFormatterMappings(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Mvc.Formatters.FormatterMappings})
+M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddMvcOptions(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Mvc.MvcOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcCoreServiceCollectionExtensions.AddMvcCore(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNet.Mvc.MvcOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcCorsMvcCoreBuilderExtensions.AddCors(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Cors.Infrastructure.CorsOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcCorsMvcCoreBuilderExtensions.ConfigureCors(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Cors.Infrastructure.CorsOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcDataAnnotationsMvcBuilderExtensions.AddDataAnnotationsLocalization(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{Microsoft.AspNet.Mvc.ModelBinding.Validation.MvcDataAnnotationsLocalizationOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcDataAnnotationsMvcCoreBuilderExtensions.AddDataAnnotationsLocalization(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Mvc.ModelBinding.Validation.MvcDataAnnotationsLocalizationOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcJsonMvcBuilderExtensions.AddJsonOptions(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{Microsoft.AspNet.Mvc.MvcJsonOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcLocalizationMvcBuilderExtensions.AddViewLocalization(Microsoft.Extensions.DependencyInjection.IMvcBuilder,Microsoft.AspNet.Mvc.Razor.LanguageViewLocationExpanderFormat)
+M:Microsoft.Extensions.DependencyInjection.MvcLocalizationMvcBuilderExtensions.AddViewLocalization(Microsoft.Extensions.DependencyInjection.IMvcBuilder,Microsoft.AspNet.Mvc.Razor.LanguageViewLocationExpanderFormat,System.Action{Microsoft.Extensions.Localization.LocalizationOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcLocalizationMvcCoreBuilderExtensions.AddViewLocalization(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,Microsoft.AspNet.Mvc.Razor.LanguageViewLocationExpanderFormat)
+M:Microsoft.Extensions.DependencyInjection.MvcLocalizationMvcCoreBuilderExtensions.AddViewLocalization(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,Microsoft.AspNet.Mvc.Razor.LanguageViewLocationExpanderFormat,System.Action{Microsoft.Extensions.Localization.LocalizationOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcRazorMvcBuilderExtensions.AddPrecompiledRazorViews(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Reflection.Assembly[])
+M:Microsoft.Extensions.DependencyInjection.MvcRazorMvcBuilderExtensions.AddRazorOptions(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{Microsoft.AspNet.Mvc.Razor.RazorViewEngineOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcRazorMvcBuilderExtensions.InitializeTagHelper``1(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{``0,Microsoft.AspNet.Mvc.Rendering.ViewContext})
+M:Microsoft.Extensions.DependencyInjection.MvcRazorMvcCoreBuilderExtensions.AddPrecompiledRazorViews(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Reflection.Assembly[])
+M:Microsoft.Extensions.DependencyInjection.MvcRazorMvcCoreBuilderExtensions.AddRazorViewEngine(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Mvc.Razor.RazorViewEngineOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcRazorMvcCoreBuilderExtensions.InitializeTagHelper``1(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{``0,Microsoft.AspNet.Mvc.Rendering.ViewContext})
+M:Microsoft.Extensions.DependencyInjection.MvcViewFeaturesMvcBuilderExtensions.AddViewOptions(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{Microsoft.AspNet.Mvc.MvcViewOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcViewFeaturesMvcCoreBuilderExtensions.AddViews(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Mvc.MvcViewOptions})
+M:Microsoft.Extensions.DependencyInjection.MvcViewFeaturesMvcCoreBuilderExtensions.ConfigureViews(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Mvc.MvcViewOptions})
+M:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)
+M:Microsoft.Extensions.DependencyInjection.SessionServiceCollectionExtensions.AddSession(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNet.Session.SessionOptions})
 M:Microsoft.SqlServer.Server.InvalidUdtException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+M:Microsoft.VisualBasic.ApplicationServices.User.InitializeWithWindowsUser
+M:Microsoft.VisualBasic.ApplicationServices.User.IsInRole(Microsoft.VisualBasic.ApplicationServices.BuiltInRole)
 M:Microsoft.VisualBasic.CompilerServices.Conversions.FallbackUserDefinedConversion(System.Object,System.Type)
 M:Microsoft.VisualBasic.CompilerServices.Conversions.FromCharAndCount(System.Char,System.Int32)
 M:Microsoft.VisualBasic.CompilerServices.Conversions.FromCharArray(System.Char[])
@@ -3106,10 +3189,12 @@ M:Microsoft.VisualBasic.CompilerServices.Operators.LikeObject(System.Object,Syst
 M:Microsoft.VisualBasic.CompilerServices.Operators.LikeString(System.String,System.String,Microsoft.VisualBasic.CompareMethod)
 M:Microsoft.VisualBasic.CompilerServices.ProjectData.CreateProjectError(System.Int32)
 M:Microsoft.VisualBasic.CompilerServices.ProjectData.EndApp
+M:Microsoft.VisualBasic.CompilerServices.ProjectData.Finalize
 M:Microsoft.VisualBasic.CompilerServices.Utils.GetResourceString(System.String,System.String[])
 M:Microsoft.VisualBasic.CompilerServices.Utils.MethodToString(System.Reflection.MethodBase)
 M:Microsoft.VisualBasic.CompilerServices.Utils.SetCultureInfo(System.Globalization.CultureInfo)
 M:Microsoft.VisualBasic.CompilerServices.Utils.ThrowException(System.Int32)
+M:Microsoft.VisualBasic.FileIO.TextFieldParser.Dispose
 M:Microsoft.VisualBasic.Strings.Asc(System.Char)
 M:Microsoft.VisualBasic.Strings.Asc(System.String)
 M:Microsoft.VisualBasic.Strings.Chr(System.Int32)
@@ -3164,7 +3249,17 @@ M:Microsoft.VisualBasic.Strings.StrReverse(System.String)
 M:Microsoft.VisualBasic.Strings.Trim(System.String)
 M:Microsoft.VisualBasic.Strings.UCase(System.Char)
 M:Microsoft.VisualBasic.Strings.UCase(System.String)
+M:Microsoft.Win32.RegistryKey.Finalize
 M:Microsoft.Win32.RegistryKey.System#IDisposable#Dispose
+M:Newtonsoft.Json.JsonConvert.set_DefaultSettings
+M:Newtonsoft.Json.JsonSerializerSettings.set_ReferenceResolverProvider
+M:Newtonsoft.Json.Schema.JSchemaException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+M:Newtonsoft.Json.Schema.JSchemaReaderException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+M:Newtonsoft.Json.Schema.JSchemaValidationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+M:Newtonsoft.Json.Serialization.JsonContract.set_DefaultCreator
+M:Newtonsoft.Json.Serialization.JsonDictionaryContract.set_DictionaryKeyResolver
+M:Newtonsoft.Json.Serialization.JsonObjectContract.set_ExtensionDataNameResolver
+M:Newtonsoft.Json.Serialization.JsonProperty.set_SetIsSpecified
 M:System.Activator.CreateComInstanceFrom(System.String,System.String)
 M:System.Activator.CreateComInstanceFrom(System.String,System.String,System.Byte[],System.Configuration.Assemblies.AssemblyHashAlgorithm)
 M:System.Activator.CreateInstance(System.ActivationContext)
@@ -3243,6 +3338,10 @@ M:System.AppDomain.System#_AppDomain#GetIDsOfNames(System.Guid@,System.IntPtr,Sy
 M:System.AppDomain.System#_AppDomain#GetTypeInfo(System.UInt32,System.UInt32,System.IntPtr)
 M:System.AppDomain.System#_AppDomain#GetTypeInfoCount(System.UInt32@)
 M:System.AppDomain.System#_AppDomain#Invoke(System.UInt32,System.Guid@,System.UInt32,System.Int16,System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr)
+M:System.AppDomainSetup.#ctor
+M:System.AppDomainSetup.GetConfigurationBytes
+M:System.AppDomainSetup.set_ApplicationBase
+M:System.AppDomainSetup.set_TargetFrameworkName
 M:System.Attribute.System#Runtime#InteropServices#_Attribute#GetIDsOfNames(System.Guid@,System.IntPtr,System.UInt32,System.UInt32,System.IntPtr)
 M:System.Attribute.System#Runtime#InteropServices#_Attribute#GetTypeInfo(System.UInt32,System.UInt32,System.IntPtr)
 M:System.Attribute.System#Runtime#InteropServices#_Attribute#GetTypeInfoCount(System.UInt32@)
@@ -3253,6 +3352,8 @@ M:System.ComponentModel.Composition.Hosting.TypeCatalog.GetExports(System.Compon
 M:System.ComponentModel.Composition.Primitives.ComposablePartException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
 M:System.ComponentModel.Composition.Primitives.ComposablePartException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
 M:System.ComponentModel.DataAnnotations.ValidationException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+M:System.ComponentModel.Design.ComponentDesigner.Finalize
+M:System.ComponentModel.Design.DesignerActionListCollection.OnClear
 M:System.ComponentModel.TypeConverter.StandardValuesCollection.System#Collections#ICollection#CopyTo(System.Array,System.Int32)
 M:System.ComponentModel.TypeConverter.StandardValuesCollection.System#Collections#ICollection#get_Count
 M:System.ComponentModel.TypeConverter.StandardValuesCollection.System#Collections#IEnumerable#GetEnumerator
@@ -3273,6 +3374,7 @@ M:System.Data.DataTableCollection.OnCollectionChanged(System.ComponentModel.Coll
 M:System.Data.DataTableCollection.OnCollectionChanging(System.ComponentModel.CollectionChangeEventArgs)
 M:System.Data.DataTableExtensions.AsDataView(System.Data.DataTable)
 M:System.Data.DataTableExtensions.AsDataView``1(System.Data.EnumerableRowCollection{``0})
+M:System.Data.Entity.Core.EntityClient.EntityProviderFactory.CreatePermission(System.Security.Permissions.PermissionState)
 M:System.Data.Odbc.OdbcCommand.System#Data#IDbCommand#CreateParameter
 M:System.Data.Odbc.OdbcCommand.System#Data#IDbCommand#ExecuteReader
 M:System.Data.Odbc.OdbcCommand.System#Data#IDbCommand#ExecuteReader(System.Data.CommandBehavior)
@@ -3281,6 +3383,7 @@ M:System.Data.Odbc.OdbcCommand.System#Data#IDbCommand#get_Parameters
 M:System.Data.Odbc.OdbcCommand.System#Data#IDbCommand#get_Transaction
 M:System.Data.Odbc.OdbcCommand.System#Data#IDbCommand#set_Connection(System.Data.IDbConnection)
 M:System.Data.Odbc.OdbcCommand.System#Data#IDbCommand#set_Transaction(System.Data.IDbTransaction)
+M:System.Data.Odbc.OdbcCommandBuilder.Dispose(System.Boolean)
 M:System.Data.Odbc.OdbcCommandBuilder.RefreshSchema
 M:System.Data.Odbc.OdbcConnection.EnlistDistributedTransaction(System.EnterpriseServices.ITransaction)
 M:System.Data.Odbc.OdbcConnection.EnlistTransaction(System.Transactions.Transaction)
@@ -3290,6 +3393,8 @@ M:System.Data.Odbc.OdbcConnection.GetSchema(System.String,System.String[])
 M:System.Data.Odbc.OdbcConnection.System#Data#IDbConnection#BeginTransaction
 M:System.Data.Odbc.OdbcConnection.System#Data#IDbConnection#BeginTransaction(System.Data.IsolationLevel)
 M:System.Data.Odbc.OdbcConnection.System#Data#IDbConnection#CreateCommand
+M:System.Data.Odbc.OdbcDataAdapter.Dispose(System.Boolean)
+M:System.Data.Odbc.OdbcDataReader.Finalize
 M:System.Data.Odbc.OdbcDataReader.GetData(System.Int32)
 M:System.Data.Odbc.OdbcDataReader.System#Collections#IEnumerable#GetEnumerator
 M:System.Data.Odbc.OdbcDataReader.System#IDisposable#Dispose
@@ -3304,11 +3409,19 @@ M:System.Data.Odbc.OdbcParameterCollection.System#Data#IDataParameterCollection#
 M:System.Data.Odbc.OdbcParameterCollection.System#Data#IDataParameterCollection#set_Item(System.String,System.Object)
 M:System.Data.Odbc.OdbcTransaction.System#Data#IDbTransaction#get_Connection
 M:System.Data.Odbc.OdbcTransaction.System#IDisposable#Dispose
+M:System.Data.OleDb.OleDbCommandBuilder.Dispose(System.Boolean)
+M:System.Data.OleDb.OleDbCommandBuilder.RefreshSchema
+M:System.Data.OleDb.OleDbConnection.EnlistDistributedTransaction(System.EnterpriseServices.ITransaction)
+M:System.Data.OleDb.OleDbConnectionStringBuilder.GetProperties(System.Collections.Hashtable)
+M:System.Data.OleDb.OleDbDataAdapter.Dispose(System.Boolean)
+M:System.Data.OleDb.OleDbDataReader.Finalize
+M:System.Data.OleDb.OleDbFactory.CreatePermission(System.Security.Permissions.PermissionState)
 M:System.Data.OleDb.OleDbPermission.FromXml(System.Security.SecurityElement)
 M:System.Data.OleDb.OleDbPermission.Intersect(System.Security.IPermission)
 M:System.Data.OleDb.OleDbPermission.IsSubsetOf(System.Security.IPermission)
 M:System.Data.OleDb.OleDbPermission.ToXml
 M:System.Data.OleDb.OleDbPermission.Union(System.Security.IPermission)
+M:System.Data.OleDb.OleDbTransaction.Finalize
 M:System.Data.SqlClient.SqlClientFactory.CreateDataSourceEnumerator
 M:System.Data.SqlClient.SqlClientFactory.CreatePermission(System.Security.Permissions.PermissionState)
 M:System.Data.SqlClient.SqlClientFactory.System#IServiceProvider#GetService(System.Type)
@@ -3326,6 +3439,7 @@ M:System.Data.SqlClient.SqlCommand.System#Data#IDbCommand#get_Parameters
 M:System.Data.SqlClient.SqlCommand.System#Data#IDbCommand#get_Transaction
 M:System.Data.SqlClient.SqlCommand.System#Data#IDbCommand#set_Connection(System.Data.IDbConnection)
 M:System.Data.SqlClient.SqlCommand.System#Data#IDbCommand#set_Transaction(System.Data.IDbTransaction)
+M:System.Data.SqlClient.SqlCommandBuilder.Dispose(System.Boolean)
 M:System.Data.SqlClient.SqlCommandBuilder.RefreshSchema
 M:System.Data.SqlClient.SqlConnection.EnlistDistributedTransaction(System.EnterpriseServices.ITransaction)
 M:System.Data.SqlClient.SqlConnection.EnlistTransaction(System.Transactions.Transaction)
@@ -3333,6 +3447,17 @@ M:System.Data.SqlClient.SqlConnection.RegisterColumnEncryptionKeyStoreProviders(
 M:System.Data.SqlClient.SqlConnection.System#Data#IDbConnection#BeginTransaction
 M:System.Data.SqlClient.SqlConnection.System#Data#IDbConnection#BeginTransaction(System.Data.IsolationLevel)
 M:System.Data.SqlClient.SqlConnection.System#Data#IDbConnection#CreateCommand
+M:System.Data.SqlClient.SqlConnectionStringBuilder.GetProperties(System.Collections.Hashtable)
+M:System.Data.SqlClient.SqlDataAdapter.AddToBatch(System.Data.IDbCommand)
+M:System.Data.SqlClient.SqlDataAdapter.ClearBatch
+M:System.Data.SqlClient.SqlDataAdapter.CreateRowUpdatedEvent(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)
+M:System.Data.SqlClient.SqlDataAdapter.CreateRowUpdatingEvent(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)
+M:System.Data.SqlClient.SqlDataAdapter.Dispose(System.Boolean)
+M:System.Data.SqlClient.SqlDataAdapter.ExecuteBatch
+M:System.Data.SqlClient.SqlDataAdapter.GetBatchedParameter(System.Int32,System.Int32)
+M:System.Data.SqlClient.SqlDataAdapter.GetBatchedRecordsAffected(System.Int32,System.Int32,System.Exception)
+M:System.Data.SqlClient.SqlDataAdapter.InitializeBatching
+M:System.Data.SqlClient.SqlDataAdapter.TerminateBatching
 M:System.Data.SqlClient.SqlDataReader.Close
 M:System.Data.SqlClient.SqlDataReader.GetData(System.Int32)
 M:System.Data.SqlClient.SqlDataReader.System#Collections#IEnumerable#GetEnumerator
@@ -3351,8 +3476,10 @@ M:System.Data.SqlClient.SqlTransaction.Dispose
 M:System.Data.SqlClient.SqlTransaction.System#Data#IDbTransaction#get_Connection
 M:System.Data.SqlTypes.SqlFileStream.BeginRead(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)
 M:System.Data.SqlTypes.SqlFileStream.BeginWrite(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)
+M:System.Data.SqlTypes.SqlFileStream.Dispose(System.Boolean)
 M:System.Data.SqlTypes.SqlFileStream.EndRead(System.IAsyncResult)
 M:System.Data.SqlTypes.SqlFileStream.EndWrite(System.IAsyncResult)
+M:System.Data.SqlTypes.SqlFileStream.Finalize
 M:System.Data.SqlTypes.SqlFileStream.ReadByte
 M:System.Data.SqlTypes.SqlFileStream.WriteByte(System.Byte)
 M:System.Data.SqlTypes.SqlNullValueException.System#Runtime#Serialization#ISerializable#GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
@@ -3360,6 +3487,8 @@ M:System.Data.SqlTypes.SqlTruncateException.System#Runtime#Serialization#ISerial
 M:System.Data.SqlTypes.SqlTypeException.System#Runtime#Serialization#ISerializable#GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
 M:System.Diagnostics.CounterCreationDataCollection.OnInsert(System.Int32,System.Object)
 M:System.Diagnostics.Debugger.#ctor
+M:System.Diagnostics.Eventing.Reader.EventBookmark.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+M:System.Diagnostics.Eventing.Reader.EventBookmark.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
 M:System.Diagnostics.StackTrace.#ctor(System.Threading.Thread,System.Boolean)
 M:System.DirectoryServices.DirectoryEntry.get_Password
 M:System.DirectoryServices.Protocols.AddRequest.ToXmlNode(System.Xml.XmlDocument)
@@ -3372,15 +3501,21 @@ M:System.DirectoryServices.Protocols.ModifyDNRequest.ToXmlNode(System.Xml.XmlDoc
 M:System.DirectoryServices.Protocols.ModifyRequest.ToXmlNode(System.Xml.XmlDocument)
 M:System.DirectoryServices.Protocols.SearchRequest.#ctor(System.String,System.Xml.XmlDocument,System.DirectoryServices.Protocols.SearchScope,System.String[])
 M:System.DirectoryServices.Protocols.SearchRequest.ToXmlNode(System.Xml.XmlDocument)
+M:System.Drawing.FontConverter.Finalize
+M:System.Drawing.FontConverter.FontNameConverter.Finalize
 M:System.Globalization.DateTimeFormatInfo.System#Runtime#Serialization#ISerializable#GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
 M:System.Globalization.GregorianCalendar.AddWeeks(System.DateTime,System.Int32)
 M:System.Globalization.GregorianCalendar.GetWeekOfYear(System.DateTime,System.Globalization.CalendarWeekRule,System.DayOfWeek)
+M:System.IdentityModel.Claims.Claim.CreateDenyOnlyWindowsSidClaim(System.Security.Principal.SecurityIdentifier)
+M:System.IdentityModel.Claims.Claim.CreateMailAddressClaim(System.Net.Mail.MailAddress)
+M:System.IdentityModel.Selectors.SecurityTokenResolver.#ctor
 M:System.IdentityModel.Selectors.X509CertificateValidator.CreateChainTrustValidator(System.Boolean,System.Security.Cryptography.X509Certificates.X509ChainPolicy)
 M:System.IdentityModel.Selectors.X509CertificateValidator.CreatePeerOrChainTrustValidator(System.Boolean,System.Security.Cryptography.X509Certificates.X509ChainPolicy)
 M:System.IdentityModel.Selectors.X509CertificateValidator.LoadCustomConfiguration(System.Xml.XmlNodeList)
 M:System.IdentityModel.Tokens.Saml2AssertionKeyIdentifierClause.#ctor(System.String,System.Byte[],System.Int32)
 M:System.IdentityModel.Tokens.SamlAssertionKeyIdentifierClause.#ctor(System.String,System.Byte[],System.Int32)
 M:System.IdentityModel.Tokens.SamlAssertionKeyIdentifierClause.Matches(System.String)
+M:System.IdentityModel.Tokens.SecurityKey.#ctor
 M:System.IO.BinaryReader.System#IDisposable#Dispose
 M:System.IO.BinaryWriter.System#IDisposable#Dispose
 M:System.IO.BufferedStream.Close
@@ -3406,7 +3541,10 @@ M:System.IO.FileStream.Close
 M:System.IO.FileStream.GetAccessControl
 M:System.IO.FileStream.SetAccessControl(System.Security.AccessControl.FileSecurity)
 M:System.IO.IsolatedStorage.IsolatedStorage.GetPermission(System.Security.PermissionSet)
+M:System.IO.IsolatedStorage.IsolatedStorage.set_Quota
+M:System.IO.IsolatedStorage.IsolatedStorageFile.GetPermission(System.Security.PermissionSet)
 M:System.IO.IsolatedStorage.IsolatedStorageFile.GetStore(System.IO.IsolatedStorage.IsolatedStorageScope,System.Security.Policy.Evidence,System.Type,System.Security.Policy.Evidence,System.Type)
+M:System.IO.IsolatedStorage.IsolatedStorageFile.set_Quota
 M:System.IO.IsolatedStorage.IsolatedStorageFileStream.Close
 M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(System.IO.FileStream,System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess,System.IO.MemoryMappedFiles.MemoryMappedFileSecurity,System.IO.HandleInheritability,System.Boolean)
 M:System.IO.MemoryMappedFiles.MemoryMappedFile.CreateNew(System.String,System.Int64,System.IO.MemoryMappedFiles.MemoryMappedFileAccess,System.IO.MemoryMappedFiles.MemoryMappedFileOptions,System.IO.MemoryMappedFiles.MemoryMappedFileSecurity,System.IO.HandleInheritability)
@@ -3441,6 +3579,34 @@ M:System.MulticastDelegate.DynamicInvokeImpl(System.Object[])
 M:System.Net.EndpointPermission.ToString
 M:System.Net.FileWebResponse.Dispose(System.Boolean)
 M:System.Net.FileWebResponse.System#IDisposable#Dispose
+M:System.Net.Http.Formatting.MediaTypeFormatterExtensions.AddUriPathExtensionMapping(System.Net.Http.Formatting.MediaTypeFormatter,System.String,System.Net.Http.Headers.MediaTypeHeaderValue)
+M:System.Net.Http.Formatting.MediaTypeFormatterExtensions.AddUriPathExtensionMapping(System.Net.Http.Formatting.MediaTypeFormatter,System.String,System.String)
+M:System.Net.Http.HttpContentExtensions.IsJson(System.Net.Http.HttpContent)
+M:System.Net.Http.HttpContentExtensions.IsXml(System.Net.Http.HttpContent)
+M:System.Net.Http.HttpRequestMessageExtensions.CreateErrorResponse(System.Net.Http.HttpRequestMessage,System.Net.Http.InvalidByteRangeException)
+M:System.Net.Http.HttpRequestMessageExtensions.CreateErrorResponse(System.Net.Http.HttpRequestMessage,System.Net.HttpStatusCode,System.Web.Http.ModelBinding.ModelStateDictionary)
+M:System.Net.Http.HttpRequestMessageExtensions.CreateResponse``1(System.Net.Http.HttpRequestMessage,System.Net.HttpStatusCode,``0,System.Web.Http.HttpConfiguration)
+M:System.Net.Http.HttpRequestMessageExtensions.DisposeRequestResources(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.GetActionDescriptor(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.GetClientCertificate(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.GetConfiguration(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.GetCorrelationId(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.GetDependencyScope(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.GetQueryNameValuePairs(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.GetRequestContext(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.GetResourcesForDisposal(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.GetRouteData(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.GetSecurityMessageProperty(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.GetSynchronizationContext(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.GetUrlHelper(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.IsBatchRequest(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.IsLocal(System.Net.Http.HttpRequestMessage)
+M:System.Net.Http.HttpRequestMessageExtensions.RegisterForDispose(System.Net.Http.HttpRequestMessage,System.Collections.Generic.IEnumerable{System.IDisposable})
+M:System.Net.Http.HttpRequestMessageExtensions.RegisterForDispose(System.Net.Http.HttpRequestMessage,System.IDisposable)
+M:System.Net.Http.HttpRequestMessageExtensions.SetConfiguration(System.Net.Http.HttpRequestMessage,System.Web.Http.HttpConfiguration)
+M:System.Net.Http.HttpRequestMessageExtensions.SetRequestContext(System.Net.Http.HttpRequestMessage,System.Web.Http.Controllers.HttpRequestContext)
+M:System.Net.Http.HttpRequestMessageExtensions.SetRouteData(System.Net.Http.HttpRequestMessage,System.Web.Http.Routing.IHttpRouteData)
+M:System.Net.Http.HttpRequestMessageExtensions.ShouldIncludeErrorDetail(System.Net.Http.HttpRequestMessage)
 M:System.Net.HttpVersion.#ctor
 M:System.Net.HttpWebRequest.#ctor
 M:System.Net.HttpWebRequest.GetHashCode
@@ -3458,6 +3624,8 @@ M:System.Net.Sockets.UdpClient.System#IDisposable#Dispose
 M:System.Net.TransportContext.GetTlsTokenBindings
 M:System.Net.WebRequest.RegisterPortableWebRequestCreator(System.Net.IWebRequestCreate)
 M:System.Net.WebResponse.System#IDisposable#Dispose
+M:System.Printing.PrintQueue.set_Description
+M:System.Printing.PrintQueue.set_NumberOfJobs
 M:System.Reflection.Assembly.GetType
 M:System.Reflection.Assembly.Load(System.Byte[],System.Byte[],System.Security.Policy.Evidence)
 M:System.Reflection.Assembly.Load(System.Byte[],System.Byte[],System.Security.SecurityContextSource)
@@ -3718,12 +3886,14 @@ M:System.Runtime.InteropServices.Marshal.IsTypeVisibleFromCom(System.Type)
 M:System.Runtime.InteropServices.Marshal.NumParamBytes(System.Reflection.MethodInfo)
 M:System.Runtime.InteropServices.Marshal.ReleaseThreadCache
 M:System.Runtime.InteropServices.RuntimeEnvironment.#ctor
+M:System.Runtime.Remoting.ObjectHandle.InitializeLifetimeService
 M:System.Runtime.Serialization.DataContractSerializer.#ctor(System.Type,System.Collections.Generic.IEnumerable{System.Type},System.Int32,System.Boolean,System.Boolean,System.Runtime.Serialization.IDataContractSurrogate)
 M:System.Runtime.Serialization.DataContractSerializer.#ctor(System.Type,System.Collections.Generic.IEnumerable{System.Type},System.Int32,System.Boolean,System.Boolean,System.Runtime.Serialization.IDataContractSurrogate,System.Runtime.Serialization.DataContractResolver)
 M:System.Runtime.Serialization.DataContractSerializer.#ctor(System.Type,System.String,System.String,System.Collections.Generic.IEnumerable{System.Type},System.Int32,System.Boolean,System.Boolean,System.Runtime.Serialization.IDataContractSurrogate)
 M:System.Runtime.Serialization.DataContractSerializer.#ctor(System.Type,System.String,System.String,System.Collections.Generic.IEnumerable{System.Type},System.Int32,System.Boolean,System.Boolean,System.Runtime.Serialization.IDataContractSurrogate,System.Runtime.Serialization.DataContractResolver)
 M:System.Runtime.Serialization.DataContractSerializer.#ctor(System.Type,System.Xml.XmlDictionaryString,System.Xml.XmlDictionaryString,System.Collections.Generic.IEnumerable{System.Type},System.Int32,System.Boolean,System.Boolean,System.Runtime.Serialization.IDataContractSurrogate)
 M:System.Runtime.Serialization.DataContractSerializer.#ctor(System.Type,System.Xml.XmlDictionaryString,System.Xml.XmlDictionaryString,System.Collections.Generic.IEnumerable{System.Type},System.Int32,System.Boolean,System.Boolean,System.Runtime.Serialization.IDataContractSurrogate,System.Runtime.Serialization.DataContractResolver)
+M:System.Runtime.Serialization.ExportOptions.set_DataContractSurrogate
 M:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(System.IO.Stream,System.Runtime.Remoting.Messaging.HeaderHandler)
 M:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.DeserializeMethodResponse(System.IO.Stream,System.Runtime.Remoting.Messaging.HeaderHandler,System.Runtime.Remoting.Messaging.IMethodCallMessage)
 M:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Serialize(System.IO.Stream,System.Object,System.Runtime.Remoting.Messaging.Header[])
@@ -3732,6 +3902,10 @@ M:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.UnsafeDeseriali
 M:System.Runtime.Serialization.Json.DataContractJsonSerializer.#ctor(System.Type,System.Collections.Generic.IEnumerable{System.Type},System.Int32,System.Boolean,System.Runtime.Serialization.IDataContractSurrogate,System.Boolean)
 M:System.Runtime.Serialization.Json.DataContractJsonSerializer.#ctor(System.Type,System.String,System.Collections.Generic.IEnumerable{System.Type},System.Int32,System.Boolean,System.Runtime.Serialization.IDataContractSurrogate,System.Boolean)
 M:System.Runtime.Serialization.Json.DataContractJsonSerializer.#ctor(System.Type,System.Xml.XmlDictionaryString,System.Collections.Generic.IEnumerable{System.Type},System.Int32,System.Boolean,System.Runtime.Serialization.IDataContractSurrogate,System.Boolean)
+M:System.Security.AccessControl.GenericSecurityDescriptor.#ctor
+M:System.Security.Claims.PrincipalExtensions.GetUserId(System.Security.Claims.ClaimsPrincipal)
+M:System.Security.Claims.PrincipalExtensions.GetUserName(System.Security.Claims.ClaimsPrincipal)
+M:System.Security.Claims.PrincipalExtensions.IsSignedIn(System.Security.Claims.ClaimsPrincipal)
 M:System.Security.Cryptography.AsymmetricAlgorithm.System#IDisposable#Dispose
 M:System.Security.Cryptography.CryptoStream.Close
 M:System.Security.Cryptography.CryptoStream.Finalize
@@ -3753,12 +3927,14 @@ M:System.Security.Cryptography.MD5CryptoServiceProvider.Finalize
 M:System.Security.Cryptography.MD5CryptoServiceProvider.HashCore(System.Byte[],System.Int32,System.Int32)
 M:System.Security.Cryptography.MD5CryptoServiceProvider.HashFinal
 M:System.Security.Cryptography.PasswordDeriveBytes.Finalize
+M:System.Security.Cryptography.Pkcs.ContentInfo.Finalize
 M:System.Security.Cryptography.Pkcs.EnvelopedCms.#ctor(System.Security.Cryptography.Pkcs.SubjectIdentifierType,System.Security.Cryptography.Pkcs.ContentInfo)
 M:System.Security.Cryptography.Pkcs.EnvelopedCms.#ctor(System.Security.Cryptography.Pkcs.SubjectIdentifierType,System.Security.Cryptography.Pkcs.ContentInfo,System.Security.Cryptography.Pkcs.AlgorithmIdentifier)
 M:System.Security.Cryptography.Pkcs.EnvelopedCms.Encrypt
 M:System.Security.Cryptography.RNGCryptoServiceProvider.Finalize
 M:System.Security.Cryptography.RSACng.DecryptValue(System.Byte[])
 M:System.Security.Cryptography.RSACng.EncryptValue(System.Byte[])
+M:System.Security.Cryptography.RSACryptoServiceProvider.Finalize
 M:System.Security.Cryptography.SHA1Managed.Dispose(System.Boolean)
 M:System.Security.Cryptography.SHA1Managed.HashCore(System.Byte[],System.Int32,System.Int32)
 M:System.Security.Cryptography.SHA1Managed.HashFinal
@@ -3902,6 +4078,9 @@ M:System.ServiceModel.Channels.MessageFault.CreateFault(System.ServiceModel.Faul
 M:System.ServiceModel.Channels.MessageFault.WasHeaderNotUnderstood(System.ServiceModel.Channels.MessageHeaders,System.String,System.String)
 M:System.ServiceModel.Channels.MessageFault.WriteTo(System.Xml.XmlDictionaryWriter,System.ServiceModel.EnvelopeVersion)
 M:System.ServiceModel.Channels.MessageFault.WriteTo(System.Xml.XmlWriter,System.ServiceModel.EnvelopeVersion)
+M:System.ServiceModel.Channels.MtomMessageEncodingBindingElement.ShouldSerializeMessageVersion
+M:System.ServiceModel.Channels.MtomMessageEncodingBindingElement.ShouldSerializeReaderQuotas
+M:System.ServiceModel.Channels.MtomMessageEncodingBindingElement.ShouldSerializeWriteEncoding
 M:System.ServiceModel.Channels.SecurityBindingElement.BuildChannelListener``1(System.ServiceModel.Channels.BindingContext)
 M:System.ServiceModel.Channels.SecurityBindingElement.BuildChannelListenerCore``1(System.ServiceModel.Channels.BindingContext)
 M:System.ServiceModel.Channels.SecurityBindingElement.CanBuildChannelListener``1(System.ServiceModel.Channels.BindingContext)
@@ -3952,6 +4131,7 @@ M:System.ServiceModel.Channels.TextMessageEncodingBindingElement.ShouldSerialize
 M:System.ServiceModel.Channels.TextMessageEncodingBindingElement.System#ServiceModel#Description#IPolicyExportExtension#ExportPolicy(System.ServiceModel.Description.MetadataExporter,System.ServiceModel.Description.PolicyConversionContext)
 M:System.ServiceModel.Channels.TextMessageEncodingBindingElement.System#ServiceModel#Description#IWsdlExportExtension#ExportContract(System.ServiceModel.Description.WsdlExporter,System.ServiceModel.Description.WsdlContractConversionContext)
 M:System.ServiceModel.Channels.TextMessageEncodingBindingElement.System#ServiceModel#Description#IWsdlExportExtension#ExportEndpoint(System.ServiceModel.Description.WsdlExporter,System.ServiceModel.Description.WsdlEndpointConversionContext)
+M:System.ServiceModel.Channels.TransportSecurityBindingElement.BuildChannelListenerCore``1(System.ServiceModel.Channels.BindingContext)
 M:System.ServiceModel.Channels.TransportSecurityBindingElement.System#ServiceModel#Description#IPolicyExportExtension#ExportPolicy(System.ServiceModel.Description.MetadataExporter,System.ServiceModel.Description.PolicyConversionContext)
 M:System.ServiceModel.Channels.WindowsStreamSecurityBindingElement.#ctor(System.ServiceModel.Channels.WindowsStreamSecurityBindingElement)
 M:System.ServiceModel.Channels.WindowsStreamSecurityBindingElement.BuildChannelListener``1(System.ServiceModel.Channels.BindingContext)
@@ -3983,6 +4163,11 @@ M:System.ServiceModel.Description.MessageDescription.ShouldSerializeProtectionLe
 M:System.ServiceModel.Description.OperationDescription.ShouldSerializeProtectionLevel
 M:System.ServiceModel.Description.XmlSerializerOperationBehavior.System#ServiceModel#Description#IWsdlExportExtension#ExportContract(System.ServiceModel.Description.WsdlExporter,System.ServiceModel.Description.WsdlContractConversionContext)
 M:System.ServiceModel.Description.XmlSerializerOperationBehavior.System#ServiceModel#Description#IWsdlExportExtension#ExportEndpoint(System.ServiceModel.Description.WsdlExporter,System.ServiceModel.Description.WsdlEndpointConversionContext)
+M:System.ServiceModel.Dispatcher.ChannelDispatcher.CloseInput
+M:System.ServiceModel.Dispatcher.ChannelDispatcher.OnAbort
+M:System.ServiceModel.Dispatcher.ChannelDispatcher.OnClosed
+M:System.ServiceModel.Dispatcher.ChannelDispatcher.OnOpened
+M:System.ServiceModel.Dispatcher.ChannelDispatcher.OnOpening
 M:System.ServiceModel.Dispatcher.DispatchOperation.#ctor(System.ServiceModel.Dispatcher.DispatchRuntime,System.String,System.String,System.String)
 M:System.ServiceModel.Dispatcher.EndpointDispatcher.#ctor(System.ServiceModel.EndpointAddress,System.String,System.String)
 M:System.ServiceModel.Dispatcher.EndpointDispatcher.#ctor(System.ServiceModel.EndpointAddress,System.String,System.String,System.Boolean)
@@ -4099,6 +4284,16 @@ M:System.ServiceModel.QuotaExceededException.#ctor
 M:System.ServiceModel.Security.MessageSecurityException.#ctor
 M:System.ServiceModel.Security.MessageSecurityException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
 M:System.ServiceModel.Security.SecurityAccessDeniedException.#ctor
+M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsAsymmetricKeyWrapAlgorithmSupported(System.String)
+M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsAsymmetricSignatureAlgorithmSupported(System.String)
+M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsCanonicalizationAlgorithmSupported(System.String)
+M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsDigestAlgorithmSupported(System.String)
+M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsEncryptionAlgorithmSupported(System.String)
+M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsEncryptionKeyDerivationAlgorithmSupported(System.String)
+M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsSignatureKeyDerivationAlgorithmSupported(System.String)
+M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsSymmetricKeyWrapAlgorithmSupported(System.String)
+M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsSymmetricSignatureAlgorithmSupported(System.String)
+M:System.ServiceModel.Security.Tokens.IssuedSecurityTokenParameters.ToString
 M:System.ServiceModel.Security.Tokens.SecureConversationSecurityTokenParameters.#ctor(System.ServiceModel.Channels.SecurityBindingElement,System.Boolean)
 M:System.ServiceModel.Security.Tokens.SecureConversationSecurityTokenParameters.#ctor(System.ServiceModel.Channels.SecurityBindingElement,System.Boolean,System.Boolean)
 M:System.ServiceModel.Security.Tokens.SecureConversationSecurityTokenParameters.#ctor(System.ServiceModel.Channels.SecurityBindingElement,System.Boolean,System.Boolean,System.ServiceModel.Security.ChannelProtectionRequirements)
@@ -4161,6 +4356,7 @@ M:System.Threading.Mutex.GetAccessControl
 M:System.Threading.Mutex.OpenExisting(System.String,System.Security.AccessControl.MutexRights)
 M:System.Threading.Mutex.SetAccessControl(System.Security.AccessControl.MutexSecurity)
 M:System.Threading.Mutex.TryOpenExisting(System.String,System.Security.AccessControl.MutexRights,System.Threading.Mutex@)
+M:System.Threading.RegisteredWaitHandle.Finalize
 M:System.Threading.Semaphore.#ctor(System.Int32,System.Int32,System.String,System.Boolean@,System.Security.AccessControl.SemaphoreSecurity)
 M:System.Threading.Semaphore.GetAccessControl
 M:System.Threading.Semaphore.OpenExisting(System.String,System.Security.AccessControl.SemaphoreRights)
@@ -4171,12 +4367,60 @@ M:System.Threading.Thread.System#Runtime#InteropServices#_Thread#GetIDsOfNames(S
 M:System.Threading.Thread.System#Runtime#InteropServices#_Thread#GetTypeInfo(System.UInt32,System.UInt32,System.IntPtr)
 M:System.Threading.Thread.System#Runtime#InteropServices#_Thread#GetTypeInfoCount(System.UInt32@)
 M:System.Threading.Thread.System#Runtime#InteropServices#_Thread#Invoke(System.UInt32,System.Guid@,System.UInt32,System.Int16,System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr)
+M:System.Threading.Timer.Finalize
 M:System.Threading.WaitHandle.Finalize
 M:System.Threading.WaitHandle.System#IDisposable#Dispose
 M:System.Type.System#Runtime#InteropServices#_Type#GetIDsOfNames(System.Guid@,System.IntPtr,System.UInt32,System.UInt32,System.IntPtr)
 M:System.Type.System#Runtime#InteropServices#_Type#GetTypeInfo(System.UInt32,System.UInt32,System.IntPtr)
 M:System.Type.System#Runtime#InteropServices#_Type#GetTypeInfoCount(System.UInt32@)
 M:System.Type.System#Runtime#InteropServices#_Type#Invoke(System.UInt32,System.Guid@,System.UInt32,System.Int16,System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr)
+M:System.Web.Http.ApiController.BadRequest(System.Web.Http.ModelBinding.ModelStateDictionary)
+M:System.Web.Http.ApiController.Content``1(System.Net.HttpStatusCode,``0,System.Net.Http.Formatting.MediaTypeFormatter)
+M:System.Web.Http.ApiController.Content``1(System.Net.HttpStatusCode,``0,System.Net.Http.Formatting.MediaTypeFormatter,System.Net.Http.Headers.MediaTypeHeaderValue)
+M:System.Web.Http.ApiController.Content``1(System.Net.HttpStatusCode,``0,System.Net.Http.Formatting.MediaTypeFormatter,System.String)
+M:System.Web.Http.ApiController.Created``1(System.String,``0)
+M:System.Web.Http.ApiController.Created``1(System.Uri,``0)
+M:System.Web.Http.ApiController.CreatedAtRoute``1(System.String,System.Collections.Generic.IDictionary{System.String,System.Object},``0)
+M:System.Web.Http.ApiController.CreatedAtRoute``1(System.String,System.Object,``0)
+M:System.Web.Http.ApiController.ExecuteAsync(System.Web.Http.Controllers.HttpControllerContext,System.Threading.CancellationToken)
+M:System.Web.Http.ApiController.Initialize(System.Web.Http.Controllers.HttpControllerContext)
+M:System.Web.Http.ApiController.RedirectToRoute(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})
+M:System.Web.Http.ApiController.set_ActionContext
+M:System.Web.Http.ApiController.set_ControllerContext
+M:System.Web.Http.ApiController.set_Url
+M:System.Web.Http.ApiController.set_User
+M:System.Web.Http.ApiController.Unauthorized(System.Collections.Generic.IEnumerable{System.Net.Http.Headers.AuthenticationHeaderValue})
+M:System.Web.Http.ApiController.Unauthorized(System.Net.Http.Headers.AuthenticationHeaderValue[])
+M:System.Web.Http.FromUriAttribute.GetValueProviderFactories(System.Web.Http.HttpConfiguration)
+M:System.Web.Http.HttpError.#ctor(System.Web.Http.ModelBinding.ModelStateDictionary,System.Boolean)
+M:System.Windows.Automation.Peers.DataGridCellAutomationPeer.IsOffscreenCore
+M:System.Windows.Automation.Peers.DataGridColumnHeaderAutomationPeer.IsOffscreenCore
+M:System.Windows.Automation.Peers.DataGridDetailsPresenterAutomationPeer.IsContentElementCore
+M:System.Windows.Automation.Peers.DataGridDetailsPresenterAutomationPeer.IsOffscreenCore
+M:System.Windows.Automation.Peers.DataGridRowAutomationPeer.IsOffscreenCore
+M:System.Windows.Automation.Peers.DataGridRowHeaderAutomationPeer.IsOffscreenCore
+M:System.Windows.Automation.Peers.FrameworkElementAutomationPeer.GetLabeledByCore
+M:System.Windows.Automation.Peers.GroupItemAutomationPeer.IsOffscreenCore
+M:System.Windows.Automation.Peers.ListBoxItemWrapperAutomationPeer.IsOffscreenCore
+M:System.Windows.Automation.Peers.MenuItemAutomationPeer.IsOffscreenCore
+M:System.Windows.Automation.Peers.StatusBarItemAutomationPeer.IsOffscreenCore
+M:System.Windows.Automation.Peers.TabItemWrapperAutomationPeer.IsOffscreenCore
+M:System.Windows.Automation.Peers.TableAutomationPeer.IsContentElementCore
+M:System.Windows.Automation.Peers.TableCellAutomationPeer.IsContentElementCore
+M:System.Windows.Automation.Peers.ThumbAutomationPeer.GetNameCore
+M:System.Windows.Automation.Peers.TreeViewItemAutomationPeer.IsOffscreenCore
+M:System.Windows.Automation.Peers.WindowAutomationPeer.IsDialogCore
+M:System.Windows.Forms.Control.ControlCollection.GetHashCode
+M:System.Windows.Forms.Design.ControlDesigner.InitializeNonDefault
+M:System.Windows.Forms.Design.ParentControlDesigner.OnMouseEnter
+M:System.Windows.Forms.Design.ParentControlDesigner.OnMouseHover
+M:System.Windows.Forms.Design.ParentControlDesigner.OnMouseLeave
+M:System.Windows.Forms.PropertyManager.GetItemProperties
+M:System.Windows.Forms.ToolStripComboBox.CreateAccessibilityInstance
+M:System.Windows.Forms.ToolStripProgressBar.CreateAccessibilityInstance
+M:System.Windows.Forms.ToolStripTextBox.CreateAccessibilityInstance
+M:System.Windows.Input.CanExecuteChangedEventManager.NewListenerList
+M:System.Windows.Media.Media3D.Model3DGroup.OnChanged
 M:System.Xml.Schema.XmlSchemaDatatype.ParseValue(System.String,System.Xml.XmlNameTable,System.Xml.XmlNamespaceManager)
 M:System.Xml.Serialization.XmlMemberMapping.GenerateTypeName(System.CodeDom.Compiler.CodeDomProvider)
 M:System.Xml.Serialization.XmlSchemaImporter.#ctor(System.Xml.Serialization.XmlSchemas,System.Xml.Serialization.CodeGenerationOptions,System.CodeDom.Compiler.CodeDomProvider,System.Xml.Serialization.ImportContext)
@@ -4209,252 +4453,6 @@ M:System.Xml.Xsl.XslCompiledTransform.CompileToType(System.Xml.XmlReader,System.
 M:System.Xml.Xsl.XslTransform.Load(System.Xml.XmlReader,System.Xml.XmlResolver,System.Security.Policy.Evidence)
 M:System.Xml.Xsl.XslTransform.Load(System.Xml.XPath.IXPathNavigable,System.Xml.XmlResolver,System.Security.Policy.Evidence)
 M:System.Xml.Xsl.XslTransform.Load(System.Xml.XPath.XPathNavigator,System.Xml.XmlResolver,System.Security.Policy.Evidence)
-M:Microsoft.Build.CommandLine.MSBuildApp.Main
-M:Microsoft.Build.Tasks.Deployment.ManifestUtilities.TrustInfo.set_IsFullTrust
-M:Microsoft.Build.Tasks.Exec.set_ConsoleOutput
-M:Microsoft.Build.Tasks.GetFrameworkPath.set_Path
-M:Microsoft.Build.Tasks.MSBuild.set_SkipNonexistentProjects
-M:Microsoft.Build.Tasks.ResolveAssemblyReference.set_InstalledAssemblyTables
-M:Microsoft.Build.Tasks.SGen.GenerateCommandLineCommands
-M:Microsoft.Build.Tasks.SGen.SkipTaskExecution
-M:Microsoft.Build.Tasks.SGen.ValidateParameters
-M:Microsoft.Build.Utilities.TaskItem.InitializeLifetimeService
-M:Microsoft.Build.Utilities.TaskLoggingHelper.InitializeLifetimeService
-M:Microsoft.Build.Utilities.TaskLoggingHelper.MarkAsInactive
-M:Microsoft.Data.SqlClient.SqlClientFactory.CreateDataSourceEnumerator
-M:Microsoft.Data.SqlClient.SqlDataAdapter.ClearBatch
-M:Microsoft.Data.SqlClient.SqlDataAdapter.ExecuteBatch
-M:Microsoft.Data.SqlClient.SqlDataAdapter.InitializeBatching
-M:Microsoft.Data.SqlClient.SqlDataAdapter.TerminateBatching
-M:Microsoft.VisualBasic.ApplicationServices.User.InitializeWithWindowsUser
-M:Microsoft.VisualBasic.CompilerServices.ProjectData.Finalize
-M:Microsoft.VisualBasic.FileIO.TextFieldParser.Dispose
-M:Microsoft.Win32.RegistryKey.Finalize
-M:Newtonsoft.Json.JsonConvert.set_DefaultSettings
-M:Newtonsoft.Json.JsonSerializerSettings.set_ReferenceResolverProvider
-M:Newtonsoft.Json.Serialization.JsonContract.set_DefaultCreator
-M:Newtonsoft.Json.Serialization.JsonDictionaryContract.set_DictionaryKeyResolver
-M:Newtonsoft.Json.Serialization.JsonObjectContract.set_ExtensionDataNameResolver
-M:Newtonsoft.Json.Serialization.JsonProperty.set_SetIsSpecified
-M:System.AppDomainSetup.#ctor
-M:System.AppDomainSetup.GetConfigurationBytes
-M:System.AppDomainSetup.set_ApplicationBase
-M:System.AppDomainSetup.set_TargetFrameworkName
-M:System.ComponentModel.Design.ComponentDesigner.Finalize
-M:System.ComponentModel.Design.DesignerActionListCollection.OnClear
-M:System.Data.Odbc.OdbcDataReader.Finalize
-M:System.Data.OleDb.OleDbCommandBuilder.RefreshSchema
-M:System.Data.OleDb.OleDbDataReader.Finalize
-M:System.Data.OleDb.OleDbTransaction.Finalize
-M:System.Data.SqlClient.SqlDataAdapter.ClearBatch
-M:System.Data.SqlClient.SqlDataAdapter.ExecuteBatch
-M:System.Data.SqlClient.SqlDataAdapter.InitializeBatching
-M:System.Data.SqlClient.SqlDataAdapter.TerminateBatching
-M:System.Data.SqlTypes.SqlFileStream.Finalize
-M:System.Drawing.FontConverter.Finalize
-M:System.Drawing.FontConverter.FontNameConverter.Finalize
-M:System.IdentityModel.Selectors.SecurityTokenResolver.#ctor
-M:System.IdentityModel.Tokens.SecurityKey.#ctor
-M:System.IO.IsolatedStorage.IsolatedStorage.set_Quota
-M:System.IO.IsolatedStorage.IsolatedStorageFile.set_Quota
-M:System.Printing.PrintQueue.set_Description
-M:System.Printing.PrintQueue.set_NumberOfJobs
-M:System.Runtime.Remoting.ObjectHandle.InitializeLifetimeService
-M:System.Runtime.Serialization.ExportOptions.set_DataContractSurrogate
-M:System.Security.AccessControl.GenericSecurityDescriptor.#ctor
-M:System.Security.Cryptography.Pkcs.ContentInfo.Finalize
-M:System.Security.Cryptography.RSACryptoServiceProvider.Finalize
-M:System.ServiceModel.Channels.MtomMessageEncodingBindingElement.ShouldSerializeMessageVersion
-M:System.ServiceModel.Channels.MtomMessageEncodingBindingElement.ShouldSerializeReaderQuotas
-M:System.ServiceModel.Channels.MtomMessageEncodingBindingElement.ShouldSerializeWriteEncoding
-M:System.ServiceModel.Dispatcher.ChannelDispatcher.CloseInput
-M:System.ServiceModel.Dispatcher.ChannelDispatcher.OnAbort
-M:System.ServiceModel.Dispatcher.ChannelDispatcher.OnClosed
-M:System.ServiceModel.Dispatcher.ChannelDispatcher.OnOpened
-M:System.ServiceModel.Dispatcher.ChannelDispatcher.OnOpening
-M:System.ServiceModel.Security.Tokens.IssuedSecurityTokenParameters.ToString
-M:System.Threading.RegisteredWaitHandle.Finalize
-M:System.Threading.Timer.Finalize
-M:System.Web.Http.ApiController.set_ActionContext
-M:System.Web.Http.ApiController.set_ControllerContext
-M:System.Web.Http.ApiController.set_Url
-M:System.Web.Http.ApiController.set_User
-M:System.Windows.Automation.Peers.DataGridCellAutomationPeer.IsOffscreenCore
-M:System.Windows.Automation.Peers.DataGridColumnHeaderAutomationPeer.IsOffscreenCore
-M:System.Windows.Automation.Peers.DataGridDetailsPresenterAutomationPeer.IsContentElementCore
-M:System.Windows.Automation.Peers.DataGridDetailsPresenterAutomationPeer.IsOffscreenCore
-M:System.Windows.Automation.Peers.DataGridRowAutomationPeer.IsOffscreenCore
-M:System.Windows.Automation.Peers.DataGridRowHeaderAutomationPeer.IsOffscreenCore
-M:System.Windows.Automation.Peers.FrameworkElementAutomationPeer.GetLabeledByCore
-M:System.Windows.Automation.Peers.GroupItemAutomationPeer.IsOffscreenCore
-M:System.Windows.Automation.Peers.ListBoxItemWrapperAutomationPeer.IsOffscreenCore
-M:System.Windows.Automation.Peers.MenuItemAutomationPeer.IsOffscreenCore
-M:System.Windows.Automation.Peers.StatusBarItemAutomationPeer.IsOffscreenCore
-M:System.Windows.Automation.Peers.TabItemWrapperAutomationPeer.IsOffscreenCore
-M:System.Windows.Automation.Peers.TableAutomationPeer.IsContentElementCore
-M:System.Windows.Automation.Peers.TableCellAutomationPeer.IsContentElementCore
-M:System.Windows.Automation.Peers.ThumbAutomationPeer.GetNameCore
-M:System.Windows.Automation.Peers.TreeViewItemAutomationPeer.IsOffscreenCore
-M:System.Windows.Automation.Peers.WindowAutomationPeer.IsDialogCore
-M:System.Windows.Forms.Control.ControlCollection.GetHashCode
-M:System.Windows.Forms.Design.ControlDesigner.InitializeNonDefault
-M:System.Windows.Forms.Design.ParentControlDesigner.OnMouseEnter
-M:System.Windows.Forms.Design.ParentControlDesigner.OnMouseHover
-M:System.Windows.Forms.Design.ParentControlDesigner.OnMouseLeave
-M:System.Windows.Forms.PropertyManager.GetItemProperties
-M:System.Windows.Forms.ToolStripComboBox.CreateAccessibilityInstance
-M:System.Windows.Forms.ToolStripProgressBar.CreateAccessibilityInstance
-M:System.Windows.Forms.ToolStripTextBox.CreateAccessibilityInstance
-M:System.Windows.Input.CanExecuteChangedEventManager.NewListenerList
-M:System.Windows.Media.Media3D.Model3DGroup.OnChanged
-M:Accessibility.CAccPropServicesClass.DecomposeHmenuIdentityString(System.Byte,System.UInt32,Accessibility._RemotableHandle,System.UInt32)
-M:Accessibility.CAccPropServicesClass.DecomposeHwndIdentityString(System.Byte,System.UInt32,Accessibility._RemotableHandle,System.UInt32,System.UInt32)
-M:Accessibility.IAccPropServices.DecomposeHmenuIdentityString(System.Byte,System.UInt32,Accessibility._RemotableHandle,System.UInt32)
-M:Accessibility.IAccPropServices.DecomposeHwndIdentityString(System.Byte,System.UInt32,Accessibility._RemotableHandle,System.UInt32,System.UInt32)
-M:Microsoft.AspNet.SignalR.WebSockets.WebSocketHandler.#ctor(System.Threading.Tasks.TaskCompletionSource{System.Object},System.Nullable{System.Int32})
-M:Microsoft.AspNet.SignalR.WebSockets.WebSocketHandler.ProcessWebSocketRequestAsync(System.Net.WebSockets.WebSocket,System.Threading.CancellationToken)
-M:Microsoft.AspNet.SignalR.WebSockets.WebSocketHandler.SendAsync(System.String)
-M:Microsoft.AspNetCore.Mvc.Razor.MvcRazorHost.#ctor(System.String)
-M:Microsoft.Build.CommandLine.MSBuildApp.Execute(System.String)
-M:Microsoft.Build.Experimental.MSBuildClient.#ctor(System.String,System.String)
-M:Microsoft.Build.Tasks.Deployment.ManifestUtilities.SecurityUtilities.ComputeZonePermissionSet(System.String,System.Security.PermissionSet,System.String[])
-M:Microsoft.Build.Tasks.Deployment.ManifestUtilities.SecurityUtilities.IdentityListToPermissionSet(System.String[])
-M:Microsoft.Build.Tasks.Deployment.ManifestUtilities.SecurityUtilities.PermissionSetToIdentityList(System.Security.PermissionSet)
-M:Microsoft.Build.Tasks.Deployment.ManifestUtilities.SecurityUtilities.XmlToPermissionSet(System.Xml.XmlElement)
-M:Microsoft.Build.Tasks.GenerateManifestBase.CompareFrameworkVersions(System.String,System.String)
-M:Microsoft.Build.Tasks.GenerateManifestBase.ConvertFrameworkVersionToString(System.String)
-M:Microsoft.Data.SqlClient.ActiveDirectoryAuthenticationProvider.SetIWin32WindowFunc(System.Func{System.Windows.Forms.IWin32Window})
-M:Microsoft.Data.SqlClient.SqlClientFactory.CreatePermission(System.Security.Permissions.PermissionState)
-M:Microsoft.Data.SqlClient.SqlConnection.EnlistDistributedTransaction(System.EnterpriseServices.ITransaction)
-M:Microsoft.Data.SqlClient.SqlConnection.EnlistTransaction(System.Transactions.Transaction)
-M:Microsoft.Data.SqlClient.SqlDataAdapter.AddToBatch(System.Data.IDbCommand)
-M:Microsoft.Data.SqlClient.SqlDataAdapter.CreateRowUpdatedEvent(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)
-M:Microsoft.Data.SqlClient.SqlDataAdapter.CreateRowUpdatingEvent(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)
-M:Microsoft.Data.SqlClient.SqlDataAdapter.GetBatchedParameter(System.Int32,System.Int32)
-M:Microsoft.Data.SqlClient.SqlDataAdapter.GetBatchedRecordsAffected(System.Int32,System.Int32,System.Exception)
-M:Microsoft.Data.SqlClient.SqlParameterCollection.Add(System.String,System.Object)
-M:Microsoft.Extensions.DependencyInjection.ApplicationModelConventionExtensions.Add(System.Collections.Generic.IList{Microsoft.AspNetCore.Mvc.ApplicationModels.IApplicationModelConvention},Microsoft.AspNetCore.Mvc.ApplicationModels.IActionModelConvention)
-M:Microsoft.Extensions.DependencyInjection.ApplicationModelConventionExtensions.Add(System.Collections.Generic.IList{Microsoft.AspNetCore.Mvc.ApplicationModels.IApplicationModelConvention},Microsoft.AspNetCore.Mvc.ApplicationModels.IControllerModelConvention)
-M:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.Authentication.SharedAuthenticationOptions})
-M:Microsoft.Extensions.DependencyInjection.AuthorizationServiceCollectionExtensions.AddAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.Authorization.AuthorizationOptions})
-M:Microsoft.Extensions.DependencyInjection.AuthorizationServiceCollectionExtensions.AddAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection)
-M:Microsoft.Extensions.DependencyInjection.DataProtectionServiceCollectionExtensions.ConfigureDataProtection(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNet.DataProtection.DataProtectionConfiguration})
-M:Microsoft.Extensions.DependencyInjection.ElmServiceCollectionExtensions.ConfigureElm(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNet.Diagnostics.Elm.ElmOptions})
-M:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.AddIdentity``2(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNet.Identity.IdentityOptions})
-M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.AddControllersAsServices(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Collections.Generic.IEnumerable{System.Reflection.Assembly})
-M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.AddControllersAsServices(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Collections.Generic.IEnumerable{System.Type})
-M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.AddFormatterMappings(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{Microsoft.AspNet.Mvc.Formatters.FormatterMappings})
-M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.AddMvcOptions(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{MvcOptions})
-M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddAuthorization(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Authorization.AuthorizationOptions})
-M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddControllersAsServices(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Collections.Generic.IEnumerable{System.Reflection.Assembly})
-M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddControllersAsServices(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Collections.Generic.IEnumerable{System.Type})
-M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddFormatterMappings(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Mvc.Formatters.FormatterMappings})
-M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.AddMvcOptions(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Mvc.MvcOptions})
-M:Microsoft.Extensions.DependencyInjection.MvcCoreServiceCollectionExtensions.AddMvcCore(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNet.Mvc.MvcOptions})
-M:Microsoft.Extensions.DependencyInjection.MvcCorsMvcCoreBuilderExtensions.AddCors(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Cors.Infrastructure.CorsOptions})
-M:Microsoft.Extensions.DependencyInjection.MvcCorsMvcCoreBuilderExtensions.ConfigureCors(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Cors.Infrastructure.CorsOptions})
-M:Microsoft.Extensions.DependencyInjection.MvcDataAnnotationsMvcBuilderExtensions.AddDataAnnotationsLocalization(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{Microsoft.AspNet.Mvc.ModelBinding.Validation.MvcDataAnnotationsLocalizationOptions})
-M:Microsoft.Extensions.DependencyInjection.MvcDataAnnotationsMvcCoreBuilderExtensions.AddDataAnnotationsLocalization(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Mvc.ModelBinding.Validation.MvcDataAnnotationsLocalizationOptions})
-M:Microsoft.Extensions.DependencyInjection.MvcJsonMvcBuilderExtensions.AddJsonOptions(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{Microsoft.AspNet.Mvc.MvcJsonOptions})
-M:Microsoft.Extensions.DependencyInjection.MvcLocalizationMvcBuilderExtensions.AddViewLocalization(Microsoft.Extensions.DependencyInjection.IMvcBuilder,Microsoft.AspNet.Mvc.Razor.LanguageViewLocationExpanderFormat,System.Action{Microsoft.Extensions.Localization.LocalizationOptions})
-M:Microsoft.Extensions.DependencyInjection.MvcLocalizationMvcBuilderExtensions.AddViewLocalization(Microsoft.Extensions.DependencyInjection.IMvcBuilder,Microsoft.AspNet.Mvc.Razor.LanguageViewLocationExpanderFormat)
-M:Microsoft.Extensions.DependencyInjection.MvcLocalizationMvcCoreBuilderExtensions.AddViewLocalization(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,Microsoft.AspNet.Mvc.Razor.LanguageViewLocationExpanderFormat,System.Action{Microsoft.Extensions.Localization.LocalizationOptions})
-M:Microsoft.Extensions.DependencyInjection.MvcLocalizationMvcCoreBuilderExtensions.AddViewLocalization(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,Microsoft.AspNet.Mvc.Razor.LanguageViewLocationExpanderFormat)
-M:Microsoft.Extensions.DependencyInjection.MvcRazorMvcBuilderExtensions.AddPrecompiledRazorViews(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Reflection.Assembly[])
-M:Microsoft.Extensions.DependencyInjection.MvcRazorMvcBuilderExtensions.AddRazorOptions(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{Microsoft.AspNet.Mvc.Razor.RazorViewEngineOptions})
-M:Microsoft.Extensions.DependencyInjection.MvcRazorMvcBuilderExtensions.InitializeTagHelper``1(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{``0,Microsoft.AspNet.Mvc.Rendering.ViewContext})
-M:Microsoft.Extensions.DependencyInjection.MvcRazorMvcCoreBuilderExtensions.AddPrecompiledRazorViews(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Reflection.Assembly[])
-M:Microsoft.Extensions.DependencyInjection.MvcRazorMvcCoreBuilderExtensions.AddRazorViewEngine(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Mvc.Razor.RazorViewEngineOptions})
-M:Microsoft.Extensions.DependencyInjection.MvcRazorMvcCoreBuilderExtensions.InitializeTagHelper``1(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{``0,Microsoft.AspNet.Mvc.Rendering.ViewContext})
-M:Microsoft.Extensions.DependencyInjection.MvcViewFeaturesMvcBuilderExtensions.AddViewOptions(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{Microsoft.AspNet.Mvc.MvcViewOptions})
-M:Microsoft.Extensions.DependencyInjection.MvcViewFeaturesMvcCoreBuilderExtensions.AddViews(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Mvc.MvcViewOptions})
-M:Microsoft.Extensions.DependencyInjection.MvcViewFeaturesMvcCoreBuilderExtensions.ConfigureViews(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,System.Action{Microsoft.AspNet.Mvc.MvcViewOptions})
-M:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)
-M:Microsoft.Extensions.DependencyInjection.SessionServiceCollectionExtensions.AddSession(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNet.Session.SessionOptions})
-M:Microsoft.VisualBasic.ApplicationServices.User.IsInRole(Microsoft.VisualBasic.ApplicationServices.BuiltInRole)
-M:Newtonsoft.Json.Schema.JSchemaException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
-M:Newtonsoft.Json.Schema.JSchemaReaderException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
-M:Newtonsoft.Json.Schema.JSchemaValidationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
-M:System.Data.Entity.Core.EntityClient.EntityProviderFactory.CreatePermission(System.Security.Permissions.PermissionState)
-M:System.Data.Odbc.OdbcCommandBuilder.Dispose(System.Boolean)
-M:System.Data.Odbc.OdbcDataAdapter.Dispose(System.Boolean)
-M:System.Data.OleDb.OleDbCommandBuilder.Dispose(System.Boolean)
-M:System.Data.OleDb.OleDbConnection.EnlistDistributedTransaction(System.EnterpriseServices.ITransaction)
-M:System.Data.OleDb.OleDbConnectionStringBuilder.GetProperties(System.Collections.Hashtable)
-M:System.Data.OleDb.OleDbDataAdapter.Dispose(System.Boolean)
-M:System.Data.OleDb.OleDbFactory.CreatePermission(System.Security.Permissions.PermissionState)
-M:System.Data.SqlClient.SqlCommand.#ctor(System.String,System.Data.SqlClient.SqlConnection,System.Data.SqlClient.SqlTransaction,System.Data.SqlClient.SqlCommandColumnEncryptionSetting)
-M:System.Data.SqlClient.SqlCommandBuilder.Dispose(System.Boolean)
-M:System.Data.SqlClient.SqlConnection.RegisterColumnEncryptionKeyStoreProviders(System.Collections.Generic.IDictionary{System.String,System.Data.SqlClient.SqlColumnEncryptionKeyStoreProvider})
-M:System.Data.SqlClient.SqlConnectionStringBuilder.GetProperties(System.Collections.Hashtable)
-M:System.Data.SqlClient.SqlDataAdapter.AddToBatch(System.Data.IDbCommand)
-M:System.Data.SqlClient.SqlDataAdapter.CreateRowUpdatedEvent(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)
-M:System.Data.SqlClient.SqlDataAdapter.CreateRowUpdatingEvent(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)
-M:System.Data.SqlClient.SqlDataAdapter.Dispose(System.Boolean)
-M:System.Data.SqlClient.SqlDataAdapter.GetBatchedParameter(System.Int32,System.Int32)
-M:System.Data.SqlClient.SqlDataAdapter.GetBatchedRecordsAffected(System.Int32,System.Int32,System.Exception)
-M:System.Data.SqlTypes.SqlFileStream.Dispose(System.Boolean)
-M:System.Diagnostics.Eventing.Reader.EventBookmark.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
-M:System.Diagnostics.Eventing.Reader.EventBookmark.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
-M:System.IdentityModel.Claims.Claim.CreateDenyOnlyWindowsSidClaim(System.Security.Principal.SecurityIdentifier)
-M:System.IdentityModel.Claims.Claim.CreateMailAddressClaim(System.Net.Mail.MailAddress)
-M:System.IO.IsolatedStorage.IsolatedStorageFile.GetPermission(System.Security.PermissionSet)
-M:System.Net.Http.Formatting.MediaTypeFormatterExtensions.AddUriPathExtensionMapping(System.Net.Http.Formatting.MediaTypeFormatter,System.String,System.Net.Http.Headers.MediaTypeHeaderValue)
-M:System.Net.Http.Formatting.MediaTypeFormatterExtensions.AddUriPathExtensionMapping(System.Net.Http.Formatting.MediaTypeFormatter,System.String,System.String)
-M:System.Net.Http.HttpContentExtensions.IsJson(System.Net.Http.HttpContent)
-M:System.Net.Http.HttpContentExtensions.IsXml(System.Net.Http.HttpContent)
-M:System.Net.Http.HttpRequestMessageExtensions.CreateErrorResponse(System.Net.Http.HttpRequestMessage,System.Net.HttpStatusCode,System.Web.Http.ModelBinding.ModelStateDictionary)
-M:System.Net.Http.HttpRequestMessageExtensions.CreateErrorResponse(System.Net.Http.HttpRequestMessage,System.Net.Http.InvalidByteRangeException)
-M:System.Net.Http.HttpRequestMessageExtensions.CreateResponse``1(System.Net.Http.HttpRequestMessage,System.Net.HttpStatusCode,``0,System.Web.Http.HttpConfiguration)
-M:System.Net.Http.HttpRequestMessageExtensions.DisposeRequestResources(System.Net.Http.HttpRequestMessage)
-M:System.Net.Http.HttpRequestMessageExtensions.GetActionDescriptor(System.Net.Http.HttpRequestMessage)
-M:System.Net.Http.HttpRequestMessageExtensions.GetClientCertificate(System.Net.Http.HttpRequestMessage)
-M:System.Net.Http.HttpRequestMessageExtensions.GetConfiguration(System.Net.Http.HttpRequestMessage)
-M:System.Net.Http.HttpRequestMessageExtensions.GetCorrelationId(System.Net.Http.HttpRequestMessage)
-M:System.Net.Http.HttpRequestMessageExtensions.GetDependencyScope(System.Net.Http.HttpRequestMessage)
-M:System.Net.Http.HttpRequestMessageExtensions.GetQueryNameValuePairs(System.Net.Http.HttpRequestMessage)
-M:System.Net.Http.HttpRequestMessageExtensions.GetRequestContext(System.Net.Http.HttpRequestMessage)
-M:System.Net.Http.HttpRequestMessageExtensions.GetResourcesForDisposal(System.Net.Http.HttpRequestMessage)
-M:System.Net.Http.HttpRequestMessageExtensions.GetRouteData(System.Net.Http.HttpRequestMessage)
-M:System.Net.Http.HttpRequestMessageExtensions.GetSecurityMessageProperty(System.Net.Http.HttpRequestMessage)
-M:System.Net.Http.HttpRequestMessageExtensions.GetSynchronizationContext(System.Net.Http.HttpRequestMessage)
-M:System.Net.Http.HttpRequestMessageExtensions.GetUrlHelper(System.Net.Http.HttpRequestMessage)
-M:System.Net.Http.HttpRequestMessageExtensions.IsBatchRequest(System.Net.Http.HttpRequestMessage)
-M:System.Net.Http.HttpRequestMessageExtensions.IsLocal(System.Net.Http.HttpRequestMessage)
-M:System.Net.Http.HttpRequestMessageExtensions.RegisterForDispose(System.Net.Http.HttpRequestMessage,System.IDisposable)
-M:System.Net.Http.HttpRequestMessageExtensions.RegisterForDispose(System.Net.Http.HttpRequestMessage,System.Collections.Generic.IEnumerable{System.IDisposable})
-M:System.Net.Http.HttpRequestMessageExtensions.SetConfiguration(System.Net.Http.HttpRequestMessage,System.Web.Http.HttpConfiguration)
-M:System.Net.Http.HttpRequestMessageExtensions.SetRequestContext(System.Net.Http.HttpRequestMessage,System.Web.Http.Controllers.HttpRequestContext)
-M:System.Net.Http.HttpRequestMessageExtensions.SetRouteData(System.Net.Http.HttpRequestMessage,System.Web.Http.Routing.IHttpRouteData)
-M:System.Net.Http.HttpRequestMessageExtensions.ShouldIncludeErrorDetail(System.Net.Http.HttpRequestMessage)
-M:System.Security.Claims.PrincipalExtensions.GetUserId(System.Security.Claims.ClaimsPrincipal)
-M:System.Security.Claims.PrincipalExtensions.GetUserName(System.Security.Claims.ClaimsPrincipal)
-M:System.Security.Claims.PrincipalExtensions.IsSignedIn(System.Security.Claims.ClaimsPrincipal)
-M:System.ServiceModel.Channels.TransportSecurityBindingElement.BuildChannelListenerCore``1(System.ServiceModel.Channels.BindingContext)
-M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsAsymmetricKeyWrapAlgorithmSupported(System.String)
-M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsAsymmetricSignatureAlgorithmSupported(System.String)
-M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsCanonicalizationAlgorithmSupported(System.String)
-M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsDigestAlgorithmSupported(System.String)
-M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsEncryptionAlgorithmSupported(System.String)
-M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsEncryptionKeyDerivationAlgorithmSupported(System.String)
-M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsSignatureKeyDerivationAlgorithmSupported(System.String)
-M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsSymmetricKeyWrapAlgorithmSupported(System.String)
-M:System.ServiceModel.Security.SecurityAlgorithmSuite.IsSymmetricSignatureAlgorithmSupported(System.String)
-M:System.Web.Http.ApiController.BadRequest(System.Web.Http.ModelBinding.ModelStateDictionary)
-M:System.Web.Http.ApiController.Content``1(System.Net.HttpStatusCode,``0,System.Net.Http.Formatting.MediaTypeFormatter,System.Net.Http.Headers.MediaTypeHeaderValue)
-M:System.Web.Http.ApiController.Content``1(System.Net.HttpStatusCode,``0,System.Net.Http.Formatting.MediaTypeFormatter,System.String)
-M:System.Web.Http.ApiController.Content``1(System.Net.HttpStatusCode,``0,System.Net.Http.Formatting.MediaTypeFormatter)
-M:System.Web.Http.ApiController.Created``1(System.String,``0)
-M:System.Web.Http.ApiController.Created``1(System.Uri,``0)
-M:System.Web.Http.ApiController.CreatedAtRoute``1(System.String,System.Collections.Generic.IDictionary{System.String,System.Object},``0)
-M:System.Web.Http.ApiController.CreatedAtRoute``1(System.String,System.Object,``0)
-M:System.Web.Http.ApiController.ExecuteAsync(System.Web.Http.Controllers.HttpControllerContext,System.Threading.CancellationToken)
-M:System.Web.Http.ApiController.Initialize(System.Web.Http.Controllers.HttpControllerContext)
-M:System.Web.Http.ApiController.RedirectToRoute(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})
-M:System.Web.Http.ApiController.Unauthorized(System.Net.Http.Headers.AuthenticationHeaderValue[])
-M:System.Web.Http.ApiController.Unauthorized(System.Collections.Generic.IEnumerable{System.Net.Http.Headers.AuthenticationHeaderValue})
-M:System.Web.Http.FromUriAttribute.GetValueProviderFactories(System.Web.Http.HttpConfiguration)
-M:System.Web.Http.HttpError.#ctor(System.Web.Http.ModelBinding.ModelStateDictionary,System.Boolean)
 T:Microsoft.AspNetCore.Hosting.EnvironmentName O
 T:Microsoft.AspNetCore.Hosting.IApplicationLifetime O
 T:Microsoft.AspNetCore.Hosting.IHostingEnvironment O
@@ -4656,102 +4654,31 @@ F:System.Security.Authentication.SslProtocols.Tls O
 F:System.Security.Authentication.SslProtocols.Tls11 O
 F:System.Windows.Forms.TextFormatFlags.ModifyString O
 E:System.Exception.SerializeObjectState O
+M:Microsoft.AspNetCore.Builder.ConnectionsAppBuilderExtensions.UseConnections(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action{Microsoft.AspNetCore.Http.Connections.ConnectionsRouteBuilder}) O
+M:Microsoft.AspNetCore.Builder.SignalRAppBuilderExtensions.UseSignalR(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action{Microsoft.AspNetCore.SignalR.HubRouteBuilder}) O
+M:Microsoft.AspNetCore.Http.Features.ResponseCookiesFeature.#ctor(Microsoft.AspNetCore.Http.Features.IFeatureCollection,Microsoft.Extensions.ObjectPool.ObjectPool{System.Text.StringBuilder}) O
+M:Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Options.IOptions{Microsoft.AspNetCore.Builder.RequestLocalizationOptions}) O
+M:Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor.#ctor(Microsoft.AspNetCore.Mvc.Infrastructure.OutputFormatterSelector,Microsoft.AspNetCore.Mvc.Infrastructure.IHttpResponseStreamWriterFactory,Microsoft.Extensions.Logging.ILoggerFactory) O
+M:Microsoft.AspNetCore.Mvc.Infrastructure.PhysicalFileResultExecutor.GetFileStream(System.String) O
+M:Microsoft.AspNetCore.Mvc.Infrastructure.VirtualFileResultExecutor.GetFileStream(Microsoft.Extensions.FileProviders.IFileInfo) O
+M:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer.WithCulture(System.Globalization.CultureInfo) O
+M:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer`1.WithCulture(System.Globalization.CultureInfo) O
+M:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer.WithCulture(System.Globalization.CultureInfo) O
+M:Microsoft.AspNetCore.Mvc.Localization.ViewLocalizer.WithCulture(System.Globalization.CultureInfo) O
+M:Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.ModelMetadataIdentity.ForProperty(System.Type,System.String,System.Type) O
+M:Microsoft.AspNetCore.Mvc.ViewFeatures.ViewComponentResultExecutor.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.AspNet.Mvc.MvcViewOptions},Microsoft.Extensions.Logging.ILoggerFactory,System.Text.Encodings.Web.HtmlEncoder,Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider,Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionaryFactory) O
+M:Microsoft.AspNetCore.Server.IIS.HttpContextExtensions.GetIISServerVariable(Microsoft.AspNetCore.Http.HttpContext,System.String) O
 M:Microsoft.AspNetCore.StaticFiles.StaticFileResponseContext.#ctor O
+M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion(Microsoft.Extensions.DependencyInjection.IMvcBuilder,Microsoft.AspNetCore.Mvc.CompatibilityVersion) O
+M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.SetCompatibilityVersion(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,Microsoft.AspNetCore.Mvc.CompatibilityVersion) O
+M:System.AppDomain.CreateDomain(System.String) O
+M:System.AppDomain.ExecuteAssembly(System.String,System.String[],System.Byte[],System.Configuration.Assemblies.AssemblyHashAlgorithm) O
+M:System.AppDomain.Unload(System.AppDomain) O
 M:System.Drawing.Graphics.GetContextInfo O
+M:System.HashCode.Equals(System.Object) O
 M:System.HashCode.GetHashCode O
 M:System.MarshalByRefObject.GetLifetimeService O
 M:System.MarshalByRefObject.InitializeLifetimeService O
-M:System.Net.WebClient.#ctor O
-M:System.Net.WebRequest.#ctor O
-M:System.Net.WebSockets.WebSocket.RegisterPrefixes O
-M:System.Runtime.CompilerServices.DebugInfoGenerator.CreatePdbGenerator O
-M:System.Runtime.CompilerServices.RuntimeHelpers.PrepareConstrainedRegions O
-M:System.Runtime.CompilerServices.RuntimeHelpers.PrepareConstrainedRegionsNoOP O
-M:System.Runtime.CompilerServices.RuntimeHelpers.ProbeForSufficientStack O
-M:System.Security.Cryptography.AsymmetricAlgorithm.Create O
-M:System.Security.Cryptography.ECDiffieHellmanCngPublicKey.ToXmlString O
-M:System.Security.Cryptography.ECDiffieHellmanPublicKey.ToByteArray O
-M:System.Security.Cryptography.ECDiffieHellmanPublicKey.ToXmlString O
-M:System.Security.Cryptography.HashAlgorithm.Create O
-M:System.Security.Cryptography.HMAC.Create O
-M:System.Security.Cryptography.KeyedHashAlgorithm.Create O
-M:System.Security.Cryptography.Pkcs.SignerInfo.ComputeCounterSignature O
-M:System.Security.Cryptography.SymmetricAlgorithm.Create O
-M:System.Security.Cryptography.X509Certificates.X509Certificate.#ctor O
-M:System.Security.Cryptography.X509Certificates.X509Certificate2.#ctor O
-M:System.Text.UTF7Encoding.#ctor O
-M:System.Threading.Thread.Abort O
-M:System.Threading.Thread.ResetAbort O
-M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(System.String,System.String,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
-M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(System.String) O
-M:System.Security.Policy.ApplicationTrust.#ctor(System.Security.PermissionSet,System.Collections.Generic.IEnumerable{System.Security.Policy.StrongName}) O
-M:System.Security.Policy.PolicyLevel.AddNamedPermissionSet(System.Security.NamedPermissionSet) O
-M:System.Security.Policy.PolicyLevel.ChangeNamedPermissionSet(System.String,System.Security.PermissionSet) O
-M:System.Security.Policy.PolicyLevel.GetNamedPermissionSet(System.String) O
-M:System.Security.Policy.PolicyLevel.RemoveNamedPermissionSet(System.Security.NamedPermissionSet) O
-M:System.Security.Policy.PolicyLevel.RemoveNamedPermissionSet(System.String) O
-M:System.Security.Policy.PolicyStatement.#ctor(System.Security.PermissionSet,System.Security.Policy.PolicyStatementAttribute) O
-M:System.Security.Policy.PolicyStatement.#ctor(System.Security.PermissionSet) O
-M:System.String.Copy(System.String) O
-M:System.Text.RegularExpressions.Regex.CompileToAssembly(System.Text.RegularExpressions.RegexCompilationInfo[],System.Reflection.AssemblyName,CustomAttributeBuilder[],System.String) O
-M:System.Text.RegularExpressions.Regex.CompileToAssembly(System.Text.RegularExpressions.RegexCompilationInfo[],System.Reflection.AssemblyName,CustomAttributeBuilder[]) O
-M:System.Text.RegularExpressions.Regex.CompileToAssembly(System.Text.RegularExpressions.RegexCompilationInfo[],System.Reflection.AssemblyName) O
-M:System.Text.UTF7Encoding.#ctor(System.Boolean) O
-M:System.Threading.Thread.Abort(System.Object) O
-M:System.Type.ReflectionOnlyGetType(System.String,System.Boolean,System.Boolean) O
-M:System.Uri.EscapeUriString(System.String) O
-M:System.Security.Cryptography.RSA.Create(System.String) O
-M:System.Security.Cryptography.SHA1.Create(System.String) O
-M:System.Security.Cryptography.SHA256.Create(System.String) O
-M:System.Security.Cryptography.SHA384.Create(System.String) O
-M:System.Security.Cryptography.SHA512.Create(System.String) O
-M:System.Security.Cryptography.SymmetricAlgorithm.Create(System.String) O
-M:System.Security.Cryptography.TripleDES.Create(System.String) O
-M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(System.Byte[],System.Security.SecureString,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
-M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(System.Byte[],System.String,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
-M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(System.Byte[]) O
-M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(System.String,System.Security.SecureString,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
-M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(System.String,System.String,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
-M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(System.String) O
-M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(System.Byte[],System.Security.SecureString,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
-M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(System.Byte[],System.String,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
-M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(System.Byte[]) O
-M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(System.String,System.Security.SecureString,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
-M:System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeInterfaceAsIntPtr(System.Guid,System.Guid) O
-M:System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeInterfaceAsObject(System.Guid,System.Guid) O
-M:System.Runtime.Serialization.Formatter.Deserialize(System.IO.Stream) O
-M:System.Runtime.Serialization.Formatter.Serialize(System.IO.Stream,System.Object) O
-M:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(System.IO.Stream) O
-M:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Serialize(System.IO.Stream,System.Object) O
-M:System.Runtime.Serialization.IFormatter.Deserialize(System.IO.Stream) O
-M:System.Runtime.Serialization.IFormatter.Serialize(System.IO.Stream,System.Object) O
-M:System.Security.Cryptography.Aes.Create(System.String) O
-M:System.Security.Cryptography.AsymmetricAlgorithm.Create(System.String) O
-M:System.Security.Cryptography.CryptoConfig.EncodeOID(System.String) O
-M:System.Security.Cryptography.DES.Create(System.String) O
-M:System.Security.Cryptography.DSA.Create(System.String) O
-M:System.Security.Cryptography.ECDiffieHellman.Create(System.String) O
-M:System.Security.Cryptography.ECDiffieHellmanCng.FromXmlString(System.String,System.Security.Cryptography.ECKeyXmlFormat) O
-M:System.Security.Cryptography.ECDiffieHellmanCng.ToXmlString(System.Security.Cryptography.ECKeyXmlFormat) O
-M:System.Security.Cryptography.ECDiffieHellmanCngPublicKey.FromXmlString(System.String) O
-M:System.Security.Cryptography.ECDiffieHellmanPublicKey.#ctor(System.Byte[]) O
-M:System.Security.Cryptography.ECDsa.Create(System.String) O
-M:System.Security.Cryptography.ECDsaCng.FromXmlString(System.String,System.Security.Cryptography.ECKeyXmlFormat) O
-M:System.Security.Cryptography.ECDsaCng.ToXmlString(System.Security.Cryptography.ECKeyXmlFormat) O
-M:System.Security.Cryptography.HashAlgorithm.Create(System.String) O
-M:System.Security.Cryptography.HMAC.Create(System.String) O
-M:System.Security.Cryptography.HMACSHA1.#ctor(System.Byte[],System.Boolean) O
-M:System.Security.Cryptography.KeyedHashAlgorithm.Create(System.String) O
-M:System.Security.Cryptography.MD5.Create(System.String) O
-M:System.Security.Cryptography.Pkcs.CmsSigner.#ctor(System.Security.Cryptography.CspParameters) O
-M:System.Security.Cryptography.RandomNumberGenerator.Create(System.String) O
-M:System.Security.Cryptography.RC2.Create(System.String) O
-M:System.Security.Cryptography.Rfc2898DeriveBytes.#ctor(System.Byte[],System.Byte[],System.Int32) O
-M:System.Security.Cryptography.Rfc2898DeriveBytes.#ctor(System.String,System.Byte[],System.Int32) O
-M:System.Security.Cryptography.Rfc2898DeriveBytes.#ctor(System.String,System.Byte[]) O
-M:System.Security.Cryptography.Rfc2898DeriveBytes.#ctor(System.String,System.Int32,System.Int32) O
-M:System.Security.Cryptography.Rfc2898DeriveBytes.#ctor(System.String,System.Int32) O
-M:System.Security.Cryptography.Rfc2898DeriveBytes.CryptDeriveKey(System.String,System.String,System.Int32,System.Byte[]) O
 M:System.Net.AuthenticationManager.Authenticate(System.String,System.Net.WebRequest,System.Net.ICredentials) O
 M:System.Net.AuthenticationManager.PreAuthenticate(System.Net.WebRequest,System.Net.ICredentials) O
 M:System.Net.FileWebRequest.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext) O
@@ -4759,8 +4686,10 @@ M:System.Net.FileWebResponse.GetObjectData(System.Runtime.Serialization.Serializ
 M:System.Net.HttpWebRequest.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext) O
 M:System.Net.HttpWebResponse.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext) O
 M:System.Net.ServicePointManager.FindServicePoint(System.String,System.Net.IWebProxy) O
-M:System.Net.ServicePointManager.FindServicePoint(System.Uri,System.Net.IWebProxy) O
 M:System.Net.ServicePointManager.FindServicePoint(System.Uri) O
+M:System.Net.ServicePointManager.FindServicePoint(System.Uri,System.Net.IWebProxy) O
+M:System.Net.WebClient.#ctor O
+M:System.Net.WebRequest.#ctor O
 M:System.Net.WebRequest.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext) O
 M:System.Net.WebRequest.Create(System.String) O
 M:System.Net.WebRequest.Create(System.Uri) O
@@ -4770,28 +4699,97 @@ M:System.Net.WebRequest.CreateHttp(System.Uri) O
 M:System.Net.WebRequest.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext) O
 M:System.Net.WebResponse.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext) O
 M:System.Net.WebResponse.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext) O
+M:System.Net.WebSockets.WebSocket.RegisterPrefixes O
 M:System.Reflection.Assembly.ReflectionOnlyLoad(System.Byte[]) O
 M:System.Reflection.Assembly.ReflectionOnlyLoad(System.String) O
 M:System.Reflection.Assembly.ReflectionOnlyLoadFrom(System.String) O
+M:System.Runtime.CompilerServices.DebugInfoGenerator.CreatePdbGenerator O
 M:System.Runtime.CompilerServices.RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup(System.Runtime.CompilerServices.RuntimeHelpers.TryCode,System.Runtime.CompilerServices.RuntimeHelpers.CleanupCode,System.Object) O
+M:System.Runtime.CompilerServices.RuntimeHelpers.PrepareConstrainedRegions O
+M:System.Runtime.CompilerServices.RuntimeHelpers.PrepareConstrainedRegionsNoOP O
 M:System.Runtime.CompilerServices.RuntimeHelpers.PrepareContractedDelegate(System.Delegate) O
-M:System.AppDomain.CreateDomain(System.String) O
-M:System.AppDomain.ExecuteAssembly(System.String,System.String[],System.Byte[],System.Configuration.Assemblies.AssemblyHashAlgorithm) O
-M:System.AppDomain.Unload(System.AppDomain) O
-M:System.HashCode.Equals(System.Object) O
-M:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer.WithCulture(System.Globalization.CultureInfo) O
-M:Microsoft.AspNetCore.Mvc.Localization.HtmlLocalizer`1.WithCulture(System.Globalization.CultureInfo) O
-M:Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer.WithCulture(System.Globalization.CultureInfo) O
-M:Microsoft.AspNetCore.Mvc.Localization.ViewLocalizer.WithCulture(System.Globalization.CultureInfo) O
-M:Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.ModelMetadataIdentity.ForProperty(System.Type,System.String,System.Type) O
-M:Microsoft.AspNetCore.Mvc.ViewFeatures.ViewComponentResultExecutor.#ctor(Microsoft.Extensions.Options.IOptions{Microsoft.AspNet.Mvc.MvcViewOptions},Microsoft.Extensions.Logging.ILoggerFactory,System.Text.Encodings.Web.HtmlEncoder,Microsoft.AspNetCore.Mvc.ModelBinding.IModelMetadataProvider,Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataDictionaryFactory) O
-M:Microsoft.AspNetCore.Server.IIS.HttpContextExtensions.GetIISServerVariable(Microsoft.AspNetCore.Http.HttpContext,System.String) O
-M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion(Microsoft.Extensions.DependencyInjection.IMvcBuilder,Microsoft.AspNetCore.Mvc.CompatibilityVersion) O
-M:Microsoft.Extensions.DependencyInjection.MvcCoreMvcCoreBuilderExtensions.SetCompatibilityVersion(Microsoft.Extensions.DependencyInjection.IMvcCoreBuilder,Microsoft.AspNetCore.Mvc.CompatibilityVersion) O
-M:Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Options.IOptions{Microsoft.AspNetCore.Builder.RequestLocalizationOptions}) O
-M:Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor.#ctor(Microsoft.AspNetCore.Mvc.Infrastructure.OutputFormatterSelector,Microsoft.AspNetCore.Mvc.Infrastructure.IHttpResponseStreamWriterFactory,Microsoft.Extensions.Logging.ILoggerFactory) O
-M:Microsoft.AspNetCore.Mvc.Infrastructure.PhysicalFileResultExecutor.GetFileStream(System.String) O
-M:Microsoft.AspNetCore.Mvc.Infrastructure.VirtualFileResultExecutor.GetFileStream(Microsoft.Extensions.FileProviders.IFileInfo) O
-M:Microsoft.AspNetCore.Builder.ConnectionsAppBuilderExtensions.UseConnections(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action{Microsoft.AspNetCore.Http.Connections.ConnectionsRouteBuilder}) O
-M:Microsoft.AspNetCore.Builder.SignalRAppBuilderExtensions.UseSignalR(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action{Microsoft.AspNetCore.SignalR.HubRouteBuilder}) O
-M:Microsoft.AspNetCore.Http.Features.ResponseCookiesFeature.#ctor(Microsoft.AspNetCore.Http.Features.IFeatureCollection,Microsoft.Extensions.ObjectPool.ObjectPool{System.Text.StringBuilder}) O
+M:System.Runtime.CompilerServices.RuntimeHelpers.ProbeForSufficientStack O
+M:System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeInterfaceAsIntPtr(System.Guid,System.Guid) O
+M:System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeInterfaceAsObject(System.Guid,System.Guid) O
+M:System.Runtime.Serialization.Formatter.Deserialize(System.IO.Stream) O
+M:System.Runtime.Serialization.Formatter.Serialize(System.IO.Stream,System.Object) O
+M:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(System.IO.Stream) O
+M:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Serialize(System.IO.Stream,System.Object) O
+M:System.Runtime.Serialization.IFormatter.Deserialize(System.IO.Stream) O
+M:System.Runtime.Serialization.IFormatter.Serialize(System.IO.Stream,System.Object) O
+M:System.Security.Cryptography.Aes.Create(System.String) O
+M:System.Security.Cryptography.AsymmetricAlgorithm.Create O
+M:System.Security.Cryptography.AsymmetricAlgorithm.Create(System.String) O
+M:System.Security.Cryptography.CryptoConfig.EncodeOID(System.String) O
+M:System.Security.Cryptography.DES.Create(System.String) O
+M:System.Security.Cryptography.DSA.Create(System.String) O
+M:System.Security.Cryptography.ECDiffieHellman.Create(System.String) O
+M:System.Security.Cryptography.ECDiffieHellmanCng.FromXmlString(System.String,System.Security.Cryptography.ECKeyXmlFormat) O
+M:System.Security.Cryptography.ECDiffieHellmanCng.ToXmlString(System.Security.Cryptography.ECKeyXmlFormat) O
+M:System.Security.Cryptography.ECDiffieHellmanCngPublicKey.FromXmlString(System.String) O
+M:System.Security.Cryptography.ECDiffieHellmanCngPublicKey.ToXmlString O
+M:System.Security.Cryptography.ECDiffieHellmanPublicKey.#ctor(System.Byte[]) O
+M:System.Security.Cryptography.ECDiffieHellmanPublicKey.ToByteArray O
+M:System.Security.Cryptography.ECDiffieHellmanPublicKey.ToXmlString O
+M:System.Security.Cryptography.ECDsa.Create(System.String) O
+M:System.Security.Cryptography.ECDsaCng.FromXmlString(System.String,System.Security.Cryptography.ECKeyXmlFormat) O
+M:System.Security.Cryptography.ECDsaCng.ToXmlString(System.Security.Cryptography.ECKeyXmlFormat) O
+M:System.Security.Cryptography.HashAlgorithm.Create O
+M:System.Security.Cryptography.HashAlgorithm.Create(System.String) O
+M:System.Security.Cryptography.HMAC.Create O
+M:System.Security.Cryptography.HMAC.Create(System.String) O
+M:System.Security.Cryptography.HMACSHA1.#ctor(System.Byte[],System.Boolean) O
+M:System.Security.Cryptography.KeyedHashAlgorithm.Create O
+M:System.Security.Cryptography.KeyedHashAlgorithm.Create(System.String) O
+M:System.Security.Cryptography.MD5.Create(System.String) O
+M:System.Security.Cryptography.Pkcs.CmsSigner.#ctor(System.Security.Cryptography.CspParameters) O
+M:System.Security.Cryptography.Pkcs.SignerInfo.ComputeCounterSignature O
+M:System.Security.Cryptography.RandomNumberGenerator.Create(System.String) O
+M:System.Security.Cryptography.RC2.Create(System.String) O
+M:System.Security.Cryptography.Rfc2898DeriveBytes.#ctor(System.Byte[],System.Byte[],System.Int32) O
+M:System.Security.Cryptography.Rfc2898DeriveBytes.#ctor(System.String,System.Byte[]) O
+M:System.Security.Cryptography.Rfc2898DeriveBytes.#ctor(System.String,System.Byte[],System.Int32) O
+M:System.Security.Cryptography.Rfc2898DeriveBytes.#ctor(System.String,System.Int32) O
+M:System.Security.Cryptography.Rfc2898DeriveBytes.#ctor(System.String,System.Int32,System.Int32) O
+M:System.Security.Cryptography.Rfc2898DeriveBytes.CryptDeriveKey(System.String,System.String,System.Int32,System.Byte[]) O
+M:System.Security.Cryptography.RSA.Create(System.String) O
+M:System.Security.Cryptography.SHA1.Create(System.String) O
+M:System.Security.Cryptography.SHA256.Create(System.String) O
+M:System.Security.Cryptography.SHA384.Create(System.String) O
+M:System.Security.Cryptography.SHA512.Create(System.String) O
+M:System.Security.Cryptography.SymmetricAlgorithm.Create O
+M:System.Security.Cryptography.SymmetricAlgorithm.Create(System.String) O
+M:System.Security.Cryptography.TripleDES.Create(System.String) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate.#ctor O
+M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(System.Byte[]) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(System.Byte[],System.Security.SecureString,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(System.Byte[],System.String,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(System.String) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(System.String,System.Security.SecureString,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate.Import(System.String,System.String,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate2.#ctor O
+M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(System.Byte[]) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(System.Byte[],System.Security.SecureString,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(System.Byte[],System.String,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(System.String) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(System.String,System.Security.SecureString,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
+M:System.Security.Cryptography.X509Certificates.X509Certificate2.Import(System.String,System.String,System.Security.Cryptography.X509Certificates.X509KeyStorageFlags) O
+M:System.Security.Policy.ApplicationTrust.#ctor(System.Security.PermissionSet,System.Collections.Generic.IEnumerable{System.Security.Policy.StrongName}) O
+M:System.Security.Policy.PolicyLevel.AddNamedPermissionSet(System.Security.NamedPermissionSet) O
+M:System.Security.Policy.PolicyLevel.ChangeNamedPermissionSet(System.String,System.Security.PermissionSet) O
+M:System.Security.Policy.PolicyLevel.GetNamedPermissionSet(System.String) O
+M:System.Security.Policy.PolicyLevel.RemoveNamedPermissionSet(System.Security.NamedPermissionSet) O
+M:System.Security.Policy.PolicyLevel.RemoveNamedPermissionSet(System.String) O
+M:System.Security.Policy.PolicyStatement.#ctor(System.Security.PermissionSet) O
+M:System.Security.Policy.PolicyStatement.#ctor(System.Security.PermissionSet,System.Security.Policy.PolicyStatementAttribute) O
+M:System.String.Copy(System.String) O
+M:System.Text.RegularExpressions.Regex.CompileToAssembly(System.Text.RegularExpressions.RegexCompilationInfo[],System.Reflection.AssemblyName) O
+M:System.Text.RegularExpressions.Regex.CompileToAssembly(System.Text.RegularExpressions.RegexCompilationInfo[],System.Reflection.AssemblyName,CustomAttributeBuilder[]) O
+M:System.Text.RegularExpressions.Regex.CompileToAssembly(System.Text.RegularExpressions.RegexCompilationInfo[],System.Reflection.AssemblyName,CustomAttributeBuilder[],System.String) O
+M:System.Text.UTF7Encoding.#ctor O
+M:System.Text.UTF7Encoding.#ctor(System.Boolean) O
+M:System.Threading.Thread.Abort O
+M:System.Threading.Thread.Abort(System.Object) O
+M:System.Threading.Thread.ResetAbort O
+M:System.Type.ReflectionOnlyGetType(System.String,System.Boolean,System.Boolean) O
+M:System.Uri.EscapeUriString(System.String) O
