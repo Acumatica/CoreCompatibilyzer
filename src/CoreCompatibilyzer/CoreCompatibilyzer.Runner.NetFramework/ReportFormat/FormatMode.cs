@@ -8,12 +8,12 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 	internal enum FormatMode
 	{
 		/// <summary>
-		/// Format Mode to output only a shortened list of used APIs.
+		/// Format Mode to output only a shortened list of used banned APIs.
 		/// </summary>
 		UsedAPIsOnly,
 
 		/// <summary>
-		/// Format Mode to output only a detailed list of used APIs with usages locations.
+		/// Format Mode to output only a detailed list of used banned APIs with usages locations.
 		/// </summary>
 		UsedAPIsWithUsages
 	}

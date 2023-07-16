@@ -16,5 +16,11 @@ namespace CoreCompatibilyzer.Runner.Constants
 
 		public const string DisableSuppressionMechanism = "noSuppression";
 		public const string MSBuildPath = "msBuildPath";
+
+		public const char ReportFormatShort = 'f';
+		public const string ReportFormatLong = "format";
+
+		public const char ReportGroupingShort = 'g';
+		public const string ReportGroupingLong = "grouping";
 	}
 }
