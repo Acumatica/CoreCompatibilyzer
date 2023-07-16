@@ -24,17 +24,6 @@ namespace CoreCompatibilyzer.Runner.Input
 		public string CodeSource { get; }
 
 		/// <summary>
-		/// The target .Net runtime version used by the analyzer. The code from the provided code source is checked for the compatibility with it.<br/>
-		/// The supported runtime versions are stored in <see cref="TargetDotNetVersions"/> class.
-		/// </summary>
-		[Option(shortName: CommandLineArgNames.TargetFrameworkShort, longName: CommandLineArgNames.TargetFrameworkLong, Required = true,
-				HelpText = "The target .Net runtime version used by the analyzer. The code from the provided code source is checked for the compatibility with it.\n" +
-						   "The allowed values:\n" + 
-						   "* " + TargetDotNetVersions.Core21 + " - target .Net Core 2.1\n" +
-						   "* " + TargetDotNetVersions.Core22 + " - target .Net Core 2.2\n")]
-		public string TargetRuntime { get; }
-
-		/// <summary>
 		/// Optional explicitly specified logger <see cref="LogEventLevel"/> verbosity. <br/>
 		/// If null then <see cref="LogEventLevel.Information"/> will be used as default.
 		/// </summary>

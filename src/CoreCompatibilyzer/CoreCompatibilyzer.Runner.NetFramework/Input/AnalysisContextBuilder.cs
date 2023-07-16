@@ -13,32 +13,16 @@ namespace CoreCompatibilyzer.Runner.Input
 {
     internal class AnalysisContextBuilder
 	{
-		private static readonly Dictionary<string, DotNetRuntime> _argumentsToVersionMapping =
-			new(StringComparer.OrdinalIgnoreCase)
-			{
-				{ TargetDotNetVersions.Core21, DotNetRuntime.DotNetCore21 },
-				{ TargetDotNetVersions.Core22, DotNetRuntime.DotNetCore22 },
-			};
-
 		public AppAnalysisContext CreateContext(CommandLineOptions commandLineOptions)
 		{
 			commandLineOptions.ThrowIfNull(nameof(commandLineOptions));
-			commandLineOptions.TargetRuntime.ThrowIfNullOrWhiteSpace(nameof(commandLineOptions.TargetRuntime),
-																	 message: "The target .Net runtime version is not specified");
-
-			if (!_argumentsToVersionMapping.TryGetValue(commandLineOptions.TargetRuntime, out DotNetRuntime targetRuntime))
-			{
-				throw new ArgumentOutOfRangeException(paramName: nameof(commandLineOptions.TargetRuntime),
-													  actualValue: commandLineOptions.TargetRuntime,
-													  message: "The specified .Net runtime version is not supported");
-			}
-
 			var codeSource = ReadCodeSource(commandLineOptions.CodeSource);
 
 			if (codeSource == null)
 				throw new ArgumentException("Code source is not specified");
 
-			var input = new AppAnalysisContext(codeSource, targetRuntime, commandLineOptions.DisableSuppressionMechanism, commandLineOptions.MSBuildPath);
+			var input = new AppAnalysisContext(codeSource, targetRuntime: DotNetRuntime.DotNetCore22, commandLineOptions.DisableSuppressionMechanism,
+											   commandLineOptions.MSBuildPath);
 			return input;
 		}
 
