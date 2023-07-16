@@ -5,7 +5,7 @@
 		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 		<Deterministic>True</Deterministic>
 		<OutDir>bin\$(Configuration)\</OutDir>
-		<LangVersion>9.0</LangVersion>
+		<LangVersion>10.0</LangVersion>
 		<Nullable>enable</Nullable>
 		<WarningLevel>5</WarningLevel>
 		<DebugType>embedded</DebugType>
