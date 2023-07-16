@@ -22,6 +22,8 @@ namespace CoreCompatibilyzer.Runner.NetFramework
 	{
 		static async Task<int> Main(string[] args)
 		{
+			Console.WriteLine("Welcome to CoreCompatibilyzer, the .Net code analyzer that checks .Net Framework code for compatibility with .Net Core 2.2");
+
 			try
 			{
 
