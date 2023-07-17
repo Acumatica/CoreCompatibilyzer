@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Versioning;
 
 namespace CoreCompatibilyzer.Constants
 {
@@ -8,6 +6,6 @@ namespace CoreCompatibilyzer.Constants
     {
         public const char ApiObsoletionMarker = 'O';
 
-        public const string ApiNameDiagnosticProperty = nameof(ApiNameDiagnosticProperty);
+        public const string ApiDocIDWithObsoletionDiagnosticProperty = nameof(ApiDocIDWithObsoletionDiagnosticProperty);
     }
 }

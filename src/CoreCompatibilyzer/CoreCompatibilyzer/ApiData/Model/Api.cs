@@ -15,8 +15,6 @@ namespace CoreCompatibilyzer.ApiData.Model
 
 		public ApiKind Kind { get; }
 
-		public string FullName { get; }
-
 		public ApiExtraInfo ExtraInfo { get; }
 
         public Api(string docIDWithOptionalObsoleteMarker)
@@ -44,9 +42,12 @@ namespace CoreCompatibilyzer.ApiData.Model
 
 			if (Kind == ApiKind.Undefined || DocID.Length < 2)
 				throw InvalidInputStringFormatException(DocID);
-			
-			FullName = DocID.Substring(2);
         }
+
+		public string GetDocIDWithOptionalObsoleteMarker() =>
+			ExtraInfo == ApiExtraInfo.Obsolete
+				? $"{DocID} {CommonConstants.ApiObsoletionMarker}"
+				: DocID;
 
 		private static ArgumentException InvalidInputStringFormatException(string docID) =>
 			 new ArgumentException($"The input API DocID string \"{docID}\" has unknown format.\r\n" +

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading;
 using System.Xml.Linq;
 
@@ -284,10 +285,12 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				if (location != null && !_reportedErrors.Add((location, banApiInfo)!))
 					return;
 
-				var diagnosticDescriptor = GetDiagnosticFromBannedApiInfo(banApiInfo);
-				var diagnosticProperties = ImmutableDictionary<string, string>.Empty
-																			  .Add(CommonConstants.ApiNameDiagnosticProperty, banApiInfo.FullName);
-				var diagnostic = Diagnostic.Create(diagnosticDescriptor, location, diagnosticProperties!, banApiInfo.FullName);
+				string fullName 		   = banApiInfo.DocID.Substring(2);
+				var diagnosticDescriptor   = GetDiagnosticFromBannedApiInfo(banApiInfo);
+				string docIdWithObsoletion = banApiInfo.GetDocIDWithOptionalObsoleteMarker();
+				var diagnosticProperties   = ImmutableDictionary<string, string>.Empty
+																				.Add(CommonConstants.ApiDocIDWithObsoletionDiagnosticProperty, docIdWithObsoletion);
+				var diagnostic = Diagnostic.Create(diagnosticDescriptor, location, diagnosticProperties!, fullName);
 				_syntaxContext.ReportDiagnosticWithSuppressionCheck(diagnostic);
 			}
 
