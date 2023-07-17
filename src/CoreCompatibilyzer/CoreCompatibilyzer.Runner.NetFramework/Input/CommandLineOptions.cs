@@ -59,16 +59,13 @@ namespace CoreCompatibilyzer.Runner.Input
 		public string? MSBuildPath { get; }
 
 		/// <summary>
-		/// The report format. Two options are available:<br/>
-		/// - <see cref="FormatArgsConstants.UsedAPIsOnly"/>: Format Mode to output only a shortened list of used banned API.<br/>
-		/// - <see cref="FormatArgsConstants.UsedAPIsWithUsages"/>: Format Mode to output only a detailed list of used banned APIs with usages locations.
+		/// Include details about banned API usages locations. By default, the report includes only a shortened list of used banned API. <br/>
+		/// When this flag is set, the report will include much more details about the location of each banned API call.
 		/// </summary>
-		[Option(shortName: CommandLineArgNames.ReportFormatShort, longName: CommandLineArgNames.ReportFormatLong,
-				HelpText = "This parameter allows you to specify the report output format. There are two available modes:\n" +
-						  $"- Output only a shortened list of used banned APIs. Pass \"{FormatArgsConstants.UsedAPIsOnly}\" value to use this mode.\n" + 
-						  $"- Output only a detailed list of used banned APIs with usages locations. Pass \"{FormatArgsConstants.UsedAPIsWithUsages}\" value to use this mode.\n\n" +
-						  $"The default format value is \"{FormatArgsConstants.UsedAPIsOnly}\".")]
-		public string? ReportFormat { get; }
+		[Option(longName: CommandLineArgNames.IncludeApiUsages,
+				HelpText = "By default, the report output includes only a shortened list of used banned API.\n" +
+						   "Set this flag to include the locations of used banned API calls into the report.")]
+		public bool IncludeApiUsages { get; }
 
 		/// <summary>
 		/// The report grouping. By default there is no grouping. You can make grouping of the reported API by namespaces, types or both:<br/>
@@ -86,14 +83,14 @@ namespace CoreCompatibilyzer.Runner.Input
 
 		// Constructor arguments order must be the same as the properties order. This allows command line parser to initialize immutable options object via constructor.
 		// See this for details: https://github.com/commandlineparser/commandline/wiki/Immutable-Options-Type
-		public CommandLineOptions(string codeSource, string? verbosity, bool disableSuppressionMechanism, string? msBuildPath, 
-								  string? reportFormat, string? reportGrouping)
+		public CommandLineOptions(string codeSource, string? verbosity, bool disableSuppressionMechanism, string? msBuildPath, bool includeApiUsages, 
+								  string? reportGrouping)
 		{
 			CodeSource 					= codeSource;
 			Verbosity 					= verbosity;
 			DisableSuppressionMechanism = disableSuppressionMechanism;
 			MSBuildPath 				= msBuildPath;
-			ReportFormat 				= reportFormat;
+			IncludeApiUsages			= includeApiUsages;
 			ReportGrouping 				= reportGrouping;
 		}
 	}

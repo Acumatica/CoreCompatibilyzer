@@ -22,7 +22,10 @@ namespace CoreCompatibilyzer.Runner.Input
 			if (codeSource == null)
 				throw new ArgumentException("Code source is not specified");
 
-			FormatMode formatMode	  = ReadFormatMode(commandLineOptions.ReportFormat);
+			FormatMode formatMode = commandLineOptions.IncludeApiUsages 
+				? FormatMode.UsedAPIsWithUsages 
+				: FormatMode.UsedAPIsOnly;
+
 			GroupingMode groupingMode = ReadGroupingMode(commandLineOptions.ReportGrouping);
 			var input = new AppAnalysisContext(codeSource, targetRuntime: DotNetRuntime.DotNetCore22, commandLineOptions.DisableSuppressionMechanism,
 											   commandLineOptions.MSBuildPath, formatMode, groupingMode);
@@ -51,20 +54,6 @@ namespace CoreCompatibilyzer.Runner.Input
 				CommonConstants.ProjectFileExtension  => new ProjectCodeSource(codeSourceLocation),
 				CommonConstants.SolutionFileExtension => new SolutionCodeSource(codeSourceLocation),
 				_ => throw new ArgumentException($"Not supported code source {codeSourceLocation}. You can specify only C# projects (*.csproj) and solutions (*.sln) as code sources.")
-			};
-		}
-
-		private FormatMode ReadFormatMode(string? rawFormatLocation)
-		{
-			if (rawFormatLocation.IsNullOrWhiteSpace())
-				return FormatMode.UsedAPIsOnly;
-
-			return rawFormatLocation switch
-			{
-				FormatArgsConstants.UsedAPIsOnly 	   => FormatMode.UsedAPIsOnly,
-				FormatArgsConstants.UsedAPIsWithUsages => FormatMode.UsedAPIsWithUsages,
-				_ 									   => throw new ArgumentOutOfRangeException(nameof(CommandLineOptions.ReportFormat), rawFormatLocation, 
-																								"Not supported report output format.")
 			};
 		}
 
