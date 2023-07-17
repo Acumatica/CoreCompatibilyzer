@@ -6,19 +6,19 @@
     },
     "runner Net Framework": {
       "commandName": "Project",
-      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -t core21 -v Debug"
+      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Debug"
     },
     "runner Net Core": {
       "commandName": "Project",
-      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetCore\\DemoNetCore.sln\" -t core21 -v Debug"
+      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetCore\\DemoNetCore.sln\" -v Debug"
     },
     "runner Net 5": {
       "commandName": "Project",
-      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\Net5\\DemoNet5.sln\" -t core21 -v Debug"
+      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\Net5\\DemoNet5.sln\" -v Debug"
     },
     "runner Net Standard": {
       "commandName": "Project",
-      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetStandard\\DemoNetStandard.sln\" -t core21 -v Debug"
+      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetStandard\\DemoNetStandard.sln\" -v Debug"
     }
   }
 }
