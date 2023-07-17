@@ -2,6 +2,7 @@
 
 using CoreCompatibilyzer.DotNetRuntimeVersion;
 using CoreCompatibilyzer.Runner.Analysis.CodeSources;
+using CoreCompatibilyzer.Runner.ReportFormat;
 using CoreCompatibilyzer.Utils.Common;
 
 namespace CoreCompatibilyzer.Runner.Input
@@ -31,13 +32,21 @@ namespace CoreCompatibilyzer.Runner.Input
 		/// <inheritdoc cref="CommandLineOptions.DisableSuppressionMechanism"/>
 		public bool DisableSuppressionMechanism { get; }
 
+		/// <inheritdoc cref="CommandLineOptions.ReportFormat"/>
+		public FormatMode Format { get; }
 
-		public AppAnalysisContext(ICodeSource codeSource, DotNetRuntime targetRuntime, bool disableSuppressionMechanism, string? msBuildPath)
+		/// <inheritdoc cref="CommandLineOptions.ReportGrouping"/>
+		public GroupingMode Grouping { get; }
+
+		public AppAnalysisContext(ICodeSource codeSource, DotNetRuntime targetRuntime, bool disableSuppressionMechanism, string? msBuildPath,
+								  FormatMode formatMode, GroupingMode groupingMode)
 		{
 			CodeSource 					= codeSource.ThrowIfNull(nameof(codeSource));
 			TargetRuntime 				= targetRuntime;
 			DisableSuppressionMechanism = disableSuppressionMechanism;
 			MSBuildPath 				= msBuildPath.NullIfWhiteSpace();
+			Format 						= formatMode;
+			Grouping 					= groupingMode;
 		}
 	}
 }

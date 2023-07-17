@@ -7,6 +7,7 @@ using System.Linq;
 using CoreCompatibilyzer.DotNetRuntimeVersion;
 using CoreCompatibilyzer.Runner.Analysis.CodeSources;
 using CoreCompatibilyzer.Runner.Constants;
+using CoreCompatibilyzer.Runner.ReportFormat;
 using CoreCompatibilyzer.Utils.Common;
 
 namespace CoreCompatibilyzer.Runner.Input
@@ -21,8 +22,10 @@ namespace CoreCompatibilyzer.Runner.Input
 			if (codeSource == null)
 				throw new ArgumentException("Code source is not specified");
 
+			FormatMode formatMode	  = ReadFormatMode(commandLineOptions.ReportFormat);
+			GroupingMode groupingMode = ReadGroupingMode(commandLineOptions.ReportGrouping);
 			var input = new AppAnalysisContext(codeSource, targetRuntime: DotNetRuntime.DotNetCore22, commandLineOptions.DisableSuppressionMechanism,
-											   commandLineOptions.MSBuildPath);
+											   commandLineOptions.MSBuildPath, formatMode, groupingMode);
 			return input;
 		}
 
@@ -49,6 +52,39 @@ namespace CoreCompatibilyzer.Runner.Input
 				CommonConstants.SolutionFileExtension => new SolutionCodeSource(codeSourceLocation),
 				_ => throw new ArgumentException($"Not supported code source {codeSourceLocation}. You can specify only C# projects (*.csproj) and solutions (*.sln) as code sources.")
 			};
+		}
+
+		private FormatMode ReadFormatMode(string? rawFormatLocation)
+		{
+			if (rawFormatLocation.IsNullOrWhiteSpace())
+				return FormatMode.UsedAPIsOnly;
+
+			return rawFormatLocation switch
+			{
+				FormatArgsConstants.UsedAPIsOnly 	   => FormatMode.UsedAPIsOnly,
+				FormatArgsConstants.UsedAPIsWithUsages => FormatMode.UsedAPIsWithUsages,
+				_ 									   => throw new ArgumentOutOfRangeException(nameof(CommandLineOptions.ReportFormat), rawFormatLocation, 
+																								"Not supported report output format.")
+			};
+		}
+
+		private GroupingMode ReadGroupingMode(string? rawGroupingLocation)
+		{
+			if (rawGroupingLocation.IsNullOrWhiteSpace())
+				return GroupingMode.None;
+			
+			string rawGroupingLocationUppered = rawGroupingLocation.ToUpperInvariant();
+			bool groupByNamespaces 			  = rawGroupingLocationUppered.Contains('N');
+			bool groupByTypes 				  = rawGroupingLocationUppered.Contains('T');
+
+			GroupingMode grouping = groupByNamespaces
+				? GroupingMode.Namespaces
+				: GroupingMode.None;
+
+			if (groupByTypes)
+				grouping &= GroupingMode.Types;
+
+			return grouping;
 		}
 	}
 }
