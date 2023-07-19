@@ -285,7 +285,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				if (location != null && !_reportedErrors.Add((location, banApiInfo)!))
 					return;
 
-				string fullName 		   = banApiInfo.DocID.Substring(2);
+				string fullName 		   = banApiInfo.GetFullName();
 				var diagnosticDescriptor   = GetDiagnosticFromBannedApiInfo(banApiInfo);
 				string docIdWithObsoletion = banApiInfo.GetDocIDWithOptionalObsoleteMarker();
 				var diagnosticProperties   = ImmutableDictionary<string, string>.Empty
