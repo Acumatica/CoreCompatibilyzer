@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 using CoreCompatibilyzer.ApiData.Providers;
 using CoreCompatibilyzer.ApiData.Storage;
-using CoreCompatibilyzer.Constants;
 using CoreCompatibilyzer.DotNetRuntimeVersion;
 using CoreCompatibilyzer.Runner.Analysis.Helpers;
 using CoreCompatibilyzer.Runner.Input;
+using CoreCompatibilyzer.Runner.ReportFormat;
 using CoreCompatibilyzer.StaticAnalysis;
 using CoreCompatibilyzer.Utils.Common;
 using CoreCompatibilyzer.Utils.Roslyn.Suppression;
@@ -29,32 +29,36 @@ namespace CoreCompatibilyzer.Runner.Analysis
 		private ImmutableArray<DiagnosticAnalyzer> _diagnosticAnalyzers;
 		private readonly IApiStorage _bannedApiStorage;
 		private readonly IApiStorage _whiteListStorage;
+		private readonly IReportOutputter _reportOutputter;
 
 		private bool IsBannedStorageInitAndNonEmpty => _bannedApiStorage.ApiKindsCount > 0;
 
 		private bool IsWhiteListInitAndNonEmpty => _whiteListStorage.ApiKindsCount > 0;
 
-		private SolutionCompatibilityAnalyzer(IApiStorage bannedApiStorage, IApiStorage whiteListStorage,
+		private SolutionCompatibilityAnalyzer(IApiStorage bannedApiStorage, IApiStorage whiteListStorage, IReportOutputter reportOutputter,
 											  ImmutableArray<DiagnosticAnalyzer> diagnosticAnalyzers)
         {
             _bannedApiStorage	 = bannedApiStorage;
 			_whiteListStorage	 = whiteListStorage;
 			_diagnosticAnalyzers = diagnosticAnalyzers;
+			_reportOutputter	 = reportOutputter;
         }
 
 		public static async Task<SolutionCompatibilityAnalyzer> CreateAnalyzer(CancellationToken cancellationToken, 
-																			   IApiDataProvider? customBannedApiDataProvider = null)
+																			   IApiDataProvider? customBannedApiDataProvider = null,
+																			   IReportOutputter? customReportOutputter = null)
 		{
 			var bannedApiTask = ApiStorage.BannedApi.GetStorageAsync(cancellationToken, customBannedApiDataProvider);
 			var whiteListTask = ApiStorage.WhiteList.GetStorageAsync(cancellationToken, customBannedApiDataProvider);
 
 			var bannedApiAndWhiteList = await Task.WhenAll(bannedApiTask, whiteListTask).ConfigureAwait(false);
 
-			IApiStorage bannedApiStorage = bannedApiAndWhiteList[0];
-			IApiStorage whiteListStorage = bannedApiAndWhiteList[1];
-			var diagnosticAnalyzers = CollectAnalyzers();
+			IApiStorage bannedApiStorage 	 = bannedApiAndWhiteList[0];
+			IApiStorage whiteListStorage 	 = bannedApiAndWhiteList[1];
+			var diagnosticAnalyzers 		 = CollectAnalyzers();
+			IReportOutputter reportOutputter = customReportOutputter ?? new ReportOutputter(bannedApiStorage, whiteListStorage);
 
-			return new SolutionCompatibilityAnalyzer(bannedApiStorage, whiteListStorage, diagnosticAnalyzers);
+			return new SolutionCompatibilityAnalyzer(bannedApiStorage, whiteListStorage, reportOutputter, diagnosticAnalyzers);
 		}
 
 		private static ImmutableArray<DiagnosticAnalyzer> CollectAnalyzers()
@@ -116,8 +120,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			if (!IsBannedStorageInitAndNonEmpty)
 				return RunResult.Success;
 
-			bool useSuppressionMechanism = !analysisContext.DisableSuppressionMechanism;
-			var analysisValidationResult = await RunAnalyzersOnProjectAsync(compilation, useSuppressionMechanism, cancellationToken).ConfigureAwait(false);
+			var analysisValidationResult = await RunAnalyzersOnProjectAsync(compilation, analysisContext, cancellationToken).ConfigureAwait(false);
 			return analysisValidationResult;
 		}
 
@@ -142,12 +145,12 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			return null;
 		}
 
-		private async Task<RunResult> RunAnalyzersOnProjectAsync(Compilation compilation, bool useSuppressionMechanism, CancellationToken cancellation)
+		private async Task<RunResult> RunAnalyzersOnProjectAsync(Compilation compilation, AppAnalysisContext analysisContext, CancellationToken cancellation)
 		{
 			if (_diagnosticAnalyzers.IsDefaultOrEmpty)
 				return RunResult.Success;
 
-			SuppressionManager.UseSuppression = useSuppressionMechanism;
+			SuppressionManager.UseSuppression = !analysisContext.DisableSuppressionMechanism;
 			var compilationAnalysisOptions = new CompilationWithAnalyzersOptions(options: null!, OnAnalyzerException,
 																				 concurrentAnalysis: !Debugger.IsAttached, 
 																				 logAnalyzerExecutionTime: false);
@@ -158,15 +161,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			if (diagnosticResults.IsDefaultOrEmpty)
 				return RunResult.Success;
 
-#pragma warning disable Serilog004 // Constant MessageTemplate verifier
-			Log.Error("Analysis found {ErrorCount}" + Environment.NewLine, diagnosticResults.Length);
-#pragma warning restore Serilog004 // Constant MessageTemplate verifier
-
-			foreach (Diagnostic diagnostic in diagnosticResults)
-			{
-				LogErrorForFoundDiagnostic(diagnostic);
-			}
-
+			_reportOutputter.OutputDiagnostics(diagnosticResults, analysisContext, cancellation);
 			return RunResult.RequirementsNotMet;
 		}
 
@@ -177,47 +172,6 @@ namespace CoreCompatibilyzer.Runner.Analysis
 
 			string errorMsg = $"Analyzer error:{Environment.NewLine}{{Id}}{Environment.NewLine}{{Location}}{Environment.NewLine}{{Analyzer}}";
 			Log.Error(exception, errorMsg, diagnostic.Id, prettyLocation, analyzer.ToString());
-		}
-
-		
-		private void LogErrorForFoundDiagnostic(Diagnostic diagnostic)
-		{
-			if (diagnostic.Properties.Count == 0 || 
-				!diagnostic.Properties.TryGetValue(CommonConstants.ApiNameDiagnosticProperty, out string? fullApiName) || 
-				fullApiName.IsNullOrWhiteSpace())
-			{
-				LogMessage(diagnostic.Severity, diagnostic.ToString(), messageArgs: null);
-				return;
-			}
-
-			var prettyLocation = diagnostic.Location.GetMappedLineSpan().ToString();
-			var diagnosticMessage = string.Format(diagnostic.Descriptor.Title.ToString(), fullApiName);
-			string errorMsgTemplate = $"{{Id}} {{Severity}} {{Location}}:{Environment.NewLine}{{Description}}";
-
-			LogMessage(diagnostic.Severity, errorMsgTemplate, diagnostic.Id, diagnostic.Severity, prettyLocation, diagnosticMessage);
-		}
-
-		[SuppressMessage("CodeQuality", "Serilog004:Constant MessageTemplate verifier", Justification = "Ok to use runtime dependent new line in message")]
-		private void LogMessage(DiagnosticSeverity severity, string message, params object[]? messageArgs)
-		{
-			switch (severity)
-			{
-				case DiagnosticSeverity.Error:
-					Log.Error(message, messageArgs);
-					return;
-
-				case DiagnosticSeverity.Warning:
-					Log.Warning(message, messageArgs);
-					break;
-
-				case DiagnosticSeverity.Info:
-					Log.Information(message, messageArgs);
-					break;
-
-				case DiagnosticSeverity.Hidden:
-					Log.Debug(message, messageArgs);
-					break;
-			}
 		}
 	}
 }

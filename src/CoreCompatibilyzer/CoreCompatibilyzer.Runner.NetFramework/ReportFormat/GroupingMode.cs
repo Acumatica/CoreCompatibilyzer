@@ -23,4 +23,10 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 		/// </summary>
 		Types = 0xb010
 	}
+
+	internal static class GroupingModeExtensions
+	{
+		public static bool HasGrouping(this GroupingMode groupingMode, GroupingMode groupingToCheck) =>
+			(groupingMode & groupingToCheck) == groupingToCheck;
+	}
 }
