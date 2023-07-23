@@ -27,22 +27,22 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 
 		private readonly List<Diagnostic> _unrecognizedDiagnostics = new();
 
-        public ReportOutputter(IApiStorage bannedApiStorage, IApiStorage whiteListStorage)
-        {
+		public ReportOutputter(IApiStorage bannedApiStorage, IApiStorage whiteListStorage)
+		{
 			_bannedApiStorage = bannedApiStorage.ThrowIfNull(nameof(bannedApiStorage));
 			_whiteListStorage = whiteListStorage.ThrowIfNull(nameof(whiteListStorage));
-        }
+		}
 
-        public void OutputDiagnostics(ImmutableArray<Diagnostic> diagnostics, AppAnalysisContext analysisContext, CancellationToken cancellation)
+		public void OutputDiagnostics(ImmutableArray<Diagnostic> diagnostics, AppAnalysisContext analysisContext, CancellationToken cancellation)
 		{
 			_unrecognizedDiagnostics.Clear();
 
 			if (diagnostics.IsDefaultOrEmpty)
 				return;
 
-			#pragma warning disable Serilog004 // Constant MessageTemplate verifier
+#pragma warning disable Serilog004 // Constant MessageTemplate verifier
 			Log.Error("Analysis found {ErrorCount}" + Environment.NewLine, diagnostics.Length);
-			#pragma warning restore Serilog004 // Constant MessageTemplate verifier
+#pragma warning restore Serilog004 // Constant MessageTemplate verifier
 
 			cancellation.ThrowIfCancellationRequested();
 
@@ -53,13 +53,40 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 
 			if (analysisContext.Grouping.HasGrouping(GroupingMode.Namespaces))
 			{
-				diagnosticsWithApis.GroupBy(x => x.BannedApi.Nam)
-			}
+				var groupedByNamespaces = diagnosticsWithApis.GroupBy(d => d.BannedApi.GetNamespace())
+															 .OrderBy(diagnosticsByNamespaces => diagnosticsByNamespaces.Key);
 
-			foreach (Diagnostic diagnostic in diagnostics)
+				foreach (var namespaceDiagnostics in groupedByNamespaces)
+				{
+					OutputNamespaceDiagnosticGroup(namespaceDiagnostics.Key, analysisContext, depth: 0, namespaceDiagnostics);
+				}
+
+
+			}
+			else
 			{
-				cancellation.ThrowIfCancellationRequested();
-				LogErrorForFoundDiagnostic(diagnostic);
+
+				var namespacesAndOtherApis = diagnosticsWithApis.ToLookup(d => d.BannedApi.Kind == ApiKind.Namespace);
+				var namespacesApis = namespacesAndOtherApis[true];
+
+				OutputNamespaceDiagnosticsSection(analysisContext, namespacesApis);
+
+				var otherApis = namespacesAndOtherApis[false];
+
+
+
+
+				if (analysisContext.Grouping.HasGrouping(GroupingMode.Types))
+				{
+					var groupedByNamespaces = diagnosticsWithApis.GroupBy(d => d.BannedApi.GetTypeName())
+																 .OrderBy(diagnosticsByNamespaces => diagnosticsByNamespaces.Key);
+				}
+
+				foreach (Diagnostic diagnostic in diagnostics)
+				{
+					cancellation.ThrowIfCancellationRequested();
+					LogErrorForFoundDiagnostic(diagnostic);
+				}
 			}
 
 			ReportUnrecognizedDiagnostics();
@@ -88,15 +115,72 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 			}
 		}
 
-		private void LogErrorForFoundDiagnostic(Diagnostic diagnostic)
+		private void OutputNamespaceDiagnosticGroup(string @namespace, AppAnalysisContext analysisContext, int depth,
+													IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> diagnostics)
+		{
+			string padding = GetPadding(depth);
+			OutputTitle(padding + @namespace, ConsoleColor.DarkCyan);
+
+			if (analysisContext.Grouping.HasGrouping(GroupingMode.Types))
+			{
+
+			}
+
+		}
+
+		private void OutputTypeDiagnosticGroup(string typeName, AppAnalysisContext analysisContext,
+											   IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> diagnostics)
 		{
 
+		}
 
+		private void OutputDiagnosticGroup(AppAnalysisContext analysisContext, IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> diagnostics)
+		{
 
+		}
 
+		private void OutputNamespaceDiagnosticsSection(AppAnalysisContext analysisContext, IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> diagnostics)
+		{
+			if (!diagnostics.Any())
+				return;
+
+			string sectionPadding = GetPadding(depth: 0);
+			OutputTitle(sectionPadding + "Namespaces", ConsoleColor.DarkCyan);
+			Console.WriteLine();
+
+			string namespaceItemPadding = GetPadding(depth: 1);
+
+			if (analysisContext.Format == FormatMode.UsedAPIsOnly)
+			{
+				var namespaces = diagnostics.Select(d => d.BannedApi.GetFullName())
+											.Distinct()
+											.OrderBy(@namespace => @namespace);
+
+				foreach (var @namespace in namespaces)
+					OutputFoundBannedApi(@namespace, namespaceItemPadding);
+			}
+			else
+			{
+				var orderedNamespaceDiagnostics = diagnostics.OrderBy(d => d.BannedApi.DocID);
+
+				foreach (var (diagnostic, bannedApi) in orderedNamespaceDiagnostics)
+				{
+					string @namespace = bannedApi.GetFullName();
+					LogErrorForFoundDiagnosticWithUsage(@namespace, diagnostic, namespaceItemPadding);
+				}
+			}
+		}
+
+		private void OutputFoundBannedApi(string apiName, string padding)
+		{
+			Console.WriteLine(padding + apiName);
+		}
+
+		private void LogErrorForFoundDiagnosticWithUsage(string apiName, Diagnostic diagnostic, string padding)
+		{
 			var prettyLocation = diagnostic.Location.GetMappedLineSpan().ToString();
-			var diagnosticMessage = string.Format(diagnostic.Descriptor.Title.ToString(), fullApiName);
-			string errorMsgTemplate = $"{{Id}} {{Severity}} {{Location}}:{Environment.NewLine}{{Description}}";
+			var diagnosticMessage = string.Format(diagnostic.Descriptor.Title.ToString(), apiName);
+			string errorMsgTemplate = $"{padding}{{Id}} {{Severity}} {{Location}}:{Environment.NewLine}{{Description}}";
 
 			LogMessage(diagnostic.Severity, errorMsgTemplate, diagnostic.Id, diagnostic.Severity, prettyLocation, diagnosticMessage);
 		}
@@ -137,6 +221,30 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 			foreach (Diagnostic diagnostic in _unrecognizedDiagnostics)
 			{
 				LogMessage(diagnostic.Severity, diagnostic.ToString(), messageArgs: null);
+			}
+		}
+
+		private string GetPadding(int depth)
+		{
+			const int paddingMultiplier = 4;
+			return depth <= 0
+				? string.Empty
+				: new string(' ', depth * paddingMultiplier);
+		}
+
+		private void OutputTitle(string text, ConsoleColor color)
+		{
+			var oldColor = Console.ForegroundColor;
+
+			try
+			{
+				Console.ForegroundColor = color;
+				Console.WriteLine(text);
+				Console.WriteLine();
+			}
+			finally
+			{
+				Console.ForegroundColor = oldColor;
 			}
 		}
 	}
