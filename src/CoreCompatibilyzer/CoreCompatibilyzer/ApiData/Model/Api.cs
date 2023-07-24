@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
+using System.Text;
 
 using CoreCompatibilyzer.Constants;
 using CoreCompatibilyzer.Utils.Common;
@@ -9,177 +12,159 @@ namespace CoreCompatibilyzer.ApiData.Model
 	/// <summary>
 	/// API data.
 	/// </summary>
-	public readonly struct Api : IEquatable<Api>, IComparable<Api>
+	public class Api : IEquatable<Api>, IComparable<Api>
 	{
 		private const int NameOffset = 2;
 
+		public string RawApiData { get; }
+
 		public string DocID { get; }
+
+		public string FullName { get; }
+
+		public string Namespace { get; }
+
+		public ImmutableArray<string> ContainingTypes { get; }
+
+		public string TypeName { get; }
+
+		public string MemberName { get; }
 
 		public ApiKind Kind { get; }
 
 		public ApiExtraInfo ExtraInfo { get; }
 
-        public Api(string docIDWithOptionalObsoleteMarker)
+        public Api(string rawApiData)
         {
-			docIDWithOptionalObsoleteMarker = docIDWithOptionalObsoleteMarker.ThrowIfNullOrWhiteSpace(nameof(docIDWithOptionalObsoleteMarker)).Trim();
+			RawApiData = rawApiData.ThrowIfNullOrWhiteSpace(nameof(rawApiData)).Trim();
 
-			if (docIDWithOptionalObsoleteMarker.Length < NameOffset)
-				throw InvalidInputStringFormatException(docIDWithOptionalObsoleteMarker);
+			if (RawApiData.Length < NameOffset)
+				throw InvalidInputStringFormatException(RawApiData);
 
-			if (char.IsWhiteSpace(docIDWithOptionalObsoleteMarker[^2]))
+			string apiDataWithoutObsoleteMarker;
+
+			if (char.IsWhiteSpace(RawApiData[^2]))
 			{
-				if (char.ToUpper(docIDWithOptionalObsoleteMarker[^1]) != CommonConstants.ApiObsoletionMarker)
-					throw InvalidInputStringFormatException(docIDWithOptionalObsoleteMarker);
+				if (char.ToUpper(RawApiData[^1]) != CommonConstants.ApiObsoletionMarker)
+					throw InvalidInputStringFormatException(RawApiData);
 
-				DocID = docIDWithOptionalObsoleteMarker.Remove(docIDWithOptionalObsoleteMarker.Length - 2);
+				apiDataWithoutObsoleteMarker = RawApiData.Remove(RawApiData.Length - 2);
 				ExtraInfo = ApiExtraInfo.Obsolete;
 			}
 			else
 			{
-				DocID = docIDWithOptionalObsoleteMarker;
+				apiDataWithoutObsoleteMarker = RawApiData;
 				ExtraInfo = ApiExtraInfo.None;
 			}
-			
-			Kind = DocID.GetApiKind();
 
-			if (Kind == ApiKind.Undefined || DocID.Length < NameOffset)
-				throw InvalidInputStringFormatException(DocID);
-        }
+			Kind = apiDataWithoutObsoleteMarker.GetApiKind();
+
+			if (Kind == ApiKind.Undefined || apiDataWithoutObsoleteMarker.Length < NameOffset)
+				throw InvalidInputStringFormatException(RawApiData);
+
+			DocID	 = GetDocID(apiDataWithoutObsoleteMarker, Kind);
+			FullName = DocID.Substring(NameOffset);
+
+			string apiDataWithoutObsoleteMarkerAndPrefix	 = apiDataWithoutObsoleteMarker.Substring(NameOffset);
+			(Namespace, string combinedTypeName, MemberName) = GetNameParts(apiDataWithoutObsoleteMarkerAndPrefix, Kind);
+			(TypeName, ContainingTypes)						 = GetTypeParts(combinedTypeName);
+		}
 
 		public string GetDocIDWithOptionalObsoleteMarker() =>
-			ExtraInfo == ApiExtraInfo.Obsolete
-				? $"{DocID} {CommonConstants.ApiObsoletionMarker}"
-				: DocID;
+		ExtraInfo == ApiExtraInfo.Obsolete
+			? $"{DocID} {CommonConstants.ApiObsoletionMarker}"
+			: DocID;
 
-		public string GetMemberName()
+		private static string GetDocID(string apiDataWithoutObsoleteMarker, ApiKind apiKind)
 		{
-			switch (Kind)
-			{
-				case ApiKind.Type:
-				case ApiKind.Field:
-				case ApiKind.Property:
-				case ApiKind.Event:
-					return GetLastNameSegment();
-				case ApiKind.Method:
-					return GetMethodLastNameSegment();
-				default:
-					return string.Empty;
-			}
+			if (apiKind == ApiKind.Namespace)
+				return apiDataWithoutObsoleteMarker;
+
+			var sb = new StringBuilder(apiDataWithoutObsoleteMarker)
+							.Replace(CommonConstants.NamespaceSeparator, '.')
+							.Replace(CommonConstants.NestedTypesSeparator, '.');
+			return sb.ToString();
 		}
 
-		public string GetTypeName()
+		private static (string Namespace, string CombinedTypeName, string MemberName) GetNameParts(string apiDataWithoutObsoleteMarkerAndPrefix, ApiKind apiKind)
 		{
-			switch (Kind)
-			{
-				case ApiKind.Type:
-					return GetLastNameSegment();
-				case ApiKind.Field:
-				case ApiKind.Property:
-				case ApiKind.Event:
-					return GetSecondFromTheEndNameSegment();
-				case ApiKind.Method:
-					return GetMethodSecondFromTheEndNameSegment();
-				default:
-					return string.Empty;
-			}
+			if (apiKind == ApiKind.Namespace)
+				return (apiDataWithoutObsoleteMarkerAndPrefix, CombinedTypeName: string.Empty, MemberName: string.Empty);
+
+			int namespaceSeparatorIndex = apiDataWithoutObsoleteMarkerAndPrefix.IndexOf(CommonConstants.NamespaceSeparator);
+			string @namespace = namespaceSeparatorIndex > 0
+				? apiDataWithoutObsoleteMarkerAndPrefix[..namespaceSeparatorIndex]
+				: string.Empty;
+
+			if (namespaceSeparatorIndex == apiDataWithoutObsoleteMarkerAndPrefix.Length - 1)
+				return (@namespace, CombinedTypeName: string.Empty, MemberName: string.Empty);
+
+			string typeAndMemberName = apiDataWithoutObsoleteMarkerAndPrefix[(namespaceSeparatorIndex + 1)..];
+			var (combinedTypeName, memberName) = GetTypeAndMemberNameParts(typeAndMemberName, apiKind);
+			return (@namespace, combinedTypeName, memberName);
 		}
 
-		public string GetNamespace()
+		private static (string CombinedTypeName, string MemberName) GetTypeAndMemberNameParts(string typeAndMemberName, ApiKind apiKind)
 		{
-			switch (Kind)
-			{
-				case ApiKind.Namespace:
-					return GetLastNameSegment();
-				case ApiKind.Type:
-				case ApiKind.Field:
-				case ApiKind.Property:
-				case ApiKind.Event:
-				case ApiKind.Method:
-					string typeName = GetTypeName();
-					int typeNameIndex = DocID.LastIndexOf(typeName);
+			if (apiKind == ApiKind.Type)
+				return (typeAndMemberName, MemberName: string.Empty);
+			else if (apiKind != ApiKind.Method)
+				return GetTypeAndMemberNamesForMemberApi(typeAndMemberName);
 
-					if (typeNameIndex <= 0 || DocID[typeNameIndex - 1] != '.')
-						return string.Empty;
-
-					return DocID[NameOffset..(typeNameIndex - 1)];
-				default:
-					return string.Empty;
-			}
-		}
-
-		public string GetFullName() => DocID.Substring(NameOffset);
-
-		private string GetMethodLastNameSegment()
-		{
-			if (DocID[^1] == ')')
-				return GetLastNameSegment();
-
-			int startBraceIndex = DocID.LastIndexOf('(');
+			int startBraceIndex = typeAndMemberName.LastIndexOf('(');
 
 			if (startBraceIndex <= 0)
-				return GetLastNameSegment();
+				return GetTypeAndMemberNamesForMemberApi(typeAndMemberName);
 
-			int lastSegmentDotIndex = DocID.LastIndexOf('.', startBraceIndex - 1);
-			int lastSegmentStart = lastSegmentDotIndex >= NameOffset
-				? lastSegmentDotIndex + 1
-				: NameOffset;
+			string typeAndMemberNameWithoutBraces = typeAndMemberName[..startBraceIndex];
+			string parameters 					  = typeAndMemberName[startBraceIndex..];
+			var (combinedTypeName, memberName) 	  = GetTypeAndMemberNamesForMemberApi(typeAndMemberNameWithoutBraces);
+			memberName							 += parameters;
 
-			string lastSegment = DocID[lastSegmentStart..startBraceIndex];
-			return lastSegment;
+			return (combinedTypeName, memberName);
 		}
 
-		private string GetLastNameSegment()
+		private static (string CombinedTypeName, string MemberName) GetTypeAndMemberNamesForMemberApi(string typeAndMemberNameWithoutBraces)
 		{
-			int lastDotIndex = DocID.LastIndexOf('.');
+			int lastDotIndex = typeAndMemberNameWithoutBraces.LastIndexOf('.');
 
 			if (lastDotIndex < 0)
-				return GetFullName();
+				return (CombinedTypeName: string.Empty, MemberName: typeAndMemberNameWithoutBraces);
 
-			string lastSegment = DocID.Substring(lastDotIndex + 1);
-			return lastSegment;
+			string combinedTypeName = typeAndMemberNameWithoutBraces[..lastDotIndex];
+			string memberName = lastDotIndex < (typeAndMemberNameWithoutBraces.Length - 1)
+				? typeAndMemberNameWithoutBraces[(lastDotIndex + 1)..]
+				: string.Empty;
+			
+			return (combinedTypeName, memberName);
 		}
 
-		private string GetMethodSecondFromTheEndNameSegment()
+		private static (string TypeName, ImmutableArray<string> ContainingTypes) GetTypeParts(string combinedTypeName)
 		{
-			if (DocID[^1] == ')')
-				return GetSecondFromTheEndNameSegment();
+			if (combinedTypeName.Length == 0)
+				return (TypeName: string.Empty, ContainingTypes: ImmutableArray<string>.Empty);
 
-			int startBraceIndex = DocID.LastIndexOf('(');
+			int typesSeparatorIndex = combinedTypeName.IndexOf(CommonConstants.NestedTypesSeparator);
 
-			if (startBraceIndex <= 0)
-				return GetSecondFromTheEndNameSegment();
+			if (typesSeparatorIndex < 0)
+				return (TypeName: combinedTypeName, ContainingTypes: ImmutableArray<string>.Empty);
 
-			int lastSegmentDotIndex = DocID.LastIndexOf('.', startBraceIndex - 1);
-			return GetSecondFromTheEndNameSegment(lastSegmentDotIndex);
+			string[] types 		= combinedTypeName.Split(new[] { CommonConstants.NestedTypesSeparator }, StringSplitOptions.None);
+			string typeName 	= types[^1];
+			var containingTypes = types.Take(types.Length - 1).ToImmutableArray();
+			
+			return (typeName, containingTypes);
 		}
 
-		private string GetSecondFromTheEndNameSegment()
-		{
-			int lastDotIndex = DocID.LastIndexOf('.');
-			return GetSecondFromTheEndNameSegment(lastDotIndex);
-		}
-
-		private string GetSecondFromTheEndNameSegment(int lastSegmentDotIndex)
-		{
-			if (lastSegmentDotIndex <= 0)
-				return string.Empty;
-
-			int secondFromTheEndDotIndex = DocID.LastIndexOf('.', lastSegmentDotIndex - 1);
-			int secondFromEndSegmentStart = secondFromTheEndDotIndex >= NameOffset
-				? secondFromTheEndDotIndex + 1
-				: NameOffset;
-
-			string secondFromEndSegment = DocID[secondFromEndSegmentStart..lastSegmentDotIndex];
-			return secondFromEndSegment;
-		}
-
-		private static ArgumentException InvalidInputStringFormatException(string docID) =>
-			 new ArgumentException($"The input API DocID string \"{docID}\" has unknown format.\r\n" +
+		private static ArgumentException InvalidInputStringFormatException(string rawApiData) =>
+			 new ArgumentException($"The input API data string \"{rawApiData}\" has unknown format.\r\n" +
 									"Please check the following link for a list of supported formats: " +
 									"https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/#id-strings" + 
 									$"\r\n\r\nCoreCompatibilyzer extends the DocID string format above with an indicator \"{CommonConstants.ApiObsoletionMarker}\"" + 
-									" character separated by whitespace at the end of a DocID string",
-									nameof(docID));
+									" character separated by whitespace at the end of a DocID string.\r\n" +
+									$"It also uses the \"{CommonConstants.NamespaceSeparator}\" to separate the namespace part of the API name from the rest of its name and " +
+									$"\"{CommonConstants.NestedTypesSeparator}\" to separate names of nested types",
+									nameof(rawApiData));
 
 		public override bool Equals(object obj) => obj is Api api && Equals(api);
 
