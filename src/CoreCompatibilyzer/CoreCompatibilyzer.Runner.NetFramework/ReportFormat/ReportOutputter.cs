@@ -63,10 +63,11 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 				foreach (var namespaceDiagnostics in groupedByNamespaces)
 				{
 					cancellation.ThrowIfCancellationRequested();
-					OutputNamespaceDiagnosticGroup(namespaceDiagnostics.Key, analysisContext, depth: 0, namespaceDiagnostics,
+					OutputNamespaceDiagnosticGroup(namespaceDiagnostics.Key, analysisContext, depth: 0, namespaceDiagnostics.ToList(),
 												   usedBannedTypes, usedNamespaces, cancellation);
 				}
 
+				Console.WriteLine();
 				ReportUnrecognizedDiagnostics();
 				return;
 			}
@@ -76,19 +77,20 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 				var namespacesAndOtherApis = diagnosticsWithApis.ToLookup(d => d.BannedApi.Kind == ApiKind.Namespace);
 				var namespacesApis = namespacesAndOtherApis[true];
 				var otherApis = namespacesAndOtherApis[false];
-
+		
 				OutputNamespaceDiagnosticsSectionForTypesOnlyGrouping(analysisContext, namespacesApis, usedBannedTypes);
-				cancellation.ThrowIfCancellationRequested();
 
+				cancellation.ThrowIfCancellationRequested();
 				var groupedByTypes = otherApis.GroupBy(d => d.BannedApi.FullTypeName)
 											  .OrderBy(diagnosticsByTypes => diagnosticsByTypes.Key);
 
 				foreach (var typeDiagnostics in groupedByTypes)
 				{
 					cancellation.ThrowIfCancellationRequested();
-					OutputTypeDiagnosticGroup(typeDiagnostics.Key, analysisContext, depth: 0, typeDiagnostics, usedBannedTypes);
+					OutputTypeDiagnosticGroup(typeDiagnostics.Key, analysisContext, depth: 0, typeDiagnostics.ToList(), usedBannedTypes);
 				}
 
+				Console.WriteLine();
 				ReportUnrecognizedDiagnostics();
 				return;
 			}
@@ -99,7 +101,6 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 			OutputDiagnosticGroup(analysisContext, depth: 1, sortedFlatDiagnostics, usedBannedTypes);
 			Console.WriteLine();
 			ReportUnrecognizedDiagnostics();
-			Console.WriteLine();
 		}
 
 		private Api? GetBannedApiFromDiagnostic(Diagnostic diagnostic)
@@ -125,28 +126,32 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 		}
 
 		private void OutputNamespaceDiagnosticGroup(string @namespace, AppAnalysisContext analysisContext, int depth,
-													IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> diagnostics, HashSet<string> usedBannedTypes,
+													List<(Diagnostic Diagnostic, Api BannedApi)> diagnostics, HashSet<string> usedBannedTypes,
 													HashSet<string> usedNamespaces, CancellationToken cancellation)
 		{
 			string namespacePadding = GetPadding(depth);
 			OutputTitle(namespacePadding + @namespace, ConsoleColor.DarkCyan);
-			Console.WriteLine();
+
 			cancellation.ThrowIfCancellationRequested();
 
 			if (usedNamespaces.Contains(@namespace) && analysisContext.Format == FormatMode.UsedAPIsWithUsages)
 			{
-				diagnostics = diagnostics.ToList();
 				var namespaceUsages = diagnostics.Where(d => d.BannedApi.Kind == ApiKind.Namespace)
 												 .Select(d => d.Diagnostic);
-				OutputApiUsages(depth, namespaceUsages);
+				OutputApiUsages(depth + 1, namespaceUsages);
+			}
+
+			cancellation.ThrowIfCancellationRequested();
+			var namespaceMembers = diagnostics.Where(d => d.BannedApi.Kind != ApiKind.Namespace).ToList();
+
+			if (namespaceMembers.Count == 0)
+			{
 				Console.WriteLine();
+				return;
 			}
 
 			string subSectionPadding = GetPadding(depth + 1);
 			OutputTitle(subSectionPadding + "Members:", ConsoleColor.Gray);
-			cancellation.ThrowIfCancellationRequested();
-
-			var namespaceMembers = diagnostics.Where(d => d.BannedApi.Kind != ApiKind.Namespace);
 
 			if (analysisContext.Grouping.HasGrouping(GroupingMode.Types))
 			{
@@ -158,8 +163,11 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 					cancellation.ThrowIfCancellationRequested();
 
 					string typeName = typeDiagnostics.Key;
-					OutputTypeDiagnosticGroup(typeName, analysisContext, depth + 2, typeDiagnostics, usedBannedTypes);
+					OutputTypeDiagnosticGroup(typeName, analysisContext, depth + 2, typeDiagnostics.ToList(), usedBannedTypes);
 				}
+
+				if (analysisContext.Format == FormatMode.UsedAPIsOnly)
+					Console.WriteLine();
 
 				return;
 			}
@@ -170,31 +178,35 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 		}
 
 		private void OutputTypeDiagnosticGroup(string typeName, AppAnalysisContext analysisContext, int depth,
-											   IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> diagnostics,
+											   List<(Diagnostic Diagnostic, Api BannedApi)> diagnostics,
 											   HashSet<string> usedBannedTypes)
 		{
 			string typeNamePadding = GetPadding(depth);
 			OutputTitle(typeNamePadding + typeName, ConsoleColor.Magenta);
-			Console.WriteLine();
 
 			if (usedBannedTypes.Contains(typeName))
 			{
 				if (analysisContext.Format == FormatMode.UsedAPIsOnly)
 					return;
 
-				diagnostics    = diagnostics.ToList();
 				var typeUsages = diagnostics.Where(d => d.BannedApi.Kind == ApiKind.Type)
 											.Select(d => d.Diagnostic);
-				OutputApiUsages(depth, typeUsages);
-				Console.WriteLine();
+				OutputApiUsages(depth + 1, typeUsages);
 			}
 
-			string subSectionPadding = GetPadding(depth + 1);
-			OutputTitle(subSectionPadding + "Members:", ConsoleColor.Gray);
+			var typeMembers = diagnostics.Where(d => d.BannedApi.Kind != ApiKind.Type).ToList();
 
-			var memberUsages = diagnostics.Where(d => d.BannedApi.Kind != ApiKind.Type);
-			OutputDiagnosticGroup(analysisContext, depth + 2, memberUsages, usedBannedTypes);
-			Console.WriteLine();
+			if (typeMembers.Count > 0)
+			{
+				string subSectionPadding = GetPadding(depth + 1);
+
+				OutputTitle(subSectionPadding + "Members:", ConsoleColor.Gray);
+				OutputDiagnosticGroup(analysisContext, depth + 2, typeMembers, usedBannedTypes);
+			}
+			else
+			{
+				Console.WriteLine();
+			}
 		}
 
 		private void OutputNamespaceDiagnosticsSectionForTypesOnlyGrouping(AppAnalysisContext analysisContext, 
@@ -204,10 +216,7 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 			if (!diagnostics.Any())
 				return;
 
-			string sectionPadding = GetPadding(depth: 0);
-			OutputTitle(sectionPadding + "Namespaces:", ConsoleColor.DarkCyan);
-			Console.WriteLine();
-
+			OutputTitle("Namespaces:", ConsoleColor.DarkCyan);
 			OutputDiagnosticGroup(analysisContext, depth: 1, diagnostics, usedBannedTypes);
 		}
 
@@ -221,7 +230,9 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 				var allApis = GetUsedApisOnly(analysisContext, diagnostics, usedBannedTypes);
 
 				foreach (string api in allApis)
-					OutputFoundBannedApi(api, padding, addListItems: true);
+					OutputFoundBannedApi(api, padding, addListItems: true, useTitle: false);
+
+				Console.WriteLine();
 			}
 			else
 			{
@@ -234,9 +245,8 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 					var apiDiagnostics = diagnosticsByApi.Select(d => d.Diagnostic)
 														 .OrderBy(d => d.Location.SourceTree?.FilePath ?? string.Empty);
 
-					OutputFoundBannedApi(apiName, apiNamePadding, addListItems: false);
-					Console.WriteLine();
-					OutputApiUsages(depth, apiDiagnostics);
+					OutputFoundBannedApi(apiName, apiNamePadding, addListItems: false, useTitle: true);
+					OutputApiUsages(depth + 1, apiDiagnostics);
 					Console.WriteLine();
 				}
 			}
@@ -299,18 +309,22 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 			}
 		}
 
-		private void OutputFoundBannedApi(string apiName, string padding, bool addListItems)
+		private void OutputFoundBannedApi(string apiName, string padding, bool addListItems, bool useTitle)
 		{
-			if (addListItems)
-				Console.WriteLine($"{padding}-{apiName}");
+			string apiOutput = addListItems
+				? $"{padding}* {apiName}"
+				: $"{padding}{apiName}";
+
+			if (useTitle)
+				OutputTitle(apiOutput, ConsoleColor.Cyan);
 			else
-				Console.WriteLine($"{padding}{apiName}");
+				Console.WriteLine(apiOutput);
 		}
 
 		private void OutputApiUsage(Diagnostic diagnostic, string padding)
 		{
 			var prettyLocation = diagnostic.Location.GetMappedLineSpan().ToString();
-			Console.WriteLine($"{padding}-{prettyLocation}");
+			Console.WriteLine($"{padding}* {prettyLocation}");
 		}
 
 		private void ReportUnrecognizedDiagnostics()
@@ -330,6 +344,8 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 			{
 				Console.WriteLine(diagnostic);
 			}
+
+			Console.WriteLine();
 		}
 
 		private string GetPadding(int depth)
