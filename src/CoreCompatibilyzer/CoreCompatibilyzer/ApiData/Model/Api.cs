@@ -169,10 +169,6 @@ namespace CoreCompatibilyzer.ApiData.Model
 		public bool Equals(Api other) => 
 			string.Equals(DocID, other.DocID) && ExtraInfo == other.ExtraInfo;
 
-		public static bool operator ==(Api x, Api y) => x.Equals(y);
-
-		public static bool operator !=(Api x, Api y) => !x.Equals(y);
-
 		public override string ToString() => 
 			ExtraInfo == ApiExtraInfo.Obsolete
 				? $"{DocID} {ApiExtraInfo.Obsolete}"
