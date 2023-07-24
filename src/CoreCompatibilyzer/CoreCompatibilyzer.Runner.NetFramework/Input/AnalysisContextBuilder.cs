@@ -71,7 +71,7 @@ namespace CoreCompatibilyzer.Runner.Input
 				: GroupingMode.None;
 
 			if (groupByTypes)
-				grouping &= GroupingMode.Types;
+				grouping |= GroupingMode.Types;
 
 			return grouping;
 		}
