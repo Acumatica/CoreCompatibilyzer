@@ -38,8 +38,10 @@ namespace CoreCompatibilyzer.Runner.Input
 		/// <inheritdoc cref="CommandLineOptions.ReportGrouping"/>
 		public GroupingMode Grouping { get; }
 
+		public bool ShowMembersOfUsedType { get; }
+
 		public AppAnalysisContext(ICodeSource codeSource, DotNetRuntime targetRuntime, bool disableSuppressionMechanism, string? msBuildPath,
-								  FormatMode formatMode, GroupingMode groupingMode)
+								  FormatMode formatMode, GroupingMode groupingMode, bool showMembersOfUsedType)
 		{
 			CodeSource 					= codeSource.ThrowIfNull(nameof(codeSource));
 			TargetRuntime 				= targetRuntime;
@@ -47,6 +49,7 @@ namespace CoreCompatibilyzer.Runner.Input
 			MSBuildPath 				= msBuildPath.NullIfWhiteSpace();
 			Format 						= formatMode;
 			Grouping 					= groupingMode;
+			ShowMembersOfUsedType		= showMembersOfUsedType;
 		}
 	}
 }

@@ -15,6 +15,7 @@ namespace CoreCompatibilyzer.Runner.Constants
 		public const string MSBuildPath = "msBuildPath";
 
 		public const string IncludeApiUsages = "withUsages";
+		public const string ShowMembersOfUsedType = "showMembersOfUsedType";
 
 		public const char ReportGroupingShort = 'g';
 		public const string ReportGroupingLong = "grouping";

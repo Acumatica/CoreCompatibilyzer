@@ -28,7 +28,7 @@ namespace CoreCompatibilyzer.Runner.Input
 
 			GroupingMode groupingMode = ReadGroupingMode(commandLineOptions.ReportGrouping);
 			var input = new AppAnalysisContext(codeSource, targetRuntime: DotNetRuntime.DotNetCore22, commandLineOptions.DisableSuppressionMechanism,
-											   commandLineOptions.MSBuildPath, formatMode, groupingMode);
+											   commandLineOptions.MSBuildPath, formatMode, groupingMode, commandLineOptions.ShowMembersOfUsedType);
 			return input;
 		}
 

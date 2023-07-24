@@ -67,6 +67,20 @@ namespace CoreCompatibilyzer.Runner.Input
 						   "Set this flag to include the locations of used banned API calls into the report.")]
 		public bool IncludeApiUsages { get; }
 
+
+		/// <summary>
+		/// When report is displayed in a shortened form without banned API calls locations, it could be shortened even more.
+		///	By default, the report will not display used banned type member APIs if their containing type is also banned and used by the code being analyzed.
+		///	Set this flag to include the banned type member APIs into the report together with their containing type.
+		///	This flag does not affect the report when the <see cref="IncludeApiUsages"/> is set."
+		/// </summary>
+		[Option(longName: CommandLineArgNames.ShowMembersOfUsedType,
+				HelpText = "When report is displayed in a shortened form without banned API calls locations, it could be shortened even more.\n" +
+						   "By default, the report will not display used banned type member APIs if their containing type is also banned and used by the code being analyzed.\n" +
+						   "Set this flag to include the banned type member APIs into the report together with their containing type.\n" +
+						   $"This flag does not affect the report when the {nameof(IncludeApiUsages)} is set.")]
+		public bool ShowMembersOfUsedType { get; }
+
 		/// <summary>
 		/// The report grouping. By default there is no grouping. You can make grouping of the reported API by namespaces, types or both:<br/>
 		///	- Add "<c>n</c>" or "<c>N</c>" to group results by namespaces,<br/>
@@ -84,13 +98,14 @@ namespace CoreCompatibilyzer.Runner.Input
 		// Constructor arguments order must be the same as the properties order. This allows command line parser to initialize immutable options object via constructor.
 		// See this for details: https://github.com/commandlineparser/commandline/wiki/Immutable-Options-Type
 		public CommandLineOptions(string codeSource, string? verbosity, bool disableSuppressionMechanism, string? msBuildPath, bool includeApiUsages, 
-								  string? reportGrouping)
+								  bool showMembersOfUsedType, string? reportGrouping)
 		{
 			CodeSource 					= codeSource;
 			Verbosity 					= verbosity;
 			DisableSuppressionMechanism = disableSuppressionMechanism;
 			MSBuildPath 				= msBuildPath;
 			IncludeApiUsages			= includeApiUsages;
+			ShowMembersOfUsedType		= showMembersOfUsedType;
 			ReportGrouping 				= reportGrouping;
 		}
 	}
