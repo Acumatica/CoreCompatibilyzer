@@ -93,9 +93,13 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 				return;
 			}
 
+			OutputTitle("Found APIs:", ConsoleColor.DarkCyan);
 			var sortedFlatDiagnostics = diagnosticsWithApis.OrderBy(d => d.BannedApi.FullName);
-			OutputDiagnosticGroup(analysisContext, depth: 0, sortedFlatDiagnostics, usedBannedTypes);
+			
+			OutputDiagnosticGroup(analysisContext, depth: 1, sortedFlatDiagnostics, usedBannedTypes);
+			Console.WriteLine();
 			ReportUnrecognizedDiagnostics();
+			Console.WriteLine();
 		}
 
 		private Api? GetBannedApiFromDiagnostic(Diagnostic diagnostic)
@@ -134,7 +138,7 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 				diagnostics = diagnostics.ToList();
 				var namespaceUsages = diagnostics.Where(d => d.BannedApi.Kind == ApiKind.Namespace)
 												 .Select(d => d.Diagnostic);
-				OutputApiUsages(@namespace, depth + 1, namespaceUsages);
+				OutputApiUsages(depth, namespaceUsages);
 				Console.WriteLine();
 			}
 
@@ -181,7 +185,7 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 				diagnostics    = diagnostics.ToList();
 				var typeUsages = diagnostics.Where(d => d.BannedApi.Kind == ApiKind.Type)
 											.Select(d => d.Diagnostic);
-				OutputApiUsages(typeName, depth + 1, typeUsages);
+				OutputApiUsages(depth, typeUsages);
 				Console.WriteLine();
 			}
 
@@ -232,7 +236,8 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 
 					OutputFoundBannedApi(apiName, apiNamePadding, addListItems: false);
 					Console.WriteLine();
-					OutputApiUsages(apiName, depth + 1, apiDiagnostics);
+					OutputApiUsages(depth, apiDiagnostics);
+					Console.WriteLine();
 				}
 			}
 		}
@@ -281,7 +286,7 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 			}
 		}
 
-		private void OutputApiUsages(string apiName, int depth, IEnumerable<Diagnostic> diagnostics)
+		private void OutputApiUsages(int depth, IEnumerable<Diagnostic> diagnostics)
 		{
 			string usagesSectionPadding = GetPadding(depth);
 			OutputTitle(usagesSectionPadding + "Usages:", ConsoleColor.Blue);
@@ -290,7 +295,7 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 
 			foreach (Diagnostic diagnostic in diagnostics) 
 			{
-				LogErrorForFoundDiagnosticWithUsage(apiName, diagnostic, usagesPadding);
+				OutputApiUsage(diagnostic, usagesPadding);
 			}
 		}
 
@@ -302,36 +307,10 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 				Console.WriteLine($"{padding}{apiName}");
 		}
 
-		private void LogErrorForFoundDiagnosticWithUsage(string apiName, Diagnostic diagnostic, string padding)
+		private void OutputApiUsage(Diagnostic diagnostic, string padding)
 		{
 			var prettyLocation = diagnostic.Location.GetMappedLineSpan().ToString();
-			var diagnosticMessage = string.Format(diagnostic.Descriptor.Title.ToString(), apiName);
-			string errorMsgTemplate = $"{padding}-{{Id}} {{Severity}} {{Location}}:{Environment.NewLine}{{Description}}";
-
-			LogMessage(diagnostic.Severity, errorMsgTemplate, diagnostic.Id, diagnostic.Severity, prettyLocation, diagnosticMessage);
-		}
-
-		[SuppressMessage("CodeQuality", "Serilog004:Constant MessageTemplate verifier", Justification = "Ok to use runtime dependent new line in message")]
-		private void LogMessage(DiagnosticSeverity severity, string message, params object[]? messageArgs)
-		{
-			switch (severity)
-			{
-				case DiagnosticSeverity.Error:
-					Log.Error(message, messageArgs);
-					return;
-
-				case DiagnosticSeverity.Warning:
-					Log.Warning(message, messageArgs);
-					break;
-
-				case DiagnosticSeverity.Info:
-					Log.Information(message, messageArgs);
-					break;
-
-				case DiagnosticSeverity.Hidden:
-					Log.Debug(message, messageArgs);
-					break;
-			}
+			Console.WriteLine($"{padding}-{prettyLocation}");
 		}
 
 		private void ReportUnrecognizedDiagnostics()
@@ -340,15 +319,16 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 				return;
 
 			#pragma warning disable Serilog004 // Constant MessageTemplate verifier
-			Log.Error(Environment.NewLine + Environment.NewLine + "-----------------------------------------------------------------------------" +
-					  Environment.NewLine + "Analysis found unrecognized diagnostics" + Environment.NewLine);
+			Console.WriteLine();
+			Console.WriteLine("-----------------------------------------------------------------------------");
+			Console.WriteLine("Analysis found unrecognized diagnostics:");
+			
 			#pragma warning restore Serilog004 // Constant MessageTemplate verifier
-
 			var sortedDiagnostics = _unrecognizedDiagnostics.OrderBy(d => d.Location.SourceTree?.FilePath ?? string.Empty);
 
 			foreach (Diagnostic diagnostic in sortedDiagnostics)
 			{
-				LogMessage(diagnostic.Severity, diagnostic.ToString(), messageArgs: null);
+				Console.WriteLine(diagnostic);
 			}
 		}
 
@@ -370,7 +350,6 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 			{
 				Console.ForegroundColor = color;
 				Console.WriteLine(text);
-				Console.WriteLine();
 			}
 			finally
 			{
