@@ -6,7 +6,7 @@
     },
     "runner Net Framework": {
       "commandName": "Project",
-      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Debug"
+      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information"
     },
     "runner Net Core": {
       "commandName": "Project",
@@ -19,6 +19,10 @@
     "runner Net Standard": {
       "commandName": "Project",
       "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetStandard\\DemoNetStandard.sln\" -v Debug"
+    },
+    "runner no grouping with usages": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information --withUsages"
     }
   }
 }
