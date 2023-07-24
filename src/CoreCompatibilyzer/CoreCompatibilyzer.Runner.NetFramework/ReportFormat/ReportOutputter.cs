@@ -227,7 +227,7 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 
 			if (analysisContext.Format == FormatMode.UsedAPIsOnly)
 			{
-				var allApis = GetUsedApisOnly(analysisContext, diagnostics, usedBannedTypes);
+				var allApis = GetAllUsedApis(analysisContext, diagnostics, usedBannedTypes);
 
 				foreach (string api in allApis)
 					OutputFoundBannedApi(api, padding, addListItems: true, useTitle: false);
@@ -252,8 +252,8 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 			}
 		}
 
-		private IEnumerable<string> GetUsedApisOnly(AppAnalysisContext analysisContext, IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> diagnostics,
-													HashSet<string> usedBannedTypes)
+		private IEnumerable<string> GetAllUsedApis(AppAnalysisContext analysisContext, IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> diagnostics,
+												   HashSet<string> usedBannedTypes)
 		{
 			var sortedUsedApi = diagnostics.Select(d => d.BannedApi)
 										   .Distinct()
@@ -264,7 +264,7 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 				{
 					case ApiKind.Namespace:
 					case ApiKind.Type 
-					when api.ContainingTypes.IsDefaultOrEmpty || !IsContainingTypeUsedBannedType(api):
+					when analysisContext.ShowMembersOfUsedType || api.ContainingTypes.IsDefaultOrEmpty || !IsContainingTypeUsedBannedType(api):
 						yield return api.FullName;
 						continue;
 
@@ -272,7 +272,7 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 					case ApiKind.Property:
 					case ApiKind.Event:
 					case ApiKind.Method:
-						if (!usedBannedTypes.Contains(api.FullTypeName))
+						if (analysisContext.ShowMembersOfUsedType || !usedBannedTypes.Contains(api.FullTypeName))
 							yield return api.FullName;
 
 						continue;
