@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,5 +15,7 @@ namespace CoreCompatibilyzer.Runner.Analysis.CodeSources
         string Location { get; }
 
         Task<Solution> LoadSolutionAsync(MSBuildWorkspace workspace, CancellationToken cancellationToken);
+
+        IEnumerable<Project> GetProjectsForValidation(Solution solution);
     }
 }

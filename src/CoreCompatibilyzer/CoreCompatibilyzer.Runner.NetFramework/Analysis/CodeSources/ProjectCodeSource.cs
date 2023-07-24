@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,6 +27,14 @@ namespace CoreCompatibilyzer.Runner.Analysis.CodeSources
 		{
 			Project project = await workspace.OpenProjectAsync(Location, cancellationToken: cancellationToken);
             return project.Solution;
+		}
+
+		public IEnumerable<Project> GetProjectsForValidation(Solution solution)
+		{
+            var project = solution.ThrowIfNull(nameof(solution)).Projects.FirstOrDefault(p => p.FilePath == Location);
+            return project != null
+                ? new[] { project }
+                : Enumerable.Empty<Project>();
 		}
 	}
 }

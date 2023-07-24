@@ -24,5 +24,8 @@ namespace CoreCompatibilyzer.Runner.Analysis.CodeSources
 
 		public Task<Solution> LoadSolutionAsync(MSBuildWorkspace workspace, CancellationToken cancellationToken) =>
 			workspace.OpenSolutionAsync(Location, cancellationToken: cancellationToken);
+
+        public IEnumerable<Project> GetProjectsForValidation(Solution solution) =>
+            solution.ThrowIfNull(nameof(solution)).Projects;
 	}
 }

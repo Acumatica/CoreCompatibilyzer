@@ -73,8 +73,9 @@ namespace CoreCompatibilyzer.Runner.Analysis
 		public async Task<RunResult> AnalyseSolution(Solution solution, AppAnalysisContext analysisContext, CancellationToken cancellationToken)
 		{
 			RunResult solutionValidationResult = RunResult.Success;
+			var projectsToValidate = analysisContext.CodeSource.GetProjectsForValidation(solution);
 
-			foreach (Project project in solution.Projects)
+			foreach (Project project in projectsToValidate)
 			{
 				Log.Information("Started validation of the project \"{ProjectName}\".", project.Name);
 
