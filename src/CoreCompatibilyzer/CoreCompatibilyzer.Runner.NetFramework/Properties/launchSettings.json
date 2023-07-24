@@ -12,7 +12,6 @@
       "commandName": "Project",
       "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information --withUsages"
     },
-
     "grouping types": {
       "commandName": "Project",
       "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information -g \"t\""
@@ -25,7 +24,6 @@
       "commandName": "Project",
       "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information -g \"nt\""
     },
-
     "grouping types + details": {
       "commandName": "Project",
       "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information --withUsages -g \"t\""
@@ -37,6 +35,10 @@
     "grouping types + namespaces + details": {
       "commandName": "Project",
       "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information --withUsages -g \"nt\""
+    },
+    "PX.Data grouping types": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Repos\\Acumatica2\\NetTools\\PX.Data\\PX.Data.csproj\" -v Information -g \"t\""
     }
   }
 }
