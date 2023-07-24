@@ -285,12 +285,10 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				if (location != null && !_reportedErrors.Add((location, banApiInfo)!))
 					return;
 
-				string fullName 		   = banApiInfo.GetFullName();
-				var diagnosticDescriptor   = GetDiagnosticFromBannedApiInfo(banApiInfo);
-				string docIdWithObsoletion = banApiInfo.GetDocIDWithOptionalObsoleteMarker();
-				var diagnosticProperties   = ImmutableDictionary<string, string>.Empty
-																				.Add(CommonConstants.ApiDocIDWithObsoletionDiagnosticProperty, docIdWithObsoletion);
-				var diagnostic = Diagnostic.Create(diagnosticDescriptor, location, diagnosticProperties!, fullName);
+				var diagnosticDescriptor = GetDiagnosticFromBannedApiInfo(banApiInfo);
+				var diagnosticProperties = ImmutableDictionary<string, string>.Empty
+																			  .Add(CommonConstants.ApiDataProperty, banApiInfo.RawApiData);
+				var diagnostic = Diagnostic.Create(diagnosticDescriptor, location, diagnosticProperties!, banApiInfo.FullName);
 				_syntaxContext.ReportDiagnosticWithSuppressionCheck(diagnostic);
 			}
 

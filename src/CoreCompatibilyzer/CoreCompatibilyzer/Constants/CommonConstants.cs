@@ -8,6 +8,6 @@ namespace CoreCompatibilyzer.Constants
 		public const char NamespaceSeparator 	= '-';
 		public const char NestedTypesSeparator = '+';
 
-		public const string ApiDocIDWithObsoletionDiagnosticProperty = nameof(ApiDocIDWithObsoletionDiagnosticProperty);
+		public const string ApiDataProperty = nameof(ApiDataProperty);
     }
 }
