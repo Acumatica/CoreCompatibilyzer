@@ -8,9 +8,6 @@ namespace CoreCompatibilyzer.Runner.Constants
 	{
 		public const string CodeSource = "codeSource";
 
-		public const char TargetFrameworkShort = 't';
-		public const string TargetFrameworkLong = "target";
-
 		public const char VerbosityShort = 'v';
 		public const string VerbosityLong = "verbosity";
 
