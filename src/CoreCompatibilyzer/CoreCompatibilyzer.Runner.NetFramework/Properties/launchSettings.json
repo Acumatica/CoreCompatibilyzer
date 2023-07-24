@@ -1,28 +1,42 @@
 {
   "profiles": {
-    "runner help": {
+    "help": {
       "commandName": "Project",
       "commandLineArgs": "--help"
     },
-    "runner Net Framework": {
+    "no grouping": {
       "commandName": "Project",
       "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information"
     },
-    "runner Net Core": {
-      "commandName": "Project",
-      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetCore\\DemoNetCore.sln\" -v Debug"
-    },
-    "runner Net 5": {
-      "commandName": "Project",
-      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\Net5\\DemoNet5.sln\" -v Debug"
-    },
-    "runner Net Standard": {
-      "commandName": "Project",
-      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetStandard\\DemoNetStandard.sln\" -v Debug"
-    },
-    "runner no grouping with usages": {
+    "no grouping with usages": {
       "commandName": "Project",
       "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information --withUsages"
+    },
+
+    "grouping types": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information -g \"t\""
+    },
+    "grouping namespaces": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information -g \"n\""
+    },
+    "grouping types + namespaces": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information -g \"nt\""
+    },
+
+    "grouping types + details": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information --withUsages -g \"t\""
+    },
+    "grouping namespaces + details": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information --withUsages -g \"n\""
+    },
+    "grouping types + namespaces + details": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information --withUsages -g \"nt\""
     }
   }
 }
