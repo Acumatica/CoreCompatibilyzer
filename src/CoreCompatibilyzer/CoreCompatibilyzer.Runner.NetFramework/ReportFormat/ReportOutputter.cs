@@ -22,16 +22,7 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 	/// </summary>
 	internal class ReportOutputter : IReportOutputter
 	{
-		private readonly IApiStorage _bannedApiStorage;
-		private readonly IApiStorage _whiteListStorage;
-
 		private readonly List<Diagnostic> _unrecognizedDiagnostics = new();
-
-		public ReportOutputter(IApiStorage bannedApiStorage, IApiStorage whiteListStorage)
-		{
-			_bannedApiStorage = bannedApiStorage.ThrowIfNull(nameof(bannedApiStorage));
-			_whiteListStorage = whiteListStorage.ThrowIfNull(nameof(whiteListStorage));
-		}
 
 		public void OutputDiagnostics(ImmutableArray<Diagnostic> diagnostics, AppAnalysisContext analysisContext, CancellationToken cancellation)
 		{
@@ -46,57 +37,71 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 
 			cancellation.ThrowIfCancellationRequested();
 
-			var diagnosticsWithApis = from diagnostic in diagnostics
+			var diagnosticsWithApis = (from diagnostic in diagnostics
 									  let api = GetBannedApiFromDiagnostic(diagnostic)
-									  where api != null
-									  select (Diagnostic: diagnostic, BannedApi: api.Value);
+									  where api != null!
+									  select (Diagnostic: diagnostic, BannedApi: api)
+									  )
+									  .ToList();
+
+			HashSet<string> usedNamespaces = new();
+			HashSet<string> usedBannedTypes = new();
+
+			foreach (var d in diagnosticsWithApis)
+			{
+				if (d.BannedApi.Kind == ApiKind.Type)
+					usedBannedTypes.Add(d.BannedApi.FullTypeName);
+				else if (d.BannedApi.Kind == ApiKind.Namespace)
+					usedNamespaces.Add(d.BannedApi.Namespace);
+			}
 
 			if (analysisContext.Grouping.HasGrouping(GroupingMode.Namespaces))
 			{
-				var groupedByNamespaces = diagnosticsWithApis.GroupBy(d => d.BannedApi.GetNamespace())
+				var groupedByNamespaces = diagnosticsWithApis.GroupBy(d => d.BannedApi.Namespace)
 															 .OrderBy(diagnosticsByNamespaces => diagnosticsByNamespaces.Key);
 
 				foreach (var namespaceDiagnostics in groupedByNamespaces)
 				{
-					OutputNamespaceDiagnosticGroup(namespaceDiagnostics.Key, analysisContext, depth: 0, namespaceDiagnostics);
+					cancellation.ThrowIfCancellationRequested();
+					OutputNamespaceDiagnosticGroup(namespaceDiagnostics.Key, analysisContext, depth: 0, namespaceDiagnostics,
+												   usedBannedTypes, usedNamespaces, cancellation);
 				}
 
-
+				ReportUnrecognizedDiagnostics();
+				return;
 			}
-			else
-			{
 
+			if (analysisContext.Grouping.HasGrouping(GroupingMode.Types))
+			{
 				var namespacesAndOtherApis = diagnosticsWithApis.ToLookup(d => d.BannedApi.Kind == ApiKind.Namespace);
 				var namespacesApis = namespacesAndOtherApis[true];
-
-				OutputNamespaceDiagnosticsSection(analysisContext, namespacesApis);
-
 				var otherApis = namespacesAndOtherApis[false];
 
+				OutputNamespaceDiagnosticsSectionForTypesOnlyGrouping(analysisContext, namespacesApis, usedBannedTypes);
+				cancellation.ThrowIfCancellationRequested();
 
+				var groupedByTypes = otherApis.GroupBy(d => d.BannedApi.FullTypeName)
+											  .OrderBy(diagnosticsByTypes => diagnosticsByTypes.Key);
 
-
-				if (analysisContext.Grouping.HasGrouping(GroupingMode.Types))
-				{
-					var groupedByNamespaces = diagnosticsWithApis.GroupBy(d => d.BannedApi.GetTypeName())
-																 .OrderBy(diagnosticsByNamespaces => diagnosticsByNamespaces.Key);
-				}
-
-				foreach (Diagnostic diagnostic in diagnostics)
+				foreach (var typeDiagnostics in groupedByTypes)
 				{
 					cancellation.ThrowIfCancellationRequested();
-					LogErrorForFoundDiagnostic(diagnostic);
+					OutputTypeDiagnosticGroup(typeDiagnostics.Key, analysisContext, depth: 0, typeDiagnostics, usedBannedTypes);
 				}
+
+				ReportUnrecognizedDiagnostics();
+				return;
 			}
 
+			var sortedFlatDiagnostics = diagnosticsWithApis.OrderBy(d => d.BannedApi.FullName);
+			OutputDiagnosticGroup(analysisContext, depth: 0, sortedFlatDiagnostics, usedBannedTypes);
 			ReportUnrecognizedDiagnostics();
 		}
 
 		private Api? GetBannedApiFromDiagnostic(Diagnostic diagnostic)
 		{
 			if (diagnostic.Properties.Count == 0 ||
-				!diagnostic.Properties.TryGetValue(CommonConstants.ApiDocIDWithObsoletionDiagnosticProperty, out string? docIdWithObsoletion) ||
-				docIdWithObsoletion.IsNullOrWhiteSpace())
+				!diagnostic.Properties.TryGetValue(CommonConstants.ApiDataProperty, out string? rawApiData) || rawApiData.IsNullOrWhiteSpace())
 			{
 				_unrecognizedDiagnostics.Add(diagnostic);
 				return null;
@@ -104,7 +109,7 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 
 			try
 			{
-				return new Api(docIdWithObsoletion);
+				return new Api(rawApiData);
 			}
 			catch (Exception e)
 			{
@@ -116,71 +121,192 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 		}
 
 		private void OutputNamespaceDiagnosticGroup(string @namespace, AppAnalysisContext analysisContext, int depth,
-													IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> diagnostics)
+													IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> diagnostics, HashSet<string> usedBannedTypes,
+													HashSet<string> usedNamespaces, CancellationToken cancellation)
 		{
-			string padding = GetPadding(depth);
-			OutputTitle(padding + @namespace, ConsoleColor.DarkCyan);
+			string namespacePadding = GetPadding(depth);
+			OutputTitle(namespacePadding + @namespace, ConsoleColor.DarkCyan);
+			Console.WriteLine();
+			cancellation.ThrowIfCancellationRequested();
+
+			if (usedNamespaces.Contains(@namespace) && analysisContext.Format == FormatMode.UsedAPIsWithUsages)
+			{
+				diagnostics = diagnostics.ToList();
+				var namespaceUsages = diagnostics.Where(d => d.BannedApi.Kind == ApiKind.Namespace)
+												 .Select(d => d.Diagnostic);
+				OutputApiUsages(@namespace, depth + 1, namespaceUsages);
+				Console.WriteLine();
+			}
+
+			string subSectionPadding = GetPadding(depth + 1);
+			OutputTitle(subSectionPadding + "Members:", ConsoleColor.Gray);
+			cancellation.ThrowIfCancellationRequested();
+
+			var namespaceMembers = diagnostics.Where(d => d.BannedApi.Kind != ApiKind.Namespace);
 
 			if (analysisContext.Grouping.HasGrouping(GroupingMode.Types))
 			{
+				var groupedByTypes = namespaceMembers.GroupBy(d => d.BannedApi.FullTypeName)
+													 .OrderBy(diagnosticsByTypes => diagnosticsByTypes.Key);
 
+				foreach (var typeDiagnostics in groupedByTypes)
+				{
+					cancellation.ThrowIfCancellationRequested();
+
+					string typeName = typeDiagnostics.Key;
+					OutputTypeDiagnosticGroup(typeName, analysisContext, depth + 2, typeDiagnostics, usedBannedTypes);
+				}
+
+				return;
+			}
+			else
+			{
+				OutputDiagnosticGroup(analysisContext, depth + 2, namespaceMembers, usedBannedTypes);
+			}
+		}
+
+		private void OutputTypeDiagnosticGroup(string typeName, AppAnalysisContext analysisContext, int depth,
+											   IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> diagnostics,
+											   HashSet<string> usedBannedTypes)
+		{
+			string typeNamePadding = GetPadding(depth);
+			OutputTitle(typeNamePadding + typeName, ConsoleColor.Magenta);
+			Console.WriteLine();
+
+			if (usedBannedTypes.Contains(typeName))
+			{
+				if (analysisContext.Format == FormatMode.UsedAPIsOnly)
+					return;
+
+				diagnostics    = diagnostics.ToList();
+				var typeUsages = diagnostics.Where(d => d.BannedApi.Kind == ApiKind.Type)
+											.Select(d => d.Diagnostic);
+				OutputApiUsages(typeName, depth + 1, typeUsages);
+				Console.WriteLine();
 			}
 
+			string subSectionPadding = GetPadding(depth + 1);
+			OutputTitle(subSectionPadding + "Members:", ConsoleColor.Gray);
+
+			var memberUsages = diagnostics.Where(d => d.BannedApi.Kind != ApiKind.Type);
+			OutputDiagnosticGroup(analysisContext, depth + 2, memberUsages, usedBannedTypes);
+			Console.WriteLine();
 		}
 
-		private void OutputTypeDiagnosticGroup(string typeName, AppAnalysisContext analysisContext,
-											   IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> diagnostics)
-		{
-
-		}
-
-		private void OutputDiagnosticGroup(AppAnalysisContext analysisContext, IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> diagnostics)
-		{
-
-		}
-
-		private void OutputNamespaceDiagnosticsSection(AppAnalysisContext analysisContext, IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> diagnostics)
+		private void OutputNamespaceDiagnosticsSectionForTypesOnlyGrouping(AppAnalysisContext analysisContext, 
+																		   IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> diagnostics,
+																		   HashSet<string> usedBannedTypes)
 		{
 			if (!diagnostics.Any())
 				return;
 
 			string sectionPadding = GetPadding(depth: 0);
-			OutputTitle(sectionPadding + "Namespaces", ConsoleColor.DarkCyan);
+			OutputTitle(sectionPadding + "Namespaces:", ConsoleColor.DarkCyan);
 			Console.WriteLine();
 
-			string namespaceItemPadding = GetPadding(depth: 1);
+			OutputDiagnosticGroup(analysisContext, depth: 1, diagnostics, usedBannedTypes);
+		}
+
+		private void OutputDiagnosticGroup(AppAnalysisContext analysisContext, int depth, IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> diagnostics,
+										   HashSet<string> usedBannedTypes)
+		{
+			string padding = GetPadding(depth);
 
 			if (analysisContext.Format == FormatMode.UsedAPIsOnly)
 			{
-				var namespaces = diagnostics.Select(d => d.BannedApi.GetFullName())
-											.Distinct()
-											.OrderBy(@namespace => @namespace);
+				var allApis = GetUsedApisOnly(analysisContext, diagnostics, usedBannedTypes);
 
-				foreach (var @namespace in namespaces)
-					OutputFoundBannedApi(@namespace, namespaceItemPadding);
+				foreach (string api in allApis)
+					OutputFoundBannedApi(api, padding, addListItems: true);
 			}
 			else
 			{
-				var orderedNamespaceDiagnostics = diagnostics.OrderBy(d => d.BannedApi.DocID);
-
-				foreach (var (diagnostic, bannedApi) in orderedNamespaceDiagnostics)
+				string apiNamePadding		= GetPadding(depth);
+				var diagnosticsGroupedByApi = diagnostics.GroupBy(d => d.BannedApi.FullName)
+														 .OrderBy(d => d.Key);
+				foreach (var diagnosticsByApi in diagnosticsGroupedByApi)
 				{
-					string @namespace = bannedApi.GetFullName();
-					LogErrorForFoundDiagnosticWithUsage(@namespace, diagnostic, namespaceItemPadding);
+					string apiName = diagnosticsByApi.Key;
+					var apiDiagnostics = diagnosticsByApi.Select(d => d.Diagnostic)
+														 .OrderBy(d => d.Location.SourceTree?.FilePath ?? string.Empty);
+
+					OutputFoundBannedApi(apiName, apiNamePadding, addListItems: false);
+					Console.WriteLine();
+					OutputApiUsages(apiName, depth + 1, apiDiagnostics);
 				}
 			}
 		}
 
-		private void OutputFoundBannedApi(string apiName, string padding)
+		private IEnumerable<string> GetUsedApisOnly(AppAnalysisContext analysisContext, IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> diagnostics,
+													HashSet<string> usedBannedTypes)
 		{
-			Console.WriteLine(padding + apiName);
+			var sortedUsedApi = diagnostics.Select(d => d.BannedApi)
+										   .Distinct()
+										   .OrderBy(api => api.FullName);
+			foreach (Api api in sortedUsedApi)
+			{
+				switch (api.Kind)
+				{
+					case ApiKind.Namespace:
+					case ApiKind.Type 
+					when api.ContainingTypes.IsDefaultOrEmpty || !IsContainingTypeUsedBannedType(api):
+						yield return api.FullName;
+						continue;
+
+					case ApiKind.Field:
+					case ApiKind.Property:
+					case ApiKind.Event:
+					case ApiKind.Method:
+						if (!usedBannedTypes.Contains(api.FullTypeName))
+							yield return api.FullName;
+
+						continue;
+				}
+			}
+
+			//------------------------------------Local Function------------------------------------------
+			bool IsContainingTypeUsedBannedType(Api api)
+			{
+				string containingTypeName = $"{api.Namespace}";
+
+				for (int i = 0; i < api.ContainingTypes.Length; i++)
+				{
+					containingTypeName += $".{api.ContainingTypes[i]}";
+
+					if (usedBannedTypes!.Contains(containingTypeName))
+						return true;
+				}
+
+				return false;
+			}
+		}
+
+		private void OutputApiUsages(string apiName, int depth, IEnumerable<Diagnostic> diagnostics)
+		{
+			string usagesSectionPadding = GetPadding(depth);
+			OutputTitle(usagesSectionPadding + "Usages:", ConsoleColor.Blue);
+
+			string usagesPadding = GetPadding(depth + 1);
+
+			foreach (Diagnostic diagnostic in diagnostics) 
+			{
+				LogErrorForFoundDiagnosticWithUsage(apiName, diagnostic, usagesPadding);
+			}
+		}
+
+		private void OutputFoundBannedApi(string apiName, string padding, bool addListItems)
+		{
+			if (addListItems)
+				Console.WriteLine($"{padding}-{apiName}");
+			else
+				Console.WriteLine($"{padding}{apiName}");
 		}
 
 		private void LogErrorForFoundDiagnosticWithUsage(string apiName, Diagnostic diagnostic, string padding)
 		{
 			var prettyLocation = diagnostic.Location.GetMappedLineSpan().ToString();
 			var diagnosticMessage = string.Format(diagnostic.Descriptor.Title.ToString(), apiName);
-			string errorMsgTemplate = $"{padding}{{Id}} {{Severity}} {{Location}}:{Environment.NewLine}{{Description}}";
+			string errorMsgTemplate = $"{padding}-{{Id}} {{Severity}} {{Location}}:{Environment.NewLine}{{Description}}";
 
 			LogMessage(diagnostic.Severity, errorMsgTemplate, diagnostic.Id, diagnostic.Severity, prettyLocation, diagnosticMessage);
 		}
@@ -218,7 +344,9 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 					  Environment.NewLine + "Analysis found unrecognized diagnostics" + Environment.NewLine);
 			#pragma warning restore Serilog004 // Constant MessageTemplate verifier
 
-			foreach (Diagnostic diagnostic in _unrecognizedDiagnostics)
+			var sortedDiagnostics = _unrecognizedDiagnostics.OrderBy(d => d.Location.SourceTree?.FilePath ?? string.Empty);
+
+			foreach (Diagnostic diagnostic in sortedDiagnostics)
 			{
 				LogMessage(diagnostic.Severity, diagnostic.ToString(), messageArgs: null);
 			}
@@ -227,9 +355,11 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 		private string GetPadding(int depth)
 		{
 			const int paddingMultiplier = 4;
-			return depth <= 0
+			string padding = depth <= 0
 				? string.Empty
 				: new string(' ', depth * paddingMultiplier);
+			
+			return string.Intern(padding);
 		}
 
 		private void OutputTitle(string text, ConsoleColor color)

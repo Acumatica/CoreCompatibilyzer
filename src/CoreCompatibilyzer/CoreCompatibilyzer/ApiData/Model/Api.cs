@@ -28,6 +28,8 @@ namespace CoreCompatibilyzer.ApiData.Model
 
 		public string TypeName { get; }
 
+		public string FullTypeName { get; }
+
 		public string MemberName { get; }
 
 		public ApiKind Kind { get; }
@@ -68,12 +70,8 @@ namespace CoreCompatibilyzer.ApiData.Model
 			string apiDataWithoutObsoleteMarkerAndPrefix	 = apiDataWithoutObsoleteMarker.Substring(NameOffset);
 			(Namespace, string combinedTypeName, MemberName) = GetNameParts(apiDataWithoutObsoleteMarkerAndPrefix, Kind);
 			(TypeName, ContainingTypes)						 = GetTypeParts(combinedTypeName);
+			FullTypeName									 = $"{Namespace}.{combinedTypeName}";
 		}
-
-		public string GetDocIDWithOptionalObsoleteMarker() =>
-		ExtraInfo == ApiExtraInfo.Obsolete
-			? $"{DocID} {CommonConstants.ApiObsoletionMarker}"
-			: DocID;
 
 		private static string GetDocID(string apiDataWithoutObsoleteMarker, ApiKind apiKind)
 		{

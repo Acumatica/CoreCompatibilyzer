@@ -56,7 +56,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			IApiStorage bannedApiStorage 	 = bannedApiAndWhiteList[0];
 			IApiStorage whiteListStorage 	 = bannedApiAndWhiteList[1];
 			var diagnosticAnalyzers 		 = CollectAnalyzers();
-			IReportOutputter reportOutputter = customReportOutputter ?? new ReportOutputter(bannedApiStorage, whiteListStorage);
+			IReportOutputter reportOutputter = customReportOutputter ?? new ReportOutputter();
 
 			return new SolutionCompatibilityAnalyzer(bannedApiStorage, whiteListStorage, reportOutputter, diagnosticAnalyzers);
 		}
