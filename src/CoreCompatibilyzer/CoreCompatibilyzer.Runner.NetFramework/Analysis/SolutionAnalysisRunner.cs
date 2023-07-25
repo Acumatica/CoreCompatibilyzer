@@ -19,19 +19,19 @@ using CoreCompatibilyzer.Runner.Output;
 
 namespace CoreCompatibilyzer.Runner.Analysis
 {
-    /// <summary>
-    /// A solution analysis runner that does preparatory work - register MSBuild, load solution for analysis and calls analyzer.
-    /// </summary>
-    internal class SolutionAnalysisRunner
+	/// <summary>
+	/// A solution analysis runner that does preparatory work - register MSBuild, load solution for analysis and calls analyzer.
+	/// </summary>
+	internal class SolutionAnalysisRunner
 	{
 		private readonly IOutputterFactory _outputterFactory;
 
-        public SolutionAnalysisRunner(IOutputterFactory? customOutputFactory = null)
-        {
+		public SolutionAnalysisRunner(IOutputterFactory? customOutputFactory = null)
+		{
 			_outputterFactory = customOutputFactory ?? new ReportOutputterFactory();
-        }
+		}
 
-        public async Task<RunResult> RunAnalysisAsync(AppAnalysisContext analysisContext, CancellationToken cancellationToken)
+		public async Task<RunResult> RunAnalysisAsync(AppAnalysisContext analysisContext, CancellationToken cancellationToken)
 		{
 			analysisContext.ThrowIfNull(nameof(analysisContext));
 
@@ -97,20 +97,17 @@ namespace CoreCompatibilyzer.Runner.Analysis
 				var solutionCompatibilityAnalyzer = await SolutionCompatibilityAnalyzer.CreateAnalyzer(cancellationToken)
 																					   .ConfigureAwait(false);
 				Log.Information("Start validating the solution.");
-				RunResult validationResult;
 
-				using (var reportOutputter = _outputterFactory.CreateOutputter(analysisContext))
-				{
-					validationResult = await solutionCompatibilityAnalyzer.AnalyseSolution(solution, analysisContext, reportOutputter, cancellationToken);
-				}
-
+				var reportOutputter = _outputterFactory.CreateOutputter(analysisContext);
+				RunResult validationResult = await solutionCompatibilityAnalyzer.AnalyseSolution(solution, analysisContext, reportOutputter, cancellationToken);
+				
 				Log.Information("Successfully finished validating the solution.");
 				return validationResult;
 			}
 			finally
 			{
 				workspace.WorkspaceFailed -= OnCodeSourceLoadError;
-			}	
+			}
 		}
 
 		private void OnCodeSourceLoadError(object sender, WorkspaceDiagnosticEventArgs e)

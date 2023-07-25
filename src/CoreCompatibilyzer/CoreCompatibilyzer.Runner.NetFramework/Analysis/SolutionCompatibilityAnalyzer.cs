@@ -66,8 +66,8 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			return analyzers;
 		}
 
-		public async Task<RunResult> AnalyseSolution(Solution solution, AppAnalysisContext analysisContext, 
-													 IReportOutputter reportOutputter, CancellationToken cancellationToken)
+		public async Task<RunResult> AnalyseSolution(Solution solution, AppAnalysisContext analysisContext, IReportOutputter reportOutputter,
+													 CancellationToken cancellationToken)
 		{
 			reportOutputter.ThrowIfNull(nameof(reportOutputter));
 
@@ -160,6 +160,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			CompilationWithAnalyzers compilationWithAnalyzers = compilation.WithAnalyzers(compilationAnalysisOptions, _diagnosticAnalyzers, cancellation);
 
 			var diagnosticResults = await compilationWithAnalyzers.GetAnalyzerDiagnosticsAsync(cancellation).ConfigureAwait(false);
+			Log.Error("Total errors count: {ErrorCount}", diagnosticResults.Length);
 
 			if (diagnosticResults.IsDefaultOrEmpty)
 				return RunResult.Success;
