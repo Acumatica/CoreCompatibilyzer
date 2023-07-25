@@ -6,7 +6,7 @@ using CoreCompatibilyzer.Runner.Input;
 
 using Microsoft.CodeAnalysis;
 
-namespace CoreCompatibilyzer.Runner.ReportFormat
+namespace CoreCompatibilyzer.Runner.Output
 {
 	/// <summary>
 	/// Interface for the report outputters.

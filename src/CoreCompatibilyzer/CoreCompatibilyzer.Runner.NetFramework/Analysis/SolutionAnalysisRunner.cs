@@ -15,6 +15,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.MSBuild;
 
 using Serilog;
+using CoreCompatibilyzer.Runner.Output;
 
 namespace CoreCompatibilyzer.Runner.Analysis
 {
@@ -23,6 +24,9 @@ namespace CoreCompatibilyzer.Runner.Analysis
     /// </summary>
     internal class SolutionAnalysisRunner
 	{
+		private readonly IOutputterFactory
+
+
 		public async Task<RunResult> RunAnalysisAsync(AppAnalysisContext analysisContext, CancellationToken cancellationToken)
 		{
 			analysisContext.ThrowIfNull(nameof(analysisContext));

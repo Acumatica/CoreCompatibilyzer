@@ -12,7 +12,7 @@ using CoreCompatibilyzer.ApiData.Storage;
 using CoreCompatibilyzer.DotNetRuntimeVersion;
 using CoreCompatibilyzer.Runner.Analysis.Helpers;
 using CoreCompatibilyzer.Runner.Input;
-using CoreCompatibilyzer.Runner.ReportFormat;
+using CoreCompatibilyzer.Runner.Output;
 using CoreCompatibilyzer.StaticAnalysis;
 using CoreCompatibilyzer.Utils.Common;
 using CoreCompatibilyzer.Utils.Roslyn.Suppression;
@@ -29,24 +29,21 @@ namespace CoreCompatibilyzer.Runner.Analysis
 		private ImmutableArray<DiagnosticAnalyzer> _diagnosticAnalyzers;
 		private readonly IApiStorage _bannedApiStorage;
 		private readonly IApiStorage _whiteListStorage;
-		private readonly IReportOutputter _reportOutputter;
 
 		private bool IsBannedStorageInitAndNonEmpty => _bannedApiStorage.ApiKindsCount > 0;
 
 		private bool IsWhiteListInitAndNonEmpty => _whiteListStorage.ApiKindsCount > 0;
 
-		private SolutionCompatibilityAnalyzer(IApiStorage bannedApiStorage, IApiStorage whiteListStorage, IReportOutputter reportOutputter,
-											  ImmutableArray<DiagnosticAnalyzer> diagnosticAnalyzers)
+		private SolutionCompatibilityAnalyzer(IApiStorage bannedApiStorage, IApiStorage whiteListStorage, 
+			ImmutableArray<DiagnosticAnalyzer> diagnosticAnalyzers)
         {
             _bannedApiStorage	 = bannedApiStorage;
 			_whiteListStorage	 = whiteListStorage;
 			_diagnosticAnalyzers = diagnosticAnalyzers;
-			_reportOutputter	 = reportOutputter;
         }
 
 		public static async Task<SolutionCompatibilityAnalyzer> CreateAnalyzer(CancellationToken cancellationToken, 
-																			   IApiDataProvider? customBannedApiDataProvider = null,
-																			   IReportOutputter? customReportOutputter = null)
+																			   IApiDataProvider? customBannedApiDataProvider = null)
 		{
 			var bannedApiTask = ApiStorage.BannedApi.GetStorageAsync(cancellationToken, customBannedApiDataProvider);
 			var whiteListTask = ApiStorage.WhiteList.GetStorageAsync(cancellationToken, customBannedApiDataProvider);
@@ -56,9 +53,8 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			IApiStorage bannedApiStorage 	 = bannedApiAndWhiteList[0];
 			IApiStorage whiteListStorage 	 = bannedApiAndWhiteList[1];
 			var diagnosticAnalyzers 		 = CollectAnalyzers();
-			IReportOutputter reportOutputter = customReportOutputter ?? new ReportOutputter();
 
-			return new SolutionCompatibilityAnalyzer(bannedApiStorage, whiteListStorage, reportOutputter, diagnosticAnalyzers);
+			return new SolutionCompatibilityAnalyzer(bannedApiStorage, whiteListStorage, diagnosticAnalyzers);
 		}
 
 		private static ImmutableArray<DiagnosticAnalyzer> CollectAnalyzers()
@@ -70,8 +66,11 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			return analyzers;
 		}
 
-		public async Task<RunResult> AnalyseSolution(Solution solution, AppAnalysisContext analysisContext, CancellationToken cancellationToken)
+		public async Task<RunResult> AnalyseSolution(Solution solution, AppAnalysisContext analysisContext, 
+													 IReportOutputter reportOutputter, CancellationToken cancellationToken)
 		{
+			reportOutputter.ThrowIfNull(nameof(reportOutputter));
+
 			RunResult solutionValidationResult = RunResult.Success;
 			var projectsToValidate = analysisContext.CodeSource.GetProjectsForValidation(solution);
 
@@ -87,7 +86,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 					return solutionValidationResult;
 				}
 
-				var projectValidationResult = await AnalyseProject(project, analysisContext, cancellationToken).ConfigureAwait(false);
+				var projectValidationResult = await AnalyseProject(project, analysisContext, reportOutputter, cancellationToken).ConfigureAwait(false);
 				solutionValidationResult = solutionValidationResult.Combine(projectValidationResult);
 
 				Log.Information("Finished validation of the project \"{ProjectName}\". Project valudation result: {Result}.", 
@@ -97,7 +96,8 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			return solutionValidationResult;
 		}
 
-		private async Task<RunResult> AnalyseProject(Project project, AppAnalysisContext analysisContext, CancellationToken cancellationToken)
+		private async Task<RunResult> AnalyseProject(Project project, AppAnalysisContext analysisContext, IReportOutputter reportOutputter,
+													 CancellationToken cancellationToken)
 		{
 			Log.Debug("Obtaining Roslyn compilation data for the project \"{ProjectName}\".", project.Name);
 			var compilation = await project.GetCompilationAsync(cancellationToken).ConfigureAwait(false);
@@ -121,7 +121,8 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			if (!IsBannedStorageInitAndNonEmpty)
 				return RunResult.Success;
 
-			var analysisValidationResult = await RunAnalyzersOnProjectAsync(compilation, analysisContext, cancellationToken).ConfigureAwait(false);
+			var analysisValidationResult = await RunAnalyzersOnProjectAsync(compilation, analysisContext, reportOutputter, cancellationToken)
+													.ConfigureAwait(false);
 			return analysisValidationResult;
 		}
 
@@ -146,7 +147,8 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			return null;
 		}
 
-		private async Task<RunResult> RunAnalyzersOnProjectAsync(Compilation compilation, AppAnalysisContext analysisContext, CancellationToken cancellation)
+		private async Task<RunResult> RunAnalyzersOnProjectAsync(Compilation compilation, AppAnalysisContext analysisContext, IReportOutputter reportOutputter,
+																 CancellationToken cancellation)
 		{
 			if (_diagnosticAnalyzers.IsDefaultOrEmpty)
 				return RunResult.Success;
@@ -162,7 +164,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			if (diagnosticResults.IsDefaultOrEmpty)
 				return RunResult.Success;
 
-			_reportOutputter.OutputDiagnostics(diagnosticResults, analysisContext, cancellation);
+			reportOutputter.OutputDiagnostics(diagnosticResults, analysisContext, cancellation);
 			return RunResult.RequirementsNotMet;
 		}
 

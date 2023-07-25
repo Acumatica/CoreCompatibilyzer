@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CoreCompatibilyzer.Runner.ReportFormat
+namespace CoreCompatibilyzer.Runner.Output
 {
 	/// <summary>
 	/// Report format modes.

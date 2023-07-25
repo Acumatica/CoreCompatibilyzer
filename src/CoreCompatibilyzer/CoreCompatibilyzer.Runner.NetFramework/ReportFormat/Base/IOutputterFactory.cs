@@ -3,7 +3,7 @@ using System.Collections.Immutable;
 
 using CoreCompatibilyzer.Runner.Input;
 
-namespace CoreCompatibilyzer.Runner.ReportFormat
+namespace CoreCompatibilyzer.Runner.Output
 {
 	/// <summary>
 	/// Interface for the report outputters factory.

@@ -15,7 +15,7 @@ using Microsoft.CodeAnalysis;
 
 using Serilog;
 
-namespace CoreCompatibilyzer.Runner.ReportFormat
+namespace CoreCompatibilyzer.Runner.Output
 {
 	/// <summary>
 	/// The standard output formatter.
