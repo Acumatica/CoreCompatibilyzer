@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Threading;
 
 using CoreCompatibilyzer.ApiData.Model;
-using CoreCompatibilyzer.ApiData.Storage;
 using CoreCompatibilyzer.Constants;
 using CoreCompatibilyzer.Runner.Input;
 using CoreCompatibilyzer.Utils.Common;
@@ -20,14 +20,33 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 	/// <summary>
 	/// The standard output formatter.
 	/// </summary>
-	internal class ReportOutputter : IReportOutputter
+	internal class PlainTextReportOutputter : IReportOutputter
 	{
+		private bool _disposed;
+		private readonly StreamWriter _outputWriter;
 		private readonly List<Diagnostic> _unrecognizedDiagnostics = new();
+
+        public PlainTextReportOutputter(Stream outputStream)
+        {
+			_outputWriter = new StreamWriter(outputStream.ThrowIfNull(nameof(outputStream)));
+        }
+
+		public void Dispose()
+		{
+			if (!_disposed)
+			{
+				_disposed = true;
+				_outputWriter.Dispose();
+			}
+		}
 
 		public void OutputDiagnostics(ImmutableArray<Diagnostic> diagnostics, AppAnalysisContext analysisContext, CancellationToken cancellation)
 		{
-			_unrecognizedDiagnostics.Clear();
+			if (_disposed)
+				throw new ObjectDisposedException(nameof(PlainTextReportOutputter));
 
+			_unrecognizedDiagnostics.Clear();
+			
 			if (diagnostics.IsDefaultOrEmpty)
 				return;
 
@@ -230,7 +249,7 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 				var allApis = GetAllUsedApis(analysisContext, diagnostics, usedBannedTypes);
 
 				foreach (string api in allApis)
-					OutputFoundBannedApi(api, padding, addListItems: true, useTitle: false);
+					OutputFoundBannedApi(api, padding, useTitle: false);
 
 				Console.WriteLine();
 			}
@@ -245,7 +264,7 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 					var apiDiagnostics = diagnosticsByApi.Select(d => d.Diagnostic)
 														 .OrderBy(d => d.Location.SourceTree?.FilePath ?? string.Empty);
 
-					OutputFoundBannedApi(apiName, apiNamePadding, addListItems: false, useTitle: true);
+					OutputFoundBannedApi(apiName, apiNamePadding, useTitle: true);
 					OutputApiUsages(depth + 1, apiDiagnostics);
 					Console.WriteLine();
 				}
@@ -303,28 +322,24 @@ namespace CoreCompatibilyzer.Runner.ReportFormat
 
 			string usagesPadding = GetPadding(depth + 1);
 
-			foreach (Diagnostic diagnostic in diagnostics) 
+			foreach (Diagnostic diagnostic in diagnostics)
 			{
 				OutputApiUsage(diagnostic, usagesPadding);
 			}
 		}
 
-		private void OutputFoundBannedApi(string apiName, string padding, bool addListItems, bool useTitle)
+		private void OutputFoundBannedApi(string apiName, string padding, bool useTitle)
 		{
-			string apiOutput = addListItems
-				? $"{padding}* {apiName}"
-				: $"{padding}{apiName}";
-
 			if (useTitle)
-				OutputTitle(apiOutput, ConsoleColor.Cyan);
+				OutputTitle($"{padding}{apiName}", ConsoleColor.Cyan);
 			else
-				Console.WriteLine(apiOutput);
+				Console.WriteLine($"{padding}{apiName}");
 		}
 
 		private void OutputApiUsage(Diagnostic diagnostic, string padding)
 		{
 			var prettyLocation = diagnostic.Location.GetMappedLineSpan().ToString();
-			Console.WriteLine($"{padding}* {prettyLocation}");
+			Console.WriteLine($"{padding}{prettyLocation}");
 		}
 
 		private void ReportUnrecognizedDiagnostics()
