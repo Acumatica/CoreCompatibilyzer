@@ -24,10 +24,14 @@ namespace CoreCompatibilyzer.Runner.Analysis
     /// </summary>
     internal class SolutionAnalysisRunner
 	{
-		private readonly IOutputterFactory
+		private readonly IOutputterFactory _outputterFactory;
 
+        public SolutionAnalysisRunner(IOutputterFactory? customOutputFactory = null)
+        {
+			_outputterFactory = customOutputFactory ?? new ReportOutputterFactory();
+        }
 
-		public async Task<RunResult> RunAnalysisAsync(AppAnalysisContext analysisContext, CancellationToken cancellationToken)
+        public async Task<RunResult> RunAnalysisAsync(AppAnalysisContext analysisContext, CancellationToken cancellationToken)
 		{
 			analysisContext.ThrowIfNull(nameof(analysisContext));
 
@@ -93,8 +97,12 @@ namespace CoreCompatibilyzer.Runner.Analysis
 				var solutionCompatibilityAnalyzer = await SolutionCompatibilityAnalyzer.CreateAnalyzer(cancellationToken)
 																					   .ConfigureAwait(false);
 				Log.Information("Start validating the solution.");
+				RunResult validationResult;
 
-				var validationResult = await solutionCompatibilityAnalyzer.AnalyseSolution(solution, analysisContext, cancellationToken);
+				using (var reportOutputter = _outputterFactory.CreateOutputter(analysisContext))
+				{
+					validationResult = await solutionCompatibilityAnalyzer.AnalyseSolution(solution, analysisContext, reportOutputter, cancellationToken);
+				}
 
 				Log.Information("Successfully finished validating the solution.");
 				return validationResult;
