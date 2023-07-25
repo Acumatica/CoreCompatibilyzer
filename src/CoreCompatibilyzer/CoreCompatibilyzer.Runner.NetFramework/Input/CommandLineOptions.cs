@@ -67,7 +67,6 @@ namespace CoreCompatibilyzer.Runner.Input
 						   "Set this flag to include the locations of used banned API calls into the report.")]
 		public bool IncludeApiUsages { get; }
 
-
 		/// <summary>
 		/// When report is displayed in a shortened form without banned API calls locations, it could be shortened even more.
 		///	By default, the report will not display used banned type member APIs if their containing type is also banned and used by the code being analyzed.
@@ -95,10 +94,17 @@ namespace CoreCompatibilyzer.Runner.Input
 						   "- Add both to group results by both types and namespaces.")]
 		public string? ReportGrouping { get; }
 
+		/// <summary>
+		/// The name of the output file. If not specified then the report will be outputted to the console window.
+		/// </summary>
+		[Option(shortName: CommandLineArgNames.OutputFileShort, longName: CommandLineArgNames.OutputFileLong,
+				HelpText = "The name of the output file. If not specified then the report will be outputted to the console window.")]
+		public string? OutputFileName { get; }
+
 		// Constructor arguments order must be the same as the properties order. This allows command line parser to initialize immutable options object via constructor.
 		// See this for details: https://github.com/commandlineparser/commandline/wiki/Immutable-Options-Type
 		public CommandLineOptions(string codeSource, string? verbosity, bool disableSuppressionMechanism, string? msBuildPath, bool includeApiUsages, 
-								  bool showMembersOfUsedType, string? reportGrouping)
+								  bool showMembersOfUsedType, string? reportGrouping, string? outputFileName)
 		{
 			CodeSource 					= codeSource;
 			Verbosity 					= verbosity;
@@ -107,6 +113,7 @@ namespace CoreCompatibilyzer.Runner.Input
 			IncludeApiUsages			= includeApiUsages;
 			ShowMembersOfUsedType		= showMembersOfUsedType;
 			ReportGrouping 				= reportGrouping;
+			OutputFileName				= outputFileName;
 		}
 	}
 }

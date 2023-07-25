@@ -19,5 +19,8 @@ namespace CoreCompatibilyzer.Runner.Constants
 
 		public const char ReportGroupingShort = 'g';
 		public const string ReportGroupingLong = "grouping";
+
+		public const char OutputFileShort = 'f';
+		public const string OutputFileLong = "file";
 	}
 }

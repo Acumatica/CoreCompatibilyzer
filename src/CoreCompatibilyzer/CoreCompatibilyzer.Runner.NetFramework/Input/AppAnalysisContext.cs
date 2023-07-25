@@ -2,7 +2,7 @@
 
 using CoreCompatibilyzer.DotNetRuntimeVersion;
 using CoreCompatibilyzer.Runner.Analysis.CodeSources;
-using CoreCompatibilyzer.Runner.ReportFormat;
+using CoreCompatibilyzer.Runner.Output;
 using CoreCompatibilyzer.Utils.Common;
 
 namespace CoreCompatibilyzer.Runner.Input
@@ -38,10 +38,14 @@ namespace CoreCompatibilyzer.Runner.Input
 		/// <inheritdoc cref="CommandLineOptions.ReportGrouping"/>
 		public GroupingMode Grouping { get; }
 
+		/// <inheritdoc cref="CommandLineOptions.ShowMembersOfUsedType"/>
 		public bool ShowMembersOfUsedType { get; }
 
+		/// <inheritdoc cref="CommandLineOptions.OutputFileName"/>
+		public string? OutputFileName { get; }
+
 		public AppAnalysisContext(ICodeSource codeSource, DotNetRuntime targetRuntime, bool disableSuppressionMechanism, string? msBuildPath,
-								  FormatMode formatMode, GroupingMode groupingMode, bool showMembersOfUsedType)
+								  FormatMode formatMode, GroupingMode groupingMode, bool showMembersOfUsedType, string? outputFileName)
 		{
 			CodeSource 					= codeSource.ThrowIfNull(nameof(codeSource));
 			TargetRuntime 				= targetRuntime;
@@ -50,6 +54,7 @@ namespace CoreCompatibilyzer.Runner.Input
 			Format 						= formatMode;
 			Grouping 					= groupingMode;
 			ShowMembersOfUsedType		= showMembersOfUsedType;
+			OutputFileName				= outputFileName.NullIfWhiteSpace();
 		}
 	}
 }

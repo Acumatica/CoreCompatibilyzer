@@ -7,7 +7,7 @@ using System.Linq;
 using CoreCompatibilyzer.DotNetRuntimeVersion;
 using CoreCompatibilyzer.Runner.Analysis.CodeSources;
 using CoreCompatibilyzer.Runner.Constants;
-using CoreCompatibilyzer.Runner.ReportFormat;
+using CoreCompatibilyzer.Runner.Output;
 using CoreCompatibilyzer.Utils.Common;
 
 namespace CoreCompatibilyzer.Runner.Input
@@ -28,7 +28,8 @@ namespace CoreCompatibilyzer.Runner.Input
 
 			GroupingMode groupingMode = ReadGroupingMode(commandLineOptions.ReportGrouping);
 			var input = new AppAnalysisContext(codeSource, targetRuntime: DotNetRuntime.DotNetCore22, commandLineOptions.DisableSuppressionMechanism,
-											   commandLineOptions.MSBuildPath, formatMode, groupingMode, commandLineOptions.ShowMembersOfUsedType);
+											   commandLineOptions.MSBuildPath, formatMode, groupingMode, commandLineOptions.ShowMembersOfUsedType,
+											   commandLineOptions.OutputFileName);
 			return input;
 		}
 
