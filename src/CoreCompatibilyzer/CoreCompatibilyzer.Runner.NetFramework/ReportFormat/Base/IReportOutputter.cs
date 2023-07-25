@@ -9,9 +9,9 @@ using Microsoft.CodeAnalysis;
 namespace CoreCompatibilyzer.Runner.ReportFormat
 {
 	/// <summary>
-	/// Interface for the output formatter.
+	/// Interface for the report outputters.
 	/// </summary>
-	internal interface IReportOutputter
+	internal interface IReportOutputter : IDisposable
 	{
 		/// <summary>
 		/// Output diagnostics.
