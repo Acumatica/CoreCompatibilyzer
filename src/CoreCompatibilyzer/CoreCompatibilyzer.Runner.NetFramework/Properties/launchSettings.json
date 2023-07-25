@@ -38,7 +38,7 @@
     },
     "PX.Data grouping types": {
       "commandName": "Project",
-      "commandLineArgs": "\"C:\\Repos\\Acumatica2\\NetTools\\PX.Data\\PX.Data.csproj\" -v Information -g \"t\""
+      "commandLineArgs": "\"C:\\Repos\\Acumatica2\\NetTools\\PX.Data\\PX.Data.csproj\" --showMembersOfUsedType -v Information -g \"t\""
     }
   }
 }
