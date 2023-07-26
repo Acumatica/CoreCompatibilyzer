@@ -233,21 +233,36 @@ namespace CoreCompatibilyzer.Runner.NetFramework.ReportFormat.PlainText
 
 				WriteLine();
 			}
-			else
+			else if (analysisContext.Grouping.HasGrouping(GroupingMode.Apis))
+				OutputApiUsagesGroupedByApi(depth, diagnostics);
+			else 
 			{
-				string apiNamePadding = GetPadding(depth);
-				var diagnosticsGroupedByApi = diagnostics.GroupBy(d => d.BannedApi.FullName)
-														 .OrderBy(d => d.Key);
-				foreach (var diagnosticsByApi in diagnosticsGroupedByApi)
-				{
-					string apiName = diagnosticsByApi.Key;
-					var apiDiagnostics = diagnosticsByApi.Select(d => d.Diagnostic)
-														 .OrderBy(d => d.Location.SourceTree?.FilePath ?? string.Empty);
+				string apiUsageadding = GetPadding(depth);
+				var sortedDiagnostics = diagnostics.Select(d => $"{d.BannedApi.FullName}; {GetPretyLocation(d.Diagnostic)}")
+												   .OrderBy(api => api);
 
-					OutputFoundBannedApi(apiName, apiNamePadding, useTitle: true);
-					OutputApiUsages(depth + 1, apiDiagnostics);
+				foreach (string apiWithUsage in sortedDiagnostics)
+					WriteLine(apiWithUsage);
+
+				if (analysisContext.Grouping.HasGrouping(GroupingMode.Namespaces) || analysisContext.Grouping.HasGrouping(GroupingMode.Types))
 					WriteLine();
-				}
+			}
+		}
+
+		private void OutputApiUsagesGroupedByApi(int depth, IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> diagnostics)
+		{
+			string apiNamePadding = GetPadding(depth);
+			var diagnosticsGroupedByApi = diagnostics.GroupBy(d => d.BannedApi.FullName)
+													 .OrderBy(d => d.Key);
+			foreach (var diagnosticsByApi in diagnosticsGroupedByApi)
+			{
+				string apiName = diagnosticsByApi.Key;
+				var apiDiagnostics = diagnosticsByApi.Select(d => d.Diagnostic)
+													 .OrderBy(d => d.Location.SourceTree?.FilePath ?? string.Empty);
+
+				OutputFoundBannedApi(apiName, apiNamePadding, useTitle: true);
+				OutputApiUsages(depth + 1, apiDiagnostics);
+				WriteLine();
 			}
 		}
 
@@ -318,9 +333,11 @@ namespace CoreCompatibilyzer.Runner.NetFramework.ReportFormat.PlainText
 
 		private void OutputApiUsage(Diagnostic diagnostic, string padding)
 		{
-			var prettyLocation = diagnostic.Location.GetMappedLineSpan().ToString();
+			var prettyLocation = GetPretyLocation(diagnostic);
 			WriteLine($"{padding}{prettyLocation}");
 		}
+
+		private string GetPretyLocation(Diagnostic diagnostic) => diagnostic.Location.GetMappedLineSpan().ToString();
 
 		private void ReportUnrecognizedDiagnostics(List<Diagnostic> unrecognizedDiagnostics)
 		{
