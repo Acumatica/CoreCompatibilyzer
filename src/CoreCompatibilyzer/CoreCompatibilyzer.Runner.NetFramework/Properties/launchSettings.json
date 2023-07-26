@@ -36,7 +36,17 @@
       "commandName": "Project",
       "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information --withUsages -g \"nt\""
     },
+
+    "grouping types + namespaces + details + to file": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information --withUsages -g \"nt\" -f \"report.txt\""
+    },
+
     "PX.Data grouping types": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Repos\\Acumatica2\\NetTools\\PX.Data\\PX.Data.csproj\" -v Information -g \"t\""
+    },
+    "PX.Data grouping types + showMembersOfUsedType": {
       "commandName": "Project",
       "commandLineArgs": "\"C:\\Repos\\Acumatica2\\NetTools\\PX.Data\\PX.Data.csproj\" --showMembersOfUsedType -v Information -g \"t\""
     }
