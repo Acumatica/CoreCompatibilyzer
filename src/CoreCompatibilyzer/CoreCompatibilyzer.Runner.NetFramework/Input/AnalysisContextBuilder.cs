@@ -64,8 +64,9 @@ namespace CoreCompatibilyzer.Runner.Input
 				return GroupingMode.None;
 			
 			string rawGroupingLocationUppered = rawGroupingLocation.ToUpperInvariant();
-			bool groupByNamespaces 			  = rawGroupingLocationUppered.Contains('N');
-			bool groupByTypes 				  = rawGroupingLocationUppered.Contains('T');
+			bool groupByNamespaces			  = rawGroupingLocationUppered.Contains('N');
+			bool groupByTypes				  = rawGroupingLocationUppered.Contains('T');
+			bool groupByApis				  = rawGroupingLocationUppered.Contains('A');
 
 			GroupingMode grouping = groupByNamespaces
 				? GroupingMode.Namespaces
@@ -73,6 +74,9 @@ namespace CoreCompatibilyzer.Runner.Input
 
 			if (groupByTypes)
 				grouping |= GroupingMode.Types;
+
+			if (groupByApis)
+				grouping |= GroupingMode.Apis;
 
 			return grouping;
 		}

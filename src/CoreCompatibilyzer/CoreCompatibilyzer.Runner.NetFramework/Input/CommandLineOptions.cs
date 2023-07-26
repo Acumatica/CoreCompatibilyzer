@@ -87,11 +87,11 @@ namespace CoreCompatibilyzer.Runner.Input
 		///	- Add both to group results by both types and namespaces.
 		/// </summary>
 		[Option(shortName: CommandLineArgNames.ReportGroupingShort, longName: CommandLineArgNames.ReportGroupingLong,
-				HelpText = "This parameter allows you to specify the report grouping. By default there is no grouping. " +
-						   "You can make grouping of the reported API by namespaces, types or both:\n" +
-						   "- Add \"n\" or \"N\" to group results by namespaces,\n" +
-						   "- Add \"t\" or \"T\" to group results by types,\n" +
-						   "- Add both to group results by both types and namespaces.")]
+				HelpText = "This parameter allows you to specify the grouping of API calls. By default there is no grouping. " +
+						   "You can make the grouping of the reported API calls by namespaces, types, APIs or any combination of them:\n" +
+						   "- Add \"n\" or \"N\" to group API usages by namespaces,\n" +
+						   "- Add \"t\" or \"T\" to group API usages by types,\n" +
+						   "- Add \"a\" or \"A\" to group API usages by APIs.")]
 		public string? ReportGrouping { get; }
 
 		/// <summary>

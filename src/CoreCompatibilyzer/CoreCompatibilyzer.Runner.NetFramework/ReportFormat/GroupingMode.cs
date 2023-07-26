@@ -11,17 +11,22 @@ namespace CoreCompatibilyzer.Runner.Output
 		/// <summary>
 		/// No grouping is specified for the report.
 		/// </summary>
-		None = 0,
+		None = 0b0000,
 
 		/// <summary>
-		/// Group API by namespaces.
+		/// Group API calls by namespaces.
 		/// </summary>
-		Namespaces = 0xb001,
+		Namespaces = 0xb0001,
 
 		/// <summary>
-		/// Group API by types.
+		/// Group API calls by types.
 		/// </summary>
-		Types = 0xb010
+		Types = 0xb0010,
+
+		/// <summary>
+		/// Group API calls by API.
+		/// </summary>
+		Apis = 0xb0100
 	}
 
 	internal static class GroupingModeExtensions
