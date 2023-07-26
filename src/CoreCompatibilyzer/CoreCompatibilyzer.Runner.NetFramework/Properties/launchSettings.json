@@ -8,33 +8,66 @@
       "commandName": "Project",
       "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information"
     },
-    "no grouping with usages": {
+    "no grouping + details": {
       "commandName": "Project",
       "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information --withUsages"
+    },
+    "grouping apis": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information -g \"a\""
     },
     "grouping types": {
       "commandName": "Project",
       "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information -g \"t\""
     },
+    "grouping types + apis": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information -g \"ta\""
+    },
     "grouping namespaces": {
       "commandName": "Project",
       "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information -g \"n\""
+    },
+    "grouping namespaces + apis": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information -g \"na\""
     },
     "grouping types + namespaces": {
       "commandName": "Project",
       "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information -g \"nt\""
     },
+    "grouping types + namespaces + apis": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information -g \"nta\""
+    },
+
+    "grouping apis + details": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information --withUsages -g \"a\""
+    },
     "grouping types + details": {
       "commandName": "Project",
       "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information --withUsages -g \"t\""
+    },
+    "grouping types + apis + details": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information --withUsages -g \"ta\""
     },
     "grouping namespaces + details": {
       "commandName": "Project",
       "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information --withUsages -g \"n\""
     },
+    "grouping namespaces + apis + details": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information --withUsages -g \"an\""
+    },
     "grouping types + namespaces + details": {
       "commandName": "Project",
       "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information --withUsages -g \"nt\""
+    },
+    "grouping types + namespaces + apis + details": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information --withUsages -g \"nta\""
     },
 
     "grouping types + namespaces + details + to file": {
