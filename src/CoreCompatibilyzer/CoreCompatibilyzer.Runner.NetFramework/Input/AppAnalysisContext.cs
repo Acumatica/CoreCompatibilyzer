@@ -44,8 +44,12 @@ namespace CoreCompatibilyzer.Runner.Input
 		/// <inheritdoc cref="CommandLineOptions.OutputFileName"/>
 		public string? OutputFileName { get; }
 
+		/// <inheritdoc cref="CommandLineOptions.OutputAbsolutePathsToUsages"/>
+		public bool OutputAbsolutePathsToUsages { get; }
+
 		public AppAnalysisContext(ICodeSource codeSource, DotNetRuntime targetRuntime, bool disableSuppressionMechanism, string? msBuildPath,
-								  FormatMode formatMode, GroupingMode groupingMode, bool showMembersOfUsedType, string? outputFileName)
+								  FormatMode formatMode, GroupingMode groupingMode, bool showMembersOfUsedType, string? outputFileName, 
+								  bool outputAbsolutePathsToUsages)
 		{
 			CodeSource 					= codeSource.ThrowIfNull(nameof(codeSource));
 			TargetRuntime 				= targetRuntime;
@@ -55,6 +59,7 @@ namespace CoreCompatibilyzer.Runner.Input
 			Grouping 					= groupingMode;
 			ShowMembersOfUsedType		= showMembersOfUsedType;
 			OutputFileName				= outputFileName.NullIfWhiteSpace();
+			OutputAbsolutePathsToUsages = outputAbsolutePathsToUsages;
 		}
 	}
 }

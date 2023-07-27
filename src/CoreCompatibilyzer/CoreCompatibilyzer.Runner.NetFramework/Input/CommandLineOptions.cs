@@ -68,10 +68,10 @@ namespace CoreCompatibilyzer.Runner.Input
 		public bool IncludeApiUsages { get; }
 
 		/// <summary>
-		/// When report is displayed in a shortened form without banned API calls locations, it could be shortened even more.
-		///	By default, the report will not display used banned type member APIs if their containing type is also banned and used by the code being analyzed.
-		///	Set this flag to include the banned type member APIs into the report together with their containing type.
-		///	This flag does not affect the report when the <see cref="IncludeApiUsages"/> is set."
+		/// When report is displayed in a shortened form without banned API calls locations, it could be shortened even more.<br/>
+		///	By default, the report will not display used banned type member APIs if their containing type is also banned and used by the code being analyzed.<br/>
+		///	Set this flag to include the banned type member APIs into the report together with their containing type.<br/>
+		///	This flag does not affect the report when the <see cref="IncludeApiUsages"/> is set.
 		/// </summary>
 		[Option(longName: CommandLineArgNames.ShowMembersOfUsedType,
 				HelpText = "When report is displayed in a shortened form without banned API calls locations, it could be shortened even more.\n" +
@@ -101,10 +101,22 @@ namespace CoreCompatibilyzer.Runner.Input
 				HelpText = "The name of the output file. If not specified then the report will be outputted to the console window.")]
 		public string? OutputFileName { get; }
 
+		/// <summary>
+		/// When report is set to output the detailed list of banned APIs with their usages this flag regulates how the locations of API usages will be ouput.<br/>
+		///	By default, file paths in locations are relative to the containing project directory. However, if this flag is set then the absolute file paths will be used.<br/>
+		///	This flag does not affect the report when the <see cref="IncludeApiUsages"/> is not set.
+		/// </summary>
+		[Option(longName: CommandLineArgNames.OutputAbsolutePathsToUsages,
+				HelpText = "When report is set to output the detailed list of banned APIs with their usages this flag regulates how the locations of API usages will be ouput.\n" +
+						   "By default, file paths in locations are relative to the containing project directory. " +
+						   "However, if this flag is set then the absolute file paths will be used.\n" +
+						  $"This flag does not affect the report when the {nameof(IncludeApiUsages)} is not set.")]
+		public bool OutputAbsolutePathsToUsages { get; }
+
 		// Constructor arguments order must be the same as the properties order. This allows command line parser to initialize immutable options object via constructor.
 		// See this for details: https://github.com/commandlineparser/commandline/wiki/Immutable-Options-Type
 		public CommandLineOptions(string codeSource, string? verbosity, bool disableSuppressionMechanism, string? msBuildPath, bool includeApiUsages, 
-								  bool showMembersOfUsedType, string? reportGrouping, string? outputFileName)
+								  bool showMembersOfUsedType, string? reportGrouping, string? outputFileName, bool outputAbsolutePathsToUsages)
 		{
 			CodeSource 					= codeSource;
 			Verbosity 					= verbosity;
@@ -114,6 +126,7 @@ namespace CoreCompatibilyzer.Runner.Input
 			ShowMembersOfUsedType		= showMembersOfUsedType;
 			ReportGrouping 				= reportGrouping;
 			OutputFileName				= outputFileName;
+			OutputAbsolutePathsToUsages = outputAbsolutePathsToUsages;
 		}
 	}
 }
