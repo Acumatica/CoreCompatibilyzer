@@ -75,6 +75,11 @@
       "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information --withUsages -g \"nt\" -f \"report.txt\""
     },
 
+    "PX.Data no grouping + details": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Repos\\Acumatica2\\NetTools\\PX.Data\\PX.Data.csproj\" --withUsages -v Information"
+    },
+
     "PX.Data grouping types": {
       "commandName": "Project",
       "commandLineArgs": "\"C:\\Repos\\Acumatica2\\NetTools\\PX.Data\\PX.Data.csproj\" -v Information -g \"t\""
@@ -87,6 +92,11 @@
     "PX.Data grouping types + namespaces + details": {
       "commandName": "Project",
       "commandLineArgs": "\"C:\\Repos\\Acumatica2\\NetTools\\PX.Data\\PX.Data.csproj\" --withUsages --showMembersOfUsedType -v Information -g \"tn\""
+    },
+
+    "PX.Data grouping namespaces + details": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Repos\\Acumatica2\\NetTools\\PX.Data\\PX.Data.csproj\" --withUsages --showMembersOfUsedType -v Information -g \"n\""
     }
   }
 }
