@@ -28,7 +28,7 @@ namespace CoreCompatibilyzer.Runner.NetFramework.ReportFormat.PlainText
 			OutputTitle(typeTitle, ConsoleColor.Magenta);
 
 		protected override void WriteTypeMembersTitle(string typeMembersTitle) =>
-			OutputTitle(typeMembersTitle, ConsoleColor.Gray);
+			OutputTitle(typeMembersTitle, ConsoleColor.Yellow);
 
 		protected override void WriteApiTitle(string apiTitle) =>
 			 OutputTitle(apiTitle, ConsoleColor.Cyan);
