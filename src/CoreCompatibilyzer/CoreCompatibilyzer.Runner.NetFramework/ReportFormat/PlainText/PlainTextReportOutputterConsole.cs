@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading;
+
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CoreCompatibilyzer.Runner.NetFramework.ReportFormat.PlainText
 {
@@ -32,6 +35,23 @@ namespace CoreCompatibilyzer.Runner.NetFramework.ReportFormat.PlainText
 
 		protected override void WriteUsagesTitle(string usagesTitle) =>
 			OutputTitle(usagesTitle, ConsoleColor.Blue);
+
+		protected override void WriteFlatApiUsage(string fullApiName, string location)
+		{ 
+			var oldColor = Console.ForegroundColor;
+
+			try
+			{
+				Console.ForegroundColor = ConsoleColor.Cyan;
+				Console.Write(fullApiName);
+			}
+			finally
+			{
+				Console.ForegroundColor = oldColor;
+			}
+
+			Console.WriteLine("; " + location);
+		}
 
 		private void OutputTitle(string text, ConsoleColor color)
 		{

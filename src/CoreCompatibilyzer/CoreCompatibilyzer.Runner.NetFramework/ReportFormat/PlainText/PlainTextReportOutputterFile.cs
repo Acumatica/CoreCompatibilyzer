@@ -56,6 +56,9 @@ namespace CoreCompatibilyzer.Runner.NetFramework.ReportFormat.PlainText
 		protected override void WriteUsagesTitle(string usagesTitle) =>
 			WriteLine(usagesTitle);
 
+		protected override void WriteFlatApiUsage(string fullApiName, string location) =>
+			WriteLine($"{fullApiName}; {location}");
+
 		protected override void WriteLine() => _streamWriter?.WriteLine();
 
 		protected override void WriteLine(string text)

@@ -43,6 +43,8 @@ namespace CoreCompatibilyzer.Runner.NetFramework.ReportFormat.PlainText
 
 		protected abstract void WriteUsagesTitle(string usagesTitle);
 
+		protected abstract void WriteFlatApiUsage(string fullApiName, string location);
+
 		public virtual void OutputDiagnostics(ImmutableArray<Diagnostic> diagnostics, AppAnalysisContext analysisContext, CancellationToken cancellation)
 		{
 			if (diagnostics.IsDefaultOrEmpty)
