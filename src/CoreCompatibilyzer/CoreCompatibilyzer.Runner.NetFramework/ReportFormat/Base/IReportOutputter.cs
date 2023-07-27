@@ -18,7 +18,9 @@ namespace CoreCompatibilyzer.Runner.Output
 		/// </summary>
 		/// <param name="diagnostics">The diagnostics.</param>
 		/// <param name="analysisContext">The analysis context.</param>
+		/// <param name="projectDirectory">Project base directory.</param>
 		/// <param name="cancellation">Cancellation token.</param>
-		void OutputDiagnostics(ImmutableArray<Diagnostic> diagnostics, AppAnalysisContext analysisContext, CancellationToken cancellation);
+		void OutputDiagnostics(ImmutableArray<Diagnostic> diagnostics, AppAnalysisContext analysisContext, string? projectDirectory,
+							   CancellationToken cancellation);
 	}
 }

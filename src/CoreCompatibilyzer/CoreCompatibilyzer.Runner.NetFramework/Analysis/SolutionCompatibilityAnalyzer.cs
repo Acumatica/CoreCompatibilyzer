@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -121,9 +122,20 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			if (!IsBannedStorageInitAndNonEmpty)
 				return RunResult.Success;
 
-			var analysisValidationResult = await RunAnalyzersOnProjectAsync(compilation, analysisContext, reportOutputter, cancellationToken)
+			string? projectDirectory = GetProjectDirectory(project);
+			var analysisValidationResult = await RunAnalyzersOnProjectAsync(compilation, analysisContext, reportOutputter, projectDirectory, cancellationToken)
 													.ConfigureAwait(false);
 			return analysisValidationResult;
+		}
+
+		private string? GetProjectDirectory(Project project)
+		{
+			if (project.FilePath.IsNullOrWhiteSpace())
+				return null;
+
+			string projectFile = Path.GetFullPath(project.FilePath.Trim());
+			string projectDirectory = Path.GetDirectoryName(projectFile);
+			return projectDirectory;
 		}
 
 		private RunResult? ValidateProjectVersion(Project project, DotNetRuntime? projectVersion, DotNetRuntime targetVersion)
@@ -148,7 +160,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 		}
 
 		private async Task<RunResult> RunAnalyzersOnProjectAsync(Compilation compilation, AppAnalysisContext analysisContext, IReportOutputter reportOutputter,
-																 CancellationToken cancellation)
+																 string? projectDirectory, CancellationToken cancellation)
 		{
 			if (_diagnosticAnalyzers.IsDefaultOrEmpty)
 				return RunResult.Success;
@@ -165,7 +177,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			if (diagnosticResults.IsDefaultOrEmpty)
 				return RunResult.Success;
 
-			reportOutputter.OutputDiagnostics(diagnosticResults, analysisContext, cancellation);
+			reportOutputter.OutputDiagnostics(diagnosticResults, analysisContext, projectDirectory, cancellation);
 			return RunResult.RequirementsNotMet;
 		}
 

@@ -21,7 +21,8 @@ namespace CoreCompatibilyzer.Runner.NetFramework.ReportFormat.PlainText
 	{
 		private StreamWriter? _streamWriter;
 
-		public override void OutputDiagnostics(ImmutableArray<Diagnostic> diagnostics, AppAnalysisContext analysisContext, CancellationToken cancellation)
+		public override void OutputDiagnostics(ImmutableArray<Diagnostic> diagnostics, AppAnalysisContext analysisContext, string? projectDirectory,
+											   CancellationToken cancellation)
 		{
 			if (analysisContext.OutputFileName.IsNullOrWhiteSpace())
 				return;
@@ -29,7 +30,7 @@ namespace CoreCompatibilyzer.Runner.NetFramework.ReportFormat.PlainText
 			try
 			{
 				_streamWriter = GetStreamWriter(analysisContext.OutputFileName);
-				base.OutputDiagnostics(diagnostics, analysisContext, cancellation);
+				base.OutputDiagnostics(diagnostics, analysisContext, projectDirectory, cancellation);
 			}
 			finally
 			{
