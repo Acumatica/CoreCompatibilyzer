@@ -82,6 +82,11 @@
     "PX.Data grouping types + showMembersOfUsedType": {
       "commandName": "Project",
       "commandLineArgs": "\"C:\\Repos\\Acumatica2\\NetTools\\PX.Data\\PX.Data.csproj\" --showMembersOfUsedType -v Information -g \"t\""
+    },
+
+    "PX.Data grouping types + namespaces + details": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Repos\\Acumatica2\\NetTools\\PX.Data\\PX.Data.csproj\" --withUsages --showMembersOfUsedType -v Information -g \"tn\""
     }
   }
 }
