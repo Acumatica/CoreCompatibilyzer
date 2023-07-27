@@ -50,7 +50,7 @@ namespace CoreCompatibilyzer.Runner.NetFramework.ReportFormat.PlainText
 				Console.ForegroundColor = oldColor;
 			}
 
-			Console.WriteLine("; " + location);
+			Console.Write($"; {location}{Environment.NewLine}");
 		}
 
 		private void OutputTitle(string text, ConsoleColor color)
