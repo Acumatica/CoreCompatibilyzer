@@ -33,7 +33,7 @@ namespace CoreCompatibilyzer.Runner.Input
 		public bool DisableSuppressionMechanism { get; }
 
 		/// <inheritdoc cref="CommandLineOptions.ReportFormat"/>
-		public FormatMode Format { get; }
+		public ReportMode ReportMode { get; }
 
 		/// <inheritdoc cref="CommandLineOptions.ReportGrouping"/>
 		public GroupingMode Grouping { get; }
@@ -48,14 +48,14 @@ namespace CoreCompatibilyzer.Runner.Input
 		public bool OutputAbsolutePathsToUsages { get; }
 
 		public AppAnalysisContext(ICodeSource codeSource, DotNetRuntime targetRuntime, bool disableSuppressionMechanism, string? msBuildPath,
-								  FormatMode formatMode, GroupingMode groupingMode, bool showMembersOfUsedType, string? outputFileName, 
+								  ReportMode reportMode, GroupingMode groupingMode, bool showMembersOfUsedType, string? outputFileName, 
 								  bool outputAbsolutePathsToUsages)
 		{
 			CodeSource 					= codeSource.ThrowIfNull(nameof(codeSource));
 			TargetRuntime 				= targetRuntime;
 			DisableSuppressionMechanism = disableSuppressionMechanism;
 			MSBuildPath 				= msBuildPath.NullIfWhiteSpace();
-			Format 						= formatMode;
+			ReportMode 					= reportMode;
 			Grouping 					= groupingMode;
 			ShowMembersOfUsedType		= showMembersOfUsedType;
 			OutputFileName				= outputFileName.NullIfWhiteSpace();

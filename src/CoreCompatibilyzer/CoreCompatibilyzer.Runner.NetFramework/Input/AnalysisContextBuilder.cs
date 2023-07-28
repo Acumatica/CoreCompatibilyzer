@@ -17,18 +17,15 @@ namespace CoreCompatibilyzer.Runner.Input
 		public AppAnalysisContext CreateContext(CommandLineOptions commandLineOptions)
 		{
 			commandLineOptions.ThrowIfNull(nameof(commandLineOptions));
-			var codeSource = ReadCodeSource(commandLineOptions.CodeSource);
 
-			if (codeSource == null)
-				throw new ArgumentException("Code source is not specified");
-
-			FormatMode formatMode = commandLineOptions.IncludeApiUsages 
-				? FormatMode.UsedAPIsWithUsages 
-				: FormatMode.UsedAPIsOnly;
+			var codeSource = ReadCodeSource(commandLineOptions.CodeSource) ?? throw new ArgumentException("Code source is not specified");
+			ReportMode reportMode = commandLineOptions.IncludeApiUsages 
+				? ReportMode.UsedAPIsWithUsages 
+				: ReportMode.UsedAPIsOnly;
 
 			GroupingMode groupingMode = ReadGroupingMode(commandLineOptions.ReportGrouping);
 			var input = new AppAnalysisContext(codeSource, targetRuntime: DotNetRuntime.DotNetCore22, commandLineOptions.DisableSuppressionMechanism,
-											   commandLineOptions.MSBuildPath, formatMode, groupingMode, commandLineOptions.ShowMembersOfUsedType,
+											   commandLineOptions.MSBuildPath, reportMode, groupingMode, commandLineOptions.ShowMembersOfUsedType,
 											   commandLineOptions.OutputFileName, commandLineOptions.OutputAbsolutePathsToUsages);
 			return input;
 		}

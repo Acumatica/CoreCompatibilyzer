@@ -148,7 +148,7 @@ namespace CoreCompatibilyzer.Runner.NetFramework.ReportFormat.PlainText
 				return;
 			}
 
-			if (usedNamespaces.Contains(@namespace) && analysisContext.Format == FormatMode.UsedAPIsWithUsages)
+			if (usedNamespaces.Contains(@namespace) && analysisContext.ReportMode == ReportMode.UsedAPIsWithUsages)
 			{
 				var namespaceDiagnostics = diagnostics.Where(d => d.BannedApi.Kind == ApiKind.Namespace);
 
@@ -188,7 +188,7 @@ namespace CoreCompatibilyzer.Runner.NetFramework.ReportFormat.PlainText
 					OutputTypeDiagnosticGroup(typeName, analysisContext, depth + 2, typeDiagnostics.ToList(), usedBannedTypes, projectDirectory);
 				}
 
-				if (analysisContext.Format == FormatMode.UsedAPIsOnly)
+				if (analysisContext.ReportMode == ReportMode.UsedAPIsOnly)
 					WriteLine();
 
 				return;
@@ -215,7 +215,7 @@ namespace CoreCompatibilyzer.Runner.NetFramework.ReportFormat.PlainText
 
 			if (usedBannedTypes.Contains(typeName))
 			{
-				if (analysisContext.Format == FormatMode.UsedAPIsOnly)
+				if (analysisContext.ReportMode == ReportMode.UsedAPIsOnly)
 					return;
 
 				var sortedTypeUsages = from d in diagnostics
@@ -257,7 +257,7 @@ namespace CoreCompatibilyzer.Runner.NetFramework.ReportFormat.PlainText
 		{
 			string padding = GetPadding(depth);
 
-			if (analysisContext.Format == FormatMode.UsedAPIsOnly)
+			if (analysisContext.ReportMode == ReportMode.UsedAPIsOnly)
 			{
 				var allApis = GetAllUsedApis(analysisContext, unsortedDiagnostics, usedBannedTypes);
 
