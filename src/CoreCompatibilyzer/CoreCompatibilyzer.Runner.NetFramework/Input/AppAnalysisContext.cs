@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 using CoreCompatibilyzer.DotNetRuntimeVersion;
 using CoreCompatibilyzer.Runner.Analysis.CodeSources;
@@ -47,6 +48,8 @@ namespace CoreCompatibilyzer.Runner.Input
 		/// <inheritdoc cref="CommandLineOptions.OutputAbsolutePathsToUsages"/>
 		public bool OutputAbsolutePathsToUsages { get; }
 
+		public bool IsRunningOnLinux { get; }
+
 		public AppAnalysisContext(ICodeSource codeSource, DotNetRuntime targetRuntime, bool disableSuppressionMechanism, string? msBuildPath,
 								  ReportMode reportMode, GroupingMode groupingMode, bool showMembersOfUsedType, string? outputFileName, 
 								  bool outputAbsolutePathsToUsages)
@@ -60,6 +63,8 @@ namespace CoreCompatibilyzer.Runner.Input
 			ShowMembersOfUsedType		= showMembersOfUsedType;
 			OutputFileName				= outputFileName.NullIfWhiteSpace();
 			OutputAbsolutePathsToUsages = outputAbsolutePathsToUsages;
+
+			IsRunningOnLinux = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
 		}
 	}
 }

@@ -383,10 +383,17 @@ namespace CoreCompatibilyzer.Runner.NetFramework.ReportFormat.PlainText
 		{
 			string prettyLocation = diagnostic.Location.GetMappedLineSpan().ToString();
 
-			if (analysisContext.OutputAbsolutePathsToUsages || projectDirectory.IsNullOrWhiteSpace() || !prettyLocation.StartsWith(projectDirectory))
+			if (analysisContext.OutputAbsolutePathsToUsages || projectDirectory.IsNullOrWhiteSpace())
 				return prettyLocation;
 
-			string relativeLocation = prettyLocation.Replace(projectDirectory, ".");
+			StringComparison stringComparison = analysisContext.IsRunningOnLinux
+				? StringComparison.Ordinal
+				: StringComparison.OrdinalIgnoreCase;
+
+			if (!prettyLocation.StartsWith(projectDirectory, stringComparison))
+				return prettyLocation;
+
+			string relativeLocation = "." + prettyLocation.Substring(projectDirectory.Length);
 			return relativeLocation;
 		}
 
