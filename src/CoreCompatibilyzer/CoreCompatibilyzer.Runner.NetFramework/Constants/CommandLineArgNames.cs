@@ -23,5 +23,7 @@ namespace CoreCompatibilyzer.Runner.Constants
 
 		public const char OutputFileShort = 'f';
 		public const string OutputFileLong = "file";
+
+		public const string OutputFormat = "format";
 	}
 }

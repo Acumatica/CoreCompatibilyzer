@@ -29,7 +29,6 @@ namespace CoreCompatibilyzer.Runner.Input
 		/// <inheritdoc cref="CommandLineOptions.MSBuildPath"/>
 		public string? MSBuildPath { get; }
 
-
 		/// <inheritdoc cref="CommandLineOptions.DisableSuppressionMechanism"/>
 		public bool DisableSuppressionMechanism { get; }
 
@@ -48,11 +47,17 @@ namespace CoreCompatibilyzer.Runner.Input
 		/// <inheritdoc cref="CommandLineOptions.OutputAbsolutePathsToUsages"/>
 		public bool OutputAbsolutePathsToUsages { get; }
 
+		/// <inheritdoc cref="CommandLineOptions.OutputFormat"/>
+		public OutputFormat OutputFormat { get; }
+
+		/// <summary>
+		/// If true then the unnderlying OS is Linux.
+		/// </summary>
 		public bool IsRunningOnLinux { get; }
 
 		public AppAnalysisContext(ICodeSource codeSource, DotNetRuntime targetRuntime, bool disableSuppressionMechanism, string? msBuildPath,
 								  ReportMode reportMode, GroupingMode groupingMode, bool showMembersOfUsedType, string? outputFileName, 
-								  bool outputAbsolutePathsToUsages)
+								  bool outputAbsolutePathsToUsages, OutputFormat outputFormat)
 		{
 			CodeSource 					= codeSource.ThrowIfNull(nameof(codeSource));
 			TargetRuntime 				= targetRuntime;
@@ -63,8 +68,8 @@ namespace CoreCompatibilyzer.Runner.Input
 			ShowMembersOfUsedType		= showMembersOfUsedType;
 			OutputFileName				= outputFileName.NullIfWhiteSpace();
 			OutputAbsolutePathsToUsages = outputAbsolutePathsToUsages;
-
-			IsRunningOnLinux = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
+			OutputFormat				= outputFormat;
+			IsRunningOnLinux			= RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
 		}
 	}
 }

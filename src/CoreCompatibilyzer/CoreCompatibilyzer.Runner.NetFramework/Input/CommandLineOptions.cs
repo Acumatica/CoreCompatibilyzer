@@ -113,10 +113,23 @@ namespace CoreCompatibilyzer.Runner.Input
 						  $"This flag does not affect the report when the {nameof(IncludeApiUsages)} is not set.")]
 		public bool OutputAbsolutePathsToUsages { get; }
 
+		/// <summary>
+		/// The report output format. There are two supported values:
+		/// <list type="bullet">
+		/// <item>"text" to ouput the report in plain text, this is the default output mode,</item>
+		/// <item>"json" to output the report in JSON format.</item>
+		/// </list>
+		/// </summary>
+		[Option(longName: CommandLineArgNames.OutputFormat,
+				HelpText = "The report output format. There are two supported values:\n" +
+						   "- \"text\" to ouput the report in plain text, this is the default output mode,\n" +
+						   "- \"json\" to output the report in JSON format.")]
+		public string? OutputFormat { get; }
+
 		// Constructor arguments order must be the same as the properties order. This allows command line parser to initialize immutable options object via constructor.
 		// See this for details: https://github.com/commandlineparser/commandline/wiki/Immutable-Options-Type
 		public CommandLineOptions(string codeSource, string? verbosity, bool disableSuppressionMechanism, string? msBuildPath, bool includeApiUsages, 
-								  bool showMembersOfUsedType, string? reportGrouping, string? outputFileName, bool outputAbsolutePathsToUsages)
+								  bool showMembersOfUsedType, string? reportGrouping, string? outputFileName, bool outputAbsolutePathsToUsages, string? outputFormat)
 		{
 			CodeSource 					= codeSource;
 			Verbosity 					= verbosity;
@@ -127,6 +140,7 @@ namespace CoreCompatibilyzer.Runner.Input
 			ReportGrouping 				= reportGrouping;
 			OutputFileName				= outputFileName;
 			OutputAbsolutePathsToUsages = outputAbsolutePathsToUsages;
+			OutputFormat				= outputFormat;
 		}
 	}
 }

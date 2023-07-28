@@ -24,9 +24,10 @@ namespace CoreCompatibilyzer.Runner.Input
 				: ReportMode.UsedAPIsOnly;
 
 			GroupingMode groupingMode = ReadGroupingMode(commandLineOptions.ReportGrouping);
+			OutputFormat outputFormat = GetOutputFormat(commandLineOptions.OutputFormat.NullIfWhiteSpace());
 			var input = new AppAnalysisContext(codeSource, targetRuntime: DotNetRuntime.DotNetCore22, commandLineOptions.DisableSuppressionMechanism,
 											   commandLineOptions.MSBuildPath, reportMode, groupingMode, commandLineOptions.ShowMembersOfUsedType,
-											   commandLineOptions.OutputFileName, commandLineOptions.OutputAbsolutePathsToUsages);
+											   commandLineOptions.OutputFileName, commandLineOptions.OutputAbsolutePathsToUsages, outputFormat);
 			return input;
 		}
 
@@ -51,7 +52,8 @@ namespace CoreCompatibilyzer.Runner.Input
 			{
 				CommonConstants.ProjectFileExtension  => new ProjectCodeSource(codeSourceLocation),
 				CommonConstants.SolutionFileExtension => new SolutionCodeSource(codeSourceLocation),
-				_ => throw new ArgumentException($"Not supported code source {codeSourceLocation}. You can specify only C# projects (*.csproj) and solutions (*.sln) as code sources.")
+				_ => throw new NotSupportedException(
+						$"Not supported code source {codeSourceLocation}. You can specify only C# projects (*.csproj) and solutions (*.sln) as code sources.")
 			};
 		}
 
@@ -76,6 +78,22 @@ namespace CoreCompatibilyzer.Runner.Input
 				grouping |= GroupingMode.Apis;
 
 			return grouping;
+		}
+
+		private OutputFormat GetOutputFormat(string? rawOutputFormat)
+		{
+			const string plainTextFormat = "text";
+			const string jsonFormat = "json";
+
+			if (rawOutputFormat == null || plainTextFormat.Equals(rawOutputFormat, StringComparison.OrdinalIgnoreCase))
+				return OutputFormat.PlainText;
+			else if (jsonFormat.Equals(rawOutputFormat, StringComparison.OrdinalIgnoreCase))
+				return OutputFormat.Json;
+			else
+			{
+				throw new NotSupportedException($"Not supported output format \"{rawOutputFormat}\". " +
+												$"You can specify only \"{plainTextFormat}\" and \"{jsonFormat}\" values as output formats.");
+			}
 		}
 	}
 }
