@@ -44,6 +44,6 @@
 		<PackageReference Include="System.Text.Json" Version="6.0.0" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="ReportFormat\Json\" />
+	  <Folder Include="Output\Json\" />
 	</ItemGroup>
 </Project>
