@@ -5,9 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 
-using static System.Net.Mime.MediaTypeNames;
-
-namespace CoreCompatibilyzer.Runner.NetFramework.ReportFormat.PlainText
+namespace CoreCompatibilyzer.Runner.Output.PlainText
 {
 	/// <summary>
 	/// The base class for the report outputter in the plain text format.

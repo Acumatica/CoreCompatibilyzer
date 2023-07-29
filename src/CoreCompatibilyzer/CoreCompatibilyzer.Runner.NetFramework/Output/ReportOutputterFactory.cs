@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 using System.IO;
 
 using CoreCompatibilyzer.Runner.Input;
-using CoreCompatibilyzer.Runner.NetFramework.ReportFormat.PlainText;
+using CoreCompatibilyzer.Runner.Output.PlainText;
 using CoreCompatibilyzer.Utils.Common;
 
 using Serilog;

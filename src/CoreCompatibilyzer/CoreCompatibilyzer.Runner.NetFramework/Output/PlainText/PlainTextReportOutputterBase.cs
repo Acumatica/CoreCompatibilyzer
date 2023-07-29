@@ -12,7 +12,7 @@ using CoreCompatibilyzer.Utils.Common;
 
 using Microsoft.CodeAnalysis;
 
-namespace CoreCompatibilyzer.Runner.NetFramework.ReportFormat.PlainText
+namespace CoreCompatibilyzer.Runner.Output.PlainText
 {
 	/// <summary>
 	/// The base class for the report outputter in the plain text format.
