@@ -7,7 +7,6 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using CoreCompatibilyzer.Runner.Input;
-using CoreCompatibilyzer.Runner.Analysis.CodeSources;
 using CoreCompatibilyzer.Utils.Common;
 
 using Microsoft.Build.Locator;
@@ -24,13 +23,6 @@ namespace CoreCompatibilyzer.Runner.Analysis
 	/// </summary>
 	internal class SolutionAnalysisRunner
 	{
-		private readonly IOutputterFactory _outputterFactory;
-
-		public SolutionAnalysisRunner(IOutputterFactory? customOutputFactory = null)
-		{
-			_outputterFactory = customOutputFactory ?? new ReportOutputterFactory();
-		}
-
 		public async Task<RunResult> RunAnalysisAsync(AppAnalysisContext analysisContext, CancellationToken cancellationToken)
 		{
 			analysisContext.ThrowIfNull(nameof(analysisContext));
@@ -98,8 +90,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 																					   .ConfigureAwait(false);
 				Log.Information("Start validating the solution.");
 
-				var reportOutputter = _outputterFactory.CreateOutputter(analysisContext);
-				RunResult validationResult = await solutionCompatibilityAnalyzer.AnalyseSolution(solution, analysisContext, reportOutputter, cancellationToken);
+				RunResult validationResult = await solutionCompatibilityAnalyzer.AnalyseSolution(solution, analysisContext, cancellationToken);
 				
 				Log.Information("Successfully finished validating the solution.");
 				return validationResult;

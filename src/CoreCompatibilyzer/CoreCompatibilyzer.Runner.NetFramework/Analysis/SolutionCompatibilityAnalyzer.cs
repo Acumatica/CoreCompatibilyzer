@@ -14,6 +14,7 @@ using CoreCompatibilyzer.DotNetRuntimeVersion;
 using CoreCompatibilyzer.Runner.Analysis.Helpers;
 using CoreCompatibilyzer.Runner.Input;
 using CoreCompatibilyzer.Runner.Output;
+using CoreCompatibilyzer.Runner.Output.Data;
 using CoreCompatibilyzer.StaticAnalysis;
 using CoreCompatibilyzer.Utils.Common;
 using CoreCompatibilyzer.Utils.Roslyn.Suppression;
@@ -27,6 +28,9 @@ namespace CoreCompatibilyzer.Runner.Analysis
 {
     internal sealed class SolutionCompatibilityAnalyzer
 	{
+		private readonly IOutputterFactory _outputterFactory;
+		private readonly IReportBuilder	_reportBuilder;
+
 		private ImmutableArray<DiagnosticAnalyzer> _diagnosticAnalyzers;
 		private readonly IApiStorage _bannedApiStorage;
 		private readonly IApiStorage _whiteListStorage;
@@ -35,13 +39,15 @@ namespace CoreCompatibilyzer.Runner.Analysis
 
 		private bool IsWhiteListInitAndNonEmpty => _whiteListStorage.ApiKindsCount > 0;
 
-		private SolutionCompatibilityAnalyzer(IApiStorage bannedApiStorage, IApiStorage whiteListStorage, 
-			ImmutableArray<DiagnosticAnalyzer> diagnosticAnalyzers)
+		private SolutionCompatibilityAnalyzer(IApiStorage bannedApiStorage, IApiStorage whiteListStorage, ImmutableArray<DiagnosticAnalyzer> diagnosticAnalyzers,
+											  IReportBuilder? customReportBuilder = null, IOutputterFactory? customOutputFactory = null)
         {
             _bannedApiStorage	 = bannedApiStorage;
 			_whiteListStorage	 = whiteListStorage;
 			_diagnosticAnalyzers = diagnosticAnalyzers;
-        }
+			_reportBuilder 		 = customReportBuilder ?? new ReportBuilder();
+			_outputterFactory 	 = customOutputFactory ?? new ReportOutputterFactory();
+		}
 
 		public static async Task<SolutionCompatibilityAnalyzer> CreateAnalyzer(CancellationToken cancellationToken, 
 																			   IApiDataProvider? customBannedApiDataProvider = null)
@@ -51,9 +57,9 @@ namespace CoreCompatibilyzer.Runner.Analysis
 
 			var bannedApiAndWhiteList = await Task.WhenAll(bannedApiTask, whiteListTask).ConfigureAwait(false);
 
-			IApiStorage bannedApiStorage 	 = bannedApiAndWhiteList[0];
-			IApiStorage whiteListStorage 	 = bannedApiAndWhiteList[1];
-			var diagnosticAnalyzers 		 = CollectAnalyzers();
+			IApiStorage bannedApiStorage = bannedApiAndWhiteList[0];
+			IApiStorage whiteListStorage = bannedApiAndWhiteList[1];
+			var diagnosticAnalyzers		 = CollectAnalyzers();
 
 			return new SolutionCompatibilityAnalyzer(bannedApiStorage, whiteListStorage, diagnosticAnalyzers);
 		}
@@ -67,13 +73,11 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			return analyzers;
 		}
 
-		public async Task<RunResult> AnalyseSolution(Solution solution, AppAnalysisContext analysisContext, IReportOutputter reportOutputter,
-													 CancellationToken cancellationToken)
+		public async Task<RunResult> AnalyseSolution(Solution solution, AppAnalysisContext analysisContext, CancellationToken cancellationToken)
 		{
-			reportOutputter.ThrowIfNull(nameof(reportOutputter));
-
 			RunResult solutionValidationResult = RunResult.Success;
 			var projectsToValidate = analysisContext.CodeSource.GetProjectsForValidation(solution);
+			var reportOutputter	   = _outputterFactory.CreateOutputter(analysisContext);
 
 			foreach (Project project in projectsToValidate)
 			{
@@ -123,7 +127,8 @@ namespace CoreCompatibilyzer.Runner.Analysis
 				return RunResult.Success;
 
 			string? projectDirectory = GetProjectDirectory(project);
-			var analysisValidationResult = await RunAnalyzersOnProjectAsync(compilation, analysisContext, reportOutputter, projectDirectory, cancellationToken)
+			var analysisValidationResult = await RunAnalyzersOnProjectAsync(compilation, analysisContext, reportOutputter, 
+																			projectDirectory, cancellationToken)
 													.ConfigureAwait(false);
 			return analysisValidationResult;
 		}
@@ -177,7 +182,9 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			if (diagnosticResults.IsDefaultOrEmpty)
 				return RunResult.Success;
 
-			reportOutputter.OutputDiagnostics(diagnosticResults, analysisContext, projectDirectory, cancellation);
+			Report report = _reportBuilder.BuildReport(diagnosticResults, analysisContext, projectDirectory, cancellation);
+			reportOutputter.OutputReport(report, analysisContext, cancellation);
+
 			return RunResult.RequirementsNotMet;
 		}
 
