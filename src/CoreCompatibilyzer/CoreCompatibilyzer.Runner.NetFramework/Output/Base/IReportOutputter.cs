@@ -3,8 +3,7 @@ using System.Collections.Immutable;
 using System.Threading;
 
 using CoreCompatibilyzer.Runner.Input;
-
-using Microsoft.CodeAnalysis;
+using CoreCompatibilyzer.Runner.Output.Data;
 
 namespace CoreCompatibilyzer.Runner.Output
 {
@@ -14,13 +13,11 @@ namespace CoreCompatibilyzer.Runner.Output
 	internal interface IReportOutputter
 	{
 		/// <summary>
-		/// Output diagnostics.
+		/// Outputs report.
 		/// </summary>
-		/// <param name="diagnostics">The diagnostics.</param>
+		/// <param name="report">The report.</param>
 		/// <param name="analysisContext">The analysis context.</param>
-		/// <param name="projectDirectory">Project base directory.</param>
 		/// <param name="cancellation">Cancellation token.</param>
-		void OutputDiagnostics(ImmutableArray<Diagnostic> diagnostics, AppAnalysisContext analysisContext, string? projectDirectory,
-							   CancellationToken cancellation);
+		void OutputReport(Report report, AppAnalysisContext analysisContext, CancellationToken cancellation);
 	}
 }
