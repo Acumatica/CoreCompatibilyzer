@@ -13,7 +13,7 @@ namespace CoreCompatibilyzer.Runner.Output.Data
 
 		public string? LinesTitle { get; init; }
 
-		public IReadOnlyCollection<OutputLine>? Lines { get; init; }
+		public IReadOnlyCollection<Line>? Lines { get; init; }
 
 		public string? ChildrenTitle { get; init; }
 
