@@ -17,7 +17,14 @@ namespace CoreCompatibilyzer.Runner.Output.Data
 			Spans	 = ImmutableArray.Create(span);
 		}
 
-        public Line(IReadOnlyCollection<string> spans)
+		public Line(string part1, string part2)
+		{
+			var span1 = new LineSpan(part1.ThrowIfNull(nameof(part1)));
+			var span2 = new LineSpan(part2.ThrowIfNull(nameof(part2)));
+			Spans = ImmutableArray.Create(span1, span2);
+		}
+
+		public Line(IReadOnlyCollection<string> spans)
         {
 			Spans = spans.ThrowIfNull(nameof(spans))
 						 .Select(s => new LineSpan(s)).ToImmutableArray();

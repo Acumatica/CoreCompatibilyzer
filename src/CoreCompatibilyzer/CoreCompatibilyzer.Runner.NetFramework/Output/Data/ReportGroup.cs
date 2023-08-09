@@ -7,7 +7,7 @@ namespace CoreCompatibilyzer.Runner.Output.Data
 {
 	internal class ReportGroup
 	{
-		public required string GroupTitle { get; init; }
+		public string? GroupTitle { get; init; }
 
 		public required int TotalErrorCount { get; init; }
 
