@@ -11,20 +11,16 @@ namespace CoreCompatibilyzer.Runner.Output.Data
 	{
 		public ImmutableArray<LineSpan> Spans { get; }
 
-		public int Depth { get; }
-
-		public Line(string line, int depth)
+		public Line(string line)
 		{
 			var span = new LineSpan(line.ThrowIfNull(nameof(line)));
-			Spans = ImmutableArray.Create(span);
-			Depth = depth;
+			Spans	 = ImmutableArray.Create(span);
 		}
 
-        public Line(IReadOnlyCollection<string> spans, int depth)
+        public Line(IReadOnlyCollection<string> spans)
         {
 			Spans = spans.ThrowIfNull(nameof(spans))
 						 .Select(s => new LineSpan(s)).ToImmutableArray();
-			Depth = depth;
         }
 
 		public override string ToString()
@@ -32,9 +28,9 @@ namespace CoreCompatibilyzer.Runner.Output.Data
 			if (Spans.Length == 1)
 				return Spans[0].ToString();
 			else if (Spans.Length == 2)
-				return Spans[0].ToString() + Spans[1].ToString();
+				return $"{Spans[0].ToString()} {Spans[1].ToString()}";
 			else if (Spans.Length > 2)
-				return string.Concat(Spans);
+				return string.Join(" ", Spans);
 			else
 				return string.Empty;
 		}
