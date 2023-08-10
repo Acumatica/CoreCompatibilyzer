@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Threading;
+
+using CoreCompatibilyzer.Runner.Output.Data;
 
 namespace CoreCompatibilyzer.Runner.Output.PlainText
 {
@@ -12,44 +11,99 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 	/// </summary>
 	internal class PlainTextReportOutputterConsole : PlainTextReportOutputterBase
 	{
+		protected override void WriteTitle(in Title? title, int depth, int itemsCount)
+		{
+			if (title == null)
+				return;
+
+			string padding = GetPadding(depth);
+			string titleWithPadding = $"{padding}{title.Value.Text}(Count = {itemsCount}):";
+
+			switch (title?.Kind)
+			{
+				case TitleKind.Namespace:
+					WriteNamespaceTitle(titleWithPadding);
+					return;
+				case TitleKind.Type:
+					WriteTypeTitle(titleWithPadding);
+					return;
+				case TitleKind.Members:
+					WriteMembersTitle(titleWithPadding);
+					return;
+				case TitleKind.Api:
+					WriteApiTitle(titleWithPadding);
+					return;
+				case TitleKind.AllApis:
+					WriteAllApisTitle(titleWithPadding);
+					return;
+				case TitleKind.Usages:
+					WriteUsagesTitle(titleWithPadding);
+					return;
+				default:
+					WriteLine(titleWithPadding);
+					return;
+			}
+		}
+
 		protected override void WriteLine() => Console.WriteLine();
 
 		protected override void WriteLine(string text) => Console.WriteLine(text);
 
-		protected override void WriteAllApisTitle(string allApisTitle) =>
-			OutputTitle(allApisTitle, ConsoleColor.DarkCyan);
+		protected override void WriteLine(in Line line, int depth)
+		{
+			switch (line.Spans.Length)
+			{
+				case 0:
+					WriteLine();
+					return;
 
-		protected override void WriteNamespaceTitle(string namespaceTitle) =>
-			OutputTitle(namespaceTitle, ConsoleColor.DarkCyan);
+				case 2:
+					WriteFlatApiUsage(depth, line.Spans[0].ToString(), line.Spans[1].ToString());
+					return;
+					
+				case 1:
+				default:
+					string padding = GetPadding(depth);
+					WriteLine(padding + line.ToString());
+					return;
+			}
+		}
 
-		protected override void WriteTypeTitle(string typeTitle) =>
-			OutputTitle(typeTitle, ConsoleColor.Magenta);
-
-		protected override void WriteTypeMembersTitle(string typeMembersTitle) =>
-			OutputTitle(typeMembersTitle, ConsoleColor.Yellow);
-
-		protected override void WriteApiTitle(string apiTitle) =>
-			 OutputTitle(apiTitle, ConsoleColor.Cyan);
-
-		protected override void WriteUsagesTitle(string usagesTitle) =>
-			OutputTitle(usagesTitle, ConsoleColor.Blue);
-
-		protected override void WriteFlatApiUsage(string fullApiName, string location)
+		private void WriteFlatApiUsage(int depth, string fullApiName, string location)
 		{ 
-			var oldColor = Console.ForegroundColor;
+			string padding = GetPadding(depth);
+			var oldColor   = Console.ForegroundColor;
 
 			try
 			{
 				Console.ForegroundColor = ConsoleColor.Cyan;
-				Console.Write(fullApiName);
+				Console.Write(padding + fullApiName);
 			}
 			finally
 			{
 				Console.ForegroundColor = oldColor;
 			}
 
-			Console.Write($"; {location}{Environment.NewLine}");
+			Console.Write($": {location}{Environment.NewLine}");
 		}
+
+		private void WriteAllApisTitle(string allApisTitle) =>
+			OutputTitle(allApisTitle, ConsoleColor.DarkCyan);
+
+		private void WriteNamespaceTitle(string namespaceTitle) =>
+			OutputTitle(namespaceTitle, ConsoleColor.DarkCyan);
+
+		private void WriteTypeTitle(string typeTitle) =>
+			OutputTitle(typeTitle, ConsoleColor.Magenta);
+
+		private void WriteMembersTitle(string typeMembersTitle) =>
+			OutputTitle(typeMembersTitle, ConsoleColor.Yellow);
+
+		private void WriteApiTitle(string apiTitle) =>
+			 OutputTitle(apiTitle, ConsoleColor.Cyan);
+
+		private void WriteUsagesTitle(string usagesTitle) =>
+			OutputTitle(usagesTitle, ConsoleColor.Blue);
 
 		private void OutputTitle(string text, ConsoleColor color)
 		{
