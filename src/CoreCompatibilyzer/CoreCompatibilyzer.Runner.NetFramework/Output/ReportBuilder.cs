@@ -10,7 +10,7 @@ using CoreCompatibilyzer.Runner.Output.Data;
 using CoreCompatibilyzer.Utils.Common;
 
 using Microsoft.CodeAnalysis;
-
+ 
 namespace CoreCompatibilyzer.Runner.Output
 {
 	/// <summary>
@@ -51,8 +51,9 @@ namespace CoreCompatibilyzer.Runner.Output
 				TotalErrorCount = recognizedErrorsCount,
 				ChildrenTitle 	= new Title("Found APIs", TitleKind.AllApis),
 				ChildrenGroups 	= bannedApisGroups,
-				Depth			= 0,
-				LinesTitle		= new Title("Unrecognized diagnostics", TitleKind.NotSpecified),
+				LinesTitle		= sortedUnrecognizedDiagnostics.Count > 0
+									? new Title("Unrecognized diagnostics", TitleKind.NotSpecified)
+									: null,
 				Lines			= sortedUnrecognizedDiagnostics,
 			};
 
@@ -146,7 +147,6 @@ namespace CoreCompatibilyzer.Runner.Output
 				var flatApiLines = GetFlatApiUsagesLines(diagnostics, projectDirectory, analysisContext).ToList();
 				var flatNamespaceGroup = new ReportGroup
 				{
-					Depth 			= depth,
 					GroupTitle 		= new Title(@namespace, TitleKind.Namespace),
 					TotalErrorCount = flatApiLines.Count,
 					Lines			= flatApiLines
@@ -193,7 +193,6 @@ namespace CoreCompatibilyzer.Runner.Output
 
 			var namespaceGroup = new ReportGroup
 			{
-				Depth 			= depth,
 				GroupTitle 		= new Title(@namespace, TitleKind.Namespace),
 				TotalErrorCount = diagnostics.Count,
 				ChildrenTitle	= !namespaceGroups.IsNullOrEmpty() 
@@ -237,7 +236,6 @@ namespace CoreCompatibilyzer.Runner.Output
 				var flatApiLines  = GetFlatApiUsagesLines(diagnostics, projectDirectory, analysisContext).ToList();
 				var flatTypeGroup = new ReportGroup
 				{
-					Depth			= depth,
 					GroupTitle		= new Title(typeName, TitleKind.Type),
 					TotalErrorCount = flatApiLines.Count,
 					Lines 			= flatApiLines
@@ -254,7 +252,6 @@ namespace CoreCompatibilyzer.Runner.Output
 				{
 					return new ReportGroup
 					{
-						Depth 			= depth,
 						GroupTitle 		= new Title(typeName, TitleKind.Type),
 						TotalErrorCount = diagnostics.Count
 					};
@@ -279,7 +276,6 @@ namespace CoreCompatibilyzer.Runner.Output
 			
 			var typeGroup = new ReportGroup
 			{
-				Depth 			= depth,
 				GroupTitle 		= new Title(typeName, TitleKind.Type),
 				TotalErrorCount = diagnostics.Count,
 
@@ -309,7 +305,6 @@ namespace CoreCompatibilyzer.Runner.Output
 			var namespacesSectionGroup = new ReportGroup
 			{
 				GroupTitle 		= new Title("Namespaces", TitleKind.Namespace),
-				Depth 			= 0,
 				TotalErrorCount = diagnostics.Count,
 				ChildrenGroups 	= namespacesGroups
 			};
@@ -327,7 +322,6 @@ namespace CoreCompatibilyzer.Runner.Output
 				var lines = allApis.Select(line => new Line(line)).ToList(); 
 				var usedApisGroup = new ReportGroup
 				{
-					Depth 			= depth,
 					TotalErrorCount = lines.Count,
 					Lines 			= lines 
 				};
@@ -341,7 +335,6 @@ namespace CoreCompatibilyzer.Runner.Output
 				var flatApiUsageLines = GetFlatApiUsagesLines(unsortedDiagnostics, projectDirectory, analysisContext).ToList();
 				var flatApiUsageGroup = new ReportGroup
 				{
-					Depth 			= depth,
 					TotalErrorCount = flatApiUsageLines.Count,
 					Lines 			= flatApiUsageLines
 				};
@@ -363,7 +356,6 @@ namespace CoreCompatibilyzer.Runner.Output
 				var usagesLines = GetApiUsagesLines(apiDiagnostics, projectDirectory, analysisContext).ToList();
 				var apiGroup = new ReportGroup
 				{
-					Depth 			= depth,
 					GroupTitle 		= new Title(apiName, TitleKind.Api),
 					TotalErrorCount = usagesLines.Count,
 					LinesTitle 		= new Title("Usages", TitleKind.Usages),

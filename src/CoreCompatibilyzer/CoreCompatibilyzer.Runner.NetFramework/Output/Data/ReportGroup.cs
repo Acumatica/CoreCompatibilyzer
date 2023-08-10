@@ -18,7 +18,5 @@ namespace CoreCompatibilyzer.Runner.Output.Data
 		public Title? ChildrenTitle { get; init; }
 
 		public IReadOnlyCollection<ReportGroup>? ChildrenGroups { get; init; }
-
-		public required int Depth { get; init; }
 	}
 }
