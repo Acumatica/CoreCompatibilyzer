@@ -48,12 +48,11 @@ namespace CoreCompatibilyzer.Runner.Output
 
 			var mainApiGroup = new ReportGroup()
 			{
-				GroupTitle 		= "Results",
 				TotalErrorCount = recognizedErrorsCount,
-				ChildrenTitle 	= "Found APIs",
+				ChildrenTitle 	= new Title("Found APIs", TitleKind.AllApis),
 				ChildrenGroups 	= bannedApisGroups,
 				Depth			= 0,
-				LinesTitle		= "Unrecognized diagnostics",
+				LinesTitle		= new Title("Unrecognized diagnostics", TitleKind.NotSpecified),
 				Lines			= sortedUnrecognizedDiagnostics,
 			};
 
@@ -148,7 +147,7 @@ namespace CoreCompatibilyzer.Runner.Output
 				var flatNamespaceGroup = new ReportGroup
 				{
 					Depth 			= depth,
-					GroupTitle 		= @namespace,
+					GroupTitle 		= new Title(@namespace, TitleKind.Namespace),
 					TotalErrorCount = flatApiLines.Count,
 					Lines			= flatApiLines
 				};
@@ -195,14 +194,14 @@ namespace CoreCompatibilyzer.Runner.Output
 			var namespaceGroup = new ReportGroup
 			{
 				Depth 			= depth,
-				GroupTitle 		= @namespace,
+				GroupTitle 		= new Title(@namespace, TitleKind.Namespace),
 				TotalErrorCount = diagnostics.Count,
 				ChildrenTitle	= !namespaceGroups.IsNullOrEmpty() 
-									? "Members" 
+									? new Title( "Members", TitleKind.Members) 
 									: null,
 				ChildrenGroups  = namespaceGroups,
 				LinesTitle		= !namespaceUsages.IsNullOrEmpty() 
-									? "Usages" 
+									? new Title("Usages", TitleKind.Usages) 
 									: null,
 				Lines			= namespaceUsages
 			};
@@ -238,8 +237,8 @@ namespace CoreCompatibilyzer.Runner.Output
 				var flatApiLines  = GetFlatApiUsagesLines(diagnostics, projectDirectory, analysisContext).ToList();
 				var flatTypeGroup = new ReportGroup
 				{
-					Depth	   		= depth,
-					GroupTitle 		= typeName,
+					Depth			= depth,
+					GroupTitle		= new Title(typeName, TitleKind.Type),
 					TotalErrorCount = flatApiLines.Count,
 					Lines 			= flatApiLines
 				};
@@ -256,7 +255,7 @@ namespace CoreCompatibilyzer.Runner.Output
 					return new ReportGroup
 					{
 						Depth 			= depth,
-						GroupTitle 		= typeName,
+						GroupTitle 		= new Title(typeName, TitleKind.Type),
 						TotalErrorCount = diagnostics.Count
 					};
 				}
@@ -281,16 +280,16 @@ namespace CoreCompatibilyzer.Runner.Output
 			var typeGroup = new ReportGroup
 			{
 				Depth 			= depth,
-				GroupTitle 		= typeName,
+				GroupTitle 		= new Title(typeName, TitleKind.Type),
 				TotalErrorCount = diagnostics.Count,
 
 				ChildrenTitle 	= !typeGroups.IsNullOrEmpty()
-									? "Members"
+									? new Title("Members", TitleKind.Members)
 									: null,
 				ChildrenGroups 	= typeGroups,
 
 				LinesTitle 		= !typeUsages.IsNullOrEmpty()
-									? "Usages"
+									? new Title("Usages", TitleKind.Usages)
 									: null,
 				Lines 			= typeUsages
 			};
@@ -309,7 +308,7 @@ namespace CoreCompatibilyzer.Runner.Output
 																				   usedBannedTypes, projectDirectory);
 			var namespacesSectionGroup = new ReportGroup
 			{
-				GroupTitle 		= "Namespaces",
+				GroupTitle 		= new Title("Namespaces", TitleKind.Namespace),
 				Depth 			= 0,
 				TotalErrorCount = diagnostics.Count,
 				ChildrenGroups 	= namespacesGroups
@@ -365,9 +364,9 @@ namespace CoreCompatibilyzer.Runner.Output
 				var apiGroup = new ReportGroup
 				{
 					Depth 			= depth,
-					GroupTitle 		= apiName,
+					GroupTitle 		= new Title(apiName, TitleKind.Api),
 					TotalErrorCount = usagesLines.Count,
-					LinesTitle 		= "Usages",
+					LinesTitle 		= new Title("Usages", TitleKind.Usages),
 					Lines 			= usagesLines
 				};
 
