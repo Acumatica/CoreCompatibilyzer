@@ -42,7 +42,10 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 				return;
 
 			string padding = GetPadding(depth);
-			string titleWithPadding = $"{padding}{title.Value.Text}(Count = {itemsCount}):";
+			string titleWithPadding = title.Value.Kind == TitleKind.Usages
+				? $"{padding}{title.Value.Text}:"
+				: $"{padding}{title.Value.Text}(Count = {itemsCount}):";
+
 			WriteLine(titleWithPadding);
 		}
 

@@ -37,7 +37,7 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 					WriteAllApisTitle(titleWithPadding);
 					return;
 				case TitleKind.Usages:
-					WriteUsagesTitle(titleWithPadding);
+					WriteUsagesTitle($"{padding}{title.Value.Text}:");
 					return;
 				default:
 					WriteLine(titleWithPadding);
