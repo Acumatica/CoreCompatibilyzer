@@ -16,7 +16,7 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 	/// </summary>
 	internal abstract class PlainTextReportOutputterBase : IReportOutputter
 	{
-		public void OutputReport(Report report, AppAnalysisContext analysisContext, CancellationToken cancellation)
+		public virtual void OutputReport(Report report, AppAnalysisContext analysisContext, CancellationToken cancellation)
 		{
 			report.ThrowIfNull(nameof(report));
 

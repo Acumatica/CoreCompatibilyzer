@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Threading;
 
 using CoreCompatibilyzer.Runner.Input;
+using CoreCompatibilyzer.Runner.Output.Data;
 using CoreCompatibilyzer.Utils.Common;
-
-using Microsoft.CodeAnalysis;
 
 using Serilog;
 
@@ -21,8 +19,7 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 	{
 		private StreamWriter? _streamWriter;
 
-		public override void OutputDiagnostics(ImmutableArray<Diagnostic> diagnostics, AppAnalysisContext analysisContext, string? projectDirectory,
-											   CancellationToken cancellation)
+		public override void OutputReport(Report report, AppAnalysisContext analysisContext, CancellationToken cancellation)
 		{
 			if (analysisContext.OutputFileName.IsNullOrWhiteSpace())
 				return;
@@ -30,7 +27,7 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 			try
 			{
 				_streamWriter = GetStreamWriter(analysisContext.OutputFileName);
-				base.OutputDiagnostics(diagnostics, analysisContext, projectDirectory, cancellation);
+				base.OutputReport(report, analysisContext, cancellation);
 			}
 			finally
 			{
@@ -39,26 +36,34 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 			}
 		}
 
-		protected override void WriteAllApisTitle(string allApisTitle) =>
-			WriteLine(allApisTitle);
+		protected override void WriteTitle(in Title? title, int depth, int itemsCount)
+		{
+			if (title == null)
+				return;
 
-		protected override void WriteApiTitle(string apiTitle) =>
-			WriteLine(apiTitle);
+			string padding = GetPadding(depth);
+			string titleWithPadding = $"{padding}{title.Value.Text}(Count = {itemsCount}):";
+			WriteLine(titleWithPadding);
+		}
 
-		protected override void WriteNamespaceTitle(string namespaceTitle) =>
-			WriteLine(namespaceTitle);
+		protected override void WriteLine(in Line line, int depth)
+		{
+			if (line.Spans.IsDefaultOrEmpty)
+			{
+				WriteLine();
+				return;
+			}
 
-		protected override void WriteTypeMembersTitle(string typeMembersTitle) =>
-			WriteLine(typeMembersTitle);
+			string padding = GetPadding(depth);
 
-		protected override void WriteTypeTitle(string typeTitle) =>
-			WriteLine(typeTitle);
-
-		protected override void WriteUsagesTitle(string usagesTitle) =>
-			WriteLine(usagesTitle);
-
-		protected override void WriteFlatApiUsage(string fullApiName, string location) =>
-			WriteLine($"{fullApiName}; {location}");
+			if (line.Spans.Length == 2)
+			{
+				var (fullApiName, location) = (line.Spans[0].ToString(), line.Spans[1].ToString());
+				Console.WriteLine($"{padding}{fullApiName}: {location}");
+			}
+			else
+				WriteLine(padding + line.ToString());
+		}
 
 		protected override void WriteLine() => _streamWriter?.WriteLine();
 
