@@ -18,7 +18,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 
 	public static class Descriptors
 	{
-		private const string DocumentationLinkPrefix = @"TODO";
+		private const string DocumentationLinkPrefix = @"https://github.com/Acumatica/CoreCompatibilyzer/blob/main/docs/diagnostics/";
 		private const string DocumentatonFileExtension = "md";
 
 		/// <summary>
