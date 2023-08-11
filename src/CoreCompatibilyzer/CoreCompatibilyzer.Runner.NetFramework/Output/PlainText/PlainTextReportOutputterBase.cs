@@ -83,7 +83,7 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 
 				if (reportGroup.ChildrenTitle.HasValue)
 				{
-					WriteTitle(reportGroup.ChildrenTitle.Value, depth + 1, reportGroup.ChildrenGroups.Count);
+					WriteTitle(reportGroup.ChildrenTitle.Value, depth + 1, reportGroup.ChildrenGroups.Sum(group => group.TotalErrorCount));
 					groupDepth = depth + 2;
 				}
 				else
