@@ -20,10 +20,19 @@ namespace CoreCompatibilyzer.Runner.Output
 		{
 			analysisContext.ThrowIfNull(nameof(analysisContext));
 
-			if (analysisContext.OutputFileName.IsNullOrWhiteSpace())
-				return new PlainTextReportOutputterConsole();
+			if (analysisContext.OutputFormat == OutputFormat.PlainText)
+			{
+				if (analysisContext.OutputFileName.IsNullOrWhiteSpace())
+					return new PlainTextReportOutputterConsole();
+				else
+					return new PlainTextReportOutputterFile();
+			}
+			else if (analysisContext.OutputFormat == OutputFormat.Json)
+			{
+				throw new NotImplementedException();
+			}
 			else
-				return new PlainTextReportOutputterFile();
+				throw new NotSupportedException();
 		}
 	}
 }
