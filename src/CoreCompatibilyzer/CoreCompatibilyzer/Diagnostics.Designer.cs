@@ -61,7 +61,7 @@ namespace CoreCompatibilyzer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The underlined API is not portable to .Net Core 2.1 runtime because it is not present there. You need to change your code to eliminate its usage..
+        ///   Looks up a localized string similar to The underlined API is not portable to .Net Core 2.2 runtime because it is not present there. You need to change your code to eliminate its usage..
         /// </summary>
         public static string CoreCompat1001Description {
             get {
@@ -70,7 +70,7 @@ namespace CoreCompatibilyzer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;{0}&quot; is missing in .Net Core 2.1 runtime.
+        ///   Looks up a localized string similar to &quot;{0}&quot; is missing in .Net Core 2.2 runtime.
         /// </summary>
         public static string CoreCompat1001Title {
             get {
@@ -79,7 +79,7 @@ namespace CoreCompatibilyzer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The underlined API is not portable to .Net Core 2.1 runtime because it is obsolete. Call to this API will throw PlatformNotSupportedException. You need to change your code to eliminate its usage..
+        ///   Looks up a localized string similar to The underlined API is not portable to .Net Core 2.2 runtime because it is obsolete. Call to this API will throw PlatformNotSupportedException. You need to change your code to eliminate its usage..
         /// </summary>
         public static string CoreCompat1002Description {
             get {
@@ -88,7 +88,7 @@ namespace CoreCompatibilyzer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;{0}&quot; is obsolete in .Net Core 2.1 runtime. Call to this API will throw &quot;PlatformNotSupportedException&quot;..
+        ///   Looks up a localized string similar to &quot;{0}&quot; is obsolete in .Net Core 2.2 runtime. Call to this API will throw &quot;PlatformNotSupportedException&quot;..
         /// </summary>
         public static string CoreCompat1002Title {
             get {

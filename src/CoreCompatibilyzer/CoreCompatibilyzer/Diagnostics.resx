@@ -118,16 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CoreCompat1001Title" xml:space="preserve">
-    <value>"{0}" is missing in .Net Core 2.1 runtime</value>
+    <value>"{0}" is missing in .Net Core 2.2 runtime</value>
   </data>
   <data name="CoreCompat1001Description" xml:space="preserve">
-    <value>The underlined API is not portable to .Net Core 2.1 runtime because it is not present there. You need to change your code to eliminate its usage.</value>
+    <value>The underlined API is not portable to .Net Core 2.2 runtime because it is not present there. You need to change your code to eliminate its usage.</value>
   </data>
   <data name="CoreCompat1002Title" xml:space="preserve">
-    <value>"{0}" is obsolete in .Net Core 2.1 runtime. Call to this API will throw "PlatformNotSupportedException".</value>
+    <value>"{0}" is obsolete in .Net Core 2.2 runtime. Call to this API will throw "PlatformNotSupportedException".</value>
   </data>
   <data name="CoreCompat1002Description" xml:space="preserve">
-    <value>The underlined API is not portable to .Net Core 2.1 runtime because it is obsolete. Call to this API will throw PlatformNotSupportedException. You need to change your code to eliminate its usage.</value>
+    <value>The underlined API is not portable to .Net Core 2.2 runtime because it is obsolete. Call to this API will throw PlatformNotSupportedException. You need to change your code to eliminate its usage.</value>
   </data>
   <data name="SuppressDiagnosticWithCommentCodeActionTitle" xml:space="preserve">
     <value>Suppress the {0} diagnostic with a CoreCompatibilyzer suppression comment</value>
