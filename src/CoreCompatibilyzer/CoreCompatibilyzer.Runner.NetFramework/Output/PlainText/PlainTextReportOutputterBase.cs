@@ -72,8 +72,6 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 					cancellation.ThrowIfCancellationRequested();
 					WriteLine(line, linesDepth);
 				}
-
-				WriteLine();
 			}
 
 			cancellation.ThrowIfCancellationRequested();
@@ -98,7 +96,7 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 				}
 			}
 
-			if (hasTitle || hasLines || hasSubGroups)
+			if (!hasSubGroups && (hasLines || hasTitle))
 				WriteLine();
 		}
 
