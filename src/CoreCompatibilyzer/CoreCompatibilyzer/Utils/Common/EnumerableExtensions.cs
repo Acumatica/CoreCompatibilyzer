@@ -502,5 +502,12 @@ namespace CoreCompatibilyzer.Utils.Common
 
 			return false;
 		}
+
+		[DebuggerStepThrough]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static IReadOnlyCollection<T>? NullIfEmpty<T>(this IReadOnlyCollection<T>? source) =>
+			source?.Count > 0
+				? source
+				: null;
 	}
 }
