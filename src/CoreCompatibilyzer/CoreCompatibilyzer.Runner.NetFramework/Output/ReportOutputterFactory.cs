@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.IO;
 
 using CoreCompatibilyzer.Runner.Input;
+using CoreCompatibilyzer.Runner.Output.Json;
 using CoreCompatibilyzer.Runner.Output.PlainText;
 using CoreCompatibilyzer.Utils.Common;
 
@@ -29,7 +28,7 @@ namespace CoreCompatibilyzer.Runner.Output
 			}
 			else if (analysisContext.OutputFormat == OutputFormat.Json)
 			{
-				throw new NotImplementedException();
+				return new JsonReportOutputter();
 			}
 			else
 				throw new NotSupportedException();
