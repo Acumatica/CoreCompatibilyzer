@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Text.Json.Serialization;
 
+using CoreCompatibilyzer.Runner.Output.Json;
 using CoreCompatibilyzer.Utils.Common;
 
 namespace CoreCompatibilyzer.Runner.Output.Data
 {
+	[JsonConverter(typeof(LineConverter))]
 	internal readonly struct Line : IEquatable<Line>, IComparable<Line>
 	{
 		public ImmutableArray<LineSpan> Spans { get; }
