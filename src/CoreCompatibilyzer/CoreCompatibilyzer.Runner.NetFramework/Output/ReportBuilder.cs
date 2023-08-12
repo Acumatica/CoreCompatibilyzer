@@ -50,11 +50,11 @@ namespace CoreCompatibilyzer.Runner.Output
 			{
 				TotalErrorCount = recognizedErrorsCount,
 				ChildrenTitle 	= new Title("Found APIs", TitleKind.AllApis),
-				ChildrenGroups 	= bannedApisGroups,
+				ChildrenGroups 	= bannedApisGroups.NullIfEmpty(),
 				LinesTitle		= sortedUnrecognizedDiagnostics.Count > 0
 									? new Title("Unrecognized diagnostics", TitleKind.NotSpecified)
 									: null,
-				Lines			= sortedUnrecognizedDiagnostics,
+				Lines			= sortedUnrecognizedDiagnostics.NullIfEmpty(),
 			};
 
 			return mainApiGroup;
@@ -149,7 +149,7 @@ namespace CoreCompatibilyzer.Runner.Output
 				{
 					GroupTitle 		= new Title(@namespace, TitleKind.Namespace),
 					TotalErrorCount = flatApiLines.Count,
-					Lines			= flatApiLines
+					Lines			= flatApiLines.NullIfEmpty()
 				};
 
 				return flatNamespaceGroup;
@@ -198,11 +198,11 @@ namespace CoreCompatibilyzer.Runner.Output
 				ChildrenTitle	= !namespaceGroups.IsNullOrEmpty() 
 									? new Title( "Members", TitleKind.Members) 
 									: null,
-				ChildrenGroups  = namespaceGroups,
+				ChildrenGroups  = namespaceGroups.NullIfEmpty(),
 				LinesTitle		= !namespaceUsages.IsNullOrEmpty() 
 									? new Title("Usages", TitleKind.Usages) 
 									: null,
-				Lines			= namespaceUsages
+				Lines			= namespaceUsages.NullIfEmpty()
 			};
 
 			return namespaceGroup;
@@ -282,12 +282,12 @@ namespace CoreCompatibilyzer.Runner.Output
 				ChildrenTitle 	= !typeGroups.IsNullOrEmpty()
 									? new Title("Members", TitleKind.Members)
 									: null,
-				ChildrenGroups 	= typeGroups,
+				ChildrenGroups 	= typeGroups.NullIfEmpty(),
 
 				LinesTitle 		= !typeUsages.IsNullOrEmpty()
 									? new Title("Usages", TitleKind.Usages)
 									: null,
-				Lines 			= typeUsages
+				Lines 			= typeUsages.NullIfEmpty()
 			};
 
 			return typeGroup;
@@ -306,7 +306,7 @@ namespace CoreCompatibilyzer.Runner.Output
 			{
 				GroupTitle 		= new Title("Namespaces", TitleKind.Namespace),
 				TotalErrorCount = diagnostics.Count,
-				ChildrenGroups 	= namespacesGroups
+				ChildrenGroups 	= namespacesGroups.NullIfEmpty()
 			};
 			
 			return namespacesSectionGroup;
@@ -323,7 +323,7 @@ namespace CoreCompatibilyzer.Runner.Output
 				var usedApisGroup = new ReportGroup
 				{
 					TotalErrorCount = lines.Count,
-					Lines 			= lines 
+					Lines 			= lines.NullIfEmpty() 
 				};
 
 				return new[] { usedApisGroup };
@@ -336,7 +336,7 @@ namespace CoreCompatibilyzer.Runner.Output
 				var flatApiUsageGroup = new ReportGroup
 				{
 					TotalErrorCount = flatApiUsageLines.Count,
-					Lines 			= flatApiUsageLines
+					Lines 			= flatApiUsageLines.NullIfEmpty()
 				};
 
 				return new[] { flatApiUsageGroup }; 
@@ -359,7 +359,7 @@ namespace CoreCompatibilyzer.Runner.Output
 					GroupTitle 		= new Title(apiName, TitleKind.Api),
 					TotalErrorCount = usagesLines.Count,
 					LinesTitle 		= new Title("Usages", TitleKind.Usages),
-					Lines 			= usagesLines
+					Lines 			= usagesLines.NullIfEmpty()
 				};
 
 				yield return apiGroup;
