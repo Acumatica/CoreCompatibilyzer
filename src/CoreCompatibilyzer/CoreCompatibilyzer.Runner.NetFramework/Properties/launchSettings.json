@@ -70,6 +70,11 @@
       "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information --withUsages -g \"nta\""
     },
 
+    "grouping types + namespaces + apis + details + JSON": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information --withUsages -g \"nta\" --format json"
+    },
+
     "grouping types + namespaces + details + to file": {
       "commandName": "Project",
       "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information --withUsages -g \"nt\" -f \"report.txt\""
@@ -97,6 +102,11 @@
     "PX.Data grouping namespaces + details": {
       "commandName": "Project",
       "commandLineArgs": "\"C:\\Repos\\Acumatica2\\NetTools\\PX.Data\\PX.Data.csproj\" --withUsages --showMembersOfUsedType -v Information -g \"n\""
+    },
+
+    "PX.Data grouping types + namespaces + JSON": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Repos\\Acumatica2\\NetTools\\PX.Data\\PX.Data.csproj\" --withUsages -v Information -g \"tn\" --format json"
     }
   }
 }
