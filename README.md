@@ -1,8 +1,6 @@
 # CoreCompatibilyzer
 
-CoreCompatibilyzer is a static code analyzer that checks .Net code for compatibility with .Net Core 2.2 runtime
-
-Welcome to CoreCompatibilyzer, the static .Net code analyzer that checks .Net Framework code for compatibility with .Net Core 2.2. There are two options to run the analysis - either install CoreCompatibilyzer VSIX extension or use the console runner.
+Welcome to CoreCompatibilyzer, a static .Net code analyzer that checks .Net Framework code for compatibility with .Net Core 2.2. There are two options to run the analysis - either install CoreCompatibilyzer VSIX extension or use the console runner.
 
 ## CoreCompatibilyzer console runner
 
