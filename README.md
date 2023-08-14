@@ -28,4 +28,3 @@ Below is the list of command line arguments:
 |                                      | - `json` to output the report in JSON format.  |
 | &#8209;&#8209;help                   | Display this help screen. |
 | &#8209;&#8209;version                | Display version information. |
-| &#8209;&#8209;version                | Display version information. |
