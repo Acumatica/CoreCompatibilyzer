@@ -31,7 +31,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 		private readonly IOutputterFactory _outputterFactory;
 		private readonly IReportBuilder	_reportBuilder;
 
-		private ImmutableArray<DiagnosticAnalyzer> _diagnosticAnalyzers;
+		private readonly ImmutableArray<DiagnosticAnalyzer> _diagnosticAnalyzers;
 		private readonly IApiStorage _bannedApiStorage;
 		private readonly IApiStorage _whiteListStorage;
 
