@@ -21,14 +21,15 @@ namespace CoreCompatibilyzer.Runner.Output
 
 			if (analysisContext.OutputFormat == OutputFormat.PlainText)
 			{
-				if (analysisContext.OutputFileName.IsNullOrWhiteSpace())
-					return new PlainTextReportOutputterConsole();
-				else
-					return new PlainTextReportOutputterFile();
+				return analysisContext.OutputFileName.IsNullOrWhiteSpace()
+					? new PlainTextReportOutputterConsole()
+					: new PlainTextReportOutputterFile(analysisContext.OutputFileName);
 			}
 			else if (analysisContext.OutputFormat == OutputFormat.Json)
 			{
-				return new JsonReportOutputter();
+				return analysisContext.OutputFileName.IsNullOrWhiteSpace()
+					? new JsonReportOutputterToConsole()
+					: new JsonReportOutputterToFile(analysisContext.OutputFileName);
 			}
 			else
 				throw new NotSupportedException();

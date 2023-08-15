@@ -78,25 +78,26 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			RunResult solutionValidationResult = RunResult.Success;
 			var projectsToValidate = analysisContext.CodeSource.GetProjectsForValidation(solution)
 															   .OrderBy(p => p.Name);
-			var reportOutputter	   = _outputterFactory.CreateOutputter(analysisContext);
-
-			foreach (Project project in projectsToValidate)
+			using (var reportOutputter = _outputterFactory.CreateOutputter(analysisContext))
 			{
-				Log.Information("Started validation of the project \"{ProjectName}\".", project.Name);
-
-				if (cancellationToken.IsCancellationRequested)
+				foreach (Project project in projectsToValidate)
 				{
-					Log.Information("Finished validation of the project \"{ProjectName}\". Project valudation result: {Result}.", 
-									project.Name, RunResult.Cancelled);
-					solutionValidationResult = solutionValidationResult.Combine(RunResult.Cancelled);
-					return solutionValidationResult;
+					Log.Information("Started validation of the project \"{ProjectName}\".", project.Name);
+
+					if (cancellationToken.IsCancellationRequested)
+					{
+						Log.Information("Finished validation of the project \"{ProjectName}\". Project valudation result: {Result}.",
+										project.Name, RunResult.Cancelled);
+						solutionValidationResult = solutionValidationResult.Combine(RunResult.Cancelled);
+						return solutionValidationResult;
+					}
+
+					var projectValidationResult = await AnalyseProject(project, analysisContext, reportOutputter, cancellationToken).ConfigureAwait(false);
+					solutionValidationResult = solutionValidationResult.Combine(projectValidationResult);
+
+					Log.Information("Finished validation of the project \"{ProjectName}\". Project valudation result: {Result}.",
+									project.Name, projectValidationResult);
 				}
-
-				var projectValidationResult = await AnalyseProject(project, analysisContext, reportOutputter, cancellationToken).ConfigureAwait(false);
-				solutionValidationResult = solutionValidationResult.Combine(projectValidationResult);
-
-				Log.Information("Finished validation of the project \"{ProjectName}\". Project valudation result: {Result}.", 
-								project.Name, projectValidationResult);
 			}
 
 			return solutionValidationResult;

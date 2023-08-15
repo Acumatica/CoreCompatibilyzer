@@ -17,23 +17,33 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 	/// </summary>
 	internal class PlainTextReportOutputterFile : PlainTextReportOutputterBase
 	{
-		private StreamWriter? _streamWriter;
+		private readonly StreamWriter _streamWriter;
+		private bool _disposed;
 
-		public override void OutputReport(Report report, AppAnalysisContext analysisContext, CancellationToken cancellation)
+		public PlainTextReportOutputterFile(string outputFileName)
 		{
-			if (analysisContext.OutputFileName.IsNullOrWhiteSpace())
+			outputFileName.ThrowIfNullOrWhiteSpace(nameof(outputFileName));
+
+			_streamWriter = GetStreamWriter(outputFileName);
+		}
+
+		public sealed override void Dispose()
+		{
+			if (!_disposed)
+			{
+				_disposed = true;
+				_streamWriter.Dispose();
+			}
+		}
+
+		public sealed override void OutputReport(Report report, AppAnalysisContext analysisContext, CancellationToken cancellation)
+		{
+			if (_disposed)
+				throw new ObjectDisposedException(objectName: GetType().FullName);
+			else if (analysisContext.OutputFileName.IsNullOrWhiteSpace())
 				return;
 
-			try
-			{
-				_streamWriter = GetStreamWriter(analysisContext.OutputFileName);
-				base.OutputReport(report, analysisContext, cancellation);
-			}
-			finally
-			{
-				_streamWriter?.Dispose();
-				_streamWriter = null;
-			}
+			base.OutputReport(report, analysisContext, cancellation);
 		}
 
 		protected override void WriteTitle(in Title? title, int depth, int itemsCount)

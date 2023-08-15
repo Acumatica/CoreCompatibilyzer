@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Immutable;
 using System.Threading;
 
 using CoreCompatibilyzer.Runner.Input;
@@ -10,7 +9,7 @@ namespace CoreCompatibilyzer.Runner.Output
 	/// <summary>
 	/// Interface for the report outputter.
 	/// </summary>
-	internal interface IReportOutputter
+	internal interface IReportOutputter : IDisposable
 	{
 		/// <summary>
 		/// Outputs report.

@@ -11,6 +11,8 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 	/// </summary>
 	internal class PlainTextReportOutputterConsole : PlainTextReportOutputterBase
 	{
+		public override void Dispose() { }
+
 		protected override void WriteTitle(in Title? title, int depth, int itemsCount)
 		{
 			if (title == null)
