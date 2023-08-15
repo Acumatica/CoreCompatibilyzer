@@ -62,7 +62,7 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 			if (line.Spans.Length == 2)
 			{
 				var (fullApiName, location) = (line.Spans[0].ToString(), line.Spans[1].ToString());
-				Console.WriteLine($"{padding}{fullApiName}: {location}");
+				WriteLine($"{padding}{fullApiName}: {location}");
 			}
 			else
 				WriteLine(padding + line.ToString());
