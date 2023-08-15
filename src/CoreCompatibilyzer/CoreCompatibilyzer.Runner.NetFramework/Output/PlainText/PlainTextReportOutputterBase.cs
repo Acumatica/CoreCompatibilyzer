@@ -23,13 +23,15 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 			if (report.TotalErrorCount == 0)
 				return;
 			
-			WriteLine($"Total errors count: {report.TotalErrorCount}");
+			WriteLine($"{report.ProjectName} - Total Errors Count: {report.TotalErrorCount}");
 			cancellation.ThrowIfCancellationRequested();
 
 			if (report.ReportDetails != null)
 			{
 				OutputApiGroup(report.ReportDetails, depth: 0, cancellation, recursionDepth: 0);
 			}
+
+			WriteLine();
 		}
 
 		protected virtual void OutputApiGroup(ReportGroup reportGroup, int depth, CancellationToken cancellation, int recursionDepth)

@@ -126,22 +126,10 @@ namespace CoreCompatibilyzer.Runner.Analysis
 
 			if (!IsBannedStorageInitAndNonEmpty)
 				return RunResult.Success;
-
-			string? projectDirectory = GetProjectDirectory(project);
-			var analysisValidationResult = await RunAnalyzersOnProjectAsync(compilation, analysisContext, reportOutputter, 
-																			projectDirectory, cancellationToken)
+			
+			var analysisValidationResult = await RunAnalyzersOnProjectAsync(compilation, analysisContext, reportOutputter, project, cancellationToken)
 													.ConfigureAwait(false);
 			return analysisValidationResult;
-		}
-
-		private string? GetProjectDirectory(Project project)
-		{
-			if (project.FilePath.IsNullOrWhiteSpace())
-				return null;
-
-			string projectFile = Path.GetFullPath(project.FilePath.Trim());
-			string projectDirectory = Path.GetDirectoryName(projectFile);
-			return projectDirectory;
 		}
 
 		private RunResult? ValidateProjectVersion(Project project, DotNetRuntime? projectVersion, DotNetRuntime targetVersion)
@@ -166,7 +154,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 		}
 
 		private async Task<RunResult> RunAnalyzersOnProjectAsync(Compilation compilation, AppAnalysisContext analysisContext, IReportOutputter reportOutputter,
-																 string? projectDirectory, CancellationToken cancellation)
+																 Project project, CancellationToken cancellation)
 		{
 			if (_diagnosticAnalyzers.IsDefaultOrEmpty)
 				return RunResult.Success;
@@ -183,7 +171,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			if (diagnosticResults.IsDefaultOrEmpty)
 				return RunResult.Success;
 
-			Report report = _reportBuilder.BuildReport(diagnosticResults, analysisContext, projectDirectory, cancellation);
+			Report report = _reportBuilder.BuildReport(diagnosticResults, analysisContext, project, cancellation);
 			reportOutputter.OutputReport(report, analysisContext, cancellation);
 
 			return RunResult.RequirementsNotMet;

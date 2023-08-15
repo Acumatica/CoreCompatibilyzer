@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.IO;
 using System.Linq;
 using System.Threading;
 
@@ -18,9 +19,9 @@ namespace CoreCompatibilyzer.Runner.Output
 	/// </summary>
 	internal class ReportBuilder : IReportBuilder
 	{
-		public Report BuildReport(ImmutableArray<Diagnostic> diagnostics, AppAnalysisContext analysisContext, string? projectDirectory, 
-								  CancellationToken cancellation)
+		public Report BuildReport(ImmutableArray<Diagnostic> diagnostics, AppAnalysisContext analysisContext, Project project, CancellationToken cancellation)
 		{
+			project.ThrowIfNull(nameof(project));
 			cancellation.ThrowIfCancellationRequested();
 
 			var diagnosticsWithApis = diagnostics.IsDefaultOrEmpty
@@ -28,15 +29,25 @@ namespace CoreCompatibilyzer.Runner.Output
 				: new DiagnosticsWithBannedApis(diagnostics);
 
 			cancellation.ThrowIfCancellationRequested();
-
+			string? projectDirectory = GetProjectDirectory(project);
 			var mainReportGroup = GetMainReportGroupFromAllDiagnostics(diagnosticsWithApis, analysisContext, projectDirectory, cancellation);
-			var report = new Report
+			var report = new Report(project.Name)
 			{
 				TotalErrorCount = diagnosticsWithApis.TotalDiagnosticsCount,
 				ReportDetails   = mainReportGroup,
 			};
 
 			return report;
+		}
+
+		private string? GetProjectDirectory(Project project)
+		{
+			if (project.FilePath.IsNullOrWhiteSpace())
+				return null;
+
+			string projectFile = Path.GetFullPath(project.FilePath.Trim());
+			string projectDirectory = Path.GetDirectoryName(projectFile);
+			return projectDirectory;
 		}
 
 		protected virtual ReportGroup GetMainReportGroupFromAllDiagnostics(DiagnosticsWithBannedApis diagnosticsWithApis, AppAnalysisContext analysisContext,
