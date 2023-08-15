@@ -32,7 +32,8 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 			{
 				OutputApiGroup(report.ReportDetails, depth: 0, cancellation, recursionDepth: 0);
 			}
-			else
+			
+			if (report.IsEmptyReport())
 				WriteLine();
 		}
 

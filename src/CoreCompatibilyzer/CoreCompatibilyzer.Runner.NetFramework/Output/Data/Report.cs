@@ -19,5 +19,10 @@ namespace CoreCompatibilyzer.Runner.Output.Data
         {
             ProjectName = projectName.ThrowIfNullOrWhiteSpace(nameof(projectName));
         }
+
+		public bool IsEmptyReport() => ReportDetails == null ||
+			(ReportDetails.GroupTitle == null &&
+			 ReportDetails.Lines?.Count is null or 0 && ReportDetails.LinesTitle == null &&
+			 ReportDetails.ChildrenGroups?.Count is null or 0 && ReportDetails.ChildrenTitle == null);
     }
 }
