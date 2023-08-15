@@ -107,6 +107,11 @@
     "PX.Data grouping types + namespaces + JSON": {
       "commandName": "Project",
       "commandLineArgs": "\"C:\\Repos\\Acumatica2\\NetTools\\PX.Data\\PX.Data.csproj\" --withUsages -v Information -g \"tn\" --format json"
+    },
+
+    "NetTools statistics collection": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Repos\\Acumatica2\\NetTools\\NetTools.sln\" --withUsages --showMembersOfUsedType -v Information -g \"n\" -f \"C:\\CompatibilityReports\\2023r193.txt\""
     }
   }
 }
