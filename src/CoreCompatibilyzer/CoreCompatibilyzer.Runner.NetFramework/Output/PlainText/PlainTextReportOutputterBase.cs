@@ -32,8 +32,8 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 			{
 				OutputApiGroup(report.ReportDetails, depth: 0, cancellation, recursionDepth: 0);
 			}
-
-			WriteLine();
+			else
+				WriteLine();
 		}
 
 		protected virtual void OutputApiGroup(ReportGroup reportGroup, int depth, CancellationToken cancellation, int recursionDepth)
