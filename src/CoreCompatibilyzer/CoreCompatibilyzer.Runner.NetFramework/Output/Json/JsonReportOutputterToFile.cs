@@ -20,11 +20,12 @@ namespace CoreCompatibilyzer.Runner.Output.Json
 		private readonly StreamWriter _streamWriter;
 		private bool _disposed;
 
-        public JsonReportOutputterToFile(string outputFileName)
-        {
-			outputFileName.ThrowIfNullOrWhiteSpace(nameof(outputFileName));
+		public JsonReportOutputterToFile(string outputFile)
+		{
+			outputFile.ThrowIfNullOrWhiteSpace(nameof(outputFile));
 
-			_streamWriter = GetStreamWriter(outputFileName);
+			DeleteExistingFile(outputFile);
+			_streamWriter = GetStreamWriter(outputFile);
 		}
 
 		public override void Dispose()
@@ -44,19 +45,33 @@ namespace CoreCompatibilyzer.Runner.Output.Json
 			base.OutputReport(report, analysisContext, cancellation);
 		}
 
-		protected override void OutputReportText(string serializedReport) => 
+		protected override void OutputReportText(string serializedReport) =>
 			_streamWriter.WriteLine(serializedReport);
 
-		private StreamWriter GetStreamWriter(string outputFileName)
+		private void DeleteExistingFile(string outputFile)
 		{
 			try
 			{
-				FileStream outputFileStream = File.OpenWrite(outputFileName);
+				if (File.Exists(outputFile))
+					File.Delete(outputFile);
+			}
+			catch (Exception e)
+			{
+				Log.Error(e, "Failed to delete the existing output file {OutputFile}", outputFile);
+				throw;
+			}
+		}
+
+		private StreamWriter GetStreamWriter(string outputFile)
+		{
+			try
+			{
+				FileStream outputFileStream = File.OpenWrite(outputFile);
 				return new StreamWriter(outputFileStream);
 			}
 			catch (Exception e)
 			{
-				Log.Error(e, "Failed to open the output file {OutputFileName}", outputFileName);
+				Log.Error(e, "Failed to open the output file {OutputFile}", outputFile);
 				throw;
 			}
 		}

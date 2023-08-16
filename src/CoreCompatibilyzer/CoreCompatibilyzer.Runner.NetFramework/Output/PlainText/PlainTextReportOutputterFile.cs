@@ -20,11 +20,12 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 		private readonly StreamWriter _streamWriter;
 		private bool _disposed;
 
-		public PlainTextReportOutputterFile(string outputFileName)
+		public PlainTextReportOutputterFile(string outputFile)
 		{
-			outputFileName.ThrowIfNullOrWhiteSpace(nameof(outputFileName));
+			outputFile.ThrowIfNullOrWhiteSpace(nameof(outputFile));
 
-			_streamWriter = GetStreamWriter(outputFileName);
+			DeleteExistingFile(outputFile);
+			_streamWriter = GetStreamWriter(outputFile);
 		}
 
 		public sealed override void Dispose()
@@ -88,16 +89,30 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 				_streamWriter?.WriteLine(text);
 		}
 
-		private StreamWriter GetStreamWriter(string outputFileName)
+		private void DeleteExistingFile(string outputFile)
 		{
 			try
 			{
-				FileStream outputFileStream = File.OpenWrite(outputFileName);
+				if (File.Exists(outputFile))
+					File.Delete(outputFile);
+			}
+			catch (Exception e)
+			{
+				Log.Error(e, "Failed to delete the existing output file {OutputFile}", outputFile);
+				throw;
+			}
+		}
+
+		private StreamWriter GetStreamWriter(string outputFile)
+		{
+			try
+			{
+				FileStream outputFileStream = File.OpenWrite(outputFile);
 				return new StreamWriter(outputFileStream);
 			}
 			catch (Exception e)
 			{
-				Log.Error(e, "Failed to open the output file {OutputFileName}", outputFileName);
+				Log.Error(e, "Failed to open the output file {OutputFile}", outputFile);
 				throw;
 			}
 		}
