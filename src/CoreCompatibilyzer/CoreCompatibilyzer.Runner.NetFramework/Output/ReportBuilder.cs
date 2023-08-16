@@ -95,8 +95,8 @@ namespace CoreCompatibilyzer.Runner.Output
 			{
 				var sortedFlatDiagnostics = diagnosticsWithApis.OrderBy(d => d.BannedApi.FullName);
 				var flattenedApiGroups = 
-					GetGroupsAfterNamespaceAndTypeGroupingProcessed(analysisContext, depth: 1, sortedFlatDiagnostics, 
-																		diagnosticsWithApis.UsedBannedTypes, projectDirectory);
+					GetGroupsAfterNamespaceAndTypeGroupingProcessed(analysisContext, sortedFlatDiagnostics, 
+																	diagnosticsWithApis.UsedNamespaces, diagnosticsWithApis.UsedBannedTypes, projectDirectory);
 				return flattenedApiGroups;
 			}
 		}
@@ -110,7 +110,7 @@ namespace CoreCompatibilyzer.Runner.Output
 			foreach (var namespaceDiagnostics in groupedByNamespaces)
 			{
 				cancellation.ThrowIfCancellationRequested();
-				var namespaceGroup = GetApiGroupForNamespaceDiagnostics(namespaceDiagnostics.Key, analysisContext, depth: 0, namespaceDiagnostics.ToList(),
+				var namespaceGroup = GetApiGroupForNamespaceDiagnostics(namespaceDiagnostics.Key, analysisContext, namespaceDiagnostics.ToList(),
 																		diagnosticsWithApis.UsedBannedTypes, diagnosticsWithApis.UsedNamespaces, 
 																		projectDirectory, cancellation);
 				if (namespaceGroup != null)
@@ -126,7 +126,7 @@ namespace CoreCompatibilyzer.Runner.Output
 			var otherApis 			   = namespacesAndOtherApis[false];
 
 			ReportGroup? namespacesSection = GettNamespaceDiagnosticsGroupForTypesOnlyGrouping(analysisContext, namespacesApis.ToList(), 
-																								diagnosticsWithApis.UsedBannedTypes, projectDirectory);
+														diagnosticsWithApis.UsedNamespaces, diagnosticsWithApis.UsedBannedTypes, projectDirectory);
 			if (namespacesSection != null)
 				yield return namespacesSection;
 
@@ -137,14 +137,14 @@ namespace CoreCompatibilyzer.Runner.Output
 			foreach (var typeDiagnostics in groupedByTypes)
 			{
 				cancellation.ThrowIfCancellationRequested();
-				ReportGroup? typeGroup = GetTypeDiagnosticGroup(typeDiagnostics.Key, analysisContext, depth: 0, typeDiagnostics.ToList(), 
-															    diagnosticsWithApis.UsedBannedTypes, projectDirectory);
+				ReportGroup? typeGroup = GetTypeDiagnosticGroup(typeDiagnostics.Key, analysisContext, typeDiagnostics.ToList(), 
+																diagnosticsWithApis.UsedNamespaces, diagnosticsWithApis.UsedBannedTypes, projectDirectory);
 				if (typeGroup != null)
 					yield return typeGroup;
 			}
 		}
 
-		private ReportGroup? GetApiGroupForNamespaceDiagnostics(string @namespace, AppAnalysisContext analysisContext, int depth,
+		private ReportGroup? GetApiGroupForNamespaceDiagnostics(string @namespace, AppAnalysisContext analysisContext,
 															    List<(Diagnostic Diagnostic, Api BannedApi)> diagnostics, HashSet<string> usedBannedTypes, 
 															    HashSet<string> usedNamespaces, string? projectDirectory, CancellationToken cancellation)
 		{
@@ -167,39 +167,56 @@ namespace CoreCompatibilyzer.Runner.Output
 			}
 
 			IReadOnlyCollection<Line>? namespaceUsages = null;
+			bool isUsed = usedNamespaces.Contains(@namespace);
+			var namespaceDiagnostics = diagnostics.Where(d => d.BannedApi.Kind == ApiKind.Namespace).ToList();
 
-			if (usedNamespaces.Contains(@namespace) && analysisContext.ReportMode == ReportMode.UsedAPIsWithUsages)
+			if (isUsed && analysisContext.ReportMode == ReportMode.UsedAPIsWithUsages)
 			{
-				var namespaceDiagnostics = diagnostics.Where(d => d.BannedApi.Kind == ApiKind.Namespace);
-
 				if (groupByApis)
 				{
 					var sortedNamespaceUsages = namespaceDiagnostics.OrderBy(d => d.Diagnostic.Location.SourceTree?.FilePath ?? string.Empty)
 																	.Select(d => d.Diagnostic);
-					namespaceUsages = GetApiUsagesLines(sortedNamespaceUsages, projectDirectory, analysisContext).ToList();
+					namespaceUsages = GetApiUsagesLines(sortedNamespaceUsages, projectDirectory, analysisContext).ToList(capacity: namespaceDiagnostics.Count);
 				}
 				else
-					namespaceUsages = GetFlatApiUsagesLines(namespaceDiagnostics, projectDirectory, analysisContext).ToList();
+					namespaceUsages = GetFlatApiUsagesLines(namespaceDiagnostics, projectDirectory, analysisContext).ToList(capacity: namespaceDiagnostics.Count);
 			}
 
 			cancellation.ThrowIfCancellationRequested();
 			var namespaceMembers = diagnostics.Where(d => d.BannedApi.Kind != ApiKind.Namespace).ToList();
 
-			if (namespaceMembers.Count == 0 && namespaceUsages?.Count is null or 0)
-				return null;
+			if (namespaceMembers.Count == 0)
+			{
+				if (namespaceDiagnostics.Count == 0)
+					return null;
+
+				if (analysisContext.ReportMode == ReportMode.UsedAPIsOnly)
+				{
+					if (!isUsed)
+						return null;
+
+					var namespaceOnlyGroup = new ReportGroup
+					{
+						GroupTitle = new Title(@namespace, TitleKind.Namespace),
+						TotalErrorCount = namespaceDiagnostics.Count,
+					};
+
+					return namespaceOnlyGroup;
+				}
+			}
 			
 			IReadOnlyCollection<ReportGroup>? namespaceGroups = null;
 
 			if (groupByTypes)
 			{
-				namespaceGroups = GetTypeGroupsForNamespaceMembers(namespaceMembers, analysisContext, depth, usedBannedTypes, 
+				namespaceGroups = GetTypeGroupsForNamespaceMembers(namespaceMembers, analysisContext, usedNamespaces, usedBannedTypes, 
 																   projectDirectory, cancellation)
 																  .ToList();
 			}
 			else
 			{
-				namespaceGroups = GetGroupsAfterNamespaceAndTypeGroupingProcessed(analysisContext, depth + 1, namespaceMembers, 
-																				  usedBannedTypes, projectDirectory);
+				namespaceGroups = GetGroupsAfterNamespaceAndTypeGroupingProcessed(analysisContext, namespaceMembers,
+																				  usedNamespaces, usedBannedTypes, projectDirectory);
 			}
 
 			var namespaceGroup = new ReportGroup
@@ -219,8 +236,8 @@ namespace CoreCompatibilyzer.Runner.Output
 			return namespaceGroup;
 		}
 
-		private IEnumerable<ReportGroup> GetTypeGroupsForNamespaceMembers(List<(Diagnostic Diagnostic, Api BannedApi)> namespaceMembers, 
-																		  AppAnalysisContext analysisContext, int depth, HashSet<string> usedBannedTypes, 
+		private IEnumerable<ReportGroup> GetTypeGroupsForNamespaceMembers(List<(Diagnostic Diagnostic, Api BannedApi)> namespaceMembers, AppAnalysisContext analysisContext,
+																		  HashSet<string> usedNamespaces, HashSet<string> usedBannedTypes, 
 																		  string? projectDirectory,  CancellationToken cancellation)
 		{
 			var groupedByTypes = namespaceMembers.GroupBy(d => d.BannedApi.FullTypeName)
@@ -231,16 +248,15 @@ namespace CoreCompatibilyzer.Runner.Output
 				cancellation.ThrowIfCancellationRequested();
 
 				string typeName = typeDiagnostics.Key;
-				var typeGroup = GetTypeDiagnosticGroup(typeName, analysisContext, depth + 1, typeDiagnostics.ToList(),
-													   usedBannedTypes, projectDirectory);
+				var typeGroup = GetTypeDiagnosticGroup(typeName, analysisContext, typeDiagnostics.ToList(),
+													   usedNamespaces, usedBannedTypes, projectDirectory);
 				if (typeGroup != null)
 					yield return typeGroup;
 			}
 		}
 
-		private ReportGroup? GetTypeDiagnosticGroup(string typeName, AppAnalysisContext analysisContext, int depth,
-													List<(Diagnostic Diagnostic, Api BannedApi)> diagnostics,
-													HashSet<string> usedBannedTypes, string? projectDirectory)
+		private ReportGroup? GetTypeDiagnosticGroup(string typeName, AppAnalysisContext analysisContext, List<(Diagnostic Diagnostic, Api BannedApi)> diagnostics,
+													HashSet<string> usedNamespaces, HashSet<string> usedBannedTypes, string? projectDirectory)
 		{
 			if (!analysisContext.Grouping.HasGrouping(GroupingMode.Apis) && analysisContext.ReportMode == ReportMode.UsedAPIsWithUsages)
 			{
@@ -255,34 +271,56 @@ namespace CoreCompatibilyzer.Runner.Output
 				return flatTypeGroup;
 			}
 
+			bool isUsed = usedBannedTypes.Contains(typeName);
+			var typeDiagnostics = diagnostics.Where(d => d.BannedApi.Kind == ApiKind.Type).ToList();
 			IReadOnlyCollection<Line>? typeUsages = null;
 
-			if (usedBannedTypes.Contains(typeName))
+			if (isUsed)
 			{
 				if (analysisContext.ReportMode == ReportMode.UsedAPIsOnly)
 				{
-					return new ReportGroup
+					if (!analysisContext.ShowMembersOfUsedType)
 					{
-						GroupTitle 		= new Title(typeName, TitleKind.Type),
-						TotalErrorCount = diagnostics.Count
-					};
+						return new ReportGroup
+						{
+							GroupTitle = new Title(typeName, TitleKind.Type),
+							TotalErrorCount = diagnostics.Count
+						};
+					}
 				}
-
-				var sortedTypeUsages = from d in diagnostics
-									   where d.BannedApi.Kind == ApiKind.Type
-									   orderby d.Diagnostic.Location.SourceTree?.FilePath ?? string.Empty
-									   select d.Diagnostic;
-				typeUsages = GetApiUsagesLines(sortedTypeUsages.ToList(), projectDirectory, analysisContext).ToList();
+				else
+				{
+					var sortedTypeUsages = typeDiagnostics.OrderBy(d => d.Diagnostic.Location.SourceTree?.FilePath ?? string.Empty)
+														  .Select(d => d.Diagnostic);
+					typeUsages = GetApiUsagesLines(sortedTypeUsages, projectDirectory, analysisContext).ToList(capacity: typeDiagnostics.Count);
+				}
 			}
 
 			var typeMembers = diagnostics.Where(d => d.BannedApi.Kind != ApiKind.Type)
 										 .ToList(capacity: diagnostics.Count - (typeUsages?.Count ?? 0));
 
-			if (typeMembers.Count == 0 && typeUsages?.Count is null or 0)
-				return null;
+			if (typeMembers.Count == 0)
+			{
+				if (typeDiagnostics.Count == 0)
+					return null;
+
+				if (analysisContext.ReportMode == ReportMode.UsedAPIsOnly)
+				{
+					if (!isUsed)
+						return null;
+
+					var typeOnlyGroup = new ReportGroup
+					{
+						GroupTitle = new Title(typeName, TitleKind.Type),
+						TotalErrorCount = typeDiagnostics.Count,
+					};
+
+					return typeOnlyGroup;
+				}
+			}
 			
 			IReadOnlyCollection<ReportGroup>? typeGroups = typeMembers.Count > 0
-				? GetGroupsAfterNamespaceAndTypeGroupingProcessed(analysisContext, depth + 1, typeMembers, usedBannedTypes, projectDirectory)
+				? GetGroupsAfterNamespaceAndTypeGroupingProcessed(analysisContext, typeMembers, usedNamespaces, usedBannedTypes, projectDirectory)
 				: null;
 			
 			var typeGroup = new ReportGroup
@@ -304,15 +342,13 @@ namespace CoreCompatibilyzer.Runner.Output
 			return typeGroup;
 		}
 
-		private ReportGroup? GettNamespaceDiagnosticsGroupForTypesOnlyGrouping(AppAnalysisContext analysisContext,
-																			   List<(Diagnostic Diagnostic, Api BannedApi)> diagnostics,
-																			   HashSet<string> usedBannedTypes, string? projectDirectory)
+		private ReportGroup? GettNamespaceDiagnosticsGroupForTypesOnlyGrouping(AppAnalysisContext analysisContext, List<(Diagnostic Diagnostic, Api BannedApi)> diagnostics,
+																			   HashSet<string> usedNamespaces, HashSet<string> usedBannedTypes, string? projectDirectory)
 		{
 			if (diagnostics.Count == 0)
 				return null;
 
-			var namespacesGroups = GetGroupsAfterNamespaceAndTypeGroupingProcessed(analysisContext, depth: 1, diagnostics, 
-																				   usedBannedTypes, projectDirectory);
+			var namespacesGroups = GetGroupsAfterNamespaceAndTypeGroupingProcessed(analysisContext, diagnostics, usedNamespaces, usedBannedTypes, projectDirectory);
 			var namespacesSectionGroup = new ReportGroup
 			{
 				GroupTitle 		= new Title("Namespaces", TitleKind.Namespace),
@@ -323,13 +359,13 @@ namespace CoreCompatibilyzer.Runner.Output
 			return namespacesSectionGroup;
 		}
 
-		protected IReadOnlyCollection<ReportGroup> GetGroupsAfterNamespaceAndTypeGroupingProcessed(AppAnalysisContext analysisContext, int depth, 
-																							IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> unsortedDiagnostics,
-																							HashSet<string> usedBannedTypes, string? projectDirectory)
+		protected IReadOnlyCollection<ReportGroup> GetGroupsAfterNamespaceAndTypeGroupingProcessed(AppAnalysisContext analysisContext,
+																					IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> unsortedDiagnostics,
+																					HashSet<string> usedNamespaces, HashSet<string> usedBannedTypes, string? projectDirectory)
 		{
 			if (analysisContext.ReportMode == ReportMode.UsedAPIsOnly)
 			{
-				var allApis = GetAllUsedApis(analysisContext, unsortedDiagnostics, usedBannedTypes);
+				var allApis = GetAllUsedApis(analysisContext, unsortedDiagnostics, usedNamespaces, usedBannedTypes);
 				var lines = allApis.Select(line => new Line(line)).ToList(); 
 				var usedApisGroup = new ReportGroup
 				{
@@ -340,7 +376,7 @@ namespace CoreCompatibilyzer.Runner.Output
 				return new[] { usedApisGroup };
 			}
 			else if (analysisContext.Grouping.HasGrouping(GroupingMode.Apis))
-				return GetApiUsagesGroupsGroupedByApi(depth, unsortedDiagnostics, projectDirectory, analysisContext).ToList();
+				return GetApiUsagesGroupsGroupedByApi(unsortedDiagnostics, projectDirectory, analysisContext).ToList();
 			else
 			{
 				var flatApiUsageLines = GetFlatApiUsagesLines(unsortedDiagnostics, projectDirectory, analysisContext).ToList();
@@ -354,7 +390,7 @@ namespace CoreCompatibilyzer.Runner.Output
 			}
 		}
 
-		private IEnumerable<ReportGroup> GetApiUsagesGroupsGroupedByApi(int depth, IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> unsortedDiagnostics,
+		private IEnumerable<ReportGroup> GetApiUsagesGroupsGroupedByApi(IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> unsortedDiagnostics,
 																		string? projectDirectory, AppAnalysisContext analysisContext)
 		{
 			var diagnosticsGroupedByApi = unsortedDiagnostics.GroupBy(d => d.BannedApi.FullName)
@@ -388,9 +424,8 @@ namespace CoreCompatibilyzer.Runner.Output
 			return sortedApisWithLocations;
 		}
 
-		protected IEnumerable<string> GetAllUsedApis(AppAnalysisContext analysisContext, 
-													 IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> unsortedDiagnostics,
-													 HashSet<string> usedBannedTypes)
+		protected IEnumerable<string> GetAllUsedApis(AppAnalysisContext analysisContext, IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> unsortedDiagnostics,
+													 HashSet<string> usedNamespaces, HashSet<string> usedBannedTypes)
 		{
 			var sortedUsedApi = unsortedDiagnostics.Select(d => d.BannedApi)
 												   .Distinct()
@@ -400,8 +435,13 @@ namespace CoreCompatibilyzer.Runner.Output
 				switch (api.Kind)
 				{
 					case ApiKind.Namespace:
+						if (usedNamespaces.Contains(api.Namespace))
+							yield return api.FullName;
+
+						continue;
+
 					case ApiKind.Type
-					when analysisContext.ShowMembersOfUsedType || api.ContainingTypes.IsDefaultOrEmpty || !IsContainingTypeUsedBannedType(api):
+					when analysisContext.ShowMembersOfUsedType || api.ContainingTypes.IsDefaultOrEmpty || !AreContainingTypesUsed(api):
 						yield return api.FullName;
 						continue;
 
@@ -417,7 +457,7 @@ namespace CoreCompatibilyzer.Runner.Output
 			}
 
 			//------------------------------------Local Function------------------------------------------
-			bool IsContainingTypeUsedBannedType(Api api)
+			bool AreContainingTypesUsed(Api api)
 			{
 				string containingTypeName = $"{api.Namespace}";
 
