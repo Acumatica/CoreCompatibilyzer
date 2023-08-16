@@ -10,9 +10,9 @@ using Microsoft.CodeAnalysis;
 namespace CoreCompatibilyzer.Runner.Output
 {
 	/// <summary>
-	/// Interface for the report builder.
+	/// Interface for the project report builder.
 	/// </summary>
-	internal interface IReportBuilder
+	internal interface IProjectReportBuilder
 	{
 		/// <summary>
 		/// Builds the report from hte diagnostics.
@@ -21,7 +21,7 @@ namespace CoreCompatibilyzer.Runner.Output
 		/// <param name="analysisContext">The analysis context.</param>
 		/// <param name="project">The project.</param>
 		/// <param name="cancellation">Cancellation token.</param>
-		Report BuildReport(ImmutableArray<Diagnostic> diagnostics, AppAnalysisContext analysisContext, Project project,
-						   CancellationToken cancellation);
+		ProjectReport BuildReport(ImmutableArray<Diagnostic> diagnostics, AppAnalysisContext analysisContext, Project project,
+								  CancellationToken cancellation);
 	}
 }

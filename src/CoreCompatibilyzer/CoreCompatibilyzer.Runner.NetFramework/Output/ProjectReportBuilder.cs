@@ -15,11 +15,11 @@ using Microsoft.CodeAnalysis;
 namespace CoreCompatibilyzer.Runner.Output
 {
 	/// <summary>
-	/// The report builder's default implementation.
+	/// The project report builder's default implementation.
 	/// </summary>
-	internal class ReportBuilder : IReportBuilder
+	internal class ProjectReportBuilder : IProjectReportBuilder
 	{
-		public Report BuildReport(ImmutableArray<Diagnostic> diagnostics, AppAnalysisContext analysisContext, Project project, CancellationToken cancellation)
+		public ProjectReport BuildReport(ImmutableArray<Diagnostic> diagnostics, AppAnalysisContext analysisContext, Project project, CancellationToken cancellation)
 		{
 			project.ThrowIfNull(nameof(project));
 			cancellation.ThrowIfCancellationRequested();
@@ -31,7 +31,7 @@ namespace CoreCompatibilyzer.Runner.Output
 			cancellation.ThrowIfCancellationRequested();
 			string? projectDirectory = GetProjectDirectory(project);
 			var mainReportGroup = GetMainReportGroupFromAllDiagnostics(diagnosticsWithApis, analysisContext, projectDirectory, cancellation);
-			var report = new Report(project.Name)
+			var report = new ProjectReport(project.Name)
 			{
 				TotalErrorCount = diagnosticsWithApis.TotalDiagnosticsCount,
 				ReportDetails   = mainReportGroup,

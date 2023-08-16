@@ -7,7 +7,7 @@ using CoreCompatibilyzer.Utils.Common;
 
 namespace CoreCompatibilyzer.Runner.Output.Data
 {
-	internal class Report
+	internal class ProjectReport
 	{
 		public string ProjectName { get; }
 
@@ -15,7 +15,7 @@ namespace CoreCompatibilyzer.Runner.Output.Data
 
 		public required ReportGroup ReportDetails { get; init; }
 
-        public Report(string projectName)
+        public ProjectReport(string projectName)
         {
             ProjectName = projectName.ThrowIfNullOrWhiteSpace(nameof(projectName));
         }

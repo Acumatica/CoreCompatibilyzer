@@ -37,7 +37,7 @@ namespace CoreCompatibilyzer.Runner.Output.Json
 			}
 		}
 
-		public override void OutputReport(Report report, AppAnalysisContext analysisContext, CancellationToken cancellation)
+		public override void OutputReport(ProjectReport report, AppAnalysisContext analysisContext, CancellationToken cancellation)
 		{
 			if (_disposed)
 				throw new ObjectDisposedException(objectName: GetType().FullName);

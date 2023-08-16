@@ -18,7 +18,7 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 	{
 		public abstract void Dispose();
 
-		public virtual void OutputReport(Report report, AppAnalysisContext analysisContext, CancellationToken cancellation)
+		public virtual void OutputReport(ProjectReport report, AppAnalysisContext analysisContext, CancellationToken cancellation)
 		{
 			report.ThrowIfNull(nameof(report));
 

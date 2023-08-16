@@ -29,7 +29,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
     internal sealed class SolutionCompatibilityAnalyzer
 	{
 		private readonly IOutputterFactory _outputterFactory;
-		private readonly IReportBuilder	_reportBuilder;
+		private readonly IProjectReportBuilder	_reportBuilder;
 
 		private readonly ImmutableArray<DiagnosticAnalyzer> _diagnosticAnalyzers;
 		private readonly IApiStorage _bannedApiStorage;
@@ -40,12 +40,12 @@ namespace CoreCompatibilyzer.Runner.Analysis
 		private bool IsWhiteListInitAndNonEmpty => _whiteListStorage.ApiKindsCount > 0;
 
 		private SolutionCompatibilityAnalyzer(IApiStorage bannedApiStorage, IApiStorage whiteListStorage, ImmutableArray<DiagnosticAnalyzer> diagnosticAnalyzers,
-											  IReportBuilder? customReportBuilder = null, IOutputterFactory? customOutputFactory = null)
+											  IProjectReportBuilder? customReportBuilder = null, IOutputterFactory? customOutputFactory = null)
         {
             _bannedApiStorage	 = bannedApiStorage;
 			_whiteListStorage	 = whiteListStorage;
 			_diagnosticAnalyzers = diagnosticAnalyzers;
-			_reportBuilder 		 = customReportBuilder ?? new ReportBuilder();
+			_reportBuilder 		 = customReportBuilder ?? new ProjectReportBuilder();
 			_outputterFactory 	 = customOutputFactory ?? new ReportOutputterFactory();
 		}
 
@@ -172,7 +172,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			if (diagnosticResults.IsDefaultOrEmpty)
 				return RunResult.Success;
 
-			Report report = _reportBuilder.BuildReport(diagnosticResults, analysisContext, project, cancellation);
+			ProjectReport report = _reportBuilder.BuildReport(diagnosticResults, analysisContext, project, cancellation);
 			reportOutputter.OutputReport(report, analysisContext, cancellation);
 
 			return RunResult.RequirementsNotMet;

@@ -17,6 +17,6 @@ namespace CoreCompatibilyzer.Runner.Output
 		/// <param name="report">The report.</param>
 		/// <param name="analysisContext">The analysis context.</param>
 		/// <param name="cancellation">Cancellation token.</param>
-		void OutputReport(Report report, AppAnalysisContext analysisContext, CancellationToken cancellation);
+		void OutputReport(ProjectReport report, AppAnalysisContext analysisContext, CancellationToken cancellation);
 	}
 }
