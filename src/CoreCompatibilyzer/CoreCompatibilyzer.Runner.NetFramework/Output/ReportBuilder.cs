@@ -153,7 +153,7 @@ namespace CoreCompatibilyzer.Runner.Output
 			bool groupByApis  = analysisContext.Grouping.HasGrouping(GroupingMode.Apis);
 			bool groupByTypes = analysisContext.Grouping.HasGrouping(GroupingMode.Types);
 
-			if (!groupByApis && !groupByTypes)
+			if (!groupByApis && !groupByTypes && analysisContext.ReportMode == ReportMode.UsedAPIsWithUsages)
 			{
 				var flatApiLines = GetFlatApiUsagesLines(diagnostics, projectDirectory, analysisContext).ToList();
 				var flatNamespaceGroup = new ReportGroup
@@ -242,7 +242,7 @@ namespace CoreCompatibilyzer.Runner.Output
 													List<(Diagnostic Diagnostic, Api BannedApi)> diagnostics,
 													HashSet<string> usedBannedTypes, string? projectDirectory)
 		{
-			if (!analysisContext.Grouping.HasGrouping(GroupingMode.Apis))
+			if (!analysisContext.Grouping.HasGrouping(GroupingMode.Apis) && analysisContext.ReportMode == ReportMode.UsedAPIsWithUsages)
 			{
 				var flatApiLines  = GetFlatApiUsagesLines(diagnostics, projectDirectory, analysisContext).ToList();
 				var flatTypeGroup = new ReportGroup
