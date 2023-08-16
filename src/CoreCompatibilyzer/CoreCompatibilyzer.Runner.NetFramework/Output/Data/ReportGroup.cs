@@ -25,5 +25,9 @@ namespace CoreCompatibilyzer.Runner.Output.Data
 
 		[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
 		public IReadOnlyCollection<ReportGroup>? ChildrenGroups { get; init; }
+
+		[JsonIgnore]
+		public bool HasContent => 
+			LinesTitle.HasValue || Lines?.Count > 0 || ChildrenTitle.HasValue || ChildrenGroups?.Count > 0;
 	}
 }

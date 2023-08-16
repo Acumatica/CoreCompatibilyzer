@@ -13,13 +13,14 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 	{
 		public override void Dispose() { }
 
-		protected override void WriteTitle(in Title? title, int depth, int itemsCount)
+		protected override void WriteTitle(in Title? title, int depth, int itemsCount, bool hasContent)
 		{
 			if (title == null)
 				return;
 
 			string padding = GetPadding(depth);
-			string titleWithPadding = $"{padding}{title.Value.Text}(Count = {itemsCount}):";
+			string suffix = hasContent ? ":" : string.Empty;
+			string titleWithPadding = $"{padding}{title.Value.Text}(Count = {itemsCount}){suffix}";
 
 			switch (title?.Kind)
 			{
@@ -39,7 +40,7 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 					WriteAllApisTitle(titleWithPadding);
 					return;
 				case TitleKind.Usages:
-					WriteUsagesTitle($"{padding}{title.Value.Text}:");
+					WriteUsagesTitle($"{padding}{title.Value.Text}{suffix}");
 					return;
 				default:
 					WriteLine(titleWithPadding);

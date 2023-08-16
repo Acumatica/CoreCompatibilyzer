@@ -54,7 +54,7 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 			if (reportGroup.GroupTitle.HasValue)
 			{
 				hasTitle = true;
-				WriteTitle(reportGroup.GroupTitle.Value, depth, reportGroup.TotalErrorCount);
+				WriteTitle(reportGroup.GroupTitle.Value, depth, reportGroup.TotalErrorCount, reportGroup.HasContent);
 			}
 
 			cancellation.ThrowIfCancellationRequested();
@@ -66,7 +66,7 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 
 				if (reportGroup.LinesTitle.HasValue)
 				{
-					WriteTitle(reportGroup.LinesTitle.Value, depth + 1, reportGroup.Lines.Count);
+					WriteTitle(reportGroup.LinesTitle.Value, depth + 1, reportGroup.Lines.Count, reportGroup.HasContent);
 					linesDepth = depth + 2;
 				}
 				else
@@ -88,7 +88,8 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 
 				if (reportGroup.ChildrenTitle.HasValue)
 				{
-					WriteTitle(reportGroup.ChildrenTitle.Value, depth + 1, reportGroup.ChildrenGroups.Sum(group => group.TotalErrorCount));
+					int totalSubGroupErrors = reportGroup.ChildrenGroups.Sum(group => group.TotalErrorCount);
+					WriteTitle(reportGroup.ChildrenTitle.Value, depth + 1, totalSubGroupErrors, reportGroup.HasContent);
 					groupDepth = depth + 2;
 				}
 				else
@@ -105,7 +106,7 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 				WriteLine();
 		}
 
-		protected abstract void WriteTitle(in Title? title, int depth, int itemsCount);
+		protected abstract void WriteTitle(in Title? title, int depth, int itemsCount, bool hasContent);
 
 		protected void WriteLine<T>(T obj)
 		{

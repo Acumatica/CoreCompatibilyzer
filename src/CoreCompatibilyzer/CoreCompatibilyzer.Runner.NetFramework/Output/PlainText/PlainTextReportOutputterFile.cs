@@ -47,15 +47,16 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 			base.OutputReport(report, analysisContext, cancellation);
 		}
 
-		protected override void WriteTitle(in Title? title, int depth, int itemsCount)
+		protected override void WriteTitle(in Title? title, int depth, int itemsCount, bool hasContent)
 		{
 			if (title == null)
 				return;
 
 			string padding = GetPadding(depth);
+			string suffix  = hasContent ? ":" : string.Empty;
 			string titleWithPadding = title.Value.Kind == TitleKind.Usages
-				? $"{padding}{title.Value.Text}:"
-				: $"{padding}{title.Value.Text}(Count = {itemsCount}):";
+				? $"{padding}{title.Value.Text}{suffix}"
+				: $"{padding}{title.Value.Text}(Count = {itemsCount}){suffix}";
 
 			WriteLine(titleWithPadding);
 		}
