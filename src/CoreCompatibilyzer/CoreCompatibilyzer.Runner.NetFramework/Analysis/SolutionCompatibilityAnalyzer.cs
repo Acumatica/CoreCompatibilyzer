@@ -78,8 +78,11 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			RunResult solutionValidationResult = RunResult.Success;
 			var projectsToValidate = analysisContext.CodeSource.GetProjectsForValidation(solution)
 															   .OrderBy(p => p.Name);
+
 			using (var reportOutputter = _outputterFactory.CreateOutputter(analysisContext))
 			{
+				var projectReports = new List<ProjectReport>(capacity: solution.ProjectIds.Count);
+
 				foreach (Project project in projectsToValidate)
 				{
 					Log.Information("Started validation of the project \"{ProjectName}\".", project.Name);
@@ -92,19 +95,31 @@ namespace CoreCompatibilyzer.Runner.Analysis
 						return solutionValidationResult;
 					}
 
-					var projectValidationResult = await AnalyseProject(project, analysisContext, reportOutputter, cancellationToken).ConfigureAwait(false);
+					var (projectValidationResult, projectReport) = await AnalyseProject(project, analysisContext, reportOutputter, cancellationToken)
+																			.ConfigureAwait(false);
+					if (projectReport != null)
+						projectReports.Add(projectReport);
+
 					solutionValidationResult = solutionValidationResult.Combine(projectValidationResult);
 
 					Log.Information("Finished validation of the project \"{ProjectName}\". Project valudation result: {Result}.",
 									project.Name, projectValidationResult);
+				}
+
+				if (projectReports.Count == 1)
+					reportOutputter.OutputReport(projectReports[0], analysisContext, cancellationToken);
+				else if (projectReports.Count > 1)
+				{
+					var codeSourceReport = new CodeSourceReport(analysisContext.CodeSource.Location, projectReports);
+					reportOutputter.OutputReport(codeSourceReport, analysisContext, cancellationToken);
 				}
 			}
 
 			return solutionValidationResult;
 		}
 
-		private async Task<RunResult> AnalyseProject(Project project, AppAnalysisContext analysisContext, IReportOutputter reportOutputter,
-													 CancellationToken cancellationToken)
+		private async Task<(RunResult validationResult, ProjectReport? Report)> AnalyseProject(Project project, AppAnalysisContext analysisContext,
+																							   IReportOutputter reportOutputter, CancellationToken cancellationToken)
 		{
 			Log.Debug("Obtaining Roslyn compilation data for the project \"{ProjectName}\".", project.Name);
 			var compilation = await project.GetCompilationAsync(cancellationToken).ConfigureAwait(false);
@@ -113,7 +128,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			{
 				Log.Error("Failed to obtain Roslyn compilation data for the project with name \"{ProjectName}\" and path \"{ProjectPath}\".",
 						  project.Name, project.FilePath);
-				return RunResult.RunTimeError;
+				return (RunResult.RunTimeError, Report: null);
 			}
 
 			Log.Debug("Obtained Roslyn compilation data for the project \"{ProjectName}\" successfully.", project.Name);
@@ -123,14 +138,14 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			var versionValidationResult = ValidateProjectVersion(project, dotNetVersion, analysisContext.TargetRuntime);
 
 			if (versionValidationResult.HasValue)
-				return versionValidationResult.Value;
+				return (versionValidationResult.Value, Report: null);
 
 			if (!IsBannedStorageInitAndNonEmpty)
-				return RunResult.Success;
+				return (RunResult.Success, Report: null);
 			
-			var analysisValidationResult = await RunAnalyzersOnProjectAsync(compilation, analysisContext, reportOutputter, project, cancellationToken)
-													.ConfigureAwait(false);
-			return analysisValidationResult;
+			var (analysisValidationResult, projectReport) = await RunAnalyzersOnProjectAsync(compilation, analysisContext, reportOutputter, project, cancellationToken)
+																		.ConfigureAwait(false);
+			return (analysisValidationResult, projectReport);
 		}
 
 		private RunResult? ValidateProjectVersion(Project project, DotNetRuntime? projectVersion, DotNetRuntime targetVersion)
@@ -154,11 +169,12 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			return null;
 		}
 
-		private async Task<RunResult> RunAnalyzersOnProjectAsync(Compilation compilation, AppAnalysisContext analysisContext, IReportOutputter reportOutputter,
-																 Project project, CancellationToken cancellation)
+		private async Task<(RunResult validationResult, ProjectReport? Report)> RunAnalyzersOnProjectAsync(Compilation compilation, AppAnalysisContext analysisContext, 
+																										  IReportOutputter reportOutputter, Project project, 
+																										  CancellationToken cancellation)
 		{
 			if (_diagnosticAnalyzers.IsDefaultOrEmpty)
-				return RunResult.Success;
+				return (RunResult.Success, Report: null);
 
 			SuppressionManager.UseSuppression = !analysisContext.DisableSuppressionMechanism;
 			var compilationAnalysisOptions = new CompilationWithAnalyzersOptions(options: null!, OnAnalyzerException,
@@ -167,15 +183,13 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			CompilationWithAnalyzers compilationWithAnalyzers = compilation.WithAnalyzers(compilationAnalysisOptions, _diagnosticAnalyzers, cancellation);
 
 			var diagnosticResults = await compilationWithAnalyzers.GetAnalyzerDiagnosticsAsync(cancellation).ConfigureAwait(false);
-			Log.Error("Total errors count: {ErrorCount}", diagnosticResults.Length);
+			Log.Error("{Project} - Total Errors Count: {ErrorCount}", project.Name, diagnosticResults.Length);
 
 			if (diagnosticResults.IsDefaultOrEmpty)
-				return RunResult.Success;
+				return (RunResult.Success, Report: null);
 
-			ProjectReport report = _reportBuilder.BuildReport(diagnosticResults, analysisContext, project, cancellation);
-			reportOutputter.OutputReport(report, analysisContext, cancellation);
-
-			return RunResult.RequirementsNotMet;
+			ProjectReport projectReport = _reportBuilder.BuildReport(diagnosticResults, analysisContext, project, cancellation);
+			return (RunResult.RequirementsNotMet, projectReport);
 		}
 
 		[SuppressMessage("CodeQuality", "Serilog004:Constant MessageTemplate verifier", Justification = "Ok to use runtime dependent new line in message")]
