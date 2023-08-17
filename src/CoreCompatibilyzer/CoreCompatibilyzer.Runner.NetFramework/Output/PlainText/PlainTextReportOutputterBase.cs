@@ -18,23 +18,39 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 	{
 		public abstract void Dispose();
 
-		public virtual void OutputReport(ProjectReport report, AppAnalysisContext analysisContext, CancellationToken cancellation)
+		public virtual void OutputReport(CodeSourceReport codeSourceReport, AppAnalysisContext analysisContext, CancellationToken cancellation)
 		{
-			report.ThrowIfNull(nameof(report));
-
-			if (report.TotalErrorCount == 0)
-				return;
-			
-			WriteLine($"{report.ProjectName} - Total Errors Count: {report.TotalErrorCount}");
+			codeSourceReport.ThrowIfNull(nameof(codeSourceReport));
 			cancellation.ThrowIfCancellationRequested();
 
-			if (report.ReportDetails != null)
+			WriteLine($"{codeSourceReport.CodeSourceName} - Total Errors Count: {codeSourceReport.TotalErrorCount}");
+
+			if (codeSourceReport.TotalErrorCount == 0)
+				return;
+
+			foreach (ProjectReport projectReport in codeSourceReport.ProjectReports)
 			{
-				OutputApiGroup(report.ReportDetails, depth: 0, cancellation, recursionDepth: 0);
+				OutputReport(projectReport, analysisContext, cancellation);
+
+				if (projectReport.IsEmptyReport())
+					WriteLine();
 			}
+		}
+
+		public virtual void OutputReport(ProjectReport projectReport, AppAnalysisContext analysisContext, CancellationToken cancellation)
+		{
+			projectReport.ThrowIfNull(nameof(projectReport));
+			cancellation.ThrowIfCancellationRequested();
+
+			WriteLine($"{projectReport.ProjectName} - Total Errors Count: {projectReport.TotalErrorCount}");
+
+			if (projectReport.TotalErrorCount == 0)
+				return;
 			
-			if (report.IsEmptyReport())
-				WriteLine();
+			if (projectReport.ReportDetails != null)
+			{
+				OutputApiGroup(projectReport.ReportDetails, depth: 0, cancellation, recursionDepth: 0);
+			}
 		}
 
 		protected virtual void OutputApiGroup(ReportGroup reportGroup, int depth, CancellationToken cancellation, int recursionDepth)

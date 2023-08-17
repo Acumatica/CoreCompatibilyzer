@@ -17,23 +17,38 @@ namespace CoreCompatibilyzer.Runner.Output.Json
 	{
 		public abstract void Dispose();
 
-		public virtual void OutputReport(ProjectReport report, AppAnalysisContext analysisContext, CancellationToken cancellation)
+		public virtual void OutputReport(CodeSourceReport codeSourceReport, AppAnalysisContext analysisContext, CancellationToken cancellation)
 		{
-			report.ThrowIfNull(nameof(report));
+			codeSourceReport.ThrowIfNull(nameof(codeSourceReport));
 			analysisContext.ThrowIfNull(nameof(analysisContext));
 			cancellation.ThrowIfCancellationRequested();
 
-			var options = new JsonSerializerOptions
-			{
-				WriteIndented = true,
-				PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-			};
-
-			string serializedReport = JsonSerializer.Serialize(report, options);
+			var options = GetJsonSerializerOptions();
+			string serializedReport = JsonSerializer.Serialize(codeSourceReport, options);
 
 			cancellation.ThrowIfCancellationRequested();
 			OutputReportText(serializedReport);
 		}
+
+		public virtual void OutputReport(ProjectReport projectReport, AppAnalysisContext analysisContext, CancellationToken cancellation)
+		{
+			projectReport.ThrowIfNull(nameof(projectReport));
+			analysisContext.ThrowIfNull(nameof(analysisContext));
+			cancellation.ThrowIfCancellationRequested();
+
+			var options = GetJsonSerializerOptions();
+			string serializedReport = JsonSerializer.Serialize(projectReport, options);
+
+			cancellation.ThrowIfCancellationRequested();
+			OutputReportText(serializedReport);
+		}
+
+		protected virtual JsonSerializerOptions GetJsonSerializerOptions() =>
+			new JsonSerializerOptions
+			{
+				WriteIndented = true,
+				PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+			};
 
 		protected abstract void OutputReportText(string serializedReport);
 	}

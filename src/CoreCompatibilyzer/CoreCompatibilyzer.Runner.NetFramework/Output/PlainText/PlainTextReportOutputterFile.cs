@@ -37,14 +37,22 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 			}
 		}
 
-		public sealed override void OutputReport(ProjectReport report, AppAnalysisContext analysisContext, CancellationToken cancellation)
+		public sealed override void OutputReport(CodeSourceReport codeSourceReport, AppAnalysisContext analysisContext, CancellationToken cancellation)
+		{
+			if (_disposed)
+				throw new ObjectDisposedException(objectName: GetType().FullName);
+
+			base.OutputReport(codeSourceReport, analysisContext, cancellation);
+		}
+
+		public sealed override void OutputReport(ProjectReport projectReport, AppAnalysisContext analysisContext, CancellationToken cancellation)
 		{
 			if (_disposed)
 				throw new ObjectDisposedException(objectName: GetType().FullName);
 			else if (analysisContext.OutputFileName.IsNullOrWhiteSpace())
 				return;
 
-			base.OutputReport(report, analysisContext, cancellation);
+			base.OutputReport(projectReport, analysisContext, cancellation);
 		}
 
 		protected override void WriteTitle(in Title? title, int depth, int itemsCount, bool hasContent)

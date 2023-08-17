@@ -12,11 +12,19 @@ namespace CoreCompatibilyzer.Runner.Output
 	internal interface IReportOutputter : IDisposable
 	{
 		/// <summary>
-		/// Outputs report.
+		/// Outputs the code source report.
 		/// </summary>
-		/// <param name="report">The report.</param>
+		/// <param name="codeSourceReport">The code source report.</param>
 		/// <param name="analysisContext">The analysis context.</param>
 		/// <param name="cancellation">Cancellation token.</param>
-		void OutputReport(ProjectReport report, AppAnalysisContext analysisContext, CancellationToken cancellation);
+		void OutputReport(CodeSourceReport codeSourceReport, AppAnalysisContext analysisContext, CancellationToken cancellation);
+
+		/// <summary>
+		/// Outputs the project report.
+		/// </summary>
+		/// <param name="projectReport">The project report.</param>
+		/// <param name="analysisContext">The analysis context.</param>
+		/// <param name="cancellation">Cancellation token.</param>
+		void OutputReport(ProjectReport projectReport, AppAnalysisContext analysisContext, CancellationToken cancellation);
 	}
 }
