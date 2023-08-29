@@ -64,13 +64,20 @@ namespace CoreCompatibilyzer.ApiData.Model
 			if (Kind == ApiKind.Undefined || apiDataWithoutObsoleteMarker.Length < NameOffset)
 				throw InvalidInputStringFormatException(RawApiData);
 
-			DocID	 = GetDocID(apiDataWithoutObsoleteMarker, Kind);
+			DocID 	 = GetDocID(apiDataWithoutObsoleteMarker, Kind);
 			FullName = DocID.Substring(NameOffset);
 
-			string apiDataWithoutObsoleteMarkerAndPrefix	 = apiDataWithoutObsoleteMarker.Substring(NameOffset);
+			string apiDataWithoutObsoleteMarkerAndPrefix 	 = apiDataWithoutObsoleteMarker.Substring(NameOffset);
 			(Namespace, string combinedTypeName, MemberName) = GetNameParts(apiDataWithoutObsoleteMarkerAndPrefix, Kind);
-			(TypeName, AllContainingTypes)					 = GetTypeParts(combinedTypeName, Kind);
-			FullTypeName									 = $"{Namespace}.{combinedTypeName}";
+			(TypeName, AllContainingTypes) 					 = GetTypeParts(combinedTypeName, Kind);
+
+			if (Kind is ApiKind.Namespace or ApiKind.Undefined)
+				FullTypeName = string.Empty;
+			else
+			{
+				string preparedCombinedTypeName = combinedTypeName.Replace(CommonConstants.Chars.NestedTypesSeparator, '.');
+				FullTypeName = $"{Namespace}.{preparedCombinedTypeName}";
+			}
 		}
 
 		private static string GetDocID(string apiDataWithoutObsoleteMarker, ApiKind apiKind)
