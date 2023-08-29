@@ -69,7 +69,7 @@ namespace CoreCompatibilyzer.ApiData.Model
 
 			string apiDataWithoutObsoleteMarkerAndPrefix	 = apiDataWithoutObsoleteMarker.Substring(NameOffset);
 			(Namespace, string combinedTypeName, MemberName) = GetNameParts(apiDataWithoutObsoleteMarkerAndPrefix, Kind);
-			(TypeName, ContainingTypes)						 = GetTypeParts(combinedTypeName);
+			(TypeName, AllContainingTypes)					 = GetTypeParts(combinedTypeName, Kind);
 			FullTypeName									 = $"{Namespace}.{combinedTypeName}";
 		}
 
@@ -137,19 +137,26 @@ namespace CoreCompatibilyzer.ApiData.Model
 			return (combinedTypeName, memberName);
 		}
 
-		private static (string TypeName, ImmutableArray<string> ContainingTypes) GetTypeParts(string combinedTypeName)
+		private static (string TypeName, ImmutableArray<string> ContainingTypes) GetTypeParts(string combinedTypeName, ApiKind apiKind)
 		{
-			if (combinedTypeName.Length == 0)
+			if (combinedTypeName.Length == 0 || apiKind == ApiKind.Namespace)
 				return (TypeName: string.Empty, ContainingTypes: ImmutableArray<string>.Empty);
 
-			int typesSeparatorIndex = combinedTypeName.IndexOf(CommonConstants.NestedTypesSeparator);
+			int typesSeparatorIndex = combinedTypeName.IndexOf(CommonConstants.Chars.NestedTypesSeparator);
 
 			if (typesSeparatorIndex < 0)
-				return (TypeName: combinedTypeName, ContainingTypes: ImmutableArray<string>.Empty);
+			{
+				if (apiKind == ApiKind.Type)
+					return (TypeName: combinedTypeName, ContainingTypes: ImmutableArray<string>.Empty);
+				else
+					return (TypeName: combinedTypeName, ContainingTypes: ImmutableArray.Create(combinedTypeName));
+			}
 
-			string[] types 		= combinedTypeName.Split(new[] { CommonConstants.NestedTypesSeparator }, StringSplitOptions.None);
+			string[] types 		= combinedTypeName.Split(new[] { CommonConstants.Chars.NestedTypesSeparator }, StringSplitOptions.None);
 			string typeName 	= types[^1];
-			var containingTypes = types.Take(types.Length - 1).ToImmutableArray();
+			var containingTypes = apiKind == ApiKind.Type
+				? types.Take(types.Length - 1).ToImmutableArray()
+				: types.ToImmutableArray();
 			
 			return (typeName, containingTypes);
 		}
