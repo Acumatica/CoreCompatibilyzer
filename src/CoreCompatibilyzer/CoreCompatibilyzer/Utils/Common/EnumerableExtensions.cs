@@ -310,6 +310,14 @@ namespace CoreCompatibilyzer.Utils.Common
 			return builder.ToImmutable();
 		}
 
+		public static IEnumerable<TItem> AppendItem<TItem>(this ImmutableArray<TItem> items, TItem itemToAdd)
+		{
+			for (int i = 0; i < items.Length; i++)
+				yield return items[i];
+
+			yield return itemToAdd;
+		}
+
 		[DebuggerStepThrough]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void AddRange<T>(this HashSet<T> hashset, IEnumerable<T> items)
