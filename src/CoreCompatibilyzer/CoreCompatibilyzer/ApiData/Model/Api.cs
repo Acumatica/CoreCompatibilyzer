@@ -6,6 +6,9 @@ using System.Text;
 
 using CoreCompatibilyzer.Constants;
 using CoreCompatibilyzer.Utils.Common;
+using CoreCompatibilyzer.Utils.Roslyn.Semantic;
+
+using Microsoft.CodeAnalysis;
 
 namespace CoreCompatibilyzer.ApiData.Model
 {
@@ -24,7 +27,7 @@ namespace CoreCompatibilyzer.ApiData.Model
 
 		public string Namespace { get; }
 
-		public ImmutableArray<string> ContainingTypes { get; }
+		public ImmutableArray<string> AllContainingTypes { get; }
 
 		public string TypeName { get; }
 
@@ -36,8 +39,100 @@ namespace CoreCompatibilyzer.ApiData.Model
 
 		public ApiExtraInfo ExtraInfo { get; }
 
-        public Api(string rawApiData)
-        {
+		internal Api(ISymbol apiSymbol, ApiExtraInfo apiExtraInfo)
+		{
+			Kind	   = apiSymbol.ThrowIfNull(nameof(apiSymbol)).GetApiKind();
+			ExtraInfo  = apiExtraInfo;
+			DocID	   = apiSymbol.GetDocumentationCommentId().NullIfWhiteSpace() ??
+						 throw new InvalidOperationException($"Failed to get Doc ID for symbol {apiSymbol.ToString()}");
+			FullName   = DocID.Substring(NameOffset);
+			Namespace  = apiSymbol.ContainingNamespace?.ToString() ?? string.Empty;
+
+			AllContainingTypes = apiSymbol is INamespaceSymbol
+				? ImmutableArray<string>.Empty
+				: apiSymbol.GetContainingTypes()
+						   .Select(type => type.Name)
+						   .ToImmutableArray();
+
+			switch (apiSymbol)
+			{
+				case ITypeSymbol:
+					MemberName 	 = string.Empty;
+					TypeName  	 = apiSymbol.Name;
+					FullTypeName = apiSymbol.ToString();
+					break;
+
+				case IMethodSymbol:
+				case IFieldSymbol:
+				case IPropertySymbol:
+				case IEventSymbol:
+					MemberName 	 = apiSymbol.Name;
+					TypeName 	 = apiSymbol.ContainingType?.Name ?? string.Empty;
+					FullTypeName = apiSymbol.ContainingType?.ToString() ?? string.Empty;				
+					break;
+
+				case INamespaceSymbol:
+				default:
+					MemberName 	 = string.Empty;
+					TypeName 	 = string.Empty;
+					FullTypeName = string.Empty;
+					break;
+			}
+
+			RawApiData = GetRawApiData();
+		}
+
+		private string GetRawApiData()
+		{
+			int estimatedCapacity = ExtraInfo == ApiExtraInfo.Obsolete
+				? DocID.Length + 2
+				: DocID.Length;
+			char prefix = DocID[0];
+			var sb		= new StringBuilder($"{prefix}:{Namespace}", estimatedCapacity);
+
+			if (Kind is not (ApiKind.Namespace or ApiKind.Undefined))
+			{
+				string combinedTypeName;
+
+				if (Kind == ApiKind.Type)
+				{
+					combinedTypeName = AllContainingTypes.IsDefaultOrEmpty
+						? TypeName
+						: AllContainingTypes.AppendItem(TypeName)
+											.Join(CommonConstants.Strings.NestedTypesSeparator);
+				}
+				else
+					combinedTypeName = AllContainingTypes.Join(CommonConstants.Strings.NestedTypesSeparator);
+
+				if (!combinedTypeName.IsNullOrWhiteSpace())
+				{
+					sb.Append($"{CommonConstants.Strings.NamespaceSeparator}{combinedTypeName}");
+
+					if (Kind != ApiKind.Type && !MemberName.IsNullOrWhiteSpace())
+						sb.Append($".{MemberName}");
+				}
+			}
+
+			if (Kind == ApiKind.Method)
+			{
+				int startBraceIndex = DocID.LastIndexOf('(');
+
+				if (startBraceIndex >= 0)
+				{
+					string parameters = DocID[startBraceIndex..];
+					sb.Append(parameters);
+				}
+			}
+
+			if (ExtraInfo == ApiExtraInfo.Obsolete)
+				sb.Append($" {CommonConstants.Strings.ApiObsoletionMarker}");
+
+			string rawApiData = sb.ToString();
+			return rawApiData;
+		}
+
+		public Api(string rawApiData)
+		{
 			RawApiData = rawApiData.ThrowIfNullOrWhiteSpace(nameof(rawApiData)).Trim();
 
 			if (RawApiData.Length < NameOffset)
