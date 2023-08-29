@@ -44,8 +44,8 @@ namespace CoreCompatibilyzer.Utils.Roslyn.Semantic
 			{
 				// for a type parameter we can consider its generic constraints like "where T : SomeClass" as its base types
 				IEnumerable<ITypeSymbol> constraintTypes = typeParameter.GetAllConstraintTypes(includeInterfaces: false)
-																	    .SelectMany(constraint => constraint.GetBaseTypesIterator(includeThis: true))
-																	    .Distinct<ITypeSymbol>(SymbolEqualityComparer.Default);
+																		.SelectMany(constraint => constraint.GetBaseTypesIterator(includeThis: true))
+																		.Distinct<ITypeSymbol>(SymbolEqualityComparer.Default);
 				return includeThis 
 					? constraintTypes.Prepend(typeParameter)
 					: constraintTypes;
@@ -127,9 +127,9 @@ namespace CoreCompatibilyzer.Utils.Roslyn.Semantic
 			}
 		}
 
-		public static IEnumerable<INamedTypeSymbol> GetContainingTypes(this ITypeSymbol type)
+		public static IEnumerable<INamedTypeSymbol> GetContainingTypes(this ISymbol symbol)
 		{
-			var current = type.ContainingType;
+			var current = symbol.ContainingType;
 
 			while (current != null)
 			{
@@ -138,7 +138,7 @@ namespace CoreCompatibilyzer.Utils.Roslyn.Semantic
 			}
 		}
 
-		public static INamedTypeSymbol? TopMostContainingType(this ITypeSymbol type)
+		public static INamedTypeSymbol? TopMostContainingType(this ISymbol type)
 		{
 			INamedTypeSymbol current = type.ThrowIfNull(nameof(type)).ContainingType;
 
