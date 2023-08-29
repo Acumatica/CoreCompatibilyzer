@@ -34,6 +34,18 @@ namespace CoreCompatibilyzer.ApiData.Model
 			};
 		}
 
+		public static char GetDocIdPrefixChar(this ApiKind apiKind) => apiKind switch
+			{
+				ApiKind.Namespace => 'N',
+				ApiKind.Type 	  => 'T',
+				ApiKind.Method 	  => 'M',
+				ApiKind.Field 	  => 'F',
+				ApiKind.Property  => 'P',
+				ApiKind.Event 	  => 'E',
+				_ 				  => throw new NotSupportedException($"{apiKind} value is not supported"),
+			};
+
+
 		public static ApiKind GetApiKind(this ISymbol symbol) =>
 			symbol.ThrowIfNull(nameof(symbol)) switch
 			{
