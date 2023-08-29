@@ -47,7 +47,7 @@ namespace CoreCompatibilyzer.ApiData.Model
 
 			if (char.IsWhiteSpace(RawApiData[^2]))
 			{
-				if (char.ToUpper(RawApiData[^1]) != CommonConstants.ApiObsoletionMarker)
+				if (char.ToUpper(RawApiData[^1]) != CommonConstants.Chars.ApiObsoletionMarker)
 					throw InvalidInputStringFormatException(RawApiData);
 
 				apiDataWithoutObsoleteMarker = RawApiData.Remove(RawApiData.Length - 2);
@@ -79,8 +79,8 @@ namespace CoreCompatibilyzer.ApiData.Model
 				return apiDataWithoutObsoleteMarker;
 
 			var sb = new StringBuilder(apiDataWithoutObsoleteMarker)
-							.Replace(CommonConstants.NamespaceSeparator, '.')
-							.Replace(CommonConstants.NestedTypesSeparator, '.');
+							.Replace(CommonConstants.Chars.NamespaceSeparator, '.')
+							.Replace(CommonConstants.Chars.NestedTypesSeparator, '.');
 			return sb.ToString();
 		}
 
@@ -89,7 +89,7 @@ namespace CoreCompatibilyzer.ApiData.Model
 			if (apiKind == ApiKind.Namespace)
 				return (apiDataWithoutObsoleteMarkerAndPrefix, CombinedTypeName: string.Empty, MemberName: string.Empty);
 
-			int namespaceSeparatorIndex = apiDataWithoutObsoleteMarkerAndPrefix.IndexOf(CommonConstants.NamespaceSeparator);
+			int namespaceSeparatorIndex = apiDataWithoutObsoleteMarkerAndPrefix.IndexOf(CommonConstants.Chars.NamespaceSeparator);
 			string @namespace = namespaceSeparatorIndex > 0
 				? apiDataWithoutObsoleteMarkerAndPrefix[..namespaceSeparatorIndex]
 				: string.Empty;
@@ -165,10 +165,10 @@ namespace CoreCompatibilyzer.ApiData.Model
 			 new ArgumentException($"The input API data string \"{rawApiData}\" has unknown format.\r\n" +
 									"Please check the following link for a list of supported formats: " +
 									"https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/#id-strings" + 
-									$"\r\n\r\nCoreCompatibilyzer extends the DocID string format above with an indicator \"{CommonConstants.ApiObsoletionMarker}\"" + 
+									$"\r\n\r\nCoreCompatibilyzer extends the DocID string format above with an indicator \"{CommonConstants.Strings.ApiObsoletionMarker}\"" + 
 									" character separated by whitespace at the end of a DocID string.\r\n" +
-									$"It also uses the \"{CommonConstants.NamespaceSeparator}\" to separate the namespace part of the API name from the rest of its name and " +
-									$"\"{CommonConstants.NestedTypesSeparator}\" to separate names of nested types",
+									$"It also uses the \"{CommonConstants.Strings.NamespaceSeparator}\" to separate the namespace part of the API name from the rest of its name and " +
+									$"\"{CommonConstants.Strings.NestedTypesSeparator}\" to separate names of nested types",
 									nameof(rawApiData));
 
 		public override bool Equals(object obj) => obj is Api api && Equals(api);
