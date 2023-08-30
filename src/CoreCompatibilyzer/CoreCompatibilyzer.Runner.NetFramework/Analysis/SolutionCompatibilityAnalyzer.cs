@@ -120,11 +120,14 @@ namespace CoreCompatibilyzer.Runner.Analysis
 									project.Name, projectValidationResult);
 				}
 
-				var distinctApisCalculator 		 = new UsedDistinctApisCalculator(analysisContext, allUsedNamespaces, allUsedTypes);
-				IEnumerable<Api> allDistinctApis = distinctApisCalculator.GetAllUsedApis(usedApis);
-				var codeSourceReport 			 = CreateCodeSourceReport(analysisContext, projectReports, allDistinctApis);
+				if (projectReports.Count > 0)
+				{
+					var distinctApisCalculator = new UsedDistinctApisCalculator(analysisContext, allUsedNamespaces, allUsedTypes);
+					IEnumerable<Api> allDistinctApis = distinctApisCalculator.GetAllUsedApis(usedApis);
+					var codeSourceReport = CreateCodeSourceReport(analysisContext, projectReports, allDistinctApis);
 
-				reportOutputter.OutputReport(codeSourceReport, analysisContext, cancellationToken);
+					reportOutputter.OutputReport(codeSourceReport, analysisContext, cancellationToken);
+				}
 			}
 
 			return solutionValidationResult;
@@ -179,6 +182,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 								projectVersion.Value, project.Name, targetVersion);
 				return RunResult.Success;
 			}
+
 			return null;
 		}
 
