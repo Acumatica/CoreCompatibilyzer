@@ -59,7 +59,7 @@ namespace CoreCompatibilyzer.Runner.Output.Data
 		private Api? GetBannedApiFromDiagnostic(Diagnostic diagnostic)
 		{
 			if (diagnostic.Properties.Count == 0 ||
-				!diagnostic.Properties.TryGetValue(CommonConstants.ApiDataProperty, out string? rawApiData) || rawApiData.IsNullOrWhiteSpace())
+				!diagnostic.Properties.TryGetValue(CommonConstants.ClosestBannedApiProperty, out string? rawApiData) || rawApiData.IsNullOrWhiteSpace())
 			{
 				return null;
 			}

@@ -441,7 +441,7 @@ namespace CoreCompatibilyzer.Runner.Output
 						continue;
 
 					case ApiKind.Type
-					when analysisContext.ShowMembersOfUsedType || api.ContainingTypes.IsDefaultOrEmpty || !AreContainingTypesUsed(api):
+					when analysisContext.ShowMembersOfUsedType || api.AllContainingTypes.IsDefaultOrEmpty || !AreContainingTypesUsed(api):
 						yield return api.FullName;
 						continue;
 
@@ -461,9 +461,9 @@ namespace CoreCompatibilyzer.Runner.Output
 			{
 				string containingTypeName = $"{api.Namespace}";
 
-				for (int i = 0; i < api.ContainingTypes.Length; i++)
+				for (int i = 0; i < api.AllContainingTypes.Length; i++)
 				{
-					containingTypeName += $".{api.ContainingTypes[i]}";
+					containingTypeName += $".{api.AllContainingTypes[i]}";
 
 					if (usedBannedTypes!.Contains(containingTypeName))
 						return true;
