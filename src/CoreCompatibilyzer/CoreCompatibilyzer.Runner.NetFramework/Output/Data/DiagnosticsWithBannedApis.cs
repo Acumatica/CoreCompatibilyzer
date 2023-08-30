@@ -5,6 +5,7 @@ using System.Linq;
 
 using CoreCompatibilyzer.ApiData.Model;
 using CoreCompatibilyzer.Constants;
+using CoreCompatibilyzer.Runner.Input;
 using CoreCompatibilyzer.Utils.Common;
 
 using Microsoft.CodeAnalysis;
@@ -23,6 +24,8 @@ namespace CoreCompatibilyzer.Runner.Output.Data
 
 		public (Diagnostic Diagnostic, Api BannedApi) this[int index] => _diagnosticsWithApis[index];
 
+		public UsedDistinctApisCalculator DistinctApisCalculator { get; }
+
 		public IReadOnlyList<Api> UsedDistinctApis { get; }
 
 		public HashSet<string> UsedNamespaces { get; } = new();
@@ -36,9 +39,9 @@ namespace CoreCompatibilyzer.Runner.Output.Data
 			UsedDistinctApis		= new List<Api>();
 		}
 
-        public DiagnosticsWithBannedApis(IEnumerable<Diagnostic> diagnostics, UsedDistinctApisCalculator usedDistinctApisCalculator)
+        public DiagnosticsWithBannedApis(IEnumerable<Diagnostic> diagnostics, AppAnalysisContext analysisContext)
         {
-			usedDistinctApisCalculator.ThrowIfNull(nameof(usedDistinctApisCalculator));
+			analysisContext.ThrowIfNull(nameof(analysisContext));
 
 			var diagnosticsWithApisLookup = diagnostics.ThrowIfNull(nameof(diagnostics))
 													   .Select(diagnostic => (Diagnostic: diagnostic, BannedApi: GetBannedApiFromDiagnostic(diagnostic)))
@@ -60,7 +63,8 @@ namespace CoreCompatibilyzer.Runner.Output.Data
 					UsedNamespaces.Add(bannedApi.Namespace);
 			}
 
-			UsedDistinctApis = usedDistinctApisCalculator.GetAllUsedApis(_diagnosticsWithApis).ToList();
+			DistinctApisCalculator = new UsedDistinctApisCalculator(analysisContext, UsedNamespaces, UsedBannedTypes);
+			UsedDistinctApis = DistinctApisCalculator.GetAllUsedApis(_diagnosticsWithApis).ToList();
 		}
 
 		private Api? GetBannedApiFromDiagnostic(Diagnostic diagnostic)

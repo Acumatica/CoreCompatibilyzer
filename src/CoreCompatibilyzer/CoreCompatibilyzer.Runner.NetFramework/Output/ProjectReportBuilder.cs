@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -27,12 +26,13 @@ namespace CoreCompatibilyzer.Runner.Output
 			cancellation.ThrowIfCancellationRequested();
 
 			string? projectDirectory   = GetProjectDirectory(project);
-			var distinctApisCalculator = new UsedDistinctApisCalculator(analysisContext, diagnosticsWithApis.UsedNamespaces, diagnosticsWithApis.UsedBannedTypes);
+			
 			var mainReportGroup = GetMainReportGroupFromAllDiagnostics(diagnosticsWithApis, analysisContext, projectDirectory, cancellation);
 			var report = new ProjectReport(project.Name)
 			{
-				TotalErrorCount = diagnosticsWithApis.TotalDiagnosticsCount,
-				ReportDetails   = mainReportGroup,
+				TotalErrorCount   = diagnosticsWithApis.TotalDiagnosticsCount,
+				DistinctApisCount = diagnosticsWithApis.UsedDistinctApis.Count,
+				ReportDetails     = mainReportGroup,
 			};
 
 			return report;
@@ -49,24 +49,23 @@ namespace CoreCompatibilyzer.Runner.Output
 		}
 
 		protected virtual ReportGroup GetMainReportGroupFromAllDiagnostics(DiagnosticsWithBannedApis diagnosticsWithApis, AppAnalysisContext analysisContext,
-																		   UsedDistinctApisCalculator usedDistinctApisCalculator, string? projectDirectory, 
-																		   CancellationToken cancellation)
+																		   string? projectDirectory, CancellationToken cancellation)
 		{
-			var bannedApisGroups	  		  = GetAllReportGroups(diagnosticsWithApis, analysisContext, usedDistinctApisCalculator, projectDirectory, cancellation).ToList();
+			var bannedApisGroups	  		  = GetAllReportGroups(diagnosticsWithApis, analysisContext, projectDirectory, cancellation).ToList();
 			var sortedUnrecognizedDiagnostics = GetLinesForUnrecognizedDiagnostics(diagnosticsWithApis);
 			int recognizedErrorsCount 		  = diagnosticsWithApis.TotalDiagnosticsCount - diagnosticsWithApis.UnrecognizedDiagnostics.Count;
 
-			var distinctApis = usedDistinctApisCalculator.GetAllUsedApis()
-
 			var mainApiGroup = new ReportGroup()
 			{
-				TotalErrorCount = recognizedErrorsCount,
-				ChildrenTitle 	= new Title("Found APIs", TitleKind.AllApis),
-				ChildrenGroups 	= bannedApisGroups.NullIfEmpty(),
-				LinesTitle		= sortedUnrecognizedDiagnostics.Count > 0
-									? new Title("Unrecognized diagnostics", TitleKind.NotSpecified)
-									: null,
-				Lines			= sortedUnrecognizedDiagnostics.NullIfEmpty(),
+				TotalErrorCount   = recognizedErrorsCount,
+				DistinctApisCount = diagnosticsWithApis.UsedDistinctApis.Count,
+
+				ChildrenTitle 	  = new Title("Found APIs", TitleKind.AllApis),
+				ChildrenGroups 	  = bannedApisGroups.NullIfEmpty(),
+				LinesTitle		  = sortedUnrecognizedDiagnostics.Count > 0
+										? new Title("Unrecognized diagnostics", TitleKind.NotSpecified)
+										: null,
+				Lines			  = sortedUnrecognizedDiagnostics.NullIfEmpty(),
 			};
 
 			return mainApiGroup;
@@ -80,32 +79,30 @@ namespace CoreCompatibilyzer.Runner.Output
 			.ToList(capacity: diagnosticsWithApis.UnrecognizedDiagnostics.Count);
 
 		protected virtual IEnumerable<ReportGroup> GetAllReportGroups(DiagnosticsWithBannedApis diagnosticsWithApis, AppAnalysisContext analysisContext,
-																	  UsedDistinctApisCalculator usedDistinctApisCalculator, string? projectDirectory, 
-																	  CancellationToken cancellation)
+																	  string? projectDirectory, CancellationToken cancellation)
 		{
 			cancellation.ThrowIfCancellationRequested();
 
 			if (analysisContext.Grouping.HasGrouping(GroupingMode.Namespaces))
 			{
-				return GetApiGroupsGroupedByNamespaces(analysisContext, diagnosticsWithApis, usedDistinctApisCalculator, projectDirectory, cancellation);
+				return GetApiGroupsGroupedByNamespaces(analysisContext, diagnosticsWithApis, projectDirectory, cancellation);
 			}
 			else if (analysisContext.Grouping.HasGrouping(GroupingMode.Types))
 			{
-				return GetApiGroupsGroupedOnlyByTypes(analysisContext, diagnosticsWithApis, usedDistinctApisCalculator, projectDirectory, cancellation);
+				return GetApiGroupsGroupedOnlyByTypes(analysisContext, diagnosticsWithApis, projectDirectory, cancellation);
 			}
 			else
 			{
 				var sortedFlatDiagnostics = diagnosticsWithApis.OrderBy(d => d.BannedApi.FullName);
 				var flattenedApiGroups = 
-					GetGroupsAfterNamespaceAndTypeGroupingProcessed(analysisContext, usedDistinctApisCalculator, sortedFlatDiagnostics, projectDirectory);
+					GetGroupsAfterNamespaceAndTypeGroupingProcessed(analysisContext, diagnosticsWithApis.DistinctApisCalculator, sortedFlatDiagnostics, projectDirectory);
 
 				return flattenedApiGroups;
 			}
 		}
 
 		private IEnumerable<ReportGroup> GetApiGroupsGroupedByNamespaces(AppAnalysisContext analysisContext, DiagnosticsWithBannedApis diagnosticsWithApis,
-																		 UsedDistinctApisCalculator usedDistinctApisCalculator, string? projectDirectory, 
-																		 CancellationToken cancellation)
+																		 string? projectDirectory, CancellationToken cancellation)
 		{
 			var groupedByNamespaces = diagnosticsWithApis.GroupBy(d => d.BannedApi.Namespace)
 														 .OrderBy(diagnosticsByNamespaces => diagnosticsByNamespaces.Key);
@@ -115,22 +112,21 @@ namespace CoreCompatibilyzer.Runner.Output
 				cancellation.ThrowIfCancellationRequested();
 				var namespaceGroup = GetApiGroupForNamespaceDiagnostics(namespaceDiagnostics.Key, analysisContext, namespaceDiagnostics.ToList(),
 																		diagnosticsWithApis.UsedBannedTypes, diagnosticsWithApis.UsedNamespaces,
-																		usedDistinctApisCalculator, projectDirectory, cancellation);
+																		diagnosticsWithApis.DistinctApisCalculator, projectDirectory, cancellation);
 				if (namespaceGroup != null)
 					yield return namespaceGroup;
 			}
 		}
 
 		private IEnumerable<ReportGroup> GetApiGroupsGroupedOnlyByTypes(AppAnalysisContext analysisContext, DiagnosticsWithBannedApis diagnosticsWithApis,
-																		UsedDistinctApisCalculator usedDistinctApisCalculator, string? projectDirectory, 
-																		CancellationToken cancellation)
+																		string? projectDirectory, CancellationToken cancellation)
 		{
 			var namespacesAndOtherApis = diagnosticsWithApis.ToLookup(d => d.BannedApi.Kind == ApiKind.Namespace);
 			var namespacesApis 		   = namespacesAndOtherApis[true];
 			var otherApis 			   = namespacesAndOtherApis[false];
 
 			ReportGroup? namespacesSection = GetNamespaceDiagnosticsGroupForTypesOnlyGrouping(analysisContext, namespacesApis.ToList(),
-																							  usedDistinctApisCalculator, projectDirectory);
+																							  diagnosticsWithApis.DistinctApisCalculator, projectDirectory);
 			if (namespacesSection != null)
 				yield return namespacesSection;
 
@@ -142,7 +138,7 @@ namespace CoreCompatibilyzer.Runner.Output
 			{
 				cancellation.ThrowIfCancellationRequested();
 				ReportGroup? typeGroup = GetTypeDiagnosticGroup(typeDiagnostics.Key, analysisContext, typeDiagnostics.ToList(), 
-																diagnosticsWithApis.UsedBannedTypes, usedDistinctApisCalculator, projectDirectory);
+																diagnosticsWithApis.UsedBannedTypes, diagnosticsWithApis.DistinctApisCalculator, projectDirectory);
 				if (typeGroup != null)
 					yield return typeGroup;
 			}
