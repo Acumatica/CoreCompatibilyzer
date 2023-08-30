@@ -27,12 +27,13 @@ namespace CoreCompatibilyzer.Runner.Output
 			cancellation.ThrowIfCancellationRequested();
 
 			string? projectDirectory   = GetProjectDirectory(project);
-			var distinctApisCalculator = new UsedDistinctApisCalculator(analysisContext, diagnosticsWithApis.UsedNamespaces, diagnosticsWithApis.UsedBannedTypes);
+			
 			var mainReportGroup = GetMainReportGroupFromAllDiagnostics(diagnosticsWithApis, analysisContext, projectDirectory, cancellation);
 			var report = new ProjectReport(project.Name)
 			{
-				TotalErrorCount = diagnosticsWithApis.TotalDiagnosticsCount,
-				ReportDetails   = mainReportGroup,
+				TotalErrorCount   = diagnosticsWithApis.TotalDiagnosticsCount,
+				DistinctApisCount = diagnosticsWithApis.UsedDistinctApis.Count,
+				ReportDetails     = mainReportGroup,
 			};
 
 			return report;
@@ -49,24 +50,24 @@ namespace CoreCompatibilyzer.Runner.Output
 		}
 
 		protected virtual ReportGroup GetMainReportGroupFromAllDiagnostics(DiagnosticsWithBannedApis diagnosticsWithApis, AppAnalysisContext analysisContext,
-																		   UsedDistinctApisCalculator usedDistinctApisCalculator, string? projectDirectory, 
-																		   CancellationToken cancellation)
+																		   string? projectDirectory, CancellationToken cancellation)
 		{
+			var usedDistinctApisCalculator	  = new UsedDistinctApisCalculator(analysisContext, diagnosticsWithApis.UsedNamespaces, diagnosticsWithApis.UsedBannedTypes);
 			var bannedApisGroups	  		  = GetAllReportGroups(diagnosticsWithApis, analysisContext, usedDistinctApisCalculator, projectDirectory, cancellation).ToList();
 			var sortedUnrecognizedDiagnostics = GetLinesForUnrecognizedDiagnostics(diagnosticsWithApis);
 			int recognizedErrorsCount 		  = diagnosticsWithApis.TotalDiagnosticsCount - diagnosticsWithApis.UnrecognizedDiagnostics.Count;
 
-			var distinctApis = usedDistinctApisCalculator.GetAllUsedApis()
-
 			var mainApiGroup = new ReportGroup()
 			{
-				TotalErrorCount = recognizedErrorsCount,
-				ChildrenTitle 	= new Title("Found APIs", TitleKind.AllApis),
-				ChildrenGroups 	= bannedApisGroups.NullIfEmpty(),
-				LinesTitle		= sortedUnrecognizedDiagnostics.Count > 0
-									? new Title("Unrecognized diagnostics", TitleKind.NotSpecified)
-									: null,
-				Lines			= sortedUnrecognizedDiagnostics.NullIfEmpty(),
+				TotalErrorCount   = recognizedErrorsCount,
+				DistinctApisCount = diagnosticsWithApis.UsedDistinctApis.Count,
+
+				ChildrenTitle 	  = new Title("Found APIs", TitleKind.AllApis),
+				ChildrenGroups 	  = bannedApisGroups.NullIfEmpty(),
+				LinesTitle		  = sortedUnrecognizedDiagnostics.Count > 0
+										? new Title("Unrecognized diagnostics", TitleKind.NotSpecified)
+										: null,
+				Lines			  = sortedUnrecognizedDiagnostics.NullIfEmpty(),
 			};
 
 			return mainApiGroup;
