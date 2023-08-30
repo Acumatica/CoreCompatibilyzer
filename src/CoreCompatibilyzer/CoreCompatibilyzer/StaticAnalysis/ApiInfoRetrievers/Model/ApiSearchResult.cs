@@ -20,5 +20,11 @@ namespace CoreCompatibilyzer.ApiData.Model
 			ClosestBannedApi = closestBannedApi.ThrowIfNull(nameof(closestBannedApi));
 			ApiFoundInDB	 = apiFoundInDB.ThrowIfNull(nameof(apiFoundInDB));
         }
+
+		public void Deconstruct(out Api closestBannedApi, out Api apiFoundInDB)
+		{
+			closestBannedApi = ClosestBannedApi;
+			apiFoundInDB 	 = ApiFoundInDB;
+		}
     }
 }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Xml.Linq;
 
@@ -30,7 +29,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 			private readonly BannedTypesInfoCollector _bannedTypesInfoCollector;
 
 			private readonly HashSet<string> _namespacesWithUsedWhiteListedMembers = new();
-			private readonly List<(UsingDirectiveSyntax Using, INamespaceSymbol Namespace, Api BanInfo)> _suspiciousUsings = new();
+			private readonly List<(UsingDirectiveSyntax Using, INamespaceSymbol Namespace, ApiSearchResult BanApiInfo)> _suspiciousUsings = new();
 
 			private readonly HashSet<(Location ErrorLocation, Api ErrorInfo)> _reportedErrors = new();
 
@@ -102,7 +101,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				switch (typeOrNamespaceSymbol)
 				{
 					case INamespaceSymbol namespaceSymbol:
-						if (_apiBanInfoRetriever.GetInfoForApi(namespaceSymbol) is Api bannedNamespaceInfo)
+						if (_apiBanInfoRetriever.GetInfoForApi(namespaceSymbol) is ApiSearchResult bannedNamespaceInfo)
 							_suspiciousUsings.Add((usingDirectiveNode, namespaceSymbol, bannedNamespaceInfo));
 
 						break;
@@ -150,7 +149,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 
 				if (symbol is ITypeSymbol typeSymbol)
 				{
-					List<Api>? bannedTypeInfos = typeSymbol is ITypeParameterSymbol typeParameterSymbol
+					List<ApiSearchResult>? bannedTypeInfos = typeSymbol is ITypeParameterSymbol typeParameterSymbol
 						? _bannedTypesInfoCollector.GetTypeParameterBannedApiInfos(typeParameterSymbol, CheckInterfaces)
 						: _bannedTypesInfoCollector.GetTypeBannedApiInfos(typeSymbol, CheckInterfaces);
 
@@ -160,7 +159,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 						ReportApiList(typeSymbol, bannedTypeInfos, location);
 					}
 				}
-				else if(GetBannedSymbolInfoForNonTypeSymbol(symbol) is Api bannedSymbolInfo)
+				else if(GetBannedSymbolInfoForNonTypeSymbol(symbol) is ApiSearchResult bannedSymbolInfo)
 				{
 					var location = GetLocationFromNode(genericNameNode);
 					ReportApi(symbol, bannedSymbolInfo, location, checkWhiteList: true);
@@ -233,16 +232,16 @@ namespace CoreCompatibilyzer.StaticAnalysis
 						return;
 
 					default:
-						if (GetBannedSymbolInfoForNonTypeSymbol(symbol) is Api bannedSymbolInfo)
+						if (GetBannedSymbolInfoForNonTypeSymbol(symbol) is ApiSearchResult bannedSymbolInfo)
 							ReportApi(symbol, bannedSymbolInfo, nodeToReport);
 
 						return;
 				}
 			}
 
-			private Api? GetBannedSymbolInfoForNonTypeSymbol(ISymbol nonTypeSymbol)
+			private ApiSearchResult? GetBannedSymbolInfoForNonTypeSymbol(ISymbol nonTypeSymbol)
 			{
-				if (_apiBanInfoRetriever.GetInfoForApi(nonTypeSymbol) is Api bannedSymbolInfo)
+				if (_apiBanInfoRetriever.GetInfoForApi(nonTypeSymbol) is ApiSearchResult bannedSymbolInfo)
 					return bannedSymbolInfo;
 
 				if (!nonTypeSymbol.IsOverride)
@@ -252,49 +251,54 @@ namespace CoreCompatibilyzer.StaticAnalysis
 
 				foreach (var overridenSymbol in overridesChain)
 				{
-					if (_apiBanInfoRetriever.GetInfoForApi(overridenSymbol) is Api bannedOverridenSymbolInfo)
+					if (_apiBanInfoRetriever.GetInfoForApi(overridenSymbol) is ApiSearchResult bannedOverridenSymbolInfo)
 						return bannedOverridenSymbolInfo;
 				} 
 
 				return null;
 			}
 
-			private void ReportApiList(ISymbol symbolToReport, List<Api>? bannedApisList, SyntaxNode node)
+			private void ReportApiList(ISymbol symbolToReport, List<ApiSearchResult>? bannedApisList, SyntaxNode node)
 			{
 				if (bannedApisList?.Count > 0)
 					ReportApiList(symbolToReport, bannedApisList, node.GetLocation());
 			}
 
-			private void ReportApiList(ISymbol symbolToReport, List<Api> bannedApisList, Location location)
+			private void ReportApiList(ISymbol symbolToReport, List<ApiSearchResult> bannedApisList, Location location)
 			{
 				if (IsInWhiteList(symbolToReport))
 					return;
 
-				foreach (Api bannedTypeInfo in bannedApisList)
-					ReportApi(symbolToReport, bannedTypeInfo, location, checkWhiteList: false);
+				foreach (ApiSearchResult bannedApiInfo in bannedApisList)
+					ReportApi(symbolToReport, bannedApiInfo, location, checkWhiteList: false);
 			}
 
-			private void ReportApi(ISymbol symbolToReport, in Api banApiInfo, SyntaxNode? node) =>
+			private void ReportApi(ISymbol symbolToReport, ApiSearchResult banApiInfo, SyntaxNode? node) =>
 				ReportApi(symbolToReport, banApiInfo, node?.GetLocation(), checkWhiteList: true);
 
-			private void ReportApi(ISymbol symbolToReport, in Api banApiInfo, Location? location, bool checkWhiteList)
+			private void ReportApi(ISymbol symbolToReport, ApiSearchResult banApiInfo, Location? location, bool checkWhiteList)
 			{
 				if (checkWhiteList && IsInWhiteList(symbolToReport))
 					return;
 
-				if (location != null && !_reportedErrors.Add((location, banApiInfo)!))
+				if (location != null && !_reportedErrors.Add((location, banApiInfo.ClosestBannedApi)!))
 					return;
 
-				var diagnosticDescriptor = GetDiagnosticFromBannedApiInfo(banApiInfo);
-				var diagnosticProperties = ImmutableDictionary<string, string>.Empty
-																			  .Add(CommonConstants.ApiDataProperty, banApiInfo.RawApiData);
-				var diagnostic = Diagnostic.Create(diagnosticDescriptor, location, diagnosticProperties!, banApiInfo.FullName);
+				var diagnosticDescriptor = GetDiagnosticFromBannedApiInfo(banApiInfo.ApiFoundInDB.ExtraInfo);
+				var diagnosticProperties = new Dictionary<string, string>
+				{
+					{ CommonConstants.ClosestBannedApiProperty, banApiInfo.ClosestBannedApi.RawApiData },
+					{ CommonConstants.ApiFoundInDbProperty,		banApiInfo.ApiFoundInDB.RawApiData },
+				}
+				.ToImmutableDictionary();
+
+				var diagnostic = Diagnostic.Create(diagnosticDescriptor, location, diagnosticProperties!, banApiInfo.ClosestBannedApi.FullName);
 				_syntaxContext.ReportDiagnosticWithSuppressionCheck(diagnostic);
 			}
 
 			private bool IsInWhiteList(ISymbol symbol)
 			{
-				if (_whiteListInfoRetriever?.GetInfoForApi(symbol) is Api)
+				if (_whiteListInfoRetriever?.GetInfoForApi(symbol) is ApiSearchResult)
 				{
 					if (symbol.ContainingNamespace != null && !symbol.ContainingNamespace.IsGlobalNamespace)
 						_namespacesWithUsedWhiteListedMembers.Add(symbol.ContainingNamespace.ToString());
@@ -305,11 +309,11 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				return false;
 			}
 
-			private DiagnosticDescriptor GetDiagnosticFromBannedApiInfo(in Api banApiInfo) => banApiInfo.ExtraInfo switch
+			private DiagnosticDescriptor GetDiagnosticFromBannedApiInfo(ApiExtraInfo apiExtraInfo) => apiExtraInfo switch
 			{
 				ApiExtraInfo.None	  => Descriptors.CoreCompat1001_ApiNotPresentInDotNetCore,
 				ApiExtraInfo.Obsolete => Descriptors.CoreCompat1002_ApiObsoleteInDotNetCore,
-				_ 					  => throw new NotSupportedException($"Value \"{banApiInfo.ExtraInfo}\" of {nameof(ApiExtraInfo)} is not supported")
+				_ 					  => throw new NotSupportedException($"Value \"{apiExtraInfo}\" of {nameof(ApiExtraInfo)} is not supported")
 			};
 		}
 	}

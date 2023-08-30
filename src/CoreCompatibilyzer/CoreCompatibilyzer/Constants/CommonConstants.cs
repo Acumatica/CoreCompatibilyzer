@@ -18,7 +18,7 @@ namespace CoreCompatibilyzer.Constants
 			public const string NestedTypesSeparator = "+";
 		}
 
-
-		public const string ApiDataProperty = nameof(ApiDataProperty);
+		public const string ClosestBannedApiProperty = nameof(ClosestBannedApiProperty);
+		public const string ApiFoundInDbProperty	 = nameof(ApiFoundInDbProperty);
     }
 }
