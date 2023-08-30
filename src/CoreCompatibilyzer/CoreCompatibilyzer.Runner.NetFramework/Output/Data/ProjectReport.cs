@@ -13,6 +13,8 @@ namespace CoreCompatibilyzer.Runner.Output.Data
 
 		public required int TotalErrorCount { get; init; }
 
+		public required int DistinctApisCount { get; init; }
+
 		public required ReportGroup ReportDetails { get; init; }
 
         public ProjectReport(string projectName)

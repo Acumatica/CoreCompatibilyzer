@@ -14,6 +14,8 @@ namespace CoreCompatibilyzer.Runner.Output.Data
 
 		public required int TotalErrorCount { get; init; }
 
+		public required int DistinctApisCount { get; init; }
+
 		[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
 		public Title? LinesTitle { get; init; }
 
