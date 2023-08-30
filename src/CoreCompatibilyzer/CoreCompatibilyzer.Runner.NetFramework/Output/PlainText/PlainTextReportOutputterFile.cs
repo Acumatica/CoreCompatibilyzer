@@ -55,6 +55,18 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 			base.OutputReport(projectReport, analysisContext, cancellation);
 		}
 
+		protected override void WriteDistinctApisTitle(string titleText, int depth, int itemsCount)
+		{
+			if (titleText == null)
+				return;
+
+			string padding 			= GetPadding(depth);
+			string suffix 			= itemsCount > 0 ? ":" : string.Empty;
+			string titleWithPadding = $"{padding}{titleText}(Count: {itemsCount}){suffix}";
+
+			WriteLine(titleWithPadding);
+		}
+
 		protected override void WriteTitle(in Title? title, int depth, int itemsCount, int distinctApisCount, bool hasContent)
 		{
 			if (title == null)
@@ -64,7 +76,7 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 			string suffix  = hasContent ? ":" : string.Empty;
 			string titleWithPadding = title.Value.Kind == TitleKind.Usages
 				? $"{padding}{title.Value.Text}{suffix}"
-				: $"{padding}{title.Value.Text}(Count = {itemsCount}, Distinct APIs = {distinctApisCount}){suffix}";
+				: $"{padding}{title.Value.Text}(Count: {itemsCount}, Distinct APIs: {distinctApisCount}){suffix}";
 
 			WriteLine(titleWithPadding);
 		}
