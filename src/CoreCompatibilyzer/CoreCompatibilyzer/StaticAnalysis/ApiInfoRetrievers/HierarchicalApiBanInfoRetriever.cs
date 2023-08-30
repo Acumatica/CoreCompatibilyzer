@@ -17,9 +17,9 @@ namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
         public HierarchicalApiBanInfoRetriever(IApiStorage bannedApiStorage) : base(bannedApiStorage)
         { }
 
-		protected override Api? GetInfoForApiImpl(ISymbol apiSymbol, ApiKind apiKind)
+		protected override ApiSearchResult? GetInfoForApiImpl(ISymbol apiSymbol, ApiKind apiKind)
 		{
-			Api? directInfo = base.GetInfoForApiImpl(apiSymbol, apiKind);
+			var directInfo = base.GetInfoForApiImpl(apiSymbol, apiKind);
 
 			if (directInfo != null)
 				return directInfo;
@@ -31,16 +31,19 @@ namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
 			Api? namespaceInfo = GetInfoForApiNamespace(apiSymbol.ContainingNamespace);
 
 			if (namespaceInfo != null)
-				return namespaceInfo;
+			{
+				Api apiInBannedNamespace = new Api(apiSymbol, namespaceInfo.ExtraInfo);
+				return new ApiSearchResult(closestBannedApi: apiInBannedNamespace, namespaceInfo);
+			}
 
 			// We checked API for info directly and for namespaces. Non nested types don't have other parent APIs
 			if (apiSymbol is ITypeSymbol typeSymbol && typeSymbol.ContainingType == null) 
 				return null;
 
-			Api? typeInfo = GetInfoForContainingTypes(apiSymbol.ContainingType);
+			Api? containingTypeInfo = GetInfoForContainingTypes(apiSymbol.ContainingType);
 
-			if (typeInfo != null)
-				return typeInfo;
+			if (containingTypeInfo != null)
+				return new ApiSearchResult(closestBannedApi: containingTypeInfo, containingTypeInfo);
 
 			// We checked API directly and its containing namespace and types. 
 			// Fields, events, properties and normal methods don't have other parent APIs
@@ -52,7 +55,9 @@ namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
 
 			// The only API kind left to check are property and event accessors, since they are contained inside their corresponding property/event
 			Api? accessorBanInfo = GetInfoForAccessorMethod(methodSymbol);
-			return accessorBanInfo;
+			return accessorBanInfo != null
+				? new ApiSearchResult(closestBannedApi: accessorBanInfo, accessorBanInfo)
+				: null;
 		}
 
 		private Api? GetInfoForApiNamespace(INamespaceSymbol? apiNamespaceSymbol) =>

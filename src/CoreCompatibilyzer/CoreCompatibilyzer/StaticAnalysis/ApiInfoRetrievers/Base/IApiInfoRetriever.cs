@@ -17,8 +17,8 @@ namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
 		/// </summary>
 		/// <param name="apiSymbol">The API symbol to check.</param>
 		/// <returns>
-		/// Returns the information for API or <c>null</c> if the API is not found.
+		/// Returns the information about banned API or <c>null</c> if the API is not found.
 		/// </returns>
-		Api? GetInfoForApi(ISymbol apiSymbol);
+		ApiSearchResult? GetInfoForApi(ISymbol apiSymbol);
 	}
 }

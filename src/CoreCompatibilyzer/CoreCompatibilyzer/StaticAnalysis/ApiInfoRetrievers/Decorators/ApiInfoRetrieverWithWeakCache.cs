@@ -16,7 +16,7 @@ namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
 	{
 		private class CacheEntry
 		{
-			public Api? Api { get; set; }
+			public ApiSearchResult? Value { get; set; }
 		}
 
 		private readonly ConditionalWeakTable<ISymbol, CacheEntry> _weakCache = new();
@@ -27,16 +27,16 @@ namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
 			_innerApiInfoRetriever = innerApiInfoRetriever.ThrowIfNull(nameof(innerApiInfoRetriever));
         }
 
-		public Api? GetInfoForApi(ISymbol apiSymbol)
+		public ApiSearchResult? GetInfoForApi(ISymbol apiSymbol)
 		{
 			apiSymbol.ThrowIfNull(nameof(apiSymbol));
 
 			if (_weakCache.TryGetValue(apiSymbol, out CacheEntry cacheEntry))
-				return cacheEntry.Api;
+				return cacheEntry.Value;
 
-			var apiInfo	   = _innerApiInfoRetriever.GetInfoForApi(apiSymbol);
-			cacheEntry	   = _weakCache.GetOrCreateValue(apiSymbol);
-			cacheEntry.Api = apiInfo;
+			var apiInfo	   	 = _innerApiInfoRetriever.GetInfoForApi(apiSymbol);
+			cacheEntry	   	 = _weakCache.GetOrCreateValue(apiSymbol);
+			cacheEntry.Value = apiInfo;
 
 			return apiInfo;
 		}

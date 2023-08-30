@@ -6,7 +6,6 @@ using CoreCompatibilyzer.ApiData.Model;
 using CoreCompatibilyzer.ApiData.Storage;
 
 using Microsoft.CodeAnalysis;
-using CoreCompatibilyzer.Utils.Roslyn.Semantic;
 
 namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
 {
@@ -22,16 +21,21 @@ namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
 			Storage = apiStorage.ThrowIfNull(nameof(apiStorage));
         }
 
-		public Api? GetInfoForApi(ISymbol apiSymbol)
+		public ApiSearchResult? GetInfoForApi(ISymbol apiSymbol)
 		{
 			ApiKind apiKind = apiSymbol.GetApiKind();
-			Api? directApiInfo = GetInfoForApiImpl(apiSymbol, apiKind);
+			ApiSearchResult? directApiInfo = GetInfoForApiImpl(apiSymbol, apiKind);
 
 			return directApiInfo;
 		}
 
-		protected virtual Api? GetInfoForApiImpl(ISymbol apiSymbol, ApiKind apiKind) =>
-			GetInfoForSymbol(apiSymbol, apiKind);
+		protected virtual ApiSearchResult? GetInfoForApiImpl(ISymbol apiSymbol, ApiKind apiKind)
+		{
+			var apiSymbolFoundInDb = GetInfoForSymbol(apiSymbol, apiKind);
+			return apiSymbolFoundInDb != null
+				? new ApiSearchResult(closestBannedApi: apiSymbolFoundInDb, apiSymbolFoundInDb)
+				: null;
+		}
 
 		protected Api? GetInfoForSymbol(ISymbol symbol, ApiKind symbolKind)
 		{
