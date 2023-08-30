@@ -16,11 +16,11 @@ namespace CoreCompatibilyzer.Runner.Input
 		/// The code source that will be analysed for the compatibility with the of .Net Core 2.2 runtime.
 		/// </summary>
 		/// <remarks>
-		/// Currenly, the supported code sources are C# projects and C# solutions.
+		/// Currently, the supported code sources are C# projects and C# solutions.
 		/// </remarks>
 		[Value(index: 0, MetaName = CommandLineArgNames.CodeSource, Required = true,
 			   HelpText = "A path to the \"code source\" which will be validated. The term \"code source\" is a generalization for components/services that can provide source code to the tool.\n" +
-						  "Currenly, the supported code sources are C# projects and C# solutions.")]
+						  "Currently, the supported code sources are C# projects and C# solutions.")]
 		public string CodeSource { get; }
 
 		/// <summary>
@@ -43,8 +43,8 @@ namespace CoreCompatibilyzer.Runner.Input
 		/// If this flag is set to true then the code analysis won't take into consideration suppression comments present in the code.
 		/// </summary>
 		[Option(longName: CommandLineArgNames.DisableSuppressionMechanism,
-				HelpText = "When this optional flag is set to true, the code analysis would not take into consideration suppression comments present in the code " +
-							"and will report suppressed diagnostics.")]
+				HelpText = "When this optional flag is specified, the code analysis would not take into consideration suppression comments present in the code " +
+						   "and will report suppressed diagnostics.")]
 		public bool DisableSuppressionMechanism { get; }
 
 		/// <summary>
@@ -84,7 +84,7 @@ namespace CoreCompatibilyzer.Runner.Input
 				HelpText = "When report is displayed in a shortened form without banned API calls locations, it could be shortened even more.\n" +
 						   "By default, the report will not display used banned type member APIs if their containing type is also banned and used by the code being analyzed.\n" +
 						   "Set this flag to include the banned type member APIs into the report together with their containing type.\n" +
-						   $"This flag does not affect the report when the {nameof(IncludeApiUsages)} is set.")]
+						   $"This flag does not affect the report when the --{CommandLineArgNames.IncludeApiUsages} is specified.")]
 		public bool ShowMembersOfUsedType { get; }
 
 		/// <summary>
@@ -109,27 +109,27 @@ namespace CoreCompatibilyzer.Runner.Input
 		public string? OutputFileName { get; }
 
 		/// <summary>
-		/// When report is set to output the detailed list of banned APIs with their usages this flag regulates how the locations of API usages will be ouput.<br/>
+		/// When report is set to output the detailed list of banned APIs with their usages this flag regulates how the locations of API usages will be output.<br/>
 		///	By default, file paths in locations are relative to the containing project directory. However, if this flag is set then the absolute file paths will be used.<br/>
 		///	This flag does not affect the report when the <see cref="IncludeApiUsages"/> is not set.
 		/// </summary>
 		[Option(longName: CommandLineArgNames.OutputAbsolutePathsToUsages,
-				HelpText = "When report is set to output the detailed list of banned APIs with their usages this flag regulates how the locations of API usages will be ouput.\n" +
+				HelpText = "When report is set to output the detailed list of banned APIs with their usages this flag regulates how the locations of API usages will be output.\n" +
 						   "By default, file paths in locations are relative to the containing project directory. " +
 						   "However, if this flag is set then the absolute file paths will be used.\n" +
-						  $"This flag does not affect the report when the {nameof(IncludeApiUsages)} is not set.")]
+						  $"This flag does not affect the report when the --{CommandLineArgNames.IncludeApiUsages} is not specified.")]
 		public bool OutputAbsolutePathsToUsages { get; }
 
 		/// <summary>
 		/// The report output format. There are two supported values:
 		/// <list type="bullet">
-		/// <item>"text" to ouput the report in plain text, this is the default output mode,</item>
+		/// <item>"text" to output the report in plain text, this is the default output mode,</item>
 		/// <item>"json" to output the report in JSON format.</item>
 		/// </list>
 		/// </summary>
 		[Option(longName: CommandLineArgNames.OutputFormat,
 				HelpText = "The report output format. There are two supported values:\n" +
-						   "- \"text\" to ouput the report in plain text, this is the default output mode,\n" +
+						   "- \"text\" to output the report in plain text, this is the default output mode,\n" +
 						   "- \"json\" to output the report in JSON format.")]
 		public string? OutputFormat { get; }
 
