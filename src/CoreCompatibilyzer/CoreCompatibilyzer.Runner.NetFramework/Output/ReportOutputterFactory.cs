@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using CoreCompatibilyzer.Runner.Input;
+using CoreCompatibilyzer.Runner.Output.Data;
 using CoreCompatibilyzer.Runner.Output.Json;
 using CoreCompatibilyzer.Runner.Output.PlainText;
 using CoreCompatibilyzer.Utils.Common;
@@ -10,10 +11,10 @@ using Serilog;
 
 namespace CoreCompatibilyzer.Runner.Output
 {
-	/// <summary>
-	/// The standard output formatter.
-	/// </summary>
-	internal class ReportOutputterFactory : IOutputterFactory
+    /// <summary>
+    /// The standard output formatter.
+    /// </summary>
+    internal class ReportOutputterFactory : IOutputterFactory
 	{
 		public IReportOutputter CreateOutputter(AppAnalysisContext analysisContext)
 		{
