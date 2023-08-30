@@ -31,20 +31,20 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				_cancellation 			= cancellation;
             }
 
-			public List<Api>? GetTypeParameterBannedApiInfos(ITypeParameterSymbol typeParameterSymbol, bool checkInterfaces)
+			public List<ApiSearchResult>? GetTypeParameterBannedApiInfos(ITypeParameterSymbol typeParameterSymbol, bool checkInterfaces)
 			{
 				_checkedTypes.Clear();
 				return GetBannedInfosFromTypeParameter(typeParameterSymbol, alreadyCollectedInfos: null, checkInterfaces);
 			}
 
-			public List<Api>? GetTypeBannedApiInfos(ITypeSymbol typeSymbol, bool checkInterfaces)
+			public List<ApiSearchResult>? GetTypeBannedApiInfos(ITypeSymbol typeSymbol, bool checkInterfaces)
 			{				
 				_checkedTypes.Clear();
 				return GetBannedInfosFromTypeSymbolAndItsHierarchy(typeSymbol, alreadyCollectedInfos: null, checkInterfaces);
 			}
 
-			private List<Api>? GetBannedInfosFromTypeSymbolAndItsHierarchy(ITypeSymbol typeSymbol, List<Api>? alreadyCollectedInfos, 
-																				 bool checkInterfaces)
+			private List<ApiSearchResult>? GetBannedInfosFromTypeSymbolAndItsHierarchy(ITypeSymbol typeSymbol, List<ApiSearchResult>? alreadyCollectedInfos, 
+																					   bool checkInterfaces)
 			{
 				if (!_checkedTypes.Add(typeSymbol))
 					return alreadyCollectedInfos;
@@ -80,7 +80,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				return alreadyCollectedInfos;
 			}
 
-			private List<Api>? GetBannedInfosFromBaseTypes(ITypeSymbol typeSymbol, List<Api>? alreadyCollectedInfos, bool checkInterfaces)
+			private List<ApiSearchResult>? GetBannedInfosFromBaseTypes(ITypeSymbol typeSymbol, List<ApiSearchResult>? alreadyCollectedInfos, bool checkInterfaces)
 			{
 				if (typeSymbol.IsStatic || typeSymbol.TypeKind != TypeKind.Class)
 					return alreadyCollectedInfos;
@@ -105,11 +105,11 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				return alreadyCollectedInfos;
 			}
 
-			private List<Api>? GetBannedInfosFromType(ITypeSymbol typeSymbol, List<Api>? alreadyCollectedInfos, bool checkInterfaces)
+			private List<ApiSearchResult>? GetBannedInfosFromType(ITypeSymbol typeSymbol, List<ApiSearchResult>? alreadyCollectedInfos, bool checkInterfaces)
 			{
-				if (_apiBanInfoRetriever.GetInfoForApi(typeSymbol) is Api bannedTypeInfo && !IsInWhiteList(typeSymbol))
+				if (_apiBanInfoRetriever.GetInfoForApi(typeSymbol) is ApiSearchResult bannedTypeInfo && !IsInWhiteList(typeSymbol))
 				{
-					alreadyCollectedInfos ??= new List<Api>(capacity: 4);
+					alreadyCollectedInfos ??= new List<ApiSearchResult>(capacity: 4);
 					alreadyCollectedInfos.Add(bannedTypeInfo);
 				}
 
@@ -121,7 +121,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				return alreadyCollectedInfos;
 			}
 
-			private List<Api>? GetBannedInfosFromTypeParameter(ITypeParameterSymbol typeParameterSymbol, List<Api>? alreadyCollectedInfos, 
+			private List<ApiSearchResult>? GetBannedInfosFromTypeParameter(ITypeParameterSymbol typeParameterSymbol, List<ApiSearchResult>? alreadyCollectedInfos, 
 																	 bool checkInterfaces)
 			{
 				if (!_checkedTypes.Add(typeParameterSymbol))
@@ -130,7 +130,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				return GetBannedApisFromTypesList(typeParameterSymbol.ConstraintTypes, alreadyCollectedInfos, checkInterfaces);
 			}
 
-			private List<Api>? GetBannedApisFromTypesList(ImmutableArray<ITypeSymbol> types, List<Api>? alreadyCollectedInfos, bool checkInterfaces)
+			private List<ApiSearchResult>? GetBannedApisFromTypesList(ImmutableArray<ITypeSymbol> types, List<ApiSearchResult>? alreadyCollectedInfos, bool checkInterfaces)
 			{
 				if (types.IsDefaultOrEmpty)
 					return alreadyCollectedInfos;
@@ -156,7 +156,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 
 			private bool IsInWhiteList(ISymbol symbol)
 			{
-				if (_whiteListInfoRetriever?.GetInfoForApi(symbol) is Api)
+				if (_whiteListInfoRetriever?.GetInfoForApi(symbol) is ApiSearchResult)
 				{
 					if (symbol.ContainingNamespace != null && !symbol.ContainingNamespace.IsGlobalNamespace)
 						NamespacesWithUsedWhiteListedMembers.Add(symbol.ContainingNamespace.ToString());
