@@ -32,8 +32,17 @@ namespace CoreCompatibilyzer.Runner.Input
 		/// <inheritdoc cref="CommandLineOptions.DisableSuppressionMechanism"/>
 		public bool DisableSuppressionMechanism { get; }
 
-		/// <inheritdoc cref="CommandLineOptions.ReportFormat"/>
+		/// <summary>
+		/// The report mode. There are two modes:
+		/// <list type="bullet">
+		/// <item>The default mode <see cref="ReportMode.UsedAPIsOnly"/>, in which the report includes only a shortened list of used banned API.</item>
+		/// <item>The <see cref="ReportMode.UsedAPIsWithUsages"/> mode, in which the the report will include much more details about the location of each banned API call.</item>
+		/// </list>
+		/// </summary>
 		public ReportMode ReportMode { get; }
+
+		/// <inheritdoc cref="CommandLineOptions.IncludeAllDistinctApis"/>
+		public bool IncludeAllDistinctApis { get; }
 
 		/// <inheritdoc cref="CommandLineOptions.ReportGrouping"/>
 		public GroupingMode Grouping { get; }
@@ -56,7 +65,7 @@ namespace CoreCompatibilyzer.Runner.Input
 		public bool IsRunningOnLinux { get; }
 
 		public AppAnalysisContext(ICodeSource codeSource, DotNetRuntime targetRuntime, bool disableSuppressionMechanism, string? msBuildPath,
-								  ReportMode reportMode, GroupingMode groupingMode, bool showMembersOfUsedType, string? outputFileName, 
+								  ReportMode reportMode, bool includeAllDistinctApis, GroupingMode groupingMode, bool showMembersOfUsedType, string? outputFileName, 
 								  bool outputAbsolutePathsToUsages, OutputFormat outputFormat)
 		{
 			CodeSource 					= codeSource.ThrowIfNull(nameof(codeSource));
@@ -64,6 +73,7 @@ namespace CoreCompatibilyzer.Runner.Input
 			DisableSuppressionMechanism = disableSuppressionMechanism;
 			MSBuildPath 				= msBuildPath.NullIfWhiteSpace();
 			ReportMode 					= reportMode;
+			IncludeAllDistinctApis		= includeAllDistinctApis;
 			Grouping 					= groupingMode;
 			ShowMembersOfUsedType		= showMembersOfUsedType;
 			OutputFileName				= outputFileName.NullIfWhiteSpace();

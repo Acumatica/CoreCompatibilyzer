@@ -26,7 +26,7 @@ namespace CoreCompatibilyzer.Runner.Input
 			GroupingMode groupingMode = ReadGroupingMode(commandLineOptions.ReportGrouping);
 			OutputFormat outputFormat = GetOutputFormat(commandLineOptions.OutputFormat.NullIfWhiteSpace());
 			var input = new AppAnalysisContext(codeSource, targetRuntime: DotNetRuntime.DotNetCore22, commandLineOptions.DisableSuppressionMechanism,
-											   commandLineOptions.MSBuildPath, reportMode, groupingMode, commandLineOptions.ShowMembersOfUsedType,
+											   commandLineOptions.MSBuildPath, reportMode, commandLineOptions.IncludeAllDistinctApis, groupingMode, commandLineOptions.ShowMembersOfUsedType,
 											   commandLineOptions.OutputFileName, commandLineOptions.OutputAbsolutePathsToUsages, outputFormat);
 			return input;
 		}

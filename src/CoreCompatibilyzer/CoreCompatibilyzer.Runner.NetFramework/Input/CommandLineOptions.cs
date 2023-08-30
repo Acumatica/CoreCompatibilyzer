@@ -68,6 +68,13 @@ namespace CoreCompatibilyzer.Runner.Input
 		public bool IncludeApiUsages { get; }
 
 		/// <summary>
+		/// If this flag is set to <see langword="true"/> then the report will start with a list of all distinct APIs used by the code source.
+		/// </summary>
+		[Option(longName: CommandLineArgNames.IncludeAllDistinctApis,
+				HelpText = "If this flag is set to true then the report will start with a list of all distinct APIs used by the code source.")]
+		public bool IncludeAllDistinctApis { get; }
+
+		/// <summary>
 		/// When report is displayed in a shortened form without banned API calls locations, it could be shortened even more.<br/>
 		///	By default, the report will not display used banned type member APIs if their containing type is also banned and used by the code being analyzed.<br/>
 		///	Set this flag to include the banned type member APIs into the report together with their containing type.<br/>
@@ -128,7 +135,7 @@ namespace CoreCompatibilyzer.Runner.Input
 
 		// Constructor arguments order must be the same as the properties order. This allows command line parser to initialize immutable options object via constructor.
 		// See this for details: https://github.com/commandlineparser/commandline/wiki/Immutable-Options-Type
-		public CommandLineOptions(string codeSource, string? verbosity, bool disableSuppressionMechanism, string? msBuildPath, bool includeApiUsages, 
+		public CommandLineOptions(string codeSource, string? verbosity, bool disableSuppressionMechanism, string? msBuildPath, bool includeApiUsages, bool includeAllDistinctApis,
 								  bool showMembersOfUsedType, string? reportGrouping, string? outputFileName, bool outputAbsolutePathsToUsages, string? outputFormat)
 		{
 			CodeSource 					= codeSource;
@@ -136,6 +143,7 @@ namespace CoreCompatibilyzer.Runner.Input
 			DisableSuppressionMechanism = disableSuppressionMechanism;
 			MSBuildPath 				= msBuildPath;
 			IncludeApiUsages			= includeApiUsages;
+			IncludeAllDistinctApis		= includeAllDistinctApis;
 			ShowMembersOfUsedType		= showMembersOfUsedType;
 			ReportGrouping 				= reportGrouping;
 			OutputFileName				= outputFileName;
