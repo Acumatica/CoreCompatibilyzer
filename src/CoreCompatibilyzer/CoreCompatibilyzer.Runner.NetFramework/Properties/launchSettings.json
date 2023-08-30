@@ -26,7 +26,7 @@
     },
     "grouping namespaces": {
       "commandName": "Project",
-      "commandLineArgs": "\"..\\..\\..\\..\\Demo\\NetFramework\\DemoNetFramework.csproj\" -v Information -g \"n\""
+      "commandLineArgs": "\"C:\\Repos\\Acumatica2\\NetTools\\ReportDesigner\\ReportDesigner.csproj\" -v Information -g \"n\""
     },
     "grouping namespaces + apis": {
       "commandName": "Project",
@@ -112,6 +112,11 @@
     "NetTools statistics collection": {
       "commandName": "Project",
       "commandLineArgs": "\"C:\\Repos\\Acumatica2\\NetTools\\NetTools.sln\" --withUsages --showMembersOfUsedType -v Information -g \"n\" -f \"C:\\CompatibilityReports\\2023r193.txt\""
+    },
+
+    "PX.Web.UI statistics collection": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Repos\\Acumatica2\\NetTools\\PX.Web.UI\\PX.Web.UI.csproj\" -v Information -g \"n\""
     }
   }
 }
