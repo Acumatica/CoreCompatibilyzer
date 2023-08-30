@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Immutable;
 using System.Threading;
 
 using CoreCompatibilyzer.Runner.Input;
@@ -17,11 +16,11 @@ namespace CoreCompatibilyzer.Runner.Output
 		/// <summary>
 		/// Builds the report from hte diagnostics.
 		/// </summary>
-		/// <param name="diagnostics">The diagnostics.</param>
+		/// <param name="diagnosticsWithApis">The diagnostics with banned APIs.</param>
 		/// <param name="analysisContext">The analysis context.</param>
 		/// <param name="project">The project.</param>
 		/// <param name="cancellation">Cancellation token.</param>
-		ProjectReport BuildReport(ImmutableArray<Diagnostic> diagnostics, AppAnalysisContext analysisContext, Project project,
+		ProjectReport BuildReport(DiagnosticsWithBannedApis diagnosticsWithApis, AppAnalysisContext analysisContext, Project project,
 								  CancellationToken cancellation);
 	}
 }
