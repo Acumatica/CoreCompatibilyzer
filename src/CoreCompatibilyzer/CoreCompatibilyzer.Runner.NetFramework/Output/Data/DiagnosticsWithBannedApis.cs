@@ -23,6 +23,8 @@ namespace CoreCompatibilyzer.Runner.Output.Data
 
 		public (Diagnostic Diagnostic, Api BannedApi) this[int index] => _diagnosticsWithApis[index];
 
+		public IReadOnlyList<Api> UsedDistinctApis { get; }
+
 		public HashSet<string> UsedNamespaces { get; } = new();
 
 		public HashSet<string> UsedBannedTypes { get; } = new();
@@ -31,10 +33,13 @@ namespace CoreCompatibilyzer.Runner.Output.Data
         {
 			_diagnosticsWithApis	= new();
 			UnrecognizedDiagnostics = new List<Diagnostic>();
+			UsedDistinctApis		= new List<Api>();
 		}
 
-        public DiagnosticsWithBannedApis(IEnumerable<Diagnostic> diagnostics)
+        public DiagnosticsWithBannedApis(IEnumerable<Diagnostic> diagnostics, UsedDistinctApisCalculator usedDistinctApisCalculator)
         {
+			usedDistinctApisCalculator.ThrowIfNull(nameof(usedDistinctApisCalculator));
+
 			var diagnosticsWithApisLookup = diagnostics.ThrowIfNull(nameof(diagnostics))
 													   .Select(diagnostic => (Diagnostic: diagnostic, BannedApi: GetBannedApiFromDiagnostic(diagnostic)))
 													   .ToLookup(d => d.BannedApi != null);
@@ -54,6 +59,8 @@ namespace CoreCompatibilyzer.Runner.Output.Data
 				else if (bannedApi.Kind == ApiKind.Namespace)
 					UsedNamespaces.Add(bannedApi.Namespace);
 			}
+
+			UsedDistinctApis = usedDistinctApisCalculator.GetAllUsedApis(_diagnosticsWithApis).ToList();
 		}
 
 		private Api? GetBannedApiFromDiagnostic(Diagnostic diagnostic)
