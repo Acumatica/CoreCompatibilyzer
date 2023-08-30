@@ -30,17 +30,28 @@ namespace CoreCompatibilyzer.Runner.Output
 		}
 
 		/// <summary>
+		/// Gets all unsorted used apis in the <paramref name="unsortedApis"/>.
+		/// </summary>
+		/// <param name="unsortedApis">The unsorted APIs.</param>
+		/// <returns/>
+		public IEnumerable<Api> GetAllUsedApis(IEnumerable<Api> unsortedApis) =>
+			GetAllUsedApisImpl(unsortedApis.ThrowIfNull(nameof(unsortedApis)));
+
+		/// <summary>
 		/// Gets all unsorted used apis in the <paramref name="unsortedDiagnostics"/>.
 		/// </summary>
 		/// <param name="unsortedDiagnostics">The unsorted diagnostics.</param>
 		/// <returns/>
-		public IEnumerable<Api> GetAllUsedApis(IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> unsortedDiagnostics) =>
-			GetAllUsedApisImpl(unsortedDiagnostics.ThrowIfNull(nameof(unsortedDiagnostics)));
-
-		private IEnumerable<Api> GetAllUsedApisImpl(IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> unsortedDiagnostics)
+		public IEnumerable<Api> GetAllUsedApis(IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> unsortedDiagnostics)
 		{
-			var distinctApis = unsortedDiagnostics.Select(d => d.BannedApi)
-												  .Distinct();
+			var unsortedApis = unsortedDiagnostics.ThrowIfNull(nameof(unsortedDiagnostics)).Select(d => d.BannedApi);
+			return GetAllUsedApisImpl(unsortedApis);
+		}
+
+		private IEnumerable<Api> GetAllUsedApisImpl(IEnumerable<Api> unsortedApis)
+		{
+			var distinctApis = unsortedApis.Distinct();
+
 			foreach (Api api in distinctApis)
 			{
 				switch (api.Kind)
