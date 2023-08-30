@@ -55,7 +55,7 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 			base.OutputReport(projectReport, analysisContext, cancellation);
 		}
 
-		protected override void WriteTitle(in Title? title, int depth, int itemsCount, bool hasContent)
+		protected override void WriteTitle(in Title? title, int depth, int itemsCount, int distinctApisCount, bool hasContent)
 		{
 			if (title == null)
 				return;
@@ -64,7 +64,7 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 			string suffix  = hasContent ? ":" : string.Empty;
 			string titleWithPadding = title.Value.Kind == TitleKind.Usages
 				? $"{padding}{title.Value.Text}{suffix}"
-				: $"{padding}{title.Value.Text}(Count = {itemsCount}){suffix}";
+				: $"{padding}{title.Value.Text}(Count = {itemsCount}, Distinct APIs = {distinctApisCount}){suffix}";
 
 			WriteLine(titleWithPadding);
 		}

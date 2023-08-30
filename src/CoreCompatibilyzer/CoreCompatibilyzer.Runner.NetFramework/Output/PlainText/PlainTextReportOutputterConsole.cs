@@ -13,14 +13,19 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 	{
 		public override void Dispose() { }
 
-		protected override void WriteTitle(in Title? title, int depth, int itemsCount, bool hasContent)
+		protected override void WriteDistinctApisTitle(in Title? title, int depth, int itemsCount, int distinctApisCount, bool hasContent)
+		{
+
+		}
+
+		protected override void WriteTitle(in Title? title, int depth, int itemsCount, int distinctApisCount, bool hasContent)
 		{
 			if (title == null)
 				return;
 
 			string padding = GetPadding(depth);
 			string suffix = hasContent ? ":" : string.Empty;
-			string titleWithPadding = $"{padding}{title.Value.Text}(Count = {itemsCount}){suffix}";
+			string titleWithPadding = $"{padding}{title.Value.Text}(Count = {itemsCount}, Distinct APIs = {distinctApisCount}){suffix}";
 
 			switch (title?.Kind)
 			{
@@ -38,6 +43,9 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 					return;
 				case TitleKind.AllApis:
 					WriteAllApisTitle(titleWithPadding);
+					return;
+				case TitleKind.AllDistinctApis:
+					WriteAllDistinctApisTitle($"{padding}{title.Value.Text}(Count = {itemsCount}){suffix}";);
 					return;
 				case TitleKind.Usages:
 					WriteUsagesTitle($"{padding}{title.Value.Text}{suffix}");
@@ -92,6 +100,9 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 
 		private void WriteAllApisTitle(string allApisTitle) =>
 			OutputTitle(allApisTitle, ConsoleColor.DarkCyan);
+
+		private void WriteAllDistinctApisTitle(string allDistinctApisTitle) =>
+			OutputTitle(allDistinctApisTitle, ConsoleColor.DarkCyan);
 
 		private void WriteNamespaceTitle(string namespaceTitle) =>
 			OutputTitle(namespaceTitle, ConsoleColor.DarkCyan);

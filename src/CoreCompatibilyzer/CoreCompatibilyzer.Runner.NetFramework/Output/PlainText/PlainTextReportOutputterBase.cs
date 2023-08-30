@@ -25,8 +25,14 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 
 			WriteLine($"{codeSourceReport.CodeSourceName} - Total Errors Count: {codeSourceReport.TotalErrorCount}");
 
+			if (!analysisContext.IncludeAllDistinctApis || codeSourceReport.DistinctApis?.Count is null or 0)
+				WriteLine($"{codeSourceReport.CodeSourceName} - Distinct APIs Count: {codeSourceReport.DistinctApisCount}");
+
 			if (codeSourceReport.TotalErrorCount == 0)
 				return;
+
+			if (analysisContext.IncludeAllDistinctApis && codeSourceReport.DistinctApis?.Count > 0)
+				OutputDistinctApis(codeSourceReport.DistinctApis);
 
 			foreach (ProjectReport projectReport in codeSourceReport.ProjectReports)
 			{
@@ -37,12 +43,24 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 			}
 		}
 
+		private void OutputDistinctApis(IReadOnlyCollection<Line> distinctApis)
+		{
+			WriteLine();
+			WriteDistinctApisTitle("Distinct APIs", depth: 0, distinctApis.Count);
+
+			foreach (Line api in distinctApis)
+				WriteLine(api, depth: 1);
+
+			WriteLine();
+		}
+
 		public virtual void OutputReport(ProjectReport projectReport, AppAnalysisContext analysisContext, CancellationToken cancellation)
 		{
 			projectReport.ThrowIfNull(nameof(projectReport));
 			cancellation.ThrowIfCancellationRequested();
 
 			WriteLine($"{projectReport.ProjectName} - Total Errors Count: {projectReport.TotalErrorCount}");
+			WriteLine($"{projectReport.ProjectName} - Distinct APIs Count: {projectReport.DistinctApisCount}");
 
 			if (projectReport.TotalErrorCount == 0)
 				return;
@@ -70,7 +88,7 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 			if (reportGroup.GroupTitle.HasValue)
 			{
 				hasTitle = true;
-				WriteTitle(reportGroup.GroupTitle.Value, depth, reportGroup.TotalErrorCount, reportGroup.HasContent);
+				WriteTitle(reportGroup.GroupTitle.Value, depth, reportGroup.TotalErrorCount, reportGroup.DistinctApisCount, reportGroup.HasContent);
 			}
 
 			cancellation.ThrowIfCancellationRequested();
@@ -82,7 +100,7 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 
 				if (reportGroup.LinesTitle.HasValue)
 				{
-					WriteTitle(reportGroup.LinesTitle.Value, depth + 1, reportGroup.Lines.Count, reportGroup.HasContent);
+					WriteTitle(reportGroup.LinesTitle.Value, depth + 1, reportGroup.Lines.Count, reportGroup.DistinctApisCount, reportGroup.HasContent);
 					linesDepth = depth + 2;
 				}
 				else
@@ -105,7 +123,7 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 				if (reportGroup.ChildrenTitle.HasValue)
 				{
 					int totalSubGroupErrors = reportGroup.ChildrenGroups.Sum(group => group.TotalErrorCount);
-					WriteTitle(reportGroup.ChildrenTitle.Value, depth + 1, totalSubGroupErrors, reportGroup.HasContent);
+					WriteTitle(reportGroup.ChildrenTitle.Value, depth + 1, totalSubGroupErrors, reportGroup.DistinctApisCount, reportGroup.HasContent);
 					groupDepth = depth + 2;
 				}
 				else
@@ -122,7 +140,9 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 				WriteLine();
 		}
 
-		protected abstract void WriteTitle(in Title? title, int depth, int itemsCount, bool hasContent);
+		protected abstract void WriteDistinctApisTitle(string titleText, int depth, int itemsCount);
+
+		protected abstract void WriteTitle(in Title? title, int depth, int itemsCount, int distinctApisCount, bool hasContent);
 
 		protected void WriteLine<T>(T obj)
 		{
