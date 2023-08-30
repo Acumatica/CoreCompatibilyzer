@@ -14,19 +14,29 @@ namespace CoreCompatibilyzer.Runner.Output.Data
 
 		public int TotalErrorCount { get; }
 
-		public int DistinctApisCount => DistinctApis?.Count ?? 0;
+		public int DistinctApisCount { get; }
 
 		[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-		public IReadOnlyCollection<Line>? DistinctApis { get; init; }
+		public IReadOnlyCollection<Line>? DistinctApis { get; }
 
 		public IReadOnlyCollection<ProjectReport> ProjectReports { get; }
 
-        public CodeSourceReport(string codeSourceName, IEnumerable<Line>? distinctApis, IEnumerable<ProjectReport> projectReports)
-        {
-			CodeSourceName  = codeSourceName.ThrowIfNullOrWhiteSpace(nameof(codeSourceName));
-			DistinctApis	= distinctApis?.ToList();
-			ProjectReports  = projectReports.ThrowIfNullOrEmpty(nameof(projectReports)).ToList();
-			TotalErrorCount = ProjectReports.Sum(report => report.TotalErrorCount);
+		public CodeSourceReport(string codeSourceName, int distinctApisCount, IEnumerable<ProjectReport> projectReports)
+		{
+			CodeSourceName 	  = codeSourceName.ThrowIfNullOrWhiteSpace(nameof(codeSourceName));
+			DistinctApis 	  = null;
+			DistinctApisCount = distinctApisCount;
+			ProjectReports 	  = projectReports.ThrowIfNullOrEmpty(nameof(projectReports)).ToList();
+			TotalErrorCount   = ProjectReports.Sum(report => report.TotalErrorCount);
 		}
-    }
+
+		public CodeSourceReport(string codeSourceName, IEnumerable<Line>? distinctApis, IEnumerable<ProjectReport> projectReports)
+		{
+			CodeSourceName 	  = codeSourceName.ThrowIfNullOrWhiteSpace(nameof(codeSourceName));
+			DistinctApis 	  = distinctApis?.ToList();
+			DistinctApisCount = DistinctApis?.Count ?? 0;
+			ProjectReports 	  = projectReports.ThrowIfNullOrEmpty(nameof(projectReports)).ToList();
+			TotalErrorCount   = ProjectReports.Sum(report => report.TotalErrorCount);
+		}
+	}
 }

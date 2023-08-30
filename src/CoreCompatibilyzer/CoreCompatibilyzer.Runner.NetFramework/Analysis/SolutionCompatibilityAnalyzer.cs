@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
+using CoreCompatibilyzer.ApiData.Model;
 using CoreCompatibilyzer.ApiData.Providers;
 using CoreCompatibilyzer.ApiData.Storage;
 using CoreCompatibilyzer.DotNetRuntimeVersion;
@@ -79,9 +80,13 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			var projectsToValidate = analysisContext.CodeSource.GetProjectsForValidation(solution)
 															   .OrderBy(p => p.Name);
 
+
 			using (var reportOutputter = _outputterFactory.CreateOutputter(analysisContext))
 			{
-				var projectReports = new List<ProjectReport>(capacity: solution.ProjectIds.Count);
+				var projectReports 	  	  = new List<ProjectReport>(capacity: solution.ProjectIds.Count);
+				var allUsedNamespaces 	  = new HashSet<string>();
+				var allUsedTypes 	  	  = new HashSet<string>();
+				IEnumerable<Api> usedApis = Enumerable.Empty<Api>();
 
 				foreach (Project project in projectsToValidate)
 				{
@@ -95,26 +100,39 @@ namespace CoreCompatibilyzer.Runner.Analysis
 						return solutionValidationResult;
 					}
 
-					var (projectValidationResult, projectReport) = await AnalyseProject(project, analysisContext, cancellationToken).ConfigureAwait(false);
+					var (projectValidationResult, projectReport, projectAnalysisData) = 
+						await AnalyzeProject(project, analysisContext, cancellationToken).ConfigureAwait(false);
 
 					if (projectReport != null)
 						projectReports.Add(projectReport);
 
 					solutionValidationResult = solutionValidationResult.Combine(projectValidationResult);
 
+					if (projectAnalysisData != null)
+					{
+						allUsedNamespaces.AddRange(projectAnalysisData.UsedNamespaces);
+						allUsedTypes.AddRange(projectAnalysisData.UsedBannedTypes);
+
+						usedApis = usedApis.Concat(projectAnalysisData.UsedDistinctApis);
+					}
+
 					Log.Information("Finished validation of the project \"{ProjectName}\". Project valudation result: {Result}.",
 									project.Name, projectValidationResult);
 				}
 
-				var codeSourceReport = new CodeSourceReport(analysisContext.CodeSource.Location, projectReports);
+				var distinctApisCalculator 		 = new UsedDistinctApisCalculator(analysisContext, allUsedNamespaces, allUsedTypes);
+				IEnumerable<Api> allDistinctApis = distinctApisCalculator.GetAllUsedApis(usedApis);
+				var codeSourceReport 			 = CreateCodeSourceReport(analysisContext, projectReports, allDistinctApis);
+
 				reportOutputter.OutputReport(codeSourceReport, analysisContext, cancellationToken);
 			}
 
 			return solutionValidationResult;
 		}
 
-		private async Task<(RunResult validationResult, ProjectReport? Report)> AnalyseProject(Project project, AppAnalysisContext analysisContext,
-																							   CancellationToken cancellationToken)
+		private async Task<(RunResult validationResult, ProjectReport? Report, DiagnosticsWithBannedApis? AnalysisData)> AnalyzeProject(
+																								Project project, AppAnalysisContext analysisContext,
+																								CancellationToken cancellationToken)
 		{
 			Log.Debug("Obtaining Roslyn compilation data for the project \"{ProjectName}\".", project.Name);
 			var compilation = await project.GetCompilationAsync(cancellationToken).ConfigureAwait(false);
@@ -123,7 +141,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			{
 				Log.Error("Failed to obtain Roslyn compilation data for the project with name \"{ProjectName}\" and path \"{ProjectPath}\".",
 						  project.Name, project.FilePath);
-				return (RunResult.RunTimeError, Report: null);
+				return (RunResult.RunTimeError, Report: null, AnalysisData: null);
 			}
 
 			Log.Debug("Obtained Roslyn compilation data for the project \"{ProjectName}\" successfully.", project.Name);
@@ -133,14 +151,14 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			var versionValidationResult = ValidateProjectVersion(project, dotNetVersion, analysisContext.TargetRuntime);
 
 			if (versionValidationResult.HasValue)
-				return (versionValidationResult.Value, Report: null);
+				return (versionValidationResult.Value, Report: null, AnalysisData: null);
 
 			if (!IsBannedStorageInitAndNonEmpty)
-				return (RunResult.Success, Report: null);
+				return (RunResult.Success, Report: null, AnalysisData: null);
 			
-			var (analysisValidationResult, projectReport) = await RunAnalyzersOnProjectAsync(compilation, analysisContext, project, cancellationToken)
-																		.ConfigureAwait(false);
-			return (analysisValidationResult, projectReport);
+			var projectAnalysisResult = await RunAnalyzersOnProjectAsync(compilation, analysisContext, project, cancellationToken)
+												.ConfigureAwait(false);
+			return projectAnalysisResult;
 		}
 
 		private RunResult? ValidateProjectVersion(Project project, DotNetRuntime? projectVersion, DotNetRuntime targetVersion)
@@ -164,11 +182,12 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			return null;
 		}
 
-		private async Task<(RunResult validationResult, ProjectReport? Report)> RunAnalyzersOnProjectAsync(Compilation compilation, AppAnalysisContext analysisContext, 
-																										  Project project, CancellationToken cancellation)
+		private async Task<(RunResult validationResult, ProjectReport? Report, DiagnosticsWithBannedApis? AnalysisData)> RunAnalyzersOnProjectAsync(
+																						Compilation compilation, AppAnalysisContext analysisContext, 
+																						Project project, CancellationToken cancellation)
 		{
 			if (_diagnosticAnalyzers.IsDefaultOrEmpty)
-				return (RunResult.Success, Report: null);
+				return (RunResult.Success, Report: null, AnalysisData: null);
 
 			SuppressionManager.UseSuppression = !analysisContext.DisableSuppressionMechanism;
 			var compilationAnalysisOptions = new CompilationWithAnalyzersOptions(options: null!, OnAnalyzerException,
@@ -180,14 +199,31 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			Log.Error("{Project} - Total Errors Count: {ErrorCount}", project.Name, diagnosticResults.Length);
 
 			if (diagnosticResults.IsDefaultOrEmpty)
-				return (RunResult.Success, Report: null);
+				return (RunResult.Success, Report: null, AnalysisData: null);
 
-			var diagnosticsWithApis = new DiagnosticsWithBannedApis(diagnosticResults);
-
-
-
+			var diagnosticsWithApis		= new DiagnosticsWithBannedApis(diagnosticResults, analysisContext);
 			ProjectReport projectReport = _reportBuilder.BuildReport(diagnosticsWithApis, analysisContext, project, cancellation);
-			return (RunResult.RequirementsNotMet, projectReport);
+
+			return (RunResult.RequirementsNotMet, projectReport, diagnosticsWithApis);
+		}
+
+		private CodeSourceReport CreateCodeSourceReport(AppAnalysisContext analysisContext, List<ProjectReport> projectReports, IEnumerable<Api> allDistinctApis)
+		{
+			if (analysisContext.IncludeAllDistinctApis) 
+			{
+				var sortedDistinctApiLines = allDistinctApis.OrderBy(api => api.FullName)
+															.Select(api => new Line(api.FullName))
+															.ToList();
+
+				var codeSourceReport = new CodeSourceReport(analysisContext.CodeSource.Location, sortedDistinctApiLines, projectReports);
+				return codeSourceReport;
+			}
+			else
+			{
+				int allDistinctApisCount = allDistinctApis.Count();
+				var codeSourceReport = new CodeSourceReport(analysisContext.CodeSource.Location, allDistinctApisCount, projectReports);
+				return codeSourceReport;
+			}
 		}
 
 		[SuppressMessage("CodeQuality", "Serilog004:Constant MessageTemplate verifier", Justification = "Ok to use runtime dependent new line in message")]
