@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 
 using CoreCompatibilyzer.DotNetRuntimeVersion;
 using CoreCompatibilyzer.Runner.Analysis.CodeSources;
+using CoreCompatibilyzer.Runner.NetFramework.Output.Data;
 using CoreCompatibilyzer.Runner.Output;
 using CoreCompatibilyzer.Utils.Common;
 

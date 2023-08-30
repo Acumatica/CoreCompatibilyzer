@@ -7,6 +7,7 @@ using System.Linq;
 using CoreCompatibilyzer.DotNetRuntimeVersion;
 using CoreCompatibilyzer.Runner.Analysis.CodeSources;
 using CoreCompatibilyzer.Runner.Constants;
+using CoreCompatibilyzer.Runner.NetFramework.Output.Data;
 using CoreCompatibilyzer.Runner.Output;
 using CoreCompatibilyzer.Utils.Common;
 
