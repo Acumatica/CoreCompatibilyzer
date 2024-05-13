@@ -49,7 +49,7 @@ namespace CoreCompatibilyzer.Utils.Common
 				message = message.IsNullOrWhiteSpace()
 							? TheCollectionCannotBeEmptyErrorMsg
 							: message;
-				throw NewArgumentException(message, paramName);
+				throw NewArgumentException(paramName, message);
 			}
 
 			return collection;
@@ -89,10 +89,10 @@ namespace CoreCompatibilyzer.Utils.Common
 		private static ArgumentException NewArgumentException(string? parameter = null, string? message = null)
 		{
 			return parameter == null
-			   ? new ArgumentNullException()
+			   ? new ArgumentException()
 			   : message == null
-				   ? new ArgumentNullException(parameter)
-				   : new ArgumentNullException(parameter, message);
+				   ? new ArgumentException(parameter)
+				   : new ArgumentException(parameter, message);
 		}
 	}
 }
