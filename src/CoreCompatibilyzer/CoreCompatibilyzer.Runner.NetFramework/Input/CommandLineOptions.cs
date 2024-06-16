@@ -87,18 +87,24 @@ namespace CoreCompatibilyzer.Runner.Input
 						   $"This flag does not affect the report when the --{CommandLineArgNames.IncludeApiUsages} is specified.")]
 		public bool ShowMembersOfUsedType { get; }
 
+		// todo: not only files
 		/// <summary>
-		/// The report grouping. By default there is no grouping. You can make grouping of the reported API by namespaces, types or both:<br/>
+		/// The report grouping. By default, there is no grouping. You can make grouping by reported API or by source.
+		/// The grouping of reported API can be by namespaces, types or any combination of them:<br/>
 		///	- Add "<c>n</c>" or "<c>N</c>" to group results by namespaces,<br/>
 		///	- Add "<c>t</c>" or "<c>T</c>" to group results by types,<br/>
 		///	- Add both to group results by both types and namespaces.
+		///	The grouping of source can be by files:
+		///	- Add "<c>f</c>" or "<c>F</c>" to group results by source file.<br/>
 		/// </summary>
 		[Option(shortName: CommandLineArgNames.ReportGroupingShort, longName: CommandLineArgNames.ReportGroupingLong,
-				HelpText = "This parameter allows you to specify the grouping of API calls. By default there is no grouping. " +
-						   "You can make the grouping of the reported API calls by namespaces, types, APIs or any combination of them:\n" +
+				HelpText = "The report grouping. By default, there is no grouping. You can make grouping by reported API or by source.\n" +
+						   "The grouping of reported API can be by by namespaces, types, APIs or any combination of them:\n" +
 						   "- Add \"n\" or \"N\" to group API usages by namespaces,\n" +
 						   "- Add \"t\" or \"T\" to group API usages by types,\n" +
-						   "- Add \"a\" or \"A\" to group API usages by APIs.")]
+						   "- Add \"a\" or \"A\" to group API usages by APIs.\n" +
+						   "The grouping of source can be by files:\n" +
+						   "- Add \"f\" or \"F\" to group results by source file.")]
 		public string? ReportGrouping { get; }
 
 		/// <summary>

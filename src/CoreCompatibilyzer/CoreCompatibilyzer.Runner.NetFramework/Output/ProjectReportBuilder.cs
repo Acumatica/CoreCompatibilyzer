@@ -83,22 +83,24 @@ namespace CoreCompatibilyzer.Runner.Output
 		{
 			cancellation.ThrowIfCancellationRequested();
 
-			if (analysisContext.Grouping.HasGrouping(GroupingMode.Namespaces))
+            if (analysisContext.Grouping.HasGrouping(GroupingMode.Files))
+            {
+                return GetApiGroupsGroupedBySourceFiles(analysisContext, diagnosticsWithApis, projectDirectory, cancellation);
+            }
+            if (analysisContext.Grouping.HasGrouping(GroupingMode.Namespaces))
 			{
 				return GetApiGroupsGroupedByNamespaces(analysisContext, diagnosticsWithApis, projectDirectory, cancellation);
 			}
-			else if (analysisContext.Grouping.HasGrouping(GroupingMode.Types))
+			if (analysisContext.Grouping.HasGrouping(GroupingMode.Types))
 			{
 				return GetApiGroupsGroupedOnlyByTypes(analysisContext, diagnosticsWithApis, projectDirectory, cancellation);
 			}
-			else
-			{
-				var sortedFlatDiagnostics = diagnosticsWithApis.OrderBy(d => d.BannedApi.FullName);
-				var flattenedApiGroups = 
-					GetGroupsAfterNamespaceAndTypeGroupingProcessed(analysisContext, diagnosticsWithApis.DistinctApisCalculator, sortedFlatDiagnostics, projectDirectory);
 
-				return flattenedApiGroups;
-			}
+			var sortedFlatDiagnostics = diagnosticsWithApis.OrderBy(d => d.BannedApi.FullName);
+			var flattenedApiGroups = 
+				GetGroupsAfterNamespaceAndTypeGroupingProcessed(analysisContext, diagnosticsWithApis.DistinctApisCalculator, sortedFlatDiagnostics, projectDirectory);
+
+			return flattenedApiGroups;
 		}
 
 		private IEnumerable<ReportGroup> GetApiGroupsGroupedByNamespaces(AppAnalysisContext analysisContext, DiagnosticsWithBannedApis diagnosticsWithApis,
@@ -410,6 +412,7 @@ namespace CoreCompatibilyzer.Runner.Output
 				int distinctApisCount = allDistinctApis.Count();
 
 				var flatApiUsageLines = GetFlatApiUsagesLines(unsortedDiagnostics, projectDirectory, analysisContext).ToList();
+
 				var flatApiUsageGroup = new ReportGroup
 				{
 					TotalErrorCount   = flatApiUsageLines.Count,
@@ -420,6 +423,33 @@ namespace CoreCompatibilyzer.Runner.Output
 				return new[] { flatApiUsageGroup }; 
 			}
 		}
+
+		protected IEnumerable<ReportGroup> GetApiGroupsGroupedBySourceFiles(AppAnalysisContext analysisContext, DiagnosticsWithBannedApis diagnosticsWithApis,
+		                                                                    string? projectDirectory, CancellationToken cancellation)
+		{
+			var diagnosticsGroupedByApi = diagnosticsWithApis.GroupBy(d => d.Diagnostic.Location.SourceTree?.FilePath).OrderBy(d => d.Key);
+			foreach (var diagnosticsByApiGroup in diagnosticsGroupedByApi)
+			{
+				cancellation.ThrowIfCancellationRequested();
+
+				var    diagnosticsByApi = diagnosticsByApiGroup.ToList();
+				string apiName          = diagnosticsByApiGroup.Key ?? string.Empty;
+				var    distinctApis     =  diagnosticsWithApis.DistinctApisCalculator.GetAllUsedApis(diagnosticsByApi);
+				var    apiDiagnostics   = diagnosticsByApi.OrderBy(d => d.Diagnostic.Location.SourceTree?.FilePath ?? string.Empty);
+				var    usagesLines      = GetFileApiUsagesLines(apiDiagnostics, projectDirectory, analysisContext).ToList();
+				var apiGroup = new ReportGroup
+				{
+					GroupTitle        = new Title(apiName, TitleKind.Api),
+					TotalErrorCount   = usagesLines.Count,
+					DistinctApisCount = distinctApis.Count(),
+					LinesTitle        = new Title("Usages", TitleKind.Usages),
+					Lines             = usagesLines.NullIfEmpty()
+				};
+
+				yield return apiGroup;
+			}
+		}
+
 
 		private IEnumerable<ReportGroup> GetApiUsagesGroupsGroupedByApi(IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> unsortedDiagnostics,
 																		UsedDistinctApisCalculator usedDistinctApisCalculator,
@@ -459,10 +489,23 @@ namespace CoreCompatibilyzer.Runner.Output
 			return sortedApisWithLocations;
 		}
 
+		private IEnumerable<Line> GetFileApiUsagesLines(IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> sortedDiagnostics, string? projectDirectory, AppAnalysisContext analysisContext)
+		{
+			return sortedDiagnostics.Select(d => GetFileApiUsagesLine(d.Diagnostic, d.BannedApi, projectDirectory, analysisContext));
+		}
+
 		private IEnumerable<Line> GetApiUsagesLines(IEnumerable<Diagnostic> sortedDiagnostics, string? projectDirectory,
 													AppAnalysisContext analysisContext) =>
 			sortedDiagnostics.Select(diagnostic => GetApiUsageLine(diagnostic, projectDirectory, analysisContext));
-		
+
+		private Line GetFileApiUsagesLine(Diagnostic diagnostic, Api bannedApi, string? projectDirectory, AppAnalysisContext analysisContext)
+		{
+			var span = diagnostic.Location.GetMappedLineSpan().Span;
+
+			return new Line(bannedApi.FullName, span.ToString());
+		}
+
+
 		protected Line GetApiUsageLine(Diagnostic diagnostic, string? projectDirectory, AppAnalysisContext analysisContext)
 		{
 			var prettyLocation = GetPrettyLocation(diagnostic, projectDirectory, analysisContext);
