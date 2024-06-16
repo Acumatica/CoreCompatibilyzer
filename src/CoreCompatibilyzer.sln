@@ -11,7 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCompatibilyzer.Test", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCompatibilyzer.Vsix", "CoreCompatibilyzer\CoreCompatibilyzer.Vsix\CoreCompatibilyzer.Vsix.csproj", "{98529723-17B5-4270-9141-783488DB6D81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCompatibilyzer.Runner.NetFramework", "CoreCompatibilyzer\CoreCompatibilyzer.Runner.NetFramework\CoreCompatibilyzer.Runner.NetFramework.csproj", "{9C2BFEEA-7F6C-4851-8717-D2ED7C428A31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCompatibilyzer.Runner.NetFramework", "CoreCompatibilyzer\CoreCompatibilyzer.Runner.NetFramework\CoreCompatibilyzer.Runner.NetFramework.csproj", "{9C2BFEEA-7F6C-4851-8717-D2ED7C428A31}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "items", "items", "{53CA451F-7BFA-447C-BFB8-0F3F7F112417}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
