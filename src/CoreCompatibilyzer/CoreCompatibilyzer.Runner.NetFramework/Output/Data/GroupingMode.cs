@@ -16,17 +16,26 @@ namespace CoreCompatibilyzer.Runner.Output.Data
         /// <summary>
         /// Group API calls by namespaces.
         /// </summary>
-        Namespaces = 0xb0001,
+        Namespaces = ByUsedApi | 0xb0001,
 
         /// <summary>
         /// Group API calls by types.
         /// </summary>
-        Types = 0xb0010,
+        Types = ByUsedApi | 0xb0010,
 
         /// <summary>
         /// Group API calls by API.
         /// </summary>
-        Apis = 0xb0100
+        Apis = ByUsedApi | 0xb0100,
+
+        ByUsedApi = 0b1000,
+
+        // todo: xml
+
+        Files = BySource | 0b0001_0000,
+
+        BySource = 0b1000_0000,
+
     }
 
     internal static class GroupingModeExtensions
