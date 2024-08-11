@@ -15,7 +15,7 @@ namespace CoreCompatibilyzer.ApiData.Model
 	/// <summary>
 	/// API data.
 	/// </summary>
-	public class Api : IEquatable<Api>, IComparable<Api>
+	public class Api : IEquatable<Api>
 	{
 		private const int NameOffset = 2;
 
@@ -294,18 +294,6 @@ namespace CoreCompatibilyzer.ApiData.Model
 			}
 
 			return hash;
-		}
-
-		public int CompareTo(Api other)
-		{
-			var docIdCompareResult = DocID.CompareTo(other.DocID);
-
-			if (docIdCompareResult == 0 || ExtraInfo == other.ExtraInfo)
-				return 0;
-			else if (ExtraInfo == ApiExtraInfo.None)
-				return -1;
-			else
-				return 1;
 		}
 	}
 }
