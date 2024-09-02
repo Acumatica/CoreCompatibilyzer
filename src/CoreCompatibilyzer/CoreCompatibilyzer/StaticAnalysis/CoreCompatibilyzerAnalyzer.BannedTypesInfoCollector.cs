@@ -40,8 +40,18 @@ namespace CoreCompatibilyzer.StaticAnalysis
 			public List<ApiSearchResult>? GetTypeBannedApiInfos(ITypeSymbol typeSymbol, bool checkInterfaces)
 			{				
 				_checkedTypes.Clear();
-				return GetBannedInfosFromTypeSymbolAndItsHierarchy(typeSymbol, alreadyCollectedInfos: null, checkInterfaces);
+
+				var typeSymbolToAnalize = GetUnderlyingTypeSymbolForAnalysis(typeSymbol);
+				return GetBannedInfosFromTypeSymbolAndItsHierarchy(typeSymbolToAnalize, alreadyCollectedInfos: null, checkInterfaces);
 			}
+
+			private ITypeSymbol GetUnderlyingTypeSymbolForAnalysis(ITypeSymbol typeSymbol) =>
+				typeSymbol switch
+				{
+					IArrayTypeSymbol arrayTypeSymbol 	 => arrayTypeSymbol.ElementType,
+					IPointerTypeSymbol pointerTypeSymbol => pointerTypeSymbol.PointedAtType,
+					_ 									 => typeSymbol
+				};
 
 			private List<ApiSearchResult>? GetBannedInfosFromTypeSymbolAndItsHierarchy(ITypeSymbol typeSymbol, List<ApiSearchResult>? alreadyCollectedInfos, 
 																					   bool checkInterfaces)
