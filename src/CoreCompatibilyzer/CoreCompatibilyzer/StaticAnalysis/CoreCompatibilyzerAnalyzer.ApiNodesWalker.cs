@@ -182,14 +182,35 @@ namespace CoreCompatibilyzer.StaticAnalysis
 			{
 				Cancellation.ThrowIfCancellationRequested();
 
-				if (SemanticModel.GetSymbolOrFirstCandidate(memberAccessExpression, Cancellation) is not ISymbol symbol)
+				if (SemanticModel.GetSymbolOrFirstCandidate(memberAccessExpression, Cancellation) is not ISymbol accessedMember)
 				{
 					base.VisitMemberAccessExpression(memberAccessExpression);
 					return;
 				}
 
 				Cancellation.ThrowIfCancellationRequested();
-				CheckSymbolForBannedInfo(symbol, memberAccessExpression.Name);
+				CheckSymbolForBannedInfo(accessedMember, memberAccessExpression.Name);
+
+				var containingSymbol = SemanticModel.GetSymbolOrFirstCandidate(memberAccessExpression, Cancellation);
+
+				if (containingSymbol == null || containingSymbol.Equals(accessedMember.ContainingType, SymbolEqualityComparer.Default))
+				{
+					base.VisitMemberAccessExpression(memberAccessExpression);
+					return;
+				}
+
+				Cancellation.ThrowIfCancellationRequested();
+
+				var typeOfContainingSymbol = SemanticModel.GetTypeInfo(memberAccessExpression.Expression, Cancellation).Type;
+
+				if (typeOfContainingSymbol != null)
+				{
+					CheckSymbolForBannedInfo(typeOfContainingSymbol, memberAccessExpression.Expression);
+					return;
+				}
+
+				Cancellation.ThrowIfCancellationRequested();
+				base.VisitMemberAccessExpression(memberAccessExpression);
 			}
 
 			public override void VisitIdentifierName(IdentifierNameSyntax identifierNode)
