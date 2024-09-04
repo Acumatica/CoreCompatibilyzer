@@ -178,40 +178,61 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				}
 			}
 
+			public override void VisitConditionalAccessExpression(ConditionalAccessExpressionSyntax conditionalAccessExpression)
+			{
+				bool visitChildNodes =
+					AnalyzeAccessExpressionAndDecideIfShouldVisitChildNodes(conditionalAccessExpression, conditionalAccessExpression.Expression,
+																			conditionalAccessExpression.WhenNotNull);
+				if (visitChildNodes)
+					base.VisitConditionalAccessExpression(conditionalAccessExpression);
+			}
+
 			public override void VisitMemberAccessExpression(MemberAccessExpressionSyntax memberAccessExpression)
+			{
+				bool visitChildNodes =
+					AnalyzeAccessExpressionAndDecideIfShouldVisitChildNodes(memberAccessExpression, memberAccessExpression.Expression,
+																			memberAccessExpression.Name);
+				if (visitChildNodes)
+					base.VisitMemberAccessExpression(memberAccessExpression);
+			}
+
+			private bool AnalyzeAccessExpressionAndDecideIfShouldVisitChildNodes(ExpressionSyntax wholeAccessExpression, ExpressionSyntax expressionBeingAccessed,
+																				 ExpressionSyntax accessMemberExpression)
 			{
 				Cancellation.ThrowIfCancellationRequested();
 
-				if (SemanticModel.GetSymbolOrFirstCandidate(memberAccessExpression, Cancellation) is not ISymbol accessedMember)
-				{
-					base.VisitMemberAccessExpression(memberAccessExpression);
-					return;
-				}
+				ISymbol? accessedMember = SemanticModel.GetSymbolOrFirstCandidate(wholeAccessExpression, Cancellation);
+				accessedMember ??= SemanticModel.GetSymbolOrFirstCandidate(accessMemberExpression, Cancellation);
 
-				Cancellation.ThrowIfCancellationRequested();
-				CheckSymbolForBannedInfo(accessedMember, memberAccessExpression.Name);
-
-				var containingSymbol = SemanticModel.GetSymbolOrFirstCandidate(memberAccessExpression, Cancellation);
-
-				if (containingSymbol == null || containingSymbol.Equals(accessedMember.ContainingType, SymbolEqualityComparer.Default))
-				{
-					base.VisitMemberAccessExpression(memberAccessExpression);
-					return;
-				}
+				if (accessedMember == null)
+					return true;
 
 				Cancellation.ThrowIfCancellationRequested();
 
-				var typeOfContainingSymbol = SemanticModel.GetTypeInfo(memberAccessExpression.Expression, Cancellation).Type;
+				if (CheckSymbolForBannedInfo(accessedMember, accessMemberExpression))
+					return false;
 
-				if (typeOfContainingSymbol != null)
-				{
-					CheckSymbolForBannedInfo(typeOfContainingSymbol, memberAccessExpression.Expression);
-					return;
-				}
+				expressionBeingAccessed = UnwrapAccessExpressionFromArrayAccess(expressionBeingAccessed);
+				var symbolBeingAccessed = SemanticModel.GetSymbolOrFirstCandidate(expressionBeingAccessed, Cancellation);
+
+				if (symbolBeingAccessed == null || symbolBeingAccessed.Equals(accessedMember.ContainingType, SymbolEqualityComparer.Default))
+					return !IsInWhiteList(accessedMember);
 
 				Cancellation.ThrowIfCancellationRequested();
-				base.VisitMemberAccessExpression(memberAccessExpression);
+
+				var typeInfo = SemanticModel.GetTypeInfo(expressionBeingAccessed, Cancellation);
+				var typeOfContainingSymbol = typeInfo.Type;
+
+				if (typeOfContainingSymbol != null && CheckSymbolForBannedInfo(typeOfContainingSymbol, expressionBeingAccessed))
+					return false;
+
+				Cancellation.ThrowIfCancellationRequested();
+				return true;
 			}
+
+			private ExpressionSyntax UnwrapAccessExpressionFromArrayAccess(ExpressionSyntax expressionBeingAccessed) =>
+				(expressionBeingAccessed as ElementAccessExpressionSyntax)?.Expression ?? expressionBeingAccessed;
+
 
 			public override void VisitIdentifierName(IdentifierNameSyntax identifierNode)
 			{
@@ -238,25 +259,23 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				CheckSymbolForBannedInfo(symbol, qualifiedName.Right);
 			}
 
-			private void CheckSymbolForBannedInfo(ISymbol symbol, SyntaxNode nodeToReport)
+			private bool CheckSymbolForBannedInfo(ISymbol symbol, SyntaxNode nodeToReport)
 			{
 				switch (symbol)
 				{
 					case ITypeParameterSymbol typeParameterSymbol:
 						var bannedTypeParameterInfos = _bannedTypesInfoCollector.GetTypeParameterBannedApiInfos(typeParameterSymbol, CheckInterfaces);
-						ReportApiList(typeParameterSymbol, bannedTypeParameterInfos, nodeToReport);
-						return;
+						return ReportApiList(typeParameterSymbol, bannedTypeParameterInfos, nodeToReport);
 
 					case ITypeSymbol typeSymbol:
 						var bannedTypeInfos = _bannedTypesInfoCollector.GetTypeBannedApiInfos(typeSymbol, CheckInterfaces);
-						ReportApiList(typeSymbol, bannedTypeInfos, nodeToReport);
-						return;
+						return ReportApiList(typeSymbol, bannedTypeInfos, nodeToReport);
 
 					default:
 						if (GetBannedSymbolInfoForNonTypeSymbol(symbol) is ApiSearchResult bannedSymbolInfo)
-							ReportApi(symbol, bannedSymbolInfo, nodeToReport);
+							return ReportApi(symbol, bannedSymbolInfo, nodeToReport);
 
-						return;
+						return false;
 				}
 			}
 
@@ -279,31 +298,39 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				return null;
 			}
 
-			private void ReportApiList(ISymbol symbolToReport, List<ApiSearchResult>? bannedApisList, SyntaxNode node)
+			private bool ReportApiList(ISymbol symbolToReport, List<ApiSearchResult>? bannedApisList, SyntaxNode node)
 			{
 				if (bannedApisList?.Count > 0)
-					ReportApiList(symbolToReport, bannedApisList, node.GetLocation());
+					return ReportApiList(symbolToReport, bannedApisList, node.GetLocation());
+
+				return false;
 			}
 
-			private void ReportApiList(ISymbol symbolToReport, List<ApiSearchResult> bannedApisList, Location location)
+			private bool ReportApiList(ISymbol symbolToReport, List<ApiSearchResult> bannedApisList, Location location)
 			{
 				if (IsInWhiteList(symbolToReport))
-					return;
+					return false;
+
+				bool anythingReported = false;
 
 				foreach (ApiSearchResult bannedApiInfo in bannedApisList)
-					ReportApi(symbolToReport, bannedApiInfo, location, checkWhiteList: false);
+				{
+					anythingReported = ReportApi(symbolToReport, bannedApiInfo, location, checkWhiteList: false) || anythingReported;
+				}
+
+				return anythingReported;
 			}
 
-			private void ReportApi(ISymbol symbolToReport, ApiSearchResult banApiInfo, SyntaxNode? node) =>
+			private bool ReportApi(ISymbol symbolToReport, ApiSearchResult banApiInfo, SyntaxNode? node) =>
 				ReportApi(symbolToReport, banApiInfo, node?.GetLocation(), checkWhiteList: true);
 
-			private void ReportApi(ISymbol symbolToReport, ApiSearchResult banApiInfo, Location? location, bool checkWhiteList)
+			private bool ReportApi(ISymbol symbolToReport, ApiSearchResult banApiInfo, Location? location, bool checkWhiteList)
 			{
 				if (checkWhiteList && IsInWhiteList(symbolToReport))
-					return;
+					return false;
 
 				if (location != null && !_reportedErrors.Add((location, banApiInfo.ClosestBannedApi)!))
-					return;
+					return false;
 
 				var diagnosticDescriptor = GetDiagnosticFromBannedApiInfo(banApiInfo.ApiFoundInDB.ExtraInfo);
 				var diagnosticProperties = new Dictionary<string, string>
@@ -315,6 +342,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 
 				var diagnostic = Diagnostic.Create(diagnosticDescriptor, location, diagnosticProperties!, banApiInfo.ClosestBannedApi.FullName);
 				_syntaxContext.ReportDiagnosticWithSuppressionCheck(diagnostic);
+				return true;
 			}
 
 			private bool IsInWhiteList(ISymbol symbol)
