@@ -11,20 +11,20 @@ namespace CoreCompatibilyzer.ApiData.Model
 	/// </summary>
 	public readonly struct ApiSearchResult
 	{
+		public string ClosestBannedApiSymbolName { get; }
+
+		public string ApiFoundInDbSymbolName { get; }
+
 		public Api ClosestBannedApi { get; }
 
 		public Api ApiFoundInDB { get; }
 
-        public ApiSearchResult(Api closestBannedApi, Api apiFoundInDB)
-        {
-			ClosestBannedApi = closestBannedApi.ThrowIfNull(nameof(closestBannedApi));
-			ApiFoundInDB	 = apiFoundInDB.ThrowIfNull(nameof(apiFoundInDB));
-        }
-
-		public void Deconstruct(out Api closestBannedApi, out Api apiFoundInDB)
+		public ApiSearchResult(Api closestBannedApi, Api apiFoundInDB, string closestBannedApiSymbolName, string apiFoundInDbSymbolName)
 		{
-			closestBannedApi = ClosestBannedApi;
-			apiFoundInDB 	 = ApiFoundInDB;
+			ClosestBannedApi 		   = closestBannedApi.ThrowIfNull(nameof(closestBannedApi));
+			ApiFoundInDB 			   = apiFoundInDB.ThrowIfNull(nameof(apiFoundInDB));
+			ClosestBannedApiSymbolName = closestBannedApiSymbolName.ThrowIfNullOrWhiteSpace();
+			ApiFoundInDbSymbolName 	   = apiFoundInDbSymbolName.ThrowIfNullOrWhiteSpace();
 		}
-    }
+	}
 }

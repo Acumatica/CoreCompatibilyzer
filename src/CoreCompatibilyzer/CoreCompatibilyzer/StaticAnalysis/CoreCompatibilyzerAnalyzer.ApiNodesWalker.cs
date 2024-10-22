@@ -340,7 +340,7 @@ namespace CoreCompatibilyzer.StaticAnalysis
 				}
 				.ToImmutableDictionary();
 
-				var diagnostic = Diagnostic.Create(diagnosticDescriptor, location, diagnosticProperties!, banApiInfo.ClosestBannedApi.FullName);
+				var diagnostic = Diagnostic.Create(diagnosticDescriptor, location, diagnosticProperties!, banApiInfo.ClosestBannedApiSymbolName);
 				_syntaxContext.ReportDiagnosticWithSuppressionCheck(diagnostic);
 				return true;
 			}

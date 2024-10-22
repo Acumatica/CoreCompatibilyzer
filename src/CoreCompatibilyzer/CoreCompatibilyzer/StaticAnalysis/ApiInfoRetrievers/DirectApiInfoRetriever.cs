@@ -31,18 +31,72 @@ namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
 
 		protected virtual ApiSearchResult? GetInfoForApiImpl(ISymbol apiSymbol, ApiKind apiKind)
 		{
-			var apiSymbolFoundInDb = GetInfoForSymbol(apiSymbol, apiKind);
+			var (apiSymbolFoundInDb, symbolName) = GetInfoForSymbol(apiSymbol, apiKind);
 			return apiSymbolFoundInDb != null
-				? new ApiSearchResult(closestBannedApi: apiSymbolFoundInDb, apiSymbolFoundInDb)
+				? new ApiSearchResult(closestBannedApi: apiSymbolFoundInDb, apiFoundInDB: apiSymbolFoundInDb,
+									  closestBannedApiSymbolName: symbolName!, apiFoundInDbSymbolName: symbolName!)
 				: null;
 		}
 
-		protected Api? GetInfoForSymbol(ISymbol symbol, ApiKind symbolKind)
+		protected (Api? Info, string? SymbolName) GetInfoForSymbol(ISymbol symbol, ApiKind symbolKind) =>
+			symbolKind switch
+			{
+				ApiKind.Method => GetInfoForMethodSymbol(symbol as IMethodSymbol),
+				ApiKind.Type   => GetInfoForTypeSymbol(symbol as INamedTypeSymbol),
+				_ 			   => GetInfoForRegularSymbol(symbol, symbolKind)
+			};
+
+		protected (Api? Info, string? SymbolName) GetInfoForMethodSymbol(IMethodSymbol? method)
+		{
+			if (method == null)
+				return default;
+
+			if (method.MethodKind == MethodKind.ReducedExtension && method.ReducedFrom != null)
+			{
+				var (apiInfoForOriginalExtensionMethod, symbolName) = GetInfoForRegularSymbol(method.ReducedFrom, ApiKind.Method);
+
+				if (apiInfoForOriginalExtensionMethod != null)
+					return (apiInfoForOriginalExtensionMethod, symbolName);
+			}
+
+			if (method.OriginalDefinition != null && !SymbolEqualityComparer.Default.Equals(method, method.OriginalDefinition))
+			{
+				var (apiInfoForOriginalGenericMethod, symbolName) = GetInfoForRegularSymbol(method.OriginalDefinition, ApiKind.Method);
+
+				if (apiInfoForOriginalGenericMethod != null)
+					return (apiInfoForOriginalGenericMethod, symbolName);
+			}
+
+			return GetInfoForRegularSymbol(method, ApiKind.Method);
+		}
+
+		protected (Api? Info, string? SymbolName) GetInfoForTypeSymbol(INamedTypeSymbol? type)
+		{
+			if (type == null)
+				return default;
+
+			if (type.IsGenericType && type.OriginalDefinition != null)
+			{
+				var (apiInfoForOriginalGenericType, symbolName) = GetInfoForRegularSymbol(type.OriginalDefinition, ApiKind.Type);
+
+				if (apiInfoForOriginalGenericType != null)
+					return (apiInfoForOriginalGenericType, symbolName);
+			}
+
+			return GetInfoForRegularSymbol(type, ApiKind.Type);
+		}
+
+		protected (Api? Info, string? SymbolName) GetInfoForRegularSymbol(ISymbol symbol, ApiKind symbolKind)
 		{
 			string? symbolDocID = symbol.GetDocumentationCommentId().NullIfWhiteSpace();
-			return symbolDocID.IsNullOrWhiteSpace()
-				? null
-				: Storage.GetApi(symbolKind, symbolDocID);
+
+			if (symbolDocID == null)
+				return default;
+
+			Api? symbolApiInfo = Storage.GetApi(symbolKind, symbolDocID);
+			return symbolApiInfo != null
+				? (symbolApiInfo, symbol.ToString())
+				: default;
 		}
 	}
 }
