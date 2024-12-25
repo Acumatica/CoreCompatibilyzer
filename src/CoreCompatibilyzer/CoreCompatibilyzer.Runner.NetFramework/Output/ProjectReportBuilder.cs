@@ -103,6 +103,34 @@ namespace CoreCompatibilyzer.Runner.Output
 			return flattenedApiGroups;
 		}
 
+		protected IEnumerable<ReportGroup> GetApiGroupsGroupedBySourceFiles(AppAnalysisContext analysisContext, DiagnosticsWithBannedApis diagnosticsWithApis,
+																			string? projectDirectory, CancellationToken cancellation)
+		{
+			var diagnosticsGroupedByApi = diagnosticsWithApis.GroupBy(d => d.Diagnostic.Location.SourceTree?.FilePath.NullIfWhiteSpace() ?? string.Empty)
+															 .OrderBy(d => d.Key);
+
+			foreach (var diagnosticsByApiGroup in diagnosticsGroupedByApi)
+			{
+				cancellation.ThrowIfCancellationRequested();
+
+				var diagnosticsByApi = diagnosticsByApiGroup.ToList();
+				string apiName = diagnosticsByApiGroup.Key ?? string.Empty;
+				var distinctApis = diagnosticsWithApis.DistinctApisCalculator.GetAllUsedApis(diagnosticsByApi);
+				var apiDiagnostics = diagnosticsByApi.OrderBy(d => d.Diagnostic.Location.SourceTree?.FilePath ?? string.Empty);
+				var usagesLines = GetFileApiUsagesLines(apiDiagnostics, projectDirectory, analysisContext).ToList();
+				var apiGroup = new ReportGroup
+				{
+					GroupTitle = new Title(apiName, TitleKind.Api),
+					TotalErrorCount = usagesLines.Count,
+					DistinctApisCount = distinctApis.Count(),
+					LinesTitle = new Title("Usages", TitleKind.Usages),
+					Lines = usagesLines.NullIfEmpty()
+				};
+
+				yield return apiGroup;
+			}
+		}
+
 		private IEnumerable<ReportGroup> GetApiGroupsGroupedByNamespaces(AppAnalysisContext analysisContext, DiagnosticsWithBannedApis diagnosticsWithApis,
 																		 string? projectDirectory, CancellationToken cancellation)
 		{
@@ -423,33 +451,6 @@ namespace CoreCompatibilyzer.Runner.Output
 				return new[] { flatApiUsageGroup }; 
 			}
 		}
-
-		protected IEnumerable<ReportGroup> GetApiGroupsGroupedBySourceFiles(AppAnalysisContext analysisContext, DiagnosticsWithBannedApis diagnosticsWithApis,
-		                                                                    string? projectDirectory, CancellationToken cancellation)
-		{
-			var diagnosticsGroupedByApi = diagnosticsWithApis.GroupBy(d => d.Diagnostic.Location.SourceTree?.FilePath).OrderBy(d => d.Key);
-			foreach (var diagnosticsByApiGroup in diagnosticsGroupedByApi)
-			{
-				cancellation.ThrowIfCancellationRequested();
-
-				var    diagnosticsByApi = diagnosticsByApiGroup.ToList();
-				string apiName          = diagnosticsByApiGroup.Key ?? string.Empty;
-				var    distinctApis     =  diagnosticsWithApis.DistinctApisCalculator.GetAllUsedApis(diagnosticsByApi);
-				var    apiDiagnostics   = diagnosticsByApi.OrderBy(d => d.Diagnostic.Location.SourceTree?.FilePath ?? string.Empty);
-				var    usagesLines      = GetFileApiUsagesLines(apiDiagnostics, projectDirectory, analysisContext).ToList();
-				var apiGroup = new ReportGroup
-				{
-					GroupTitle        = new Title(apiName, TitleKind.Api),
-					TotalErrorCount   = usagesLines.Count,
-					DistinctApisCount = distinctApis.Count(),
-					LinesTitle        = new Title("Usages", TitleKind.Usages),
-					Lines             = usagesLines.NullIfEmpty()
-				};
-
-				yield return apiGroup;
-			}
-		}
-
 
 		private IEnumerable<ReportGroup> GetApiUsagesGroupsGroupedByApi(IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> unsortedDiagnostics,
 																		UsedDistinctApisCalculator usedDistinctApisCalculator,
