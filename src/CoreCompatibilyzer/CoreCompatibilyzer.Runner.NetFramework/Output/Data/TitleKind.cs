@@ -5,6 +5,7 @@ namespace CoreCompatibilyzer.Runner.Output.Data
 	internal enum TitleKind
 	{
 		NotSpecified,
+		File,
 		Namespace,
 		Type,
 		Members,
