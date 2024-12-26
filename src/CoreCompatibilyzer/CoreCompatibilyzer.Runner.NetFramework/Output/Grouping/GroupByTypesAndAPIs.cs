@@ -59,7 +59,8 @@ namespace CoreCompatibilyzer.Runner.Output
 
 		private ReportGroup? GetNamespaceDiagnosticsGroupForTypesOnlyGrouping(AppAnalysisContext analysisContext, 
 																			  List<(Diagnostic Diagnostic, Api BannedApi)> diagnostics,
-																			  UsedDistinctApisCalculator usedDistinctApisCalculator, string? projectDirectory)
+																			  UsedDistinctApisCalculator usedDistinctApisCalculator, 
+																			  string? projectDirectory)
 		{
 			if (diagnostics.Count == 0)
 				return null;
@@ -84,81 +85,108 @@ namespace CoreCompatibilyzer.Runner.Output
 		{
 			if (!analysisContext.Grouping.HasGrouping(GroupingMode.Apis) && analysisContext.ReportMode == ReportMode.UsedAPIsWithUsages)
 			{
-				var usedDistinctApis = usedDistinctApisCalculator.GetAllUsedApis(diagnostics);
-				int distinctApisCount = usedDistinctApis.Count();
+				return CreateGroupByTypeOnlyWithApiUsages(typeName, analysisContext, diagnostics, usedDistinctApisCalculator, projectDirectory);
+			}
 
-				var flatApiLines = GetFlatApiUsagesLines(diagnostics, projectDirectory, analysisContext).ToList();
-				var flatTypeGroup = new ReportGroup
+			bool isTypeUsed = usedBannedTypes.Contains(typeName);
+
+			// Display an aggregated group for the type if it is used with "UsedAPIsOnly" report mode and ShowMembersOfUsedType is set to false to aggregate type members info.
+			if (isTypeUsed && analysisContext.ReportMode == ReportMode.UsedAPIsOnly && !analysisContext.ShowMembersOfUsedType)
+			{
+				return new ReportGroup
 				{
 					GroupTitle = new Title(typeName, TitleKind.Type),
-					TotalErrorCount = flatApiLines.Count,
-					DistinctApisCount = distinctApisCount,
-					Lines = flatApiLines
+					TotalErrorCount = diagnostics.Count,
+					DistinctApisCount = 1
 				};
-
-				return flatTypeGroup;
 			}
 
-			bool isUsed = usedBannedTypes.Contains(typeName);
-			var typeDiagnostics = diagnostics.Where(d => d.BannedApi.Kind == ApiKind.Type).ToList();
-			IReadOnlyCollection<Line>? typeUsages = null;
-
-			if (isUsed)
+			var diagnosticsForType 		  = diagnostics.Where(d => d.BannedApi.Kind == ApiKind.Type).ToList();
+			var typeUsages 				  = GetTypeUsages(analysisContext, projectDirectory, isTypeUsed, diagnosticsForType);
+			var diagnosticsForTypeMembers = diagnostics.Where(d => d.BannedApi.Kind != ApiKind.Type)
+													   .ToList(capacity: diagnostics.Count - (typeUsages?.Count ?? 0));
+			if (diagnosticsForTypeMembers.Count == 0)
 			{
-				if (analysisContext.ReportMode == ReportMode.UsedAPIsOnly)
-				{
-					if (!analysisContext.ShowMembersOfUsedType)
-					{
-						return new ReportGroup
-						{
-							GroupTitle = new Title(typeName, TitleKind.Type),
-							TotalErrorCount = diagnostics.Count,
-							DistinctApisCount = 1
-						};
-					}
-				}
-				else
-				{
-					var sortedTypeUsages = typeDiagnostics.OrderBy(d => d.Diagnostic.Location.SourceTree?.FilePath ?? string.Empty)
-														  .Select(d => d.Diagnostic);
-					typeUsages = GetApiUsagesLines(sortedTypeUsages, projectDirectory, analysisContext).ToList(capacity: typeDiagnostics.Count);
-				}
-			}
-
-			var typeMembers = diagnostics.Where(d => d.BannedApi.Kind != ApiKind.Type)
-										 .ToList(capacity: diagnostics.Count - (typeUsages?.Count ?? 0));
-
-			if (typeMembers.Count == 0)
-			{
-				if (typeDiagnostics.Count == 0)
+				if (diagnosticsForType.Count == 0)
 					return null;
 
 				if (analysisContext.ReportMode == ReportMode.UsedAPIsOnly)
 				{
-					if (!isUsed)
-						return null;
-
-					var typeOnlyGroup = new ReportGroup
-					{
-						GroupTitle = new Title(typeName, TitleKind.Type),
-						TotalErrorCount = typeDiagnostics.Count,
-						DistinctApisCount = 1
-					};
-
+					var typeOnlyGroup = CreateGroupWithoutUsagesForTypeWithNoMembers(typeName, isTypeUsed, diagnosticsForType);
 					return typeOnlyGroup;
 				}
 			}
 
-			IReadOnlyCollection<ReportGroup>? typeGroups = typeMembers.Count > 0
-				? GetGroupsAfterNamespaceAndTypeGroupingProcessed(analysisContext, usedDistinctApisCalculator, typeMembers, projectDirectory)
+			IReadOnlyCollection<ReportGroup>? typeGroups = diagnosticsForTypeMembers.Count > 0
+				? GetGroupsAfterNamespaceAndTypeGroupingProcessed(analysisContext, usedDistinctApisCalculator, diagnosticsForTypeMembers, projectDirectory)
 				: null;
 
 			var distinctApis = usedDistinctApisCalculator.GetAllUsedApis(diagnostics);
-			var typeGroup = new ReportGroup
+			int distinctApisCount = distinctApis.Count();
+			ReportGroup typeGroup = CreateGroupForTypeWithTypeAndTypeMembersUsages(typeName, diagnostics, typeUsages, typeGroups, distinctApisCount);
+
+			return typeGroup;
+		}
+
+		private ReportGroup CreateGroupByTypeOnlyWithApiUsages(string typeName, AppAnalysisContext analysisContext, 
+															   List<(Diagnostic Diagnostic, Api BannedApi)> diagnostics, 
+															   UsedDistinctApisCalculator usedDistinctApisCalculator, string? projectDirectory)
+		{
+			var usedDistinctApis = usedDistinctApisCalculator.GetAllUsedApis(diagnostics);
+			int distinctApisCount = usedDistinctApis.Count();
+
+			var flatApiLines = GetFlatApiUsagesLines(diagnostics, projectDirectory, analysisContext).ToList();
+			var flatTypeGroup = new ReportGroup
+			{
+				GroupTitle = new Title(typeName, TitleKind.Type),
+				TotalErrorCount = flatApiLines.Count,
+				DistinctApisCount = distinctApisCount,
+				Lines = flatApiLines
+			};
+
+			return flatTypeGroup;
+		}
+
+		private IReadOnlyCollection<Line>? GetTypeUsages(AppAnalysisContext analysisContext, string? projectDirectory, bool isTypeUsed, 
+														 List<(Diagnostic Diagnostic, Api BannedApi)> diagnosticsForType)
+		{
+			if (isTypeUsed && analysisContext.ReportMode != ReportMode.UsedAPIsOnly)
+			{
+				var sortedTypeUsages = diagnosticsForType.OrderBy(d => d.Diagnostic.Location.SourceTree?.FilePath ?? string.Empty)
+														 .Select(d => d.Diagnostic);
+				var typeUsages = GetApiUsagesLines(sortedTypeUsages, projectDirectory, analysisContext)
+														.ToList(capacity: diagnosticsForType.Count);
+				return typeUsages;
+			}
+			else
+				return null;
+		}
+
+		private static ReportGroup? CreateGroupWithoutUsagesForTypeWithNoMembers(string typeName, bool isTypeUsed, 
+																				 List<(Diagnostic Diagnostic, Api BannedApi)> diagnosticsForType)
+		{
+			if (isTypeUsed)
+			{
+				return new ReportGroup
+				{
+					GroupTitle 		  = new Title(typeName, TitleKind.Type),
+					TotalErrorCount   = diagnosticsForType.Count,
+					DistinctApisCount = 1
+				};
+			}
+			else
+				return null;
+		}
+
+		private static ReportGroup CreateGroupForTypeWithTypeAndTypeMembersUsages(string typeName, List<(Diagnostic Diagnostic, Api BannedApi)> diagnostics,
+																				  IReadOnlyCollection<Line>? typeUsages,
+																				  IReadOnlyCollection<ReportGroup>? typeGroups, int distinctApisCount)
+		{
+			return new ReportGroup
 			{
 				GroupTitle = new Title(typeName, TitleKind.Type),
 				TotalErrorCount = diagnostics.Count,
-				DistinctApisCount = distinctApis.Count(),
+				DistinctApisCount = distinctApisCount,
 
 				ChildrenTitle = !typeGroups.IsNullOrEmpty()
 									? new Title("Members", TitleKind.Members)
@@ -170,8 +198,6 @@ namespace CoreCompatibilyzer.Runner.Output
 									: null,
 				Lines = typeUsages.NullIfEmpty()
 			};
-
-			return typeGroup;
 		}
 	}
 }
