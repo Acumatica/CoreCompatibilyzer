@@ -60,19 +60,19 @@ namespace CoreCompatibilyzer.Runner.Output
 
 			if (!groupByApis && !groupByTypes && analysisContext.ReportMode == ReportMode.UsedAPIsWithUsages)
 			{
-				return GetGroupedByNamespaceOnlyWithApiUsages(@namespace, analysisContext, diagnostics, usedDistinctApisCalculator, projectDirectory);
+				return CreateGroupByNamespaceOnlyWithApiUsages(@namespace, analysisContext, diagnostics, usedDistinctApisCalculator, projectDirectory);
 			}
 
-			bool isNamespaceUsed = usedNamespaces.Contains(@namespace);
-			var namespaceDiagnostics = diagnostics.Where(d => d.BannedApi.Kind == ApiKind.Namespace).ToList();
-			IReadOnlyCollection<Line>? namespaceUsages = GetNamespaceUsages(analysisContext, projectDirectory, groupByApis,
-																			isNamespaceUsed, namespaceDiagnostics);
+			bool isNamespaceUsed 		= usedNamespaces.Contains(@namespace);
+			var diagnosticsForNamespace = diagnostics.Where(d => d.BannedApi.Kind == ApiKind.Namespace).ToList();
+			var namespaceUsages 		= GetNamespaceUsages(analysisContext, projectDirectory, groupByApis, isNamespaceUsed, diagnosticsForNamespace);
+
 			cancellation.ThrowIfCancellationRequested();
 			var diagnosticsForNamespaceMembers = diagnostics.Where(d => d.BannedApi.Kind != ApiKind.Namespace).ToList();
 
 			if (diagnosticsForNamespaceMembers.Count == 0)
 			{
-				if (namespaceDiagnostics.Count == 0)
+				if (diagnosticsForNamespace.Count == 0)
 					return null;
 
 				if (analysisContext.ReportMode == ReportMode.UsedAPIsOnly)
@@ -83,7 +83,7 @@ namespace CoreCompatibilyzer.Runner.Output
 					var namespaceOnlyGroup = new ReportGroup
 					{
 						GroupTitle = new Title(@namespace, TitleKind.Namespace),
-						TotalErrorCount = namespaceDiagnostics.Count,
+						TotalErrorCount = diagnosticsForNamespace.Count,
 						DistinctApisCount = 1
 					};
 
@@ -91,43 +91,18 @@ namespace CoreCompatibilyzer.Runner.Output
 				}
 			}
 
-			IReadOnlyCollection<ReportGroup>? namespaceGroups = null;
-
-			if (groupByTypes)
-			{
-				namespaceGroups = GetTypeGroupsForNamespaceMembers(diagnosticsForNamespaceMembers, analysisContext, usedBannedTypes, usedDistinctApisCalculator,
-																   projectDirectory, cancellation)
-																  .ToList();
-			}
-			else
-			{
-				namespaceGroups = GetGroupsAfterNamespaceAndTypeGroupingProcessed(analysisContext, usedDistinctApisCalculator,
-																				  diagnosticsForNamespaceMembers, projectDirectory);
-			}
+			IReadOnlyCollection<ReportGroup>? namespaceGroups =
+				GetGroupsForNamespaceMembers(analysisContext, usedBannedTypes, usedDistinctApisCalculator, projectDirectory, groupByTypes,
+											 diagnosticsForNamespaceMembers, cancellation);
 
 			var distinctApis = usedDistinctApisCalculator.GetAllUsedApis(diagnostics);
 			int distinctApisCount = distinctApis.Count();
-
-			var namespaceGroup = new ReportGroup
-			{
-				GroupTitle = new Title(@namespace, TitleKind.Namespace),
-				TotalErrorCount = diagnostics.Count,
-				DistinctApisCount = distinctApisCount,
-
-				ChildrenTitle = !namespaceGroups.IsNullOrEmpty()
-										? new Title("Members", TitleKind.Members)
-										: null,
-				ChildrenGroups = namespaceGroups.NullIfEmpty(),
-				LinesTitle = !namespaceUsages.IsNullOrEmpty()
-										? new Title("Usages", TitleKind.Usages)
-										: null,
-				Lines = namespaceUsages.NullIfEmpty()
-			};
-
+			ReportGroup namespaceGroup = CreateGroupForNamespaceWithNamespaceAndNamespaceMembersUsages(@namespace, diagnostics, namespaceUsages, 
+																										namespaceGroups, distinctApisCount);
 			return namespaceGroup;
 		}
 
-		private ReportGroup GetGroupedByNamespaceOnlyWithApiUsages(string @namespace, AppAnalysisContext analysisContext, 
+		private ReportGroup CreateGroupByNamespaceOnlyWithApiUsages(string @namespace, AppAnalysisContext analysisContext, 
 																   List<(Diagnostic Diagnostic, Api BannedApi)> diagnostics, 
 																   UsedDistinctApisCalculator usedDistinctApisCalculator, string? projectDirectory)
 		{
@@ -147,30 +122,48 @@ namespace CoreCompatibilyzer.Runner.Output
 		}
 
 		private IReadOnlyCollection<Line>? GetNamespaceUsages(AppAnalysisContext analysisContext, string? projectDirectory, bool groupByApis, 
-															  bool isNamespaceUsed, List<(Diagnostic Diagnostic, Api BannedApi)> namespaceDiagnostics)
+															  bool isNamespaceUsed, List<(Diagnostic Diagnostic, Api BannedApi)> diagnosticsForNamespace)
 		{
 			if (isNamespaceUsed && analysisContext.ReportMode == ReportMode.UsedAPIsWithUsages)
 			{
 				if (groupByApis)
 				{
-					var sortedNamespaceUsages = namespaceDiagnostics.OrderBy(d => d.Diagnostic.Location.SourceTree?.FilePath ?? string.Empty)
-																	.Select(d => d.Diagnostic);
-					return GetApiUsagesLines(sortedNamespaceUsages, projectDirectory, analysisContext).ToList(capacity: namespaceDiagnostics.Count);
+					var sortedNamespaceUsages = diagnosticsForNamespace.OrderBy(d => d.Diagnostic.Location.SourceTree?.FilePath ?? string.Empty)
+																	   .Select(d => d.Diagnostic);
+					return GetApiUsagesLines(sortedNamespaceUsages, projectDirectory, analysisContext).ToList(capacity: diagnosticsForNamespace.Count);
 				}
 				else
-					return GetFlatApiUsagesLines(namespaceDiagnostics, projectDirectory, analysisContext).ToList(capacity: namespaceDiagnostics.Count);
+					return GetFlatApiUsagesLines(diagnosticsForNamespace, projectDirectory, analysisContext).ToList(capacity: diagnosticsForNamespace.Count);
 			}
 
 			return null;
 		}
 
-		private IEnumerable<ReportGroup> GetTypeGroupsForNamespaceMembers(List<(Diagnostic Diagnostic, Api BannedApi)> namespaceMembers, AppAnalysisContext analysisContext,
+		private IReadOnlyCollection<ReportGroup> GetGroupsForNamespaceMembers(AppAnalysisContext analysisContext, HashSet<string> usedBannedTypes,
+																			  UsedDistinctApisCalculator usedDistinctApisCalculator, string? projectDirectory,
+																			  bool groupByTypes, List<(Diagnostic Diagnostic, Api BannedApi)> diagnosticsForNamespaceMembers,
+																			  CancellationToken cancellation)
+		{
+			if (groupByTypes)
+			{
+				return GetTypeGroupsForNamespaceMembers(diagnosticsForNamespaceMembers, analysisContext, usedBannedTypes, usedDistinctApisCalculator,
+														projectDirectory, cancellation)
+													   .ToList();
+			}
+			else
+			{
+				return GetGroupsAfterNamespaceAndTypeGroupingProcessed(analysisContext, usedDistinctApisCalculator,
+																	   diagnosticsForNamespaceMembers, projectDirectory);
+			}
+		}
+
+		private IEnumerable<ReportGroup> GetTypeGroupsForNamespaceMembers(List<(Diagnostic Diagnostic, Api BannedApi)> diagnosticsForNamespaceMembers, 
+																		  AppAnalysisContext analysisContext,
 																		  HashSet<string> usedBannedTypes, UsedDistinctApisCalculator usedDistinctApisCalculator,
 																		  string? projectDirectory, CancellationToken cancellation)
 		{
-			var groupedByTypes = namespaceMembers.GroupBy(d => d.BannedApi.FullTypeName)
-												 .OrderBy(diagnosticsByTypes => diagnosticsByTypes.Key);
-
+			var groupedByTypes = diagnosticsForNamespaceMembers.GroupBy(d => d.BannedApi.FullTypeName)
+															   .OrderBy(diagnosticsByTypes => diagnosticsByTypes.Key);
 			foreach (var typeDiagnostics in groupedByTypes)
 			{
 				cancellation.ThrowIfCancellationRequested();
@@ -181,6 +174,28 @@ namespace CoreCompatibilyzer.Runner.Output
 				if (typeGroup != null)
 					yield return typeGroup;
 			}
+		}
+
+		private static ReportGroup CreateGroupForNamespaceWithNamespaceAndNamespaceMembersUsages(string @namespace, 
+																				List<(Diagnostic Diagnostic, Api BannedApi)> diagnostics, 
+																				IReadOnlyCollection<Line>? namespaceUsages, 
+																				IReadOnlyCollection<ReportGroup> namespaceGroups, int distinctApisCount)
+		{
+			return new ReportGroup
+			{
+				GroupTitle 		  = new Title(@namespace, TitleKind.Namespace),
+				TotalErrorCount   = diagnostics.Count,
+				DistinctApisCount = distinctApisCount,
+
+				ChildrenTitle = !namespaceGroups.IsNullOrEmpty()
+									? new Title("Members", TitleKind.Members)
+									: null,
+				ChildrenGroups = namespaceGroups.NullIfEmpty(),
+				LinesTitle = !namespaceUsages.IsNullOrEmpty()
+									? new Title("Usages", TitleKind.Usages)
+									: null,
+				Lines = namespaceUsages.NullIfEmpty()
+			};
 		}
 	}
 }
