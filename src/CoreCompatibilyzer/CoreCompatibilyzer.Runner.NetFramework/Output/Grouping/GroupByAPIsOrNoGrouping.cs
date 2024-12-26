@@ -46,67 +46,88 @@ namespace CoreCompatibilyzer.Runner.Output
 																								IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> unsortedDiagnostics,
 																								string? projectDirectory)
 		{
-			if (analysisContext.ReportMode == ReportMode.UsedAPIsOnly)
+			bool isGroupedByApis = analysisContext.Grouping.HasGrouping(GroupingMode.Apis);
+
+			switch (analysisContext.ReportMode)
 			{
-				var allDistinctApis = usedDistinctApisCalculator.GetAllUsedApis(unsortedDiagnostics);
-				var sortedDistinctApis = allDistinctApis.OrderBy(api => api.FullName)
-														.Select(api => api.FullName);
+				case ReportMode.UsedAPIsOnly:
+					return CreateAggregatedGroupWithoutUsagesForUsedApi(usedDistinctApisCalculator, unsortedDiagnostics);
 
-				var lines = sortedDistinctApis.Select(line => new Line(line)).ToList();
-				var usedApisGroup = new ReportGroup
-				{
-					TotalErrorCount = lines.Count,
-					DistinctApisCount = lines.Count,
-					Lines = lines.NullIfEmpty()
-				};
+				case ReportMode.UsedAPIsWithUsages when isGroupedByApis:
+					return GetGroupsForApiUsagesGroupedByApi(unsortedDiagnostics, usedDistinctApisCalculator, projectDirectory, analysisContext).ToList();
 
-				return new[] { usedApisGroup };
-			}
-			else if (analysisContext.Grouping.HasGrouping(GroupingMode.Apis))
-				return GetApiUsagesGroupsGroupedByApi(unsortedDiagnostics, usedDistinctApisCalculator, projectDirectory, analysisContext).ToList();
-			else
-			{
-				var allDistinctApis = usedDistinctApisCalculator.GetAllUsedApis(unsortedDiagnostics);
-				int distinctApisCount = allDistinctApis.Count();
+				case ReportMode.UsedAPIsWithUsages when !isGroupedByApis:
+					return GetGroupForFlattenedAPIsCombinedWithTheirUsages(analysisContext, usedDistinctApisCalculator, unsortedDiagnostics, projectDirectory);
 
-				var flatApiUsageLines = GetFlatApiUsagesLines(unsortedDiagnostics, projectDirectory, analysisContext).ToList();
-
-				var flatApiUsageGroup = new ReportGroup
-				{
-					TotalErrorCount = flatApiUsageLines.Count,
-					DistinctApisCount = distinctApisCount,
-					Lines = flatApiUsageLines.NullIfEmpty()
-				};
-
-				return new[] { flatApiUsageGroup };
+				default:
+					throw new NotSupportedException($"Report mode \"{analysisContext.ReportMode}\" is not supported");
 			}
 		}
 
-		private IEnumerable<ReportGroup> GetApiUsagesGroupsGroupedByApi(IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> unsortedDiagnostics,
-																		UsedDistinctApisCalculator usedDistinctApisCalculator,
-																		string? projectDirectory, AppAnalysisContext analysisContext)
+		private static IReadOnlyCollection<ReportGroup> CreateAggregatedGroupWithoutUsagesForUsedApi(UsedDistinctApisCalculator usedDistinctApisCalculator, 
+																									IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> unsortedDiagnostics)
+		{
+			var allDistinctApis = usedDistinctApisCalculator.GetAllUsedApis(unsortedDiagnostics);
+			var sortedDistinctApis = allDistinctApis.OrderBy(api => api.FullName)
+													.Select(api => api.FullName);
+
+			var lines = sortedDistinctApis.Select(line => new Line(line)).ToList();
+			var usedApisGroup = new ReportGroup
+			{
+				TotalErrorCount = lines.Count,
+				DistinctApisCount = lines.Count,
+				Lines = lines.NullIfEmpty()
+			};
+
+			return new[] { usedApisGroup };
+		}
+
+		private IEnumerable<ReportGroup> GetGroupsForApiUsagesGroupedByApi(IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> unsortedDiagnostics,
+																		   UsedDistinctApisCalculator usedDistinctApisCalculator,
+																		   string? projectDirectory, AppAnalysisContext analysisContext)
 		{
 			var diagnosticsGroupedByApi = unsortedDiagnostics.GroupBy(d => d.BannedApi.FullName)
 															 .OrderBy(d => d.Key);
-			foreach (var diagnosticsByApiGroup in diagnosticsGroupedByApi)
+
+			foreach (var diagnosticsForApiGroup in diagnosticsGroupedByApi)
 			{
-				var diagnosticsByApi = diagnosticsByApiGroup.ToList();
-				string apiName = diagnosticsByApiGroup.Key;
-				var distinctApis = usedDistinctApisCalculator.GetAllUsedApis(diagnosticsByApi);
-				var apiDiagnostics = diagnosticsByApi.Select(d => d.Diagnostic)
-													   .OrderBy(d => d.Location.SourceTree?.FilePath ?? string.Empty);
+				var diagnosticsForApi = diagnosticsForApiGroup.ToList();
+				string apiName 		  = diagnosticsForApiGroup.Key;
+				var distinctApis 	  = usedDistinctApisCalculator.GetAllUsedApis(diagnosticsForApi);
+				var apiDiagnostics 	  = diagnosticsForApi.Select(d => d.Diagnostic)
+														 .OrderBy(d => d.Location.SourceTree?.FilePath ?? string.Empty);
 				var usagesLines = GetApiUsagesLines(apiDiagnostics, projectDirectory, analysisContext).ToList();
 				var apiGroup = new ReportGroup
 				{
-					GroupTitle = new Title(apiName, TitleKind.Api),
-					TotalErrorCount = usagesLines.Count,
+					GroupTitle 		  = new Title(apiName, TitleKind.Api),
+					TotalErrorCount   = usagesLines.Count,
 					DistinctApisCount = distinctApis.Count(),
-					LinesTitle = new Title("Usages", TitleKind.Usages),
-					Lines = usagesLines.NullIfEmpty()
+					LinesTitle 		  = new Title("Usages", TitleKind.Usages),
+					Lines 			  = usagesLines.NullIfEmpty()
 				};
 
 				yield return apiGroup;
 			}
+		}
+
+		private IReadOnlyCollection<ReportGroup> GetGroupForFlattenedAPIsCombinedWithTheirUsages(AppAnalysisContext analysisContext,
+																								 UsedDistinctApisCalculator usedDistinctApisCalculator,
+																								 IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> unsortedDiagnostics,
+																								 string? projectDirectory)
+		{
+			var allDistinctApis = usedDistinctApisCalculator.GetAllUsedApis(unsortedDiagnostics);
+			int distinctApisCount = allDistinctApis.Count();
+
+			var flatApiUsageLines = GetFlatApiUsagesLines(unsortedDiagnostics, projectDirectory, analysisContext).ToList();
+
+			var flatApiUsageGroup = new ReportGroup
+			{
+				TotalErrorCount = flatApiUsageLines.Count,
+				DistinctApisCount = distinctApisCount,
+				Lines = flatApiUsageLines.NullIfEmpty()
+			};
+
+			return new[] { flatApiUsageGroup };
 		}
 	}
 }
