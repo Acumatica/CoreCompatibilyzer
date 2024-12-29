@@ -4388,8 +4388,6 @@ M:System.Security.Cryptography-ECDsaCng.ToXmlString(System.Boolean)
 M:System.Security.Cryptography-FromBase64Transform.System#IDisposable#Dispose
 M:System.Security.Cryptography-HashAlgorithm.System#IDisposable#Dispose
 M:System.Security.Cryptography-MD5CryptoServiceProvider.Dispose(System.Boolean)
-M:System.Security.Cryptography-MD5CryptoServiceProvider.HashCore(System.Byte[],System.Int32,System.Int32)
-M:System.Security.Cryptography-MD5CryptoServiceProvider.HashFinal
 M:System.Security.Cryptography.Pkcs-EnvelopedCms.#ctor(System.Security.Cryptography.Pkcs.SubjectIdentifierType,System.Security.Cryptography.Pkcs.ContentInfo,System.Security.Cryptography.Pkcs.AlgorithmIdentifier)
 M:System.Security.Cryptography.Pkcs-EnvelopedCms.#ctor(System.Security.Cryptography.Pkcs.SubjectIdentifierType,System.Security.Cryptography.Pkcs.ContentInfo)
 M:System.Security.Cryptography.Pkcs-EnvelopedCms.Encrypt
