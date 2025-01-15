@@ -67,16 +67,15 @@ namespace CoreCompatibilyzer.Runner.Output
 		private static IReadOnlyCollection<ReportGroup> CreateAggregatedGroupWithoutUsagesForUsedApi(UsedDistinctApisCalculator usedDistinctApisCalculator, 
 																									IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> unsortedDiagnostics)
 		{
-			var allDistinctApis = usedDistinctApisCalculator.GetAllUsedApis(unsortedDiagnostics);
-			var sortedDistinctApis = allDistinctApis.OrderBy(api => api.FullName)
-													.Select(api => api.FullName);
+			var allDistinctApis    = usedDistinctApisCalculator.GetAllUsedApis(unsortedDiagnostics);
+			var sortedDistinctApis = allDistinctApis.OrderBy(api => api.FullName);
 
-			var lines = sortedDistinctApis.Select(line => new Line(line)).ToList();
+			var lines = sortedDistinctApis.Select(api => new Line(api.FullName)).ToList();
 			var usedApisGroup = new ReportGroup
 			{
-				TotalErrorCount = lines.Count,
+				TotalErrorCount   = lines.Count,
 				DistinctApisCount = lines.Count,
-				Lines = lines.NullIfEmpty()
+				Lines 			  = lines.NullIfEmpty()
 			};
 
 			return new[] { usedApisGroup };
