@@ -32,11 +32,15 @@ namespace CoreCompatibilyzer.Runner.Output
 		/// Output API results grouped by <see cref="GroupingMode.Apis"/> or <see cref="GroupingMode.None"/> grouping modes.
 		/// </returns>
 		public override IEnumerable<ReportGroup> GetApiGroups(AppAnalysisContext analysisContext, DiagnosticsWithBannedApis diagnosticsWithApis,
-															  string? projectDirectory, CancellationToken cancellation)
+															  string? projectDirectory, CancellationToken cancellation) =>
+			GetApiGroupsGroupedByApi(analysisContext, diagnosticsWithApis, projectDirectory, cancellation);
+
+		protected IEnumerable<ReportGroup> GetApiGroupsGroupedByApi(AppAnalysisContext analysisContext, DiagnosticsWithBannedApis diagnosticsWithApis,
+																	string? projectDirectory, CancellationToken cancellation)
 		{
 			var sortedFlatDiagnostics = diagnosticsWithApis.OrderBy(d => d.BannedApi.FullName);
 			var flattenedApiGroups =
-				GetGroupsAfterNamespaceAndTypeGroupingProcessed(analysisContext, diagnosticsWithApis.DistinctApisCalculator, 
+				GetGroupsAfterNamespaceAndTypeGroupingProcessed(analysisContext, diagnosticsWithApis.DistinctApisCalculator,
 																sortedFlatDiagnostics, projectDirectory);
 			return flattenedApiGroups;
 		}

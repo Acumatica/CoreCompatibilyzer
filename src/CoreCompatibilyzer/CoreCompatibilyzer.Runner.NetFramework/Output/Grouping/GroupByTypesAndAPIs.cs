@@ -32,7 +32,11 @@ namespace CoreCompatibilyzer.Runner.Output
 		/// Output API results grouped by types and/or APIs specified by grouping modes.
 		/// </returns>
 		public override IEnumerable<ReportGroup> GetApiGroups(AppAnalysisContext analysisContext, DiagnosticsWithBannedApis diagnosticsWithApis,
-															  string? projectDirectory, CancellationToken cancellation)
+															  string? projectDirectory, CancellationToken cancellation) =>
+			GetApiGroupsForTypesAndApisGrouping(analysisContext, diagnosticsWithApis, projectDirectory, cancellation);
+
+		protected IEnumerable<ReportGroup> GetApiGroupsForTypesAndApisGrouping(AppAnalysisContext analysisContext, DiagnosticsWithBannedApis diagnosticsWithApis, 
+																			   string? projectDirectory, CancellationToken cancellation)
 		{
 			var namespacesAndOtherApis = diagnosticsWithApis.ToLookup(d => d.BannedApi.Kind == ApiKind.Namespace);
 			var namespacesApis = namespacesAndOtherApis[true];

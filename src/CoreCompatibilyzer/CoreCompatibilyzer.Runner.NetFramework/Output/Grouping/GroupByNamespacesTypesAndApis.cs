@@ -15,7 +15,7 @@ namespace CoreCompatibilyzer.Runner.Output
 	/// <summary>
 	/// Results grouper by combination of namespace, types, and API grouping modes.
 	/// </summary>
-	internal sealed class GroupByNamespacesTypesAndApis : GroupByTypesAndAPIs
+	internal class GroupByNamespacesTypesAndApis : GroupByTypesAndAPIs
 	{
 		public GroupByNamespacesTypesAndApis(GroupingMode grouping) : base(grouping)
 		{
@@ -32,7 +32,11 @@ namespace CoreCompatibilyzer.Runner.Output
 		/// Output API results grouped by combination of namespace, types, and APIs specified by grouping modes.
 		/// </returns>
 		public override IEnumerable<ReportGroup> GetApiGroups(AppAnalysisContext analysisContext, DiagnosticsWithBannedApis diagnosticsWithApis,
-															  string? projectDirectory, CancellationToken cancellation)
+															  string? projectDirectory, CancellationToken cancellation) =>
+			GetApiGroupsByNamespaces(analysisContext, diagnosticsWithApis, projectDirectory, cancellation);
+
+		protected IEnumerable<ReportGroup> GetApiGroupsByNamespaces(AppAnalysisContext analysisContext, DiagnosticsWithBannedApis diagnosticsWithApis,
+																	string? projectDirectory, CancellationToken cancellation)
 		{
 			var groupedByNamespaces = diagnosticsWithApis.GroupBy(d => d.BannedApi.Namespace)
 														 .OrderBy(diagnosticsByNamespaces => diagnosticsByNamespaces.Key);
