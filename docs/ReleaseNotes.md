@@ -1,14 +1,14 @@
 # CoreCompatibilyzer Release Notes
 This document provides information about fixes, enhancements, and key features that are available in CoreCompatibilyzer.
 
-## CoreComparibilyzer 1.1
-CoreCompatibilyzer 1.1 provides new features and bugfixes described in this section as well as the features described below for previous versions of CoreCompatibilyzer.
+## CoreComparibilyzer 1.1.0 (Current): January 23, 2025
+CoreCompatibilyzer 1.1.0 provides new features and bugfixes described in this section as well as the features described below for previous versions of CoreCompatibilyzer.
 
 ### New Features
-CoreComparibilyzer 1.1 introduces a new way of grouping reported APIs by source files that contain the reported calls to incorrect APIs.
+CoreComparibilyzer 1.1.0 introduces a new way of grouping reported APIs by source files that contain the reported calls to incorrect APIs.
 
 ### Code Fixes
-CoreComparibilyzer 1.1 contains the following code fixes:
+CoreComparibilyzer 1.1.0 contains the following code fixes:
 - Removed incorectly banned APIs from the list of banned APIs incompatible with .Net Core 2.2.
 - Fixed analysis of extension methods that were not recognized as banned APIs.
 - Added support for analysis of conditional access expressions (like `obj?.Member`).
@@ -18,8 +18,8 @@ CoreComparibilyzer 1.1 contains the following code fixes:
 - Refactoring of the code to improve performance and readability.
 
 
-## CoreComparibilyzer 1.0
-CoreComparibilyzer 1.0 introduces the following features.
+## CoreComparibilyzer 1.0.0: September 1, 2023
+CoreComparibilyzer 1.0.0 is the initial release that introduces the following features.
 
 ### Diagnostics
 CoreComparibilyzer finds usages of .Net Framework APIs incompatible with .Net Core 2.2 and reports them with one of the two diagnostics:
