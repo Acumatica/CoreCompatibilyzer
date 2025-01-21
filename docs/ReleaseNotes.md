@@ -5,7 +5,9 @@ This document provides information about fixes, enhancements, and key features t
 CoreCompatibilyzer 1.1.0 provides new features and bugfixes described in this section as well as the features described below for previous versions of CoreCompatibilyzer.
 
 ### New Features
-CoreComparibilyzer 1.1.0 introduces a new way of grouping reported APIs by source files that contain the reported calls to incorrect APIs.
+CoreComparibilyzer 1.1.0 introduces the following new features: 
+- New way of grouping reported APIs by source files that contain the reported calls to incorrect APIs.
+- Added support of ARM64 architecture to Visual Studio extension.
 
 ### Code Fixes
 CoreComparibilyzer 1.1.0 contains the following code fixes:
