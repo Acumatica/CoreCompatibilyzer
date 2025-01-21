@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-using CoreCompatibilyzer.ApiData.Model;
 using CoreCompatibilyzer.Runner.Input;
 using CoreCompatibilyzer.Runner.Output.Data;
 using CoreCompatibilyzer.Utils.Common;
@@ -42,8 +41,9 @@ namespace CoreCompatibilyzer.Runner.Output
 
 				var diagnosticsByFile = diagnosticsByApiGroup.ToList();
 				string fileName 	  = diagnosticsByApiGroup.Key.NullIfWhiteSpace() ?? "No file";
-				var fileGroup 		  = GetGroupForFileDiagnostics(analysisContext, diagnosticsWithApis, projectDirectory, diagnosticsByFile,
-																	fileName, cancellation);
+
+				var diagnosticsInFileWithApis = new DiagnosticsWithBannedApis(diagnosticsByFile!, analysisContext);
+				var fileGroup = GetGroupForFileDiagnostics(analysisContext, diagnosticsInFileWithApis, projectDirectory, fileName, cancellation);
 
 				if (fileGroup != null)
 					yield return fileGroup;
@@ -51,28 +51,21 @@ namespace CoreCompatibilyzer.Runner.Output
 		}
 
 		private ReportGroup? GetGroupForFileDiagnostics(AppAnalysisContext analysisContext, DiagnosticsWithBannedApis diagnosticsInFileWithApis, 
-														string? projectDirectory, List<(Diagnostic Diagnostic, Api BannedApi)> diagnosticsByFile, 
-														string fileName, CancellationToken cancellation)
+														string? projectDirectory, string fileName, CancellationToken cancellation)
 		{
 			bool groupByNamespaces = analysisContext.Grouping.HasGrouping(GroupingMode.Namespaces);
-			bool groupByTypes = analysisContext.Grouping.HasGrouping(GroupingMode.Types);
-			bool groupByApis = analysisContext.Grouping.HasGrouping(GroupingMode.Apis);
-
-			var distinctApisForFlatUsagesGroup = diagnosticsInFileWithApis.DistinctApisCalculator.GetAllUsedApis(diagnosticsByFile);
-			int distinctApisForFlatUsagesCount = distinctApisForFlatUsagesGroup.Count();
+			bool groupByTypes 	   = analysisContext.Grouping.HasGrouping(GroupingMode.Types);
+			bool groupByApis 	   = analysisContext.Grouping.HasGrouping(GroupingMode.Apis);
 
 			if (!groupByNamespaces && !groupByApis && !groupByApis)
-			{
-				return CreateGroupByFileOnly(fileName, analysisContext, diagnosticsByFile, distinctApisForFlatUsagesGroup,
-											 distinctApisForFlatUsagesCount, projectDirectory);
-			}
+				return CreateGroupByFileOnly(fileName, analysisContext, diagnosticsInFileWithApis, projectDirectory);
 
 			var subGroups = GetSubGroups(analysisContext, diagnosticsInFileWithApis, projectDirectory, groupByNamespaces, groupByTypes, cancellation);
 			var fileGroup = new ReportGroup
 			{
 				GroupTitle 		  = new Title(fileName, TitleKind.File),
-				TotalErrorCount   = diagnosticsByFile.Count,
-				DistinctApisCount = distinctApisForFlatUsagesCount,
+				TotalErrorCount   = diagnosticsInFileWithApis.Count,
+				DistinctApisCount = diagnosticsInFileWithApis.UsedDistinctApis.Count,
 				ChildrenGroups 	  = subGroups.NullIfEmpty()
 			};
 
@@ -99,29 +92,27 @@ namespace CoreCompatibilyzer.Runner.Output
 			return subGroups;
 		}
 
-		private ReportGroup CreateGroupByFileOnly(string fileName, AppAnalysisContext analysisContext,
-												  List<(Diagnostic Diagnostic, Api BannedApi)> diagnosticsByFile,
-												  IEnumerable<Api> distinctApisForFlatUsagesGroup,
-												  int distinctApisForFlatUsagesCount, string? projectDirectory)
+		private ReportGroup CreateGroupByFileOnly(string fileName, AppAnalysisContext analysisContext, DiagnosticsWithBannedApis diagnosticsInFileWithApis,
+												  string? projectDirectory)
 		{
 			List<Line> lines;
 		
 			if (analysisContext.ReportMode == ReportMode.UsedAPIsWithUsages)
 			{
-				lines = GetFlatApiUsagesLines(diagnosticsByFile, projectDirectory, analysisContext).ToList(diagnosticsByFile.Count);
+				lines = GetFlatApiUsagesLines(diagnosticsInFileWithApis, projectDirectory, analysisContext).ToList(diagnosticsInFileWithApis.Count);
 			}
 			else
 			{
-				lines = distinctApisForFlatUsagesGroup.OrderBy(api => api.FullName)
-													  .Select(api => new Line(api.FullName))
-													  .ToList(diagnosticsByFile.Count);
+				lines = diagnosticsInFileWithApis.OrderBy(d => d.BannedApi.FullName)
+												 .Select(d => new Line(d.BannedApi.FullName))
+												 .ToList(diagnosticsInFileWithApis.Count);
 			}
 
 			var fileGroup = new ReportGroup
 			{
 				GroupTitle 		  = new Title(fileName, TitleKind.File),
-				TotalErrorCount   = diagnosticsByFile.Count,
-				DistinctApisCount = distinctApisForFlatUsagesCount,
+				TotalErrorCount   = diagnosticsInFileWithApis.Count,
+				DistinctApisCount = diagnosticsInFileWithApis.UsedDistinctApis.Count,
 				Lines 			  = lines.NullIfEmpty()
 			};
 
