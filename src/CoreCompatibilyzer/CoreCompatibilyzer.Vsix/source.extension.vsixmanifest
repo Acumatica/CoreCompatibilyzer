@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="CoreCompatibilyzer.a27e3c12-ae5a-42d8-beda-7a636c6beff2" Version="1.0.0" Language="en-US" Publisher="Acumatica" />
+		<Identity Id="CoreCompatibilyzer.a27e3c12-ae5a-42d8-beda-7a636c6beff2" Version="1.1.0" Language="en-US" Publisher="Acumatica" />
         <DisplayName>CoreCompatibilyzer</DisplayName>
         <Description xml:space="preserve">CoreCompatibilyzer is a static code analyzer that is designed to check the code written in .Net Framework for the compatibility with .Net Core.</Description>
         <License>LICENSE.txt</License>
