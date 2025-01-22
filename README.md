@@ -45,11 +45,11 @@ Below is the list of command line arguments:
 | &#8209;&#8209;withUsages             | By default, the report output includes only a shortened list of used banned API. Set this flag to include the locations of used banned API calls into the report. | 
 | &#8209;&#8209;withDistinctApis       | If this flag is specified then the report will start with a list of all distinct APIs used by the code source. | 
 | &#8209;&#8209;showMembersOfUsedType  | When report is displayed in a shortened form without banned API calls locations, it could be shortened even more. By default, the report will not display used banned type member APIs if their containing type is also banned and used by the code being analyzed. Set this flag to include the banned type member APIs into the report together with their containing type. This flag does not affect the report when the `--withUsages` is specified. | 
-| -g, &#8209;&#8209;grouping           | This parameter allows you to specify the grouping of API calls. By default there is no grouping. You can make the grouping of the reported API calls by namespaces, types, APIs or any combination of them: |
-|                                      |      - Add `f` or `F` to group API usages by source files,  |
-|                                      |      - Add `n` or `N` to group API usages by namespaces,  |
-|                                      |      - Add `t` or `T` to group API usages by types, |
-|                                      |      - Add `a` or `A` to group API usages by APIs. | 
+| -g, &#8209;&#8209;grouping           | This parameter allows you to specify the grouping of API calls. By default there is no grouping. You can specify the grouping of the reported API calls by namespaces, types, APIs or any combination of them using the following values: |
+|                                      |      - Add `f` or `F` to group the API usages by source files.  |
+|                                      |      - Add `n` or `N` to group the API usages by namespaces.  |
+|                                      |      - Add `t` or `T` to group the API usages by types. |
+|                                      |      - Add `a` or `A` to group the API usages by APIs. | 
 | -f, &#8209;&#8209;file               | The name of the output file. If not specified then the report will be outputted to the console window. | 
 | &#8209;&#8209;outputAbsolutePaths    | When report is set to output the detailed list of banned APIs with their usages this flag regulates how the locations of API usages will be output. By default, file paths in locations are relative to the containing project directory. However, if this flag is set then the absolute file paths will be used. This flag does not affect the report when the `--withUsages` is not specified. | 
 | &#8209;&#8209;format                 | The report output format. There are two supported values: |
