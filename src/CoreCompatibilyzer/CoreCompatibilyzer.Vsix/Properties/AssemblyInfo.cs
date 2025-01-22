@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("CoreCompatibilyzer.Vsix")]
 [assembly: AssemblyCompany("Acumatica")]
 [assembly: AssemblyProduct("CoreCompatibilyzer.Vsix")]
-[assembly: AssemblyCopyright("Copyright © 2025 Acumatica Ltd.")]
+[assembly: AssemblyCopyright("Copyright © 2025 Acumatica, Inc.")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
