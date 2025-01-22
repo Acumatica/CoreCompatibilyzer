@@ -35,6 +35,9 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 
 			switch (title?.Kind)
 			{
+				case TitleKind.File:
+					WriteFileName(titleWithPadding);
+					return;
 				case TitleKind.Namespace:
 					WriteNamespaceTitle(titleWithPadding);
 					return;
@@ -106,6 +109,9 @@ namespace CoreCompatibilyzer.Runner.Output.PlainText
 
 		private void WriteAllDistinctApisTitle(string allDistinctApisTitle) =>
 			OutputTitle(allDistinctApisTitle, ConsoleColor.DarkCyan);
+
+		private void WriteFileName(string fileName) =>
+			OutputTitle(fileName, ConsoleColor.DarkMagenta);
 
 		private void WriteNamespaceTitle(string namespaceTitle) =>
 			OutputTitle(namespaceTitle, ConsoleColor.DarkCyan);

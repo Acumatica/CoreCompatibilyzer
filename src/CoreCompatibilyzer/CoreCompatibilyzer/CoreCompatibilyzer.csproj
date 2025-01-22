@@ -17,8 +17,8 @@
 		<AssemblyTitle>CoreCompatibilyzer</AssemblyTitle>
 		<AssemblyName>CoreCompatibilyzer</AssemblyName>
 		<Company>Acumatica</Company>
-		<Copyright>Copyright © 2023 Acumatica Ltd.</Copyright>
-		<Version>1.0.0.0</Version>
+		<Copyright>Copyright © 2025 Acumatica, Inc.</Copyright>
+		<Version>1.1.0.0</Version>
 	</PropertyGroup>
 	
 	<ItemGroup>

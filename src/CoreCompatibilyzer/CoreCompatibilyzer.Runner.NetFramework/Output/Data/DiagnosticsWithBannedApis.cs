@@ -32,13 +32,6 @@ namespace CoreCompatibilyzer.Runner.Output.Data
 
 		public HashSet<string> UsedBannedTypes { get; } = new();
 
-		public DiagnosticsWithBannedApis()
-        {
-			_diagnosticsWithApis	= new();
-			UnrecognizedDiagnostics = new List<Diagnostic>();
-			UsedDistinctApis		= new List<Api>();
-		}
-
         public DiagnosticsWithBannedApis(IEnumerable<Diagnostic> diagnostics, AppAnalysisContext analysisContext)
         {
 			analysisContext.ThrowIfNull(nameof(analysisContext));
@@ -55,16 +48,39 @@ namespace CoreCompatibilyzer.Runner.Output.Data
 				? diagnosticsWithSuccessfullyReadApis.ToList(estimatedCapacity.Value)
 				: diagnosticsWithSuccessfullyReadApis.ToList();
 
-			foreach (var (_, bannedApi) in _diagnosticsWithApis)
-			{
-				if (bannedApi.Kind == ApiKind.Type)
-					UsedBannedTypes.Add(bannedApi.FullTypeName);
-				else if (bannedApi.Kind == ApiKind.Namespace)
-					UsedNamespaces.Add(bannedApi.Namespace);
-			}
+			FillBannedNamespacesAndTypes();
 
 			DistinctApisCalculator = new UsedDistinctApisCalculator(analysisContext, UsedNamespaces, UsedBannedTypes);
-			UsedDistinctApis = DistinctApisCalculator.GetAllUsedApis(_diagnosticsWithApis).ToList();
+			UsedDistinctApis	   = DistinctApisCalculator.GetAllUsedApis(_diagnosticsWithApis).ToList();
+		}
+
+		internal DiagnosticsWithBannedApis(IEnumerable<(Diagnostic Diagnostic, Api? BannedApi)> diagnosticsWithApis, AppAnalysisContext analysisContext)
+		{
+			analysisContext.ThrowIfNull(nameof(analysisContext));
+			diagnosticsWithApis.ThrowIfNull(nameof(diagnosticsWithApis));
+
+			int? estimatedCapacity = (diagnosticsWithApis as IReadOnlyCollection<(Diagnostic Diagnostic, Api BannedApi)>)?.Count;
+			IEnumerable<(Diagnostic Diagnostic, Api BannedApi)> diagnosticsWithSuccessfullyReadApisQuery = diagnosticsWithApis.Where(d => d.BannedApi != null)!;
+			
+			_diagnosticsWithApis = estimatedCapacity.HasValue
+				? diagnosticsWithSuccessfullyReadApisQuery.ToList(estimatedCapacity.Value)
+				: diagnosticsWithSuccessfullyReadApisQuery.ToList();
+
+			if (_diagnosticsWithApis.Count == estimatedCapacity)
+				UnrecognizedDiagnostics = Array.Empty<Diagnostic>();
+			else
+			{
+				var unrecognizedDiagnosticsQuery = diagnosticsWithApis.Where(d => d.BannedApi == null)
+																	  .Select(d => d.Diagnostic);
+				UnrecognizedDiagnostics = estimatedCapacity.HasValue
+					? unrecognizedDiagnosticsQuery.ToList(estimatedCapacity.Value - _diagnosticsWithApis.Count)
+					: unrecognizedDiagnosticsQuery.ToList();
+			}
+
+			FillBannedNamespacesAndTypes();
+
+			DistinctApisCalculator = new UsedDistinctApisCalculator(analysisContext, UsedNamespaces, UsedBannedTypes);
+			UsedDistinctApis 	   = DistinctApisCalculator.GetAllUsedApis(_diagnosticsWithApis).ToList();
 		}
 
 		private Api? GetBannedApiFromDiagnostic(Diagnostic diagnostic)
@@ -83,6 +99,17 @@ namespace CoreCompatibilyzer.Runner.Output.Data
 			{
 				Serilog.Log.Error(e, "Error during the diagnostic output analysis");
 				return null;
+			}
+		}
+
+		private void FillBannedNamespacesAndTypes()
+		{
+			foreach (var (_, bannedApi) in _diagnosticsWithApis)
+			{
+				if (bannedApi.Kind == ApiKind.Type)
+					UsedBannedTypes.Add(bannedApi.FullTypeName);
+				else if (bannedApi.Kind == ApiKind.Namespace)
+					UsedNamespaces.Add(bannedApi.Namespace);
 			}
 		}
 

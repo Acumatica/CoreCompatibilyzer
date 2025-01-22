@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
-    <Metadata>
-        <Identity Id="CoreCompatibilyzer.a27e3c12-ae5a-42d8-beda-7a636c6beff2" Version="1.0.0" Language="en-US" Publisher="Acumatica" />
-        <DisplayName>CoreCompatibilyzer</DisplayName>
-        <Description xml:space="preserve">CoreCompatibilyzer is a static code analyzer that is designed to check the code written in .Net Framework for the compatibility with .Net Core.</Description>
-        <License>LICENSE.txt</License>
-        <Icon>packageIcon.ico</Icon>
-        <Tags>acumatica;.Net Core 2.1 compatibility</Tags>
-    </Metadata>
-    <Installation>
-        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
-            <ProductArchitecture>amd64</ProductArchitecture>
-        </InstallationTarget>
-    </Installation>
-    <Dependencies>
-        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.7.2,)" />
-        <Dependency Id="Microsoft.VisualStudio.MPF.11.0" DisplayName="Visual Studio MPF 11.0" d:Source="Installed" Version="[11.0,12.0)" />
-    </Dependencies>
-    <Assets>
-        <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="CoreCompatibilyzer" Path="|CoreCompatibilyzer|"/>
-        <Asset Type="Microsoft.VisualStudio.Analyzer" d:Source="Project" d:ProjectName="CoreCompatibilyzer" Path="|CoreCompatibilyzer|"/>
-    </Assets>
-    <Prerequisites>
-        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.0,)" DisplayName="Visual Studio core editor" />
-        <Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.LanguageServices" Version="[15.0,)" DisplayName="Roslyn Language Services" />
-    </Prerequisites>
+	<Metadata>
+		<Identity Id="CoreCompatibilyzer.a27e3c12-ae5a-42d8-beda-7a636c6beff2" Version="1.1.0" Language="en-US" Publisher="Acumatica" />
+		<DisplayName>CoreCompatibilyzer</DisplayName>
+		<Description xml:space="preserve">CoreCompatibilyzer is a static code analyzer that is designed to check the code written in .Net Framework for the compatibility with .Net Core 2.2.</Description>
+		<MoreInfo>https://github.com/Acumatica/CoreCompatibilyzer</MoreInfo>
+		<License>LICENSE.txt</License>
+		<ReleaseNotes>https://github.com/Acumatica/CoreCompatibilyzer/blob/main/docs/ReleaseNotes.md</ReleaseNotes>
+		<Icon>packageIcon.ico</Icon>
+		<Tags>acumatica;.Net Core 2.2 compatibility</Tags>
+	</Metadata>
+	<Installation>
+		<InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
+			<ProductArchitecture>amd64</ProductArchitecture>
+		</InstallationTarget>
+		<InstallationTarget Version="[17.0,18.0)" Id="Microsoft.VisualStudio.Community">
+			<ProductArchitecture>arm64</ProductArchitecture>
+		</InstallationTarget>
+	</Installation>
+	<Dependencies>
+		<Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.7.2,)" />
+		<Dependency Id="Microsoft.VisualStudio.MPF.11.0" DisplayName="Visual Studio MPF 11.0" d:Source="Installed" Version="[11.0,12.0)" />
+	</Dependencies>
+	<Assets>
+		<Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="CoreCompatibilyzer" Path="|CoreCompatibilyzer|"/>
+		<Asset Type="Microsoft.VisualStudio.Analyzer" d:Source="Project" d:ProjectName="CoreCompatibilyzer" Path="|CoreCompatibilyzer|"/>
+	</Assets>
+	<Prerequisites>
+		<Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.0,)" DisplayName="Visual Studio core editor" />
+		<Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.LanguageServices" Version="[15.0,)" DisplayName="Roslyn Language Services" />
+	</Prerequisites>
 </PackageManifest>

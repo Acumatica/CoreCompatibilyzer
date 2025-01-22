@@ -87,24 +87,37 @@ namespace CoreCompatibilyzer.Runner.Input
 						   $"This flag does not affect the report when the --{CommandLineArgNames.IncludeApiUsages} is specified.")]
 		public bool ShowMembersOfUsedType { get; }
 
-		// todo: not only files
 		/// <summary>
-		/// The report grouping. By default, there is no grouping. You can make grouping by reported API or by source.
-		/// The grouping of reported API can be by namespaces, types or any combination of them:<br/>
+		/// The report grouping. By default, there is no grouping. You can make grouping by source file paths, namespaces, types, APIs, or by any combination of them:<br/>
+		///	- Add "<c>f</c>" or "<c>F</c>" to group results by source file.<br/>
 		///	- Add "<c>n</c>" or "<c>N</c>" to group results by namespaces,<br/>
 		///	- Add "<c>t</c>" or "<c>T</c>" to group results by types,<br/>
-		///	- Add both to group results by both types and namespaces.
-		///	The grouping of source can be by files:
-		///	- Add "<c>f</c>" or "<c>F</c>" to group results by source file.<br/>
+		/// - Add "<c>a</c>" or "<c>A</c>" to group API usages by APIs.<br/><br/>
+		///	Any combination of these characters will specify a report grouping. For example, specify both "<c>ftn</c>" to group results by files, types and namespaces.<br/>
 		/// </summary>
+		/// <remarks>
+		/// Reports grouping works like this:<br/>
+		/// - First, reports are grouped by filepaths, if "<c>f</c>" or "<c>F</c>" is specified in the grouping.<br/>
+		/// - Second, reports are grouped by namespaces, if "<c>n</c>" or "<c>N</c>" is specified in the grouping.<br/>
+		/// - Third, reports are grouped by types, if "<c>t</c>" or "<c>T</c>" is specified in the grouping.<br/>
+		/// - Fourth, reports are grouped by APIs, if "<c>a</c>" or "<c>A</c>" is specified in the grouping.<br/>
+		/// </remarks>
 		[Option(shortName: CommandLineArgNames.ReportGroupingShort, longName: CommandLineArgNames.ReportGroupingLong,
-				HelpText = "The report grouping. By default, there is no grouping. You can make grouping by reported API or by source.\n" +
-						   "The grouping of reported API can be by by namespaces, types, APIs or any combination of them:\n" +
-						   "- Add \"n\" or \"N\" to group API usages by namespaces,\n" +
-						   "- Add \"t\" or \"T\" to group API usages by types,\n" +
-						   "- Add \"a\" or \"A\" to group API usages by APIs.\n" +
-						   "The grouping of source can be by files:\n" +
-						   "- Add \"f\" or \"F\" to group results by source file.")]
+				HelpText = """
+		The report grouping. By default, there is no grouping. You can make grouping by source file paths, namespaces, types, APIs, or by any combination of them:
+		  - Add "f" or "F" to group results by source file.
+		  - Add "n" or "N" to group results by namespaces,
+		  - Add "t" or "T" to group results by types,
+		  - Add "a" or "A" to group API usages by APIs.
+
+		Any combination of these characters will specify a report grouping. For example, specify both "ftn" to group results by files, types and namespaces.
+		
+		Reports grouping works like this:
+		  - First, reports are grouped by filepaths, if "f" or "F" is specified in the grouping.
+		  - Second, reports are grouped by namespaces, if "n" or "N" is specified in the grouping.
+		  - Third, reports are grouped by types, if "t" or "T" is specified in the grouping.
+		  - Fourth, reports are grouped by APIs, if "a" or "A" is specified in the grouping.
+		""")]
 		public string? ReportGrouping { get; }
 
 		/// <summary>
