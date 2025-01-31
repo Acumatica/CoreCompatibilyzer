@@ -1,7 +1,7 @@
 # CoreCompatibilyzer Release Notes
 This document provides information about fixes, enhancements, and key features that are available in CoreCompatibilyzer.
 
-## CoreComparibilyzer 1.1.0 (Current): January 23, 2025
+## CoreComparibilyzer 1.1.0 (Current): January 31, 2025
 CoreCompatibilyzer 1.1.0 provides new features and bugfixes described in this section as well as the features described below for previous versions of CoreCompatibilyzer.
 
 ### New Features
