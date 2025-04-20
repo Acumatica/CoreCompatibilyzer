@@ -9,4 +9,4 @@ This document describes the CoreCompat1001 diagnostic.
 
 ## Diagnostic Description
 
-The underlined API is not portable to .Net Core 2.2 runtime because it is not present there. You need to change your code to eliminate its usage.
+The underlined API is not portable to .Net Core 2.2 runtime because it is not present there. You need to change your code to eliminate the API's use.
