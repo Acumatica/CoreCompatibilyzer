@@ -9,4 +9,4 @@ This document describes the CoreCompat1002 diagnostic.
 
 ## Diagnostic Description
 
-The underlined API is not portable to .Net Core 2.2 runtime because the API is obsolete. A call to this API will throw `PlatformNotSupportedException`. You need to change your code to eliminate its usage.
+The underlined API is not portable to .Net Core 2.2 runtime because the API is obsolete. A call to this API will throw `PlatformNotSupportedException`. You need to change your code to eliminate the API's use.
