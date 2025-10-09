@@ -197,7 +197,7 @@ namespace CoreCompatibilyzer.Runner.Analysis
 			var compilationAnalysisOptions = new CompilationWithAnalyzersOptions(options: null!, OnAnalyzerException,
 																				 concurrentAnalysis: !Debugger.IsAttached, 
 																				 logAnalyzerExecutionTime: false);
-			CompilationWithAnalyzers compilationWithAnalyzers = compilation.WithAnalyzers(compilationAnalysisOptions, _diagnosticAnalyzers, cancellation);
+			CompilationWithAnalyzers compilationWithAnalyzers = compilation.WithAnalyzers(_diagnosticAnalyzers, compilationAnalysisOptions);
 
 			var diagnosticResults = await compilationWithAnalyzers.GetAnalyzerDiagnosticsAsync(cancellation).ConfigureAwait(false);
 			Log.Error("{Project} - Total Errors Count: {ErrorCount}", project.Name, diagnosticResults.Length);
