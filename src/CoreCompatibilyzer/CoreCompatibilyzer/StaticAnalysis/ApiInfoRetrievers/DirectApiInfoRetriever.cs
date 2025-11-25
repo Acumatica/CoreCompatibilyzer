@@ -59,14 +59,6 @@ namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
 					return (apiInfoForOriginalExtensionMethod, symbolName);
 			}
 
-			if (method.OriginalDefinition != null && !SymbolEqualityComparer.Default.Equals(method, method.OriginalDefinition))
-			{
-				var (apiInfoForOriginalGenericMethod, symbolName) = GetInfoForRegularSymbol(method.OriginalDefinition, ApiKind.Method);
-
-				if (apiInfoForOriginalGenericMethod != null)
-					return (apiInfoForOriginalGenericMethod, symbolName);
-			}
-
 			return GetInfoForRegularSymbol(method, ApiKind.Method);
 		}
 
@@ -75,7 +67,7 @@ namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
 			if (type == null)
 				return default;
 
-			if (type.IsGenericType && type.OriginalDefinition != null)
+			if (type.IsGenericType && !SymbolEqualityComparer.Default.Equals(type, type.OriginalDefinition))
 			{
 				var (apiInfoForOriginalGenericType, symbolName) = GetInfoForRegularSymbol(type.OriginalDefinition, ApiKind.Type);
 
@@ -94,8 +86,24 @@ namespace CoreCompatibilyzer.StaticAnalysis.ApiInfoRetrievers
 				return default;
 
 			Api? symbolApiInfo = Storage.GetApi(symbolKind, symbolDocID);
+			bool originalDefinitionIsUsed = false;
+
+			// Fallback to generic definition if not found directly
+			if (symbolApiInfo == null && !SymbolEqualityComparer.Default.Equals(symbol, symbol.OriginalDefinition))
+			{
+				string? originalDefinitionSymbolDocID = symbol.OriginalDefinition.GetDocumentationCommentId().NullIfWhiteSpace();
+
+				if (originalDefinitionSymbolDocID == null)
+					return default;
+
+				symbolApiInfo = Storage.GetApi(symbolKind, originalDefinitionSymbolDocID);
+				originalDefinitionIsUsed = true;
+			}
+
 			return symbolApiInfo != null
-				? (symbolApiInfo, symbol.ToString())
+				? (symbolApiInfo, originalDefinitionIsUsed 
+									? symbol.OriginalDefinition.ToString()
+									: symbol.ToString())
 				: default;
 		}
 	}
